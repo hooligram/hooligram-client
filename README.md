@@ -2,7 +2,7 @@
 
 ## How to run
 
-1. `git clone git@github.com:hooligram/hooligram-client.git`
+1. `git clone https://github.com/hooligram/hooligram-client.git`
 2. `cd hooligram-client`
 3. Ensure emulator is ready or mobile device is connected to your machine
 4. `yarn` or `npm install`
