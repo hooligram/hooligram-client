@@ -1,20 +1,43 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
 import hooligramApi from './lib/hooligram-api'
+import Echo from '@screens/Echo'
+import VerifyPhoneNumber from '@screens/VerifyPhoneNumber'
+import STRING from '@resources/Strings'
 
 export default class App extends Component {
   state = {
     messages: [],
     currentMessage: '',
+    navigation: {
+      route: 'verifyPhoneNumber'
+    },
+    forms: {
+      countryCodes: [{
+        label: 'United States',
+        value: '+1'
+      }, {
+        label: 'Canada',
+        value: '+1'
+      }, {
+        label: 'Malaysia',
+        value: '+60'
+      }],
+      selectedCountryCode: {
+        label: 'Malaysia',
+        value: '+60'
+      },
+      phoneNumber: '6478637073'
+    }
   }
 
   store = {
     dispatch: (action) => {
       console.log('action', action)
+      console.log('(kinda) reducer')
 
       switch (action.type) {
         case 'SEND_MESSAGE': {
-          console.log('(kinda) reducer')
           const {
             payload: {
               message
@@ -24,6 +47,39 @@ export default class App extends Component {
           this.setState({
             messages: messages.concat(message)
           })
+          break
+        }
+        case 'NAVIGATE': {
+          const {
+            payload: {
+              to
+            }
+          } = action
+          this.setState({
+            navigation: {
+              route: to
+            }
+          })
+          break
+        }
+        case 'FORMS:SET_SELECTED_COUNTRY': {
+          const {
+            payload: {
+              label,
+              value
+            }
+          } = action
+          this.setState({
+            forms: {
+              selectedCountryCode: {
+                value,
+                label
+              },
+              countryCodes: [].concat(this.state.forms.countryCodes),
+              phoneNumber: ''.concat(this.state.forms.phoneNumber)
+            }
+          })
+          break
         }
         default:
           break
@@ -43,35 +99,52 @@ export default class App extends Component {
   api = hooligramApi(this.store)
 
   render() {
-    const { messages, currentMessage } = this.store.getState()
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to Hooligram!</Text>
-        {messages.map((msg, i) => {
-          return (
-            <Text
-              key={`${msg}-${i}`}
-              style={styles.messages}>
-              Server: {msg}
-            </Text>
-          )
-        })}
-        <TextInput
-          style={styles.textInput}
-          multiline={true}
-          onChangeText={this.handleChangeText}
-          value={currentMessage}
-        />
-        <Button
-          title='get echo'
-          onPress={this.handlePressButton}
-        />
-      </View>
-    )
+    const {
+      messages,
+      currentMessage,
+      navigation: {
+        route
+      },
+      forms: {
+        countryCodes,
+        selectedCountryCode,
+        phoneNumber
+      }
+    } = this.store.getState()
+    const {
+      description,
+      title,
+      btnNext
+    } = STRING
+
+    switch (route) {
+      case 'echo':
+        return (
+          <Echo
+            messages={messages}
+            currentMessage={currentMessage}
+            handleChangeText={this.handleChangeText}
+            handlePressButton={this.handlePressButton}/>
+        )
+      case 'verifyPhoneNumber':
+        return (
+          <VerifyPhoneNumber
+            texts={{ description, title, btnNext }}
+            countryCodes={countryCodes}
+            selectedCountryCode={selectedCountryCode}
+            phoneNumber={phoneNumber}
+            onPressNext={this.handlePressVerifyPhoneNumber}
+            onSelectCountryCode={this.handleSelectCountryCode}/>
+        )
+      default:
+        return null
+    }
   }
 
   handleChangeText = (value) => {
-    this.store.setState({ currentMessage: value })
+    this.store.setState({
+      currentMessage: value
+    })
   }
 
   handlePressButton = () => {
@@ -82,30 +155,32 @@ export default class App extends Component {
         message
       }
     }
-    this.store.setState({ currentMessage: '' })
+    this.store.setState({
+      currentMessage: ''
+    })
     this.api.send(JSON.stringify(action))
   }
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  messages: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  textInput: {
-    backgroundColor: 'grey',
-    width: '100%'
+  handlePressVerifyPhoneNumber = () => {
+    this.store.dispatch({
+      type: 'NAVIGATE',
+      payload: {
+        to: 'echo'
+      }
+    })
   }
-})
+
+  handleSelectCountryCode = (label) => {
+    const value = this.state.forms.countryCodes
+      .filter(({ label: _label }) => _label === label)
+      .map(e => e.value)
+      [0]
+    this.store.dispatch({
+      type: 'FORMS:SET_SELECTED_COUNTRY',
+      payload: {
+        value,
+        label
+      }
+    })
+  }
+}
