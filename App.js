@@ -22,6 +22,9 @@ export default class App extends Component {
       }, {
         label: 'Malaysia',
         value: '+60'
+      }, {
+        label: 'Singapore',
+        value: '+65'
       }],
       selectedCountryCode: {
         label: 'Malaysia',
