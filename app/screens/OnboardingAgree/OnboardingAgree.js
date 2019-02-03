@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { StyleSheet, View, Text, Image } from 'react-native'
 import { Button } from 'react-native-elements'
-import { Colors } from '@contants'
+import { Colors } from '@constants'
 
 export default class OnboardingAgree extends Component {
   static propTypes = {}
