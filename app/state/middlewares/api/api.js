@@ -5,14 +5,15 @@ const api = getOrCreateWsClient => store => next => action => {
     ws = getOrCreateWsClient(store)
   }
 
-  if (!action.type.startsWith('API:')) {
+  if (![
+    '_REQUEST', 
+    '_SUCCCESS', 
+    '_FAILURE'
+  ].some(action.type.startsWith(exp))) {
     return next(action)
   }
 
-  const actionString = JSON.stringify({
-    ...action,
-    type: action.type.replace('API:', '')
-  })
+  const actionString = JSON.stringify(action)
   ws.send(actionString)
 
   return next(action)
