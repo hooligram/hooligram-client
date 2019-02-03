@@ -1,3 +1,8 @@
+import { 
+  apiInitSuccess, 
+  apiError,
+  apiClose
+} from '@state/actions/api'
 
 let ws
 
@@ -11,10 +16,7 @@ const hooligramApi = (config) => (store) => {
   ws = new WebSocket(host)
 
   ws.onopen = () => {
-    dispatch({
-      type: 'API_INIT',
-      payload: {}
-    })
+    dispatch(apiInitSuccess())
   }
 
   ws.onmessage = (event) => {
@@ -24,24 +26,14 @@ const hooligramApi = (config) => (store) => {
       action = JSON.parse(data)
     }
     catch (err) {
-      action = {
-        type: 'API_ERROR',
-        payload: {
-          err
-        }
-      }
+      action = apiError(err)
     }
     dispatch(action)
   }
 
   ws.onerror = (event) => {
-    const action = {
-      type: 'API_ERROR',
-      payload: {
-        err: new Error(`WebSocketError: ${event}`)
-      }
-    }
-    dispatch(action)
+    const err = new Error(`WebSocketError: ${event}`)
+    dispatch(apiError(err))
   }
 
   ws.onclose = (event) => {
@@ -49,13 +41,7 @@ const hooligramApi = (config) => (store) => {
       code,
       reason
     } = event
-    dispatch({
-      type: 'API_CLOSE',
-      payload: {
-        reason,
-        code
-      }
-    })
+    dispatch(apiClose(reason, code))
     ws = undefined
   }
 

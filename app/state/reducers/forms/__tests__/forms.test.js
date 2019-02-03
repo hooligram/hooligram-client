@@ -66,7 +66,7 @@ describe('forms reducer', () => {
     })
   })
 
-  describe('action is `SET_CURRENT_MESSAGE`', () => {
+  describe('action is `FORMS:SET_CURRENT_MESSAGE`', () => {
     it('should set `currentMessage` from action payload', () => {
       const state = { 
         chat: {
@@ -90,7 +90,7 @@ describe('forms reducer', () => {
         }
       }
       const action = {
-        type: 'SET_CURRENT_MESSAGE',
+        type: 'FORMS:SET_CURRENT_MESSAGE',
         payload: {
           message: 'Ohaiyo ... gozaimasu'
         }
