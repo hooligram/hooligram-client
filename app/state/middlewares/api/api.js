@@ -12,8 +12,11 @@ const api = getOrCreateWsClient => store => next => action => {
     return next(action)
   }
 
-  action.type = action.type.replace('API:', '')
-  ws.send(JSON.stringify(action))
+  actionString = JSON.stringify({
+    ...action,
+    type: action.type.replace('API:', '')
+  })
+  ws.send(actionString)
 
   return next(action)
 }
