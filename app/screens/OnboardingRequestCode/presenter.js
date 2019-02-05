@@ -1,6 +1,6 @@
 import { connect as _connect } from 'react-redux'
 import { setPhoneNumber, setCountryCode } from '@state/actions/forms'
-import { requestVerificationCode } from '@state/actions/api'
+import { requestVerificationCode } from '@state/actions/profile'
 
 export const mapStateToProps = (state) => {
   const {
