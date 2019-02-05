@@ -15,12 +15,17 @@ const mapStateToProps = (state) => {
         },
         phoneNumber
       }
+    },
+    profile: {
+      codeRequest: {
+        isLoading
+      }
     }
   } = state
 
   return {
     countryCodes,
-    isLoading: false,
+    isLoading,
     selectedCountryCode,
     selectedCountryName,
     phoneNumber
