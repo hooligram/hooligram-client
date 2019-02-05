@@ -89,12 +89,6 @@ class OnboardingRequestCode extends Component {
       </View>
     )
   }
-
-  componentDidUpdate() {
-    if (!this.props.isLoading && this.props.isSuccess) {
-      this.props.navigation.navigate('OnboardingSubmitCode')
-    }
-  }
 }
 
 const styles = StyleSheet.create({

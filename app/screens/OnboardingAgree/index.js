@@ -1,3 +1,4 @@
 import OnboardingAgree from './OnboardingAgree'
+import { connect } from './presenter'
 
-export default OnboardingAgree
+export default connect(OnboardingAgree)

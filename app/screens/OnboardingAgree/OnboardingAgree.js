@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { StyleSheet, View, Text, Image } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Colors } from '@constants'
 
 export default class OnboardingAgree extends Component {
-  static propTypes = {}
+  static propTypes = {
+    agreeAndContinue: PropTypes.func.isRequired
+  }
 
   render() {
+    const { agreeAndContinue } = this.props
     const linkedTextStyles = { 
       ...styles.text,
       ...styles.link
@@ -35,14 +39,10 @@ export default class OnboardingAgree extends Component {
             buttonStyle={styles.button}
             backgroundColor={styles.button.backgroundColor}
             title={'AGREE AND CONTINUE'}
-            onPress={this.goToNextScreen}/>
+            onPress={agreeAndContinue}/>
         </View>
       </View>
     )
-  }
-
-  goToNextScreen = () => {
-    this.props.navigation.push('OnboardingRequestCode')
   }
 }
 
