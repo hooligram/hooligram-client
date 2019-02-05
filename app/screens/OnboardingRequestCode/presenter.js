@@ -2,7 +2,7 @@ import { connect as _connect } from 'react-redux'
 import { setPhoneNumber, setCountryCode } from '@state/actions/forms'
 import { requestVerificationCode } from '@state/actions/api'
 
-const mapStateToProps = (state) => {
+export const mapStateToProps = (state) => {
   const {
     forms: {
       verification: {
@@ -18,7 +18,8 @@ const mapStateToProps = (state) => {
     },
     profile: {
       codeRequest: {
-        isLoading
+        isLoading,
+        isSuccess
       }
     }
   } = state
@@ -26,6 +27,7 @@ const mapStateToProps = (state) => {
   return {
     countryCodes,
     isLoading,
+    isSuccess,
     selectedCountryCode,
     selectedCountryName,
     phoneNumber

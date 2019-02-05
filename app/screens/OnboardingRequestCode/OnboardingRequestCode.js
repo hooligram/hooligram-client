@@ -13,6 +13,7 @@ class OnboardingRequestCode extends Component {
       }
     )).isRequired,
     isLoading: PropTypes.bool.isRequired,
+    isSuccess: PropTypes.bool.isRequired,
     selectedCountryCode: PropTypes.string.isRequired,
     selectedCountryName: PropTypes.string.isRequired,
     onPressNext: PropTypes.func.isRequired,
@@ -87,6 +88,12 @@ class OnboardingRequestCode extends Component {
         </View>
       </View>
     )
+  }
+
+  componentDidUpdate() {
+    if (!this.props.isLoading && this.props.isSuccess) {
+      this.props.navigation.navigate('OnboardingSubmitCode')
+    }
   }
 }
 
