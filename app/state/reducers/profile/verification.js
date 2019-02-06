@@ -3,6 +3,7 @@ import {
   VERIFICATION_SUBMIT_CODE_SUCCESS,
   VERIFICATION_SUBMIT_CODE_FAILURE
 } from '@state/actions/profile'
+import { STORAGE_LOAD_STATE } from '@state/actions/persistence'
 
 const initialState = {
   isLoading: false,
@@ -29,6 +30,22 @@ const verification = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false
+      }
+    }
+
+    case STORAGE_LOAD_STATE: {
+      const {
+        payload: {
+          state: {
+            profile: {
+              verification
+            }
+          }
+        }
+      } = action
+      
+      return {
+        ...verification
       }
     }
 

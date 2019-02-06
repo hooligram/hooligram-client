@@ -99,4 +99,34 @@ describe('`profile.verification` reducer', () => {
       })
     })
   })
+
+  describe('on action `STORAGE:LOAD_STATE`', () => {
+    it('should copy profile verification state from storage', () => {
+      const state = {
+        isLoading: false,
+        isVerified: false
+      }
+      const stateFromStorage = {
+        profile: {
+          verification: {
+            isLoading: 'isLoading',
+            isVerified: 'isVerified'
+          }
+        }
+      }
+      const action = {
+        type: 'STORAGE:LOAD_STATE',
+        payload: {
+          state: stateFromStorage
+        }
+      }
+
+      const nextState = profileVerificationReducer(state, action)
+
+      expect(nextState).toEqual({
+        isLoading: 'isLoading',
+        isVerified: 'isVerified'
+      })
+    })
+  })
 })
