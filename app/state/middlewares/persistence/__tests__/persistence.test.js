@@ -34,5 +34,17 @@ describe('persistence middleware', () => {
       })
       expect(store.dispatch).toHaveBeenCalledTimes(1)
     })
+
+    it('should not dispatch any action if state from storage is `undefined`', () => {
+      persistenceApi.getState = jest.fn(() => undefined)
+      const action = {
+        type: 'INIT',
+        payload: {}
+      }
+
+      callPersistenceMiddleware(action)
+
+      expect(store.dispatch).not.toHaveBeenCalled()
+    })
   })
 })
