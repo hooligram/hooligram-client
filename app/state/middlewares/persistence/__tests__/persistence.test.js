@@ -55,6 +55,30 @@ describe('persistence middleware', () => {
 
       expect(store.dispatch).not.toHaveBeenCalled()
     })
+
+    describe('PersistenceApi getState fails', () => {
+      let error
+      beforeEach(() => {
+        error = { someErrorObject: 'some error data' }
+        persistenceApi.getState = jest.fn(() => 
+          new Promise((_, reject) => 
+            reject(error)
+          )
+        )
+        callPersistenceMiddleware = persistenceMiddleware(persistenceApi)(store)(next)
+      })
+
+      it('should dispatch `STORAGE:LOAD_STATE_FAILURE` with error as payload', async () => {
+        await callPersistenceMiddleware(action)
+
+        expect(store.dispatch).toHaveBeenCalledWith({
+          type: 'STORAGE:LOAD_STATE_FAILURE',
+          payload: {
+            error
+          }
+        })
+      })
+    })
   })
 
   describe('any action', () => {
@@ -90,6 +114,30 @@ describe('persistence middleware', () => {
 
       expect(persistenceApi.saveState).toHaveBeenCalledWith(stateFromStore)
       expect(persistenceApi.saveState).toHaveBeenCalledTimes(1)
+    })
+
+    describe('PersistenceApi saveState fails', () => {
+      let error
+      beforeEach(() => {
+        error = { someErrorObject: 'some error data' }
+        persistenceApi.saveState = jest.fn(() => 
+          new Promise((_, reject) => 
+            reject(error)
+          )
+        )
+        callPersistenceMiddleware = persistenceMiddleware(persistenceApi)(store)(next)
+      })
+
+      it('should dispatch `STORAGE:SAVE_STATE_FAILURE` with error as payload', async () => {
+        await callPersistenceMiddleware(action)
+
+        expect(store.dispatch).toHaveBeenCalledWith({
+          type: 'STORAGE:SAVE_STATE_FAILURE',
+          payload: {
+            error
+          }
+        })
+      })
     })
   })
 })
