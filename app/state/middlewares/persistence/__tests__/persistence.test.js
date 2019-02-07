@@ -21,7 +21,7 @@ describe('persistence middleware', () => {
     callPersistenceMiddleware = persistenceMiddleware(persistenceApi)(store)(next)
   })
 
-  describe('app init', () => {
+  describe('on app init action `INIT`', () => {
     const action = {
       type: 'INIT',
       payload: {}
@@ -39,12 +39,41 @@ describe('persistence middleware', () => {
       expect(store.dispatch).toHaveBeenCalledTimes(1)
     })
 
-    it('should not dispatch any action if state from storage is `undefined`', async () => {
+    it('should not dispatch any new action if state from storage is `undefined`', async () => {
       persistenceApi.getState = jest.fn(() => undefined)
 
       await callPersistenceMiddleware(action)
 
       expect(store.dispatch).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('any action', () => {
+    const action = {
+      type: 'SOME_ACTION',
+      payload: {
+        somePayload: 'some payload'
+      }
+    }
+
+    it('should call `next` properly', async () => {
+      await callPersistenceMiddleware(action)
+
+      expect(next).toHaveBeenCalledWith(action)
+      expect(next).toHaveBeenCalledTimes(1)
+    })
+
+    it('should propagate returned action by next to store', async () => {
+      const expectedAction = {
+        type: 'SOME_ACTION_RETURNED_BY_NEXT',
+        payload: {}
+      }
+      next = jest.fn(() => expectedAction)
+      callPersistenceMiddleware = persistenceMiddleware(persistenceApi)(store)(next)
+
+      const returnedAction = await callPersistenceMiddleware(action)
+
+      expect(returnedAction).toEqual(expectedAction)
     })
   })
 })

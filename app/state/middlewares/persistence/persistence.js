@@ -7,7 +7,9 @@ const persistence = persistenceApi => store => next => async action => {
     if (nextState !== undefined) {
       store.dispatch(loadState(nextState))
     }
+    return next(action)
   }
+  return next(action)
 }
 
 export default persistence
