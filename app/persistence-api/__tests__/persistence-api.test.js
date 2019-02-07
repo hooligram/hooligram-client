@@ -6,19 +6,15 @@ describe('persistence-api', () => {
       let PersistenceApi
       beforeEach(() => {
         jest.resetAllMocks()
-        jest.mock('react-native', () => {
-          return {
-            AsyncStorage: {
-              getItem: jest.fn(() => {
-                return new Promise(resolve =>
-                  resolve({
-                    mockedData: 'mockedData'
-                  })
-                )
-              })
-            }
+        jest.mock('react-native', () => ({
+          AsyncStorage: {
+            getItem: jest.fn(() =>
+              new Promise(resolve =>
+                resolve('{"mockedData": "mockedData"}')
+              )
+            )
           }
-        })
+        }))
         PersistenceApi = require('@persistence-api/persistence-api').default
       })
 
@@ -35,17 +31,15 @@ describe('persistence-api', () => {
       let PersistenceApi
       beforeEach(() => {
         jest.resetAllMocks()
-        jest.doMock('react-native', () => {
-          return {
-            AsyncStorage: {
-              getItem: jest.fn(() => {
-                return new Promise((_, reject) =>
-                  reject()
-                )
-              })
-            }
+        jest.doMock('react-native', () => ({
+          AsyncStorage: {
+            getItem: jest.fn(() => {
+              return new Promise(resolve =>
+                resolve('{}')
+              )
+            })
           }
-        })
+        }))
         PersistenceApi = require('@persistence-api/persistence-api').default
       })
   

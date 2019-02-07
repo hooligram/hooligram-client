@@ -7,7 +7,11 @@ describe('persistence middleware', () => {
       someMockData: 'someMockData'
     }
     persistenceApi = {
-      getState: jest.fn(() => stateFromStorage)
+      getState: jest.fn(() => 
+        new Promise(resolve => 
+          resolve(stateFromStorage)
+        )
+      )
     }
     store = {
       dispatch: jest.fn(),
@@ -18,13 +22,13 @@ describe('persistence middleware', () => {
   })
 
   describe('app init', () => {
-    it('should dispatch `STORAGE:LOAD_STATE` with payload from storage', () => {
+    it('should dispatch `STORAGE:LOAD_STATE` with payload from storage', async () => {
       const action = {
         type: 'INIT',
         payload: {}
       }
 
-      callPersistenceMiddleware(action)
+      await callPersistenceMiddleware(action)
 
       expect(store.dispatch).toHaveBeenCalledWith({
         type: 'STORAGE:LOAD_STATE',
