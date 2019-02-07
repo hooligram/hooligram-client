@@ -22,12 +22,12 @@ describe('persistence middleware', () => {
   })
 
   describe('app init', () => {
-    it('should dispatch `STORAGE:LOAD_STATE` with payload from storage', async () => {
-      const action = {
-        type: 'INIT',
-        payload: {}
-      }
+    const action = {
+      type: 'INIT',
+      payload: {}
+    }
 
+    it('should dispatch `STORAGE:LOAD_STATE` with payload from storage', async () => {
       await callPersistenceMiddleware(action)
 
       expect(store.dispatch).toHaveBeenCalledWith({
@@ -39,14 +39,10 @@ describe('persistence middleware', () => {
       expect(store.dispatch).toHaveBeenCalledTimes(1)
     })
 
-    it('should not dispatch any action if state from storage is `undefined`', () => {
+    it('should not dispatch any action if state from storage is `undefined`', async () => {
       persistenceApi.getState = jest.fn(() => undefined)
-      const action = {
-        type: 'INIT',
-        payload: {}
-      }
 
-      callPersistenceMiddleware(action)
+      await callPersistenceMiddleware(action)
 
       expect(store.dispatch).not.toHaveBeenCalled()
     })
