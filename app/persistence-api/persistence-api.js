@@ -12,4 +12,9 @@ export default class PersistenceApi {
       return undefined
     }
   }
+
+  static saveState = async (state) => {
+    const stateString = JSON.stringify(state)
+    await AsyncStorage.setItem(STORAGE_KEY_STATE, stateString)
+  }
 }
