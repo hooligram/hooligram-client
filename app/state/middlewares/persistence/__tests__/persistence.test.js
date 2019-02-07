@@ -47,6 +47,14 @@ describe('persistence middleware', () => {
 
       expect(store.dispatch).not.toHaveBeenCalled()
     })
+
+    it('should not dispatch any new action if state from storage is `null`', async () => {
+      persistenceApi.getState = jest.fn(() => null)
+
+      await callPersistenceMiddleware(action)
+
+      expect(store.dispatch).not.toHaveBeenCalled()
+    })
   })
 
   describe('any action', () => {

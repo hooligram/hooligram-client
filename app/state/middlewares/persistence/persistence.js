@@ -4,7 +4,7 @@ import { INIT } from '@state/actions/app'
 const persistence = persistenceApi => store => next => async action => {
   if (action.type === INIT) {
     const nextState = await persistenceApi.getState()
-    if (nextState !== undefined) {
+    if (nextState !== undefined && nextState !== null) {
       store.dispatch(loadState(nextState))
     }
     return next(action)
