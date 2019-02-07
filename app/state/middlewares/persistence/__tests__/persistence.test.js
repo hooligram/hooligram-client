@@ -1,7 +1,7 @@
 import persistenceMiddleware from '@state/middlewares/persistence/persistence'
 
 describe('persistence middleware', () => {
-  let store, next, callPersistenceMiddleware, persistenceApi, stateFromStorage
+  let store, next, callPersistenceMiddleware, persistenceApi, stateFromStorage, stateFromStore
   beforeEach(() => {
     stateFromStorage = {
       someMockData: 'someMockData'
@@ -11,11 +11,12 @@ describe('persistence middleware', () => {
         new Promise(resolve => 
           resolve(stateFromStorage)
         )
-      )
+      ),
+      saveState: jest.fn()
     }
     store = {
       dispatch: jest.fn(),
-      getState: jest.fn()
+      getState: jest.fn(() => stateFromStore)
     }
     next = jest.fn()
     callPersistenceMiddleware = persistenceMiddleware(persistenceApi)(store)(next)
@@ -74,6 +75,13 @@ describe('persistence middleware', () => {
       const returnedAction = await callPersistenceMiddleware(action)
 
       expect(returnedAction).toEqual(expectedAction)
+    })
+
+    it('should update storage', async () => {
+      await callPersistenceMiddleware(action)
+
+      expect(persistenceApi.saveState).toHaveBeenCalledWith(stateFromStore)
+      expect(persistenceApi.saveState).toHaveBeenCalledTimes(1)
     })
   })
 })

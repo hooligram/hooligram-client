@@ -9,6 +9,10 @@ const persistence = persistenceApi => store => next => async action => {
     }
     return next(action)
   }
+
+  const state = store.getState()
+  await persistenceApi.saveState(state)
+
   return next(action)
 }
 
