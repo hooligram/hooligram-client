@@ -57,6 +57,7 @@ class OnboardingRequestCode extends Component {
               ))}
             </Picker>
             <TextInput
+              editable={false}
               keyboardType={'numeric'}
               onChangeText={onChangeCountryCode}
               style={styles.textInputCountryCode}
@@ -64,6 +65,7 @@ class OnboardingRequestCode extends Component {
               value={`+${selectedCountryCode}`}
             />
             <TextInput
+              autoFocus={true}
               keyboardType={'numeric'}
               onChangeText={onChangePhoneNumber}
               style={styles.textInputPhoneNumber}
