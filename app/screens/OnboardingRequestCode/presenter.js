@@ -41,7 +41,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(setCountryCode(countryCode, countryName))
     },
     onChangeCountryCode: (_countryCode) => {
-      const countryCode = _countryCode.replace(/[^0-9])/, '')
+      const countryCode = _countryCode.replace(/[^0-9]/, '')
       dispatch(setCountryCode(countryCode))
     },
     onChangePhoneNumber: (phoneNumber) => {
