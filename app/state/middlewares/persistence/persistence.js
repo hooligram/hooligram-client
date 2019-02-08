@@ -34,12 +34,20 @@ const persistence = persistenceApi => store => next => async action => {
     return next(action)
   }
 
-  if (action.type.startsWith('PERSISTENCE:')) {
+  if (
+    action.type.startsWith('PERSISTENCE:') && (
+      !action.type.match(/API:(.*)_SUCCESS/) || 
+      !action.type.match(/API:(.*)_FAILURE/)
+    )
+  ) {
     return next(action)
   }
 
+  const prevState = getState()
+  const returnedAction = next(action)
+  const nextState = getState()
+
   try {
-    const nextState = getState()
     dispatch(saveStateRequest(nextState))
     await persistenceApi.saveState(nextState)
     dispatch(saveStateSuccess())
@@ -48,7 +56,7 @@ const persistence = persistenceApi => store => next => async action => {
     dispatch(saveStateFailure(error))
   }
 
-  return next(action)
+  return returnedAction
 }
 
 export default persistence
