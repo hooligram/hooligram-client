@@ -110,7 +110,7 @@ describe('`profile.codeRequest` reducer', () => {
     })
   })
 
-  describe('on action `STORAGE:LOAD_STATE`', () => {
+  describe('on action `PERSISTENCE:LOAD_STATE_SUCCESS`', () => {
     it('should copy profile code-request state from storage', () => {
       const state = {
         isLoaded: false,
@@ -127,7 +127,7 @@ describe('`profile.codeRequest` reducer', () => {
         }
       }
       const action = {
-        type: 'STORAGE:LOAD_STATE',
+        type: 'PERSISTENCE:LOAD_STATE_SUCCESS',
         payload: {
           state: stateFromStorage
         }

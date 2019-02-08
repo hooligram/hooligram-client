@@ -1,38 +1,51 @@
-import { loadState } from '@state/actions/persistence'
+import {
+  loadStateRequest,
+  loadStateSuccess,
+  loadStateFailure,
+  saveStateRequest,
+  saveStateSuccess,
+  saveStateFailure
+} from '@state/actions/persistence'
 import { INIT } from '@state/actions/app'
 
 const persistence = persistenceApi => store => next => async action => {
+  const { getState, dispatch } = store
+
   if (action.type === INIT) {
     let nextState
+
     try {
+      dispatch(loadStateRequest())
       nextState = await persistenceApi.getState()
+      
+      if (nextState !== undefined && nextState !== null) {
+        dispatch(loadStateSuccess(nextState))
+      }
+      else {
+        dispatch(loadStateFailure(
+          new Error('Error: state in storage is `undefined` or `null`')
+        ))
+      }
     }
     catch (error) {
-      store.dispatch({
-        type: 'STORAGE:LOAD_STATE_FAILURE',
-        payload: {
-          error
-        }
-      })
+      dispatch(loadStateFailure(error))
     }
 
-    if (nextState !== undefined && nextState !== null) {
-      store.dispatch(loadState(nextState))
-    }
+    return next(action)
+  }
+
+  if (action.type.startsWith('PERSISTENCE:')) {
     return next(action)
   }
 
   try {
-    const state = store.getState()
-    await persistenceApi.saveState(state)
+    const nextState = getState()
+    dispatch(saveStateRequest(nextState))
+    await persistenceApi.saveState(nextState)
+    dispatch(saveStateSuccess())
   }
   catch (error) {
-    store.dispatch({
-      type: 'STORAGE:SAVE_STATE_FAILURE',
-      payload: {
-        error
-      }
-    })
+    dispatch(saveStateFailure(error))
   }
 
   return next(action)

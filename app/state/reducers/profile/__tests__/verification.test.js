@@ -100,7 +100,7 @@ describe('`profile.verification` reducer', () => {
     })
   })
 
-  describe('on action `STORAGE:LOAD_STATE`', () => {
+  describe('on action `PERSISTENCE:LOAD_STATE_SUCCESS`', () => {
     it('should copy profile verification state from storage', () => {
       const state = {
         isLoading: false,
@@ -115,7 +115,7 @@ describe('`profile.verification` reducer', () => {
         }
       }
       const action = {
-        type: 'STORAGE:LOAD_STATE',
+        type: 'PERSISTENCE:LOAD_STATE_SUCCESS',
         payload: {
           state: stateFromStorage
         }
