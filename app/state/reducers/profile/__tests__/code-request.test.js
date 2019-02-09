@@ -109,4 +109,37 @@ describe('`profile.codeRequest` reducer', () => {
       })
     })
   })
+
+  describe('on action `PERSISTENCE:LOAD_STATE_SUCCESS`', () => {
+    it('should copy profile code-request state from storage', () => {
+      const state = {
+        isLoaded: false,
+        isLoading: false,
+        isSuccess: false
+      }
+      const stateFromStorage = {
+        profile: {
+          codeRequest: {
+            isLoaded: 'isLoaded',
+            isLoading: 'isLoading',
+            isSuccess: 'isSuccess'
+          }
+        }
+      }
+      const action = {
+        type: 'PERSISTENCE:LOAD_STATE_SUCCESS',
+        payload: {
+          state: stateFromStorage
+        }
+      }
+
+      const nextState = profileCodeRequestReducer(state, action)
+
+      expect(nextState).toEqual({
+        isLoaded: 'isLoaded',
+        isLoading: 'isLoading',
+        isSuccess: 'isSuccess'
+      })
+    })
+  })
 })

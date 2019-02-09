@@ -3,6 +3,7 @@ import {
   VERIFICATION_REQUEST_CODE_SUCCESS,
   VERIFICATION_REQUEST_CODE_FAILURE
 } from '@state/actions/profile'
+import { PERSISTENCE_LOAD_STATE_SUCCESS } from '@state/actions/persistence';
 
 const initialState = {
   isLoading: false,
@@ -32,6 +33,22 @@ const codeRequest = (state = initialState, action) => {
         isLoading: false,
         isLoaded: true,
         isSuccess: false
+      }
+    }
+
+    case PERSISTENCE_LOAD_STATE_SUCCESS: {
+      const {
+        payload: {
+          state: {
+            profile: {
+              codeRequest
+            }
+          }
+        }
+      } = action
+
+      return {
+        ...codeRequest
       }
     }
 
