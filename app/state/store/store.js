@@ -1,10 +1,14 @@
 import { createStore, applyMiddleware } from 'redux'
+import { NavigationActions } from 'react-navigation'
+import { apiInit } from '@state/actions/api'
 import reducer from '@state/reducers'
 import api from '@state/middlewares/api'
+import navigation from '@state/middlewares/navigation'
 import getOrCreateWsClient from '@hooligram-api'
 
 const middlewares = [
   api(getOrCreateWsClient),
+  navigation(NavigationActions),
   (store) => next => action => {
     console.log('prevState', store.getState())
     console.log('action', action)
@@ -16,9 +20,6 @@ const middlewares = [
 
 const store = createStore(reducer, applyMiddleware(...middlewares))
 
-store.dispatch({
-  type: 'API_INIT_REQUEST',
-  payload: {}
-})
+store.dispatch(apiInit())
 
 export default store 

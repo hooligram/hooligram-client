@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, StyleSheet, Picker, TextInput, Keyboard } from 'react-native'
 import { Button } from 'react-native-elements'
+import { Colors } from '@constants'
 
 class OnboardingRequestCode extends Component {
   static propTypes = {
@@ -12,6 +13,7 @@ class OnboardingRequestCode extends Component {
       }
     )).isRequired,
     isLoading: PropTypes.bool.isRequired,
+    isSuccess: PropTypes.bool.isRequired,
     selectedCountryCode: PropTypes.string.isRequired,
     selectedCountryName: PropTypes.string.isRequired,
     onPressNext: PropTypes.func.isRequired,
@@ -61,7 +63,7 @@ class OnboardingRequestCode extends Component {
               keyboardType={'numeric'}
               onChangeText={onChangeCountryCode}
               style={styles.textInputCountryCode}
-              underlineColorAndroid={'#128c7e'}
+              underlineColorAndroid={Colors.boldGreen}
               value={`+${selectedCountryCode}`}
             />
             <TextInput
@@ -69,7 +71,7 @@ class OnboardingRequestCode extends Component {
               keyboardType={'numeric'}
               onChangeText={onChangePhoneNumber}
               style={styles.textInputPhoneNumber}
-              underlineColorAndroid={'#128c7e'}
+              underlineColorAndroid={Colors.boldGreen}
               value={phoneNumber}
             />
           </View>
@@ -92,7 +94,7 @@ class OnboardingRequestCode extends Component {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    backgroundColor: 'white'
+    backgroundColor: Colors.white
   },
   header: {
     minHeight: 50,
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    color: '#128c7e',
+    color: Colors.boldGreen,
     fontWeight: 'bold'
   },
   body: {
@@ -114,7 +116,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     fontSize: 14,
     lineHeight: 24,
-    color: 'black',
+    color: Colors.black,
     textAlign: 'center',
     width: '100%'
   },
@@ -143,7 +145,7 @@ const styles = StyleSheet.create({
   button: {
     width: 140,
     height: 38,
-    backgroundColor: '#25D366'
+    backgroundColor: Colors.lightGreen
   }
 })
 

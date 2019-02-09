@@ -8,11 +8,11 @@ describe('hooligramApi', () => {
   const api = hooligramApi(config)(store)
 
   describe('onopen', () => {
-    it('should dispatch `API_INIT`', () => {
+    it('should dispatch `API_INIT_SUCCESS`', () => {
       api.onopen()
 
       expect(store.dispatch).toHaveBeenCalledWith({
-        type: 'API_INIT',
+        type: 'API_INIT_SUCCESS',
         payload: {}
       })
     })

@@ -1,5 +1,10 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation'
-import { OnboardingAgree, OnboardingRequestCode } from '@screens'
+import { 
+  OnboardingAgree, 
+  OnboardingRequestCode,
+  OnboardingInitialize,
+  OnboardingSubmitCode
+} from '@screens'
 
 const routesConfigs = {
   OnboardingAgree: {
@@ -7,6 +12,12 @@ const routesConfigs = {
   },
   OnboardingRequestCode: {
     screen: OnboardingRequestCode
+  },
+  OnboardingSubmitCode: {
+    screen: OnboardingSubmitCode
+  },
+  OnboardingInitialize: {
+    screen: OnboardingInitialize
   }
 }
 

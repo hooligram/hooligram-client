@@ -19,6 +19,7 @@ describe('forms reducer', () => {
           currentMessage: 'Ohaiyo gozaimasu'
         },
         verification: {
+          code: 'some code',
           phoneNumber: '123456',
           countryCodes: {
             options: [
@@ -46,6 +47,7 @@ describe('forms reducer', () => {
           currentMessage: ''
         },
         verification: {
+          code: 'some code',
           phoneNumber: '123456',
           countryCodes: {
             options: [
@@ -64,13 +66,14 @@ describe('forms reducer', () => {
     })
   })
 
-  describe('action is `SET_CURRENT_MESSAGE`', () => {
+  describe('action is `FORMS:SET_CURRENT_MESSAGE`', () => {
     it('should set `currentMessage` from action payload', () => {
       const state = { 
         chat: {
           currentMessage: 'Ohaiyo ...'
         },
         verification: {
+          code: 'some code',
           phoneNumber: '123456',
           countryCodes: {
             options: [
@@ -87,7 +90,7 @@ describe('forms reducer', () => {
         }
       }
       const action = {
-        type: 'SET_CURRENT_MESSAGE',
+        type: 'FORMS:SET_CURRENT_MESSAGE',
         payload: {
           message: 'Ohaiyo ... gozaimasu'
         }
@@ -100,6 +103,7 @@ describe('forms reducer', () => {
           currentMessage: 'Ohaiyo ... gozaimasu'
         },
         verification: {
+          code: 'some code',
           phoneNumber: '123456',
           countryCodes: {
             options: [
@@ -125,6 +129,7 @@ describe('forms reducer', () => {
           currentMessage: 'Ohaiyo ...'
         },
         verification: {
+          code: 'some code',
           phoneNumber: '',
           countryCodes: {
             options: [
@@ -154,6 +159,7 @@ describe('forms reducer', () => {
           currentMessage: 'Ohaiyo ...'
         },
         verification: {
+          code: 'some code',
           phoneNumber: '123456',
           countryCodes: {
             options: [
@@ -178,6 +184,7 @@ describe('forms reducer', () => {
         currentMessage: 'Ohaiyo ...'
       },
       verification: {
+        code: 'some code',
         phoneNumber: '',
         countryCodes: {
           options: [
@@ -217,6 +224,7 @@ describe('forms reducer', () => {
           currentMessage: 'Ohaiyo ...'
         },
         verification: {
+          code: 'some code',
           phoneNumber: '',
           countryCodes: {
             options: [
@@ -247,6 +255,7 @@ describe('forms reducer', () => {
           currentMessage: 'Ohaiyo ...'
         },
         verification: {
+          code: 'some code',
           phoneNumber: '',
           countryCodes: {
             options: [
@@ -262,6 +271,42 @@ describe('forms reducer', () => {
           }
         }
       })
+    })
+  })
+
+  describe('action is `FORMS:VERIFICATION_SET_CODE`', () => {
+    const state = { 
+      chat: {
+        currentMessage: 'Ohaiyo ...'
+      },
+      verification: {
+        code: 'some code',
+        phoneNumber: '',
+        countryCodes: {
+          options: [
+            {
+              code: '10',
+              name: 'Some country name'
+            }
+          ],
+          selected: {
+            code: '10',
+            name: 'Some country name'
+          }
+        }
+      }
+    }
+    const action = {
+      type: 'FORMS:VERIFICATION_SET_CODE',
+      payload: {
+        code: '123'
+      }
+    }
+
+    const nextState = formsReducer(state, action)
+
+    it('should set code from payload', () => {
+      expect(nextState.verification.code).toEqual(action.payload.code)
     })
   })
 

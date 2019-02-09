@@ -2,11 +2,15 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, View, Text, Image } from 'react-native'
 import { Button } from 'react-native-elements'
+import { Colors } from '@constants'
 
 export default class OnboardingAgree extends Component {
-  static propTypes = {}
+  static propTypes = {
+    agreeAndContinue: PropTypes.func.isRequired
+  }
 
   render() {
+    const { agreeAndContinue } = this.props
     const linkedTextStyles = { 
       ...styles.text,
       ...styles.link
@@ -35,14 +39,10 @@ export default class OnboardingAgree extends Component {
             buttonStyle={styles.button}
             backgroundColor={styles.button.backgroundColor}
             title={'AGREE AND CONTINUE'}
-            onPress={this.goToNextScreen}/>
+            onPress={agreeAndContinue}/>
         </View>
       </View>
     )
-  }
-
-  goToNextScreen = () => {
-    this.props.navigation.push('OnboardingRequestCode')
   }
 }
 
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     justifyContent: 'space-between',
-    backgroundColor: 'white'
+    backgroundColor: Colors.white
   },
   header: {
     minHeight: 50,
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    color: '#128c7e',
+    color: Colors.boldGreen,
     fontWeight: 'bold'
   },
   text: {
@@ -84,10 +84,10 @@ const styles = StyleSheet.create({
     height: 250
   },
   link: {
-    color: '#3366BB'
+    color: Colors.textLink
   },
   button: {
     width: 300,
-    backgroundColor: '#25D366'
+    backgroundColor: Colors.lightGreen
   }
 })
