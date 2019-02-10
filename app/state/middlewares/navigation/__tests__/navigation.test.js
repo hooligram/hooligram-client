@@ -212,4 +212,57 @@ describe('navigation middleware', () => {
       })
     })
   })
+
+  describe('current route is `OnboardingProfileInfo`', () => {
+    beforeEach(() => {
+      setTopLevelNavigator({
+        dispatch: jest.fn(),
+        state: {
+          nav: {
+            index: 0,
+            routes: [
+              {
+                routeName: 'OnboardingProfileInfo'
+              }
+            ]
+          }
+        }
+      })
+    })
+
+    describe('user has not saved username', () => {
+      const action = {
+        type: 'SOME_ACTION',
+        payload: {
+          somePayload: 'some payload'
+        }
+      }
+
+      it('should not navigate away', () => {
+        const returnedAction = callMiddleware(action)
+
+        expect(navigationActions.navigate).not.toHaveBeenCalled()
+        expect(next).toHaveBeenCalledWith(action)
+        expect(next).toHaveBeenCalledTimes(1)
+        expect(returnedAction).toEqual(action)
+      })
+    })
+
+    describe('user has successfully saved username', () => {
+      const action = {
+        type: 'PERSISTENCE:USERNAME_SAVE_SUCCESS',
+        payload: {
+          username: 'someusername'
+        }
+      }
+
+      it('should navigate to `GlobalChat` screen', () => {
+        callMiddleware(action)
+
+        expect(navigationActions.navigate).toHaveBeenCalledWith({
+          routeName: 'Conversation'
+        })
+      })
+    })
+  })
 })

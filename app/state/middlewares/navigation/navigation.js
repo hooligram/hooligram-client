@@ -58,6 +58,16 @@ const middleware = navigationActions => store => next => action => {
       }
     }
 
+    case 'OnboardingProfileInfo': {
+      if (action.type === 'PERSISTENCE:USERNAME_SAVE_SUCCESS') {
+        navigator.dispatch(
+          navigationActions.navigate({
+            routeName: 'Conversation'
+          })
+        )
+      }
+    }
+
     default: 
       break
   }
