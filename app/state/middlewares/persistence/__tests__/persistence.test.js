@@ -22,9 +22,9 @@ describe('persistence middleware', () => {
     callPersistenceMiddleware = persistenceMiddleware(persistenceApi)(store)(next)
   })
 
-  describe('on app init action `INIT`', () => {
+  describe('on app startup', () => {
     const action = {
-      type: 'INIT',
+      type: 'APP:STARTUP',
       payload: {}
     }
 
