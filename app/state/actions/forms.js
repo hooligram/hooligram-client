@@ -1,6 +1,7 @@
 export const FORMS_VERIFICATION_SET_PHONE_NUMBER = 'FORMS:VERIFICATION_SET_PHONE_NUMBER'
 export const FORMS_VERIFICATION_SET_COUNTRY_CODE = 'FORMS:VERIFICATION_SET_COUNTRY_CODE'
 export const FORMS_VERIFICATION_SET_CODE = 'FORMS:VERIFICATION_SET_CODE'
+export const FORMS_SET_USERNAME_INPUT = 'FORMS:SET_USERNAME_INPUT'
 
 export const setVerificationCode = (code) => {
   return {
@@ -26,6 +27,15 @@ export const setCountryCode = (countryCode, countryName) => {
     payload: {
       countryCode,
       countryName
+    }
+  }
+}
+
+export const setUserNameInput = (userNameInput) => {
+  return {
+    type: FORMS_SET_USERNAME_INPUT,
+    payload: {
+      userNameInput
     }
   }
 }

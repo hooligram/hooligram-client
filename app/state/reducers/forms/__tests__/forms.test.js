@@ -200,6 +200,42 @@ describe('forms reducer', () => {
     })
   })
 
+  describe('user updates `currentUserName` text input', () => {
+    const state = { 
+      chat: {
+        currentMessage: 'Ohaiyo ...'
+      },
+      verification: {
+        phoneNumber: '',
+        countryCodes: {
+          options: [
+            {
+              code: '10',
+              name: 'Some country name'
+            }
+          ],
+          selected: {
+            code: '10',
+            name: 'Some country name'
+          }
+        }
+      },
+      userNameInput: ''
+    }
+    const action = {
+      type: 'FORMS:SET_USERNAME_INPUT',
+      payload: {
+        userNameInput: 'some username'
+      }
+    }
+
+    it('should update `userNameInput`', () => {
+      const nextState = formsReducer(state, action)
+      
+      expect(nextState.userNameInput).toEqual(action.payload.userNameInput)
+    })
+  })
+
   it('should deep copy remaining previous state', () => {
     const state = { 
       chat: {

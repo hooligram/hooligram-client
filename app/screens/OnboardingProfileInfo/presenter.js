@@ -1,4 +1,5 @@
 import { connect as _connect } from 'react-redux'
+import { setUserNameInput } from '@state/actions/forms'
 
 const mapStateToProps = (state) => {
   const {
@@ -24,12 +25,7 @@ const mapDispatchToProps = (dispatch) => {
       if (!userNameInput) {
         return
       }
-      dispatch({
-        type: 'FORMS:SET_USERNAME_INPUT',
-        payload: {
-          userNameInput 
-        }
-      })
+      dispatch(setUserNameInput(userNameInput))
     }
   }
 } 
