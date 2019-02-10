@@ -1,3 +1,4 @@
 import OnboardingProfileInfo from './OnboardingProfileInfo'
+import { connect } from './presenter'
 
-export default OnboardingProfileInfo
+export default connect(OnboardingProfileInfo)
