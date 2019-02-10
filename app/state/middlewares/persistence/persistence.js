@@ -13,6 +13,7 @@ const persistence = persistenceApi => store => next => async action => {
 
   if (action.type === APP_STARTUP) {
     let nextState
+    const returnedAction = next(action)
 
     try {
       dispatch(loadStateRequest())
@@ -31,7 +32,7 @@ const persistence = persistenceApi => store => next => async action => {
       dispatch(loadStateFailure(error))
     }
 
-    return next(action)
+    return returnedAction
   }
 
   if (

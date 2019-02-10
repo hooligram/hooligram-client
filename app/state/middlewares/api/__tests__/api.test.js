@@ -28,6 +28,12 @@ describe('api middleware', () => {
       })
       expect(getOrCreateWsClient).toHaveBeenCalled()
     })
+
+    it('should update state before initiating websocket connection', () => {
+      callApiMiddleware(action)
+
+      expect(next).toHaveBeenCalledBefore(store.dispatch)
+    })
   })
 
   describe('action is not an api request', () => {

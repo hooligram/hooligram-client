@@ -28,13 +28,19 @@ describe('persistence middleware', () => {
       payload: {}
     }
 
-    it('should try to request state from storage', async () => {
+    it('should try to load state from storage', async () => {
       await callPersistenceMiddleware(action)
 
       expect(store.dispatch).toHaveBeenCalledWith({
         type: 'PERSISTENCE:LOAD_STATE_REQUEST',
         payload: {}
       })
+    })
+
+    it('should update state before loading state from storage', async () => {
+      await callPersistenceMiddleware(action)
+
+      expect(next).toHaveBeenCalledBefore(store.dispatch)
     })
 
     describe('storage returns null or undefined result', () => {

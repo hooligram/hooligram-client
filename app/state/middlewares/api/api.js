@@ -9,9 +9,10 @@ export const ws = {
 
 const api = getOrCreateWsClient => store => next => action => {
   if (action.type === APP_STARTUP) {
+    const returnedAction = next(action)
     store.dispatch(websocketInitRequest()) 
     ws._ws = getOrCreateWsClient(store)
-    return next(action)
+    return returnedAction
   }
 
   if (!action.type.match(/^API:(.*)_REQUEST$/)) {
