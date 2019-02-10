@@ -1,4 +1,3 @@
-import { SEND_MESSAGE } from '@state/actions/api'
 import { 
   SET_CURRENT_MESSAGE,
   FORMS_VERIFICATION_SET_PHONE_NUMBER,
@@ -42,42 +41,6 @@ export const initialState = {
 
 const forms = (state = initialState, action) => {
   switch (action.type) {
-    case SEND_MESSAGE: {
-      return {
-        chat: {
-          currentMessage: ''
-        },
-        verification: { 
-          ...state.verification,
-          countryCodes: {
-            options: [ ...state.verification.countryCodes.options ],
-            selected: { ...state.verification.countryCodes.selected }
-          }
-        }
-      }
-    }
-
-    case SET_CURRENT_MESSAGE: {
-      const {
-        payload: {
-          message
-        }
-      } = action
-
-      return {
-        chat: {
-          currentMessage: message
-        },
-        verification: { 
-          ...state.verification,
-          countryCodes: {
-            options: [ ...state.verification.countryCodes.options ],
-            selected: { ...state.verification.countryCodes.selected }
-          }
-        }
-      }
-    }
-
     case FORMS_VERIFICATION_SET_PHONE_NUMBER: {
       const {
         payload: {

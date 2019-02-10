@@ -1,5 +1,3 @@
-export const SEND_MESSAGE = 'SEND_MESSAGE'
-
 export const API_INIT_REQUEST = 'API_INIT_REQUEST'
 export const API_INIT_SUCCESS = 'API_INIT_SUCCESS'
 export const API_ERROR = 'API_ERROR'
@@ -34,15 +32,6 @@ export const apiError = (err) => {
     type: API_ERROR,
     payload: {
       err
-    }
-  }
-}
-
-export const sendMessage = (message) => {
-  return {
-    type: SEND_MESSAGE,
-    payload: {
-      message
     }
   }
 }
