@@ -1,9 +1,11 @@
-import { API_INIT_REQUEST } from '@state/actions/api'
+import { APP_STARTUP } from '@state/actions/app'
+import { apiInit } from '@state/actions/api'
 
 let ws
 
 const api = getOrCreateWsClient => store => next => action => {
-  if (action.type === API_INIT_REQUEST) { 
+  if (action.type === APP_STARTUP) {
+    store.dispatch(apiInit()) 
     ws = getOrCreateWsClient(store)
     return next(action)
   }
