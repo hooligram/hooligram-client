@@ -1,3 +1,4 @@
 import OnboardingInitialize from './OnboardingInitialize'
+import { connect } from './presenter'
 
-export default OnboardingInitialize
+export default connect(OnboardingInitialize)

@@ -3,7 +3,8 @@ import {
   OnboardingAgree, 
   OnboardingRequestCode,
   OnboardingInitialize,
-  OnboardingSubmitCode
+  OnboardingSubmitCode,
+  OnboardingProfileInfo
 } from '@screens'
 
 const routesConfigs = {
@@ -18,6 +19,9 @@ const routesConfigs = {
   },
   OnboardingInitialize: {
     screen: OnboardingInitialize
+  },
+  OnboardingProfileInfo: {
+    screen: OnboardingProfileInfo
   }
 }
 

@@ -48,6 +48,16 @@ const middleware = navigationActions => store => next => action => {
       break
     }
 
+    case 'OnboardingInitialize': {
+      if (action.type === 'ONBOARDING_INITIALIZE_SUCCESS') {
+        navigator.dispatch(
+          navigationActions.navigate({
+            routeName: 'OnboardingProfileInfo'
+          })
+        )
+      }
+    }
+
     default: 
       break
   }

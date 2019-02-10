@@ -162,4 +162,54 @@ describe('navigation middleware', () => {
       })
     })
   })
+
+  describe('current route is `OnboardingInitialize`', () => {
+    beforeEach(() => {
+      setTopLevelNavigator({
+        dispatch: jest.fn(),
+        state: {
+          nav: {
+            index: 0,
+            routes: [
+              {
+                routeName: 'OnboardingInitialize'
+              }
+            ]
+          }
+        }
+      })
+    })
+
+    describe('initialization process has not been completed', () => {
+      const action = {
+        type: 'SOME_ACTION',
+        payload: {
+          somePayload: 'some payload'
+        }
+      }
+
+      it('should not navigate away', () => {
+        callMiddleware(action)
+
+        expect(navigationActions.navigate).not.toHaveBeenCalled()
+      })
+    })
+
+    describe('initialization process has been completed', () => {
+      const action = {
+        type: 'ONBOARDING_INITIALIZE_SUCCESS',
+        payload: {
+          somePayload: 'some payload'
+        }
+      }
+
+      it('should navigate to `OnboardingProfileInfo` screen', () => {
+        callMiddleware(action)
+
+        expect(navigationActions.navigate).toHaveBeenCalledWith({
+          routeName: 'OnboardingProfileInfo'
+        })
+      })
+    })
+  })
 })

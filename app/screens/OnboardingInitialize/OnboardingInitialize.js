@@ -36,6 +36,12 @@ class OnboardingInitialize extends Component {
       </View>
     )
   }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.props.onComponentDidMount()
+    }, 2000)
+  }
 }
 
 const styles = StyleSheet.create({
