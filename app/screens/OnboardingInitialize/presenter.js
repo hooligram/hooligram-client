@@ -5,12 +5,13 @@ const mapStateToProps = () => ({})
 const mapDispatchToProps = (dispatch) => {
   return {
     onComponentDidMount: () => {
+      const randomTimeout = 500 + Math.random() * 1500
       setTimeout(() => {
         dispatch({
           type: 'ONBOARDING_INITIALIZE_SUCCESS',
           payload: {}
         })
-      }, 2000)
+      }, randomTimeout)
     }
   }
 }
