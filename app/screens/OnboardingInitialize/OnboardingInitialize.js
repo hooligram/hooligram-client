@@ -38,9 +38,7 @@ class OnboardingInitialize extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.props.onComponentDidMount()
-    }, 2000)
+    this.props.onComponentDidMount()
   }
 }
 

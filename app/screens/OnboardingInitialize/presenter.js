@@ -5,10 +5,12 @@ const mapStateToProps = () => ({})
 const mapDispatchToProps = (dispatch) => {
   return {
     onComponentDidMount: () => {
-      dispatch({
-        type: 'ONBOARDING_INITIALIZE_SUCCESS',
-        payload: {}
-      })
+      setTimeout(() => {
+        dispatch({
+          type: 'ONBOARDING_INITIALIZE_SUCCESS',
+          payload: {}
+        })
+      }, 2000)
     }
   }
 }
