@@ -99,7 +99,9 @@ describe('persistence middleware', () => {
       expectedReturnedAction = { someAction: 'someAction' }
       next = jest.fn(() => expectedReturnedAction)
   
+      console.log('this is ok')
       const returnedAction = await callPersistenceMiddleware(action)
+      console.log('something went wrong after await')
   
       it('should not dispatch any action', () => {
         expect(store.dispatch).not.toHaveBeenCalled()
@@ -107,7 +109,7 @@ describe('persistence middleware', () => {
   
       it('should call propagate the action to next middleware', () => {
         expect(store.next.toHaveBeenCalledWith(action))
-        expect(returnedAction).toEqual(returnedAction)
+        expect(returnedAction).toEqual("?")
       })
     })
   })
