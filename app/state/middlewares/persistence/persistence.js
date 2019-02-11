@@ -34,12 +34,11 @@ const persistence = persistenceApi => store => next => async action => {
     return next(action)
   }
 
-  if (
-    action.type.startsWith('PERSISTENCE:') && (
-      !action.type.match(/API:(.*)_SUCCESS/) || 
-      !action.type.match(/API:(.*)_FAILURE/)
-    )
-  ) {
+  if (action.type.startsWith('PERSISTENCE:')) {
+    return next(action)
+  }
+
+  if (!action.type.match(/API:(.*)_SUCCESS/) && !action.type.match(/API:(.*)_FAILURE/)) {
     return next(action)
   }
 
