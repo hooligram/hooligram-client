@@ -15,3 +15,14 @@
 4. Ensure emulator is ready or mobile device is connected to your machine
 5. `yarn` or `npm install`
 6. `yarn android` or `npm run android`
+
+## Connecting to local server
+
+For debugging end-to-end, sometimes it's good to connect to a local a server.
+Assuming local server is running on `ws://localhost:8080` (see hooligram-server README on how to run server locally):
+
+1. set `API_HOST=ws://localhost:8080` in `.env` file
+2. run emulator
+3. `adb tcp:8080 tcp:8080`
+4. `yarn android`
+5. check out the client-side & server logs and you should see that they are interacting with other!
