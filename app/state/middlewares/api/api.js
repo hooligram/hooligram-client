@@ -1,22 +1,29 @@
-import { API_INIT_REQUEST } from '@state/actions/api'
+import { APP_STARTUP } from '@state/actions/app'
+import { websocketInitRequest } from '@state/actions/websocket'
 
-let ws
+export const ws = {
+  sendMessage: (messageString) => {
+    ws._ws.send(messageString)
+  }
+}
 
 const api = getOrCreateWsClient => store => next => action => {
-  if (action.type === API_INIT_REQUEST) { 
-    ws = getOrCreateWsClient(store)
+  if (action.type === APP_STARTUP) {
+    const returnedAction = next(action)
+    store.dispatch(websocketInitRequest()) 
+    ws._ws = getOrCreateWsClient(store)
+    return returnedAction
+  }
+
+  if (!action.type.match(/^API:(.*)_REQUEST$/)) {
     return next(action)
   }
 
-  if (!action.type.startsWith('API:')) {
-    return next(action)
-  }
-
-  actionString = JSON.stringify({
+  const actionString = JSON.stringify({
     ...action,
     type: action.type.replace('API:', '')
   })
-  ws.send(actionString)
+  ws.sendMessage(actionString)
 
   return next(action)
 }

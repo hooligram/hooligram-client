@@ -6,13 +6,14 @@ import {
   saveStateSuccess,
   saveStateFailure
 } from '@state/actions/persistence'
-import { INIT } from '@state/actions/app'
+import { APP_STARTUP } from '@state/actions/app'
 
 const persistence = persistenceApi => store => next => async action => {
   const { getState, dispatch } = store
 
-  if (action.type === INIT) {
+  if (action.type === APP_STARTUP) {
     let nextState
+    const returnedAction = next(action)
 
     try {
       dispatch(loadStateRequest())
@@ -31,7 +32,7 @@ const persistence = persistenceApi => store => next => async action => {
       dispatch(loadStateFailure(error))
     }
 
-    return next(action)
+    return returnedAction
   }
 
   if (action.type.startsWith('PERSISTENCE:')) {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import { init } from '@state/actions/app'
-import { apiInit } from '@state/actions/api'
+import { appStartup } from '@state/actions/app'
 import store from '@state/store'
 import OnboardingStackNavigation from '@navigation/onboarding-stack'
 import { setTopLevelNavigator } from '@state/middlewares/navigation/navigation'
@@ -16,8 +15,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    store.dispatch(init())
-    store.dispatch(apiInit())
+    store.dispatch(appStartup())
   }
 
   goToNextScreen = () => console.log('goToNextScreen')

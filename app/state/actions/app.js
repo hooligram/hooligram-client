@@ -1,8 +1,8 @@
-export const INIT = 'INIT'
+export const APP_STARTUP = 'APP:STARTUP'
 
-export const init = () => {
+export const appStartup = () => {
   return {
-    type: INIT,
+    type: APP_STARTUP,
     payload: {}
   }
 }

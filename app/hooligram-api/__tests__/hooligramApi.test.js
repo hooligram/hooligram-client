@@ -8,11 +8,11 @@ describe('hooligramApi', () => {
   const api = hooligramApi(config)(store)
 
   describe('onopen', () => {
-    it('should dispatch `API_INIT_SUCCESS`', () => {
+    it('should dispatch `WEBSOCKET:INIT_SUCCESS`', () => {
       api.onopen()
 
       expect(store.dispatch).toHaveBeenCalledWith({
-        type: 'API_INIT_SUCCESS',
+        type: 'WEBSOCKET:INIT_SUCCESS',
         payload: {}
       })
     })
@@ -35,7 +35,7 @@ describe('hooligramApi', () => {
         api.onmessage(event)
 
         expect(store.dispatch).toHaveBeenCalledWith({
-          type: 'SOME_ACTION_TYPE',
+          type: 'API:SOME_ACTION_TYPE',
           payload: {
             someData: 'someData'
           }
@@ -57,7 +57,7 @@ describe('hooligramApi', () => {
         JSON.parse = _parse
       })
 
-      it('should dispatch `API_ERROR` with err in payload', () => {
+      it('should dispatch `WEBSOCKET:ERROR` with err in payload', () => {
         const event = {
           data: `
             {
@@ -70,7 +70,7 @@ describe('hooligramApi', () => {
         api.onmessage(event)
 
         expect(store.dispatch).toHaveBeenCalledWith({
-          type: 'API_ERROR',
+          type: 'WEBSOCKET:ERROR',
           payload: {
             err: Error('Some error')
           }
@@ -80,7 +80,7 @@ describe('hooligramApi', () => {
   })
 
   describe('onerror', () => {
-    it('should dispatch `API_ERROR` with informative err in payload', () => {
+    it('should dispatch `WEBSOCKET:ERROR` with informative err in payload', () => {
       const event = {
         someEventData: 'someEventData'
       }
@@ -88,7 +88,7 @@ describe('hooligramApi', () => {
       api.onerror(event)
 
       expect(store.dispatch).toHaveBeenCalledWith({
-        type: 'API_ERROR',
+        type: 'WEBSOCKET:ERROR',
         payload: {
           err: new Error(`WebSocketError: ${event}`)
         }
@@ -97,7 +97,7 @@ describe('hooligramApi', () => {
   })
 
   describe('onclose', () => {
-    it('should dispatch `API_CLOSE` action with reason and code', () => {
+    it('should dispatch `WEBSOCKET:CLOSE` action with reason and code', () => {
       const reason = 'Some reason'
       const code = 123
       const event = {
@@ -108,7 +108,7 @@ describe('hooligramApi', () => {
       api.onclose(event)
 
       expect(store.dispatch).toHaveBeenCalledWith({
-        type: 'API_CLOSE',
+        type: 'WEBSOCKET:CLOSE',
         payload: {
           reason,
           code

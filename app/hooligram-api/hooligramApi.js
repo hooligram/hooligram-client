@@ -1,8 +1,8 @@
 import { 
-  apiInitSuccess, 
-  apiError,
-  apiClose
-} from '@state/actions/api'
+  websocketInitSuccess, 
+  websocketError,
+  websocketClose
+} from '@state/actions/websocket'
 
 let ws
 
@@ -16,7 +16,7 @@ const hooligramApi = (config) => (store) => {
   ws = new WebSocket(host)
 
   ws.onopen = () => {
-    dispatch(apiInitSuccess())
+    dispatch(websocketInitSuccess())
   }
 
   ws.onmessage = (event) => {
@@ -24,16 +24,17 @@ const hooligramApi = (config) => (store) => {
     let action
     try {
       action = JSON.parse(data)
+      action.type = 'API:'.concat(action.type)
     }
     catch (err) {
-      action = apiError(err)
+      action = websocketError(err)
     }
     dispatch(action)
   }
 
   ws.onerror = (event) => {
     const err = new Error(`WebSocketError: ${event}`)
-    dispatch(apiError(err))
+    dispatch(websocketError(err))
   }
 
   ws.onclose = (event) => {
@@ -41,7 +42,7 @@ const hooligramApi = (config) => (store) => {
       code,
       reason
     } = event
-    dispatch(apiClose(reason, code))
+    dispatch(websocketClose(reason, code))
     ws = undefined
   }
 
