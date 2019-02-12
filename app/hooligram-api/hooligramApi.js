@@ -16,7 +16,7 @@ const hooligramApi = (config) => (store) => {
   ws = new WebSocket(host)
 
   ws.onopen = () => {
-    dispatch(websocketInitSuccess())
+    dispatch(websocketInitSuccess(host))
   }
 
   ws.onmessage = (event) => {
