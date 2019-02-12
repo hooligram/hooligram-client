@@ -91,33 +91,24 @@ describe('persistence middleware', () => {
       'SOME_ACTION',
       'API:SOME_ACTION_REQUEST'
     ]
-    .forEach(actionType => {
+    .forEach(async actionType => {
       const action = {
         type: actionType,
         payload: {}
       }
-      const expectedReturnedAction = { someAction: 'someAction' }
+      expectedReturnedAction = { someAction: 'someAction' }
       next = jest.fn(() => expectedReturnedAction)
-      
   
-      it('should not dispatch any action', async () => {
-        callPersistenceMiddleware = persistenceMiddleware(persistenceApi)(store)(next)
+      console.log('this is ok')
+      const returnedAction = await callPersistenceMiddleware(action)
+      console.log('something went wrong after await')
   
-        console.log('this is ok')
-        await callPersistenceMiddleware(action)
-        console.log('something went wrong after await')
-
+      it('should not dispatch any action', () => {
         expect(store.dispatch).not.toHaveBeenCalled()
       })
   
-      it('should call propagate the action to next middleware', async () => {
-        callPersistenceMiddleware = persistenceMiddleware(persistenceApi)(store)(next)
-  
-        console.log('this is ok')
-        const returnedAction = await callPersistenceMiddleware(action)
-        console.log('something went wrong after await')
-
-        expect(next).toHaveBeenCalledWith(action)
+      it('should call propagate the action to next middleware', () => {
+        expect(store.next.toHaveBeenCalledWith(action))
         expect(returnedAction).toEqual("?")
       })
     })
