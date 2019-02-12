@@ -42,9 +42,9 @@ describe('`profile.codeRequest` reducer', () => {
     })
   })
 
-  describe('on action `VERIFICATION_REQUEST_CODE_SUCCESS`', () => {
+  describe('verification code request successful', () => {
     const action = {
-      type: 'VERIFICATION_REQUEST_CODE_SUCCESS',
+      type: 'API:VERIFICATION_REQUEST_CODE_SUCCESS',
       payload: {}
     }
     const state = {
@@ -65,9 +65,9 @@ describe('`profile.codeRequest` reducer', () => {
     })
   })
 
-  describe('on action `VERIFICATION_REQUEST_CODE_FAILURE`', () => {
+  describe('verification code request failure', () => {
     const action = {
-      type: 'VERIFICATION_REQUEST_CODE_FAILURE',
+      type: 'API:VERIFICATION_REQUEST_CODE_FAILURE',
       payload: {}
     }
 

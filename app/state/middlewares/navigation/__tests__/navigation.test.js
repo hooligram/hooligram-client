@@ -81,11 +81,11 @@ describe('navigation middleware', () => {
       })
     })
 
-    describe('action is `VERIFICATION_REQUEST_CODE_SUCCESS`', () => {
+    describe('verification code request successful', () => {
       let action
       beforeEach(() => {
         action = {
-          type: 'VERIFICATION_REQUEST_CODE_SUCCESS',
+          type: 'API:VERIFICATION_REQUEST_CODE_SUCCESS',
           payload: {}
         }
       })
@@ -131,9 +131,9 @@ describe('navigation middleware', () => {
       })
     })
 
-    describe('action is `VERIFICATION_SUBMIT_CODE_SUCCESS`', () => {
+    describe('verification code submission successful', () => {
       const action = {
-        type: 'VERIFICATION_SUBMIT_CODE_SUCCESS',
+        type: 'API:VERIFICATION_SUBMIT_CODE_SUCCESS',
         payload: {
           somePayload: 'somePayload'
         }

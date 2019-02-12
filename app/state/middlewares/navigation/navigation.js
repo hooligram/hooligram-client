@@ -1,3 +1,7 @@
+import {
+  VERIFICATION_SUBMIT_CODE_SUCCESS,
+  VERIFICATION_REQUEST_CODE_SUCCESS
+} from '@state/actions/profile'
 
 let navigator
 
@@ -27,7 +31,7 @@ const middleware = navigationActions => store => next => action => {
     }
 
     case 'OnboardingRequestCode': {
-      if (action.type === 'VERIFICATION_REQUEST_CODE_SUCCESS') {
+      if (action.type === VERIFICATION_REQUEST_CODE_SUCCESS) {
         navigator.dispatch(
           navigationActions.navigate({
             routeName: 'OnboardingSubmitCode'
@@ -38,7 +42,7 @@ const middleware = navigationActions => store => next => action => {
     }
 
     case 'OnboardingSubmitCode': {
-      if (action.type === 'VERIFICATION_SUBMIT_CODE_SUCCESS') {
+      if (action.type === VERIFICATION_SUBMIT_CODE_SUCCESS) {
         navigator.dispatch(
           navigationActions.navigate({
             routeName: 'OnboardingInitialize'
