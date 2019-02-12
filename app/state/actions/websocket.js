@@ -10,10 +10,12 @@ export const websocketInitRequest = () => {
   }
 }
 
-export const websocketInitSuccess = () => {
+export const websocketInitSuccess = (host) => {
   return {
     type: WEBSOCKET_INIT_SUCCESS,
-    payload: {}
+    payload: {
+      host
+    }
   }
 }
 

@@ -13,7 +13,9 @@ describe('hooligramApi', () => {
 
       expect(store.dispatch).toHaveBeenCalledWith({
         type: 'WEBSOCKET:INIT_SUCCESS',
-        payload: {}
+        payload: {
+          host: config.host
+        }
       })
     })
   })
