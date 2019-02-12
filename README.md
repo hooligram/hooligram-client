@@ -19,7 +19,7 @@
 ## Connecting to local hooligram-server
 
 For debugging end-to-end, sometimes it's good to connect to a local a hooligram-server.
-Assuming local server is running on `ws://localhost:8080` (see the README at the [hooligram-server](https://github.com/hooligram/hooligram-server) repo on how to run the server locally):
+Assuming a local server is running on `ws://localhost:8080` (see the README at the [hooligram-server](https://github.com/hooligram/hooligram-server) repo on how to run the server locally):
 
 1. set `API_HOST=ws://localhost:8080` in `.env` file
 2. run emulator
