@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { API_HOST } from 'react-native-dotenv'
+import Config from 'react-native-config'
 import { View, Text } from 'react-native'
 
 export default Conversation = () => {
   return (
     <View>
-      <Text>hello, {API_HOST}</Text>
+      <Text>hello, {Config.API_HOST}</Text>
     </View>
   )
 }

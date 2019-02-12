@@ -1,7 +1,6 @@
-import { API_HOST } from 'react-native-dotenv'
+import Config from 'react-native-config'
 import hooligramApi from './hooligramApi'
 
-
 export default hooligramApi({
-  host: API_HOST
+  host: Config.API_HOST
 })
