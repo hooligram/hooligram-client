@@ -30,7 +30,7 @@ const routesConfigs = {
 }
 
 const stackNavigatorConfig = {
-  initialRouteName: 'OnboardingProfileInfo',
+  initialRouteName: 'OnboardingAgree',
   headerMode: 'none'
 
 }
