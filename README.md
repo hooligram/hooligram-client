@@ -25,4 +25,4 @@ Assuming local server is running on `ws://localhost:8080` (see the README at the
 2. run emulator
 3. `adb tcp:8080 tcp:8080`
 4. `yarn android`
-5. check out the client-side & server logs and you should see that they are interacting with other!
+5. check out the client-side & server logs and you should see that they are interacting with each other!
