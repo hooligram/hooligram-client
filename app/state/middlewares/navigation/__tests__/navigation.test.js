@@ -8,7 +8,8 @@ describe('navigation middleware', () => {
       navigate: jest.fn()
     }
     store = {
-      dispatch: jest.fn()
+      dispatch: jest.fn(),
+      getState: jest.fn()
     }
     next = jest.fn((action) => action)
     callMiddleware = navigationMiddleware(navigationActions)(store)(next)
@@ -231,12 +232,22 @@ describe('navigation middleware', () => {
     })
 
     describe('user has not saved username', () => {
-      const action = {
-        type: 'SOME_ACTION',
-        payload: {
-          somePayload: 'some payload'
+      let action
+      beforeEach(() => {
+        store.getState = jest.fn(() => ({
+          profile: {
+            info: {
+              isSaving: true,
+              isSaved: false
+            }
+          }
+        }))
+        action = {
+          type: 'PERSISTENCE:SAVE_STATE_SUCCESS',
+          payload: {}
         }
-      }
+        callMiddleware = navigationMiddleware(navigationActions)(store)(next)
+      })
 
       it('should not navigate away', () => {
         const returnedAction = callMiddleware(action)
@@ -249,12 +260,24 @@ describe('navigation middleware', () => {
     })
 
     describe('user has successfully saved username', () => {
-      const action = {
-        type: 'PERSISTENCE:USERNAME_SAVE_SUCCESS',
-        payload: {
-          username: 'someusername'
+      let action
+      beforeEach(() => {
+        store.getState = jest.fn(() => ({
+          profile: {
+            info: {
+              isSaving: false,
+              isSaved: true
+            }
+          }
+        }))
+        action = {
+          type: 'PERSISTENCE:SAVE_STATE_SUCCESS',
+          payload: {
+            username: 'someusername'
+          }
         }
-      }
+        callMiddleware = navigationMiddleware(navigationActions)(store)(next)
+      })
 
       it('should navigate to `GlobalChat` screen', () => {
         callMiddleware(action)

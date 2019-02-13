@@ -17,6 +17,11 @@ const middleware = navigationActions => store => next => action => {
   const {
     routeName: currentRouteName
   } = navigator.state.nav.routes[navigator.state.nav.index]
+  const { getState } = store
+
+  const prevState = store.getState()
+  const returnedAction = next(action)
+  const nextState = store.getState()
 
   switch (currentRouteName) {
     case 'OnboardingAgree': {
@@ -60,23 +65,36 @@ const middleware = navigationActions => store => next => action => {
           })
         )
       }
+      break
     }
 
     case 'OnboardingProfileInfo': {
-      if (action.type === 'PERSISTENCE:USERNAME_SAVE_SUCCESS') {
-        navigator.dispatch(
-          navigationActions.navigate({
-            routeName: 'Conversation'
-          })
-        )
+      if (action.type === 'PERSISTENCE:SAVE_STATE_SUCCESS') {
+        const {
+          profile: {
+            info: {
+              isSaved: isUserNameSaved,
+              isSaving: isSavingUserName
+            }
+          }
+        } = nextState
+
+        if (!isSavingUserName && isUserNameSaved) {
+          navigator.dispatch(
+            navigationActions.navigate({
+              routeName: 'Conversation'
+            })
+          )
+        }
       }
+      break
     }
 
     default: 
       break
   }
 
-  return next(action)
+  return returnedAction
 }
 
 export default middleware
