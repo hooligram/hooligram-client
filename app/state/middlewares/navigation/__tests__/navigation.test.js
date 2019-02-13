@@ -8,7 +8,8 @@ describe('navigation middleware', () => {
       navigate: jest.fn()
     }
     store = {
-      dispatch: jest.fn()
+      dispatch: jest.fn(),
+      getState: jest.fn()
     }
     next = jest.fn((action) => action)
     callMiddleware = navigationMiddleware(navigationActions)(store)(next)
@@ -81,11 +82,11 @@ describe('navigation middleware', () => {
       })
     })
 
-    describe('action is `VERIFICATION_REQUEST_CODE_SUCCESS`', () => {
+    describe('verification code request successful', () => {
       let action
       beforeEach(() => {
         action = {
-          type: 'VERIFICATION_REQUEST_CODE_SUCCESS',
+          type: 'API:VERIFICATION_REQUEST_CODE_SUCCESS',
           payload: {}
         }
       })
@@ -131,9 +132,9 @@ describe('navigation middleware', () => {
       })
     })
 
-    describe('action is `VERIFICATION_SUBMIT_CODE_SUCCESS`', () => {
+    describe('verification code submission successful', () => {
       const action = {
-        type: 'VERIFICATION_SUBMIT_CODE_SUCCESS',
+        type: 'API:VERIFICATION_SUBMIT_CODE_SUCCESS',
         payload: {
           somePayload: 'somePayload'
         }
@@ -159,6 +160,131 @@ describe('navigation middleware', () => {
 
         expect(next).toHaveBeenCalledWith(action)
         expect(next).toHaveBeenCalledTimes(1)
+      })
+    })
+  })
+
+  describe('current route is `OnboardingInitialize`', () => {
+    beforeEach(() => {
+      setTopLevelNavigator({
+        dispatch: jest.fn(),
+        state: {
+          nav: {
+            index: 0,
+            routes: [
+              {
+                routeName: 'OnboardingInitialize'
+              }
+            ]
+          }
+        }
+      })
+    })
+
+    describe('initialization process has not been completed', () => {
+      const action = {
+        type: 'SOME_ACTION',
+        payload: {
+          somePayload: 'some payload'
+        }
+      }
+
+      it('should not navigate away', () => {
+        callMiddleware(action)
+
+        expect(navigationActions.navigate).not.toHaveBeenCalled()
+      })
+    })
+
+    describe('initialization process has been completed', () => {
+      const action = {
+        type: 'ONBOARDING_INITIALIZE_SUCCESS',
+        payload: {
+          somePayload: 'some payload'
+        }
+      }
+
+      it('should navigate to `OnboardingProfileInfo` screen', () => {
+        callMiddleware(action)
+
+        expect(navigationActions.navigate).toHaveBeenCalledWith({
+          routeName: 'OnboardingProfileInfo'
+        })
+      })
+    })
+  })
+
+  describe('current route is `OnboardingProfileInfo`', () => {
+    beforeEach(() => {
+      setTopLevelNavigator({
+        dispatch: jest.fn(),
+        state: {
+          nav: {
+            index: 0,
+            routes: [
+              {
+                routeName: 'OnboardingProfileInfo'
+              }
+            ]
+          }
+        }
+      })
+    })
+
+    describe('user has not saved username', () => {
+      let action
+      beforeEach(() => {
+        store.getState = jest.fn(() => ({
+          profile: {
+            info: {
+              isSaving: true,
+              isSaved: false
+            }
+          }
+        }))
+        action = {
+          type: 'PERSISTENCE:SAVE_STATE_SUCCESS',
+          payload: {}
+        }
+        callMiddleware = navigationMiddleware(navigationActions)(store)(next)
+      })
+
+      it('should not navigate away', () => {
+        const returnedAction = callMiddleware(action)
+
+        expect(navigationActions.navigate).not.toHaveBeenCalled()
+        expect(next).toHaveBeenCalledWith(action)
+        expect(next).toHaveBeenCalledTimes(1)
+        expect(returnedAction).toEqual(action)
+      })
+    })
+
+    describe('user has successfully saved username', () => {
+      let action
+      beforeEach(() => {
+        store.getState = jest.fn(() => ({
+          profile: {
+            info: {
+              isSaving: false,
+              isSaved: true
+            }
+          }
+        }))
+        action = {
+          type: 'PERSISTENCE:SAVE_STATE_SUCCESS',
+          payload: {
+            username: 'someusername'
+          }
+        }
+        callMiddleware = navigationMiddleware(navigationActions)(store)(next)
+      })
+
+      it('should navigate to `GlobalChat` screen', () => {
+        callMiddleware(action)
+
+        expect(navigationActions.navigate).toHaveBeenCalledWith({
+          routeName: 'Conversation'
+        })
       })
     })
   })

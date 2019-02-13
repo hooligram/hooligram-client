@@ -38,13 +38,13 @@ describe('`profile.verification` reducer', () => {
     })
   })
 
-  describe('on action `VERIFICATION_SUBMIT_CODE_SUCCESS`', () => {
+  describe('verification code submission successful', () => {
     const state = {
       isLoading: true,
       isVerified: false
     }
     const action = {
-      type: 'VERIFICATION_SUBMIT_CODE_SUCCESS',
+      type: 'API:VERIFICATION_SUBMIT_CODE_SUCCESS',
       payload: {}
     }
 
@@ -59,9 +59,9 @@ describe('`profile.verification` reducer', () => {
     })
   })
 
-  describe('on action `VERIFICATION_SUBMIT_CODE_FAILURE`', () => {
+  describe('verification code submission failed', () => {
     const action = {
-      type: 'VERIFICATION_SUBMIT_CODE_FAILURE',
+      type: 'API:VERIFICATION_SUBMIT_CODE_FAILURE',
       payload: {}
     }
 

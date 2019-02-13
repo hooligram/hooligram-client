@@ -2,13 +2,15 @@ import {
   SET_CURRENT_MESSAGE,
   FORMS_VERIFICATION_SET_PHONE_NUMBER,
   FORMS_VERIFICATION_SET_COUNTRY_CODE,
-  FORMS_VERIFICATION_SET_CODE
+  FORMS_VERIFICATION_SET_CODE,
+  FORMS_SET_USERNAME_INPUT
 } from '@state/actions/forms'
 
 export const initialState = {
   chat: {
     currentMessage: ''
   },
+  userNameInput: '',
   verification: {
     code: '',
     countryCodes: {
@@ -105,6 +107,28 @@ const forms = (state = initialState, action) => {
             ...state.verification.countryCodes
           },
           code
+        }
+      }
+    }
+
+    case FORMS_SET_USERNAME_INPUT: {
+      const {
+        payload: {
+          userNameInput
+        }
+      } = action
+
+      return {
+        ...state,
+        chat: {
+          ...state.chat
+        },
+        userNameInput,
+        verification: {
+          ...state.verification,
+          countryCodes: {
+            ...state.verification.countryCodes
+          }
         }
       }
     }

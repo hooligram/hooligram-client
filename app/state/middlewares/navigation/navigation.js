@@ -1,3 +1,7 @@
+import {
+  VERIFICATION_SUBMIT_CODE_SUCCESS,
+  VERIFICATION_REQUEST_CODE_SUCCESS
+} from '@state/actions/profile'
 
 let navigator
 
@@ -13,6 +17,11 @@ const middleware = navigationActions => store => next => action => {
   const {
     routeName: currentRouteName
   } = navigator.state.nav.routes[navigator.state.nav.index]
+  const { getState } = store
+
+  const prevState = store.getState()
+  const returnedAction = next(action)
+  const nextState = store.getState()
 
   switch (currentRouteName) {
     case 'OnboardingAgree': {
@@ -27,7 +36,7 @@ const middleware = navigationActions => store => next => action => {
     }
 
     case 'OnboardingRequestCode': {
-      if (action.type === 'VERIFICATION_REQUEST_CODE_SUCCESS') {
+      if (action.type === VERIFICATION_REQUEST_CODE_SUCCESS) {
         navigator.dispatch(
           navigationActions.navigate({
             routeName: 'OnboardingSubmitCode'
@@ -38,7 +47,7 @@ const middleware = navigationActions => store => next => action => {
     }
 
     case 'OnboardingSubmitCode': {
-      if (action.type === 'VERIFICATION_SUBMIT_CODE_SUCCESS') {
+      if (action.type === VERIFICATION_SUBMIT_CODE_SUCCESS) {
         navigator.dispatch(
           navigationActions.navigate({
             routeName: 'OnboardingInitialize'
@@ -48,11 +57,44 @@ const middleware = navigationActions => store => next => action => {
       break
     }
 
+    case 'OnboardingInitialize': {
+      if (action.type === 'ONBOARDING_INITIALIZE_SUCCESS') {
+        navigator.dispatch(
+          navigationActions.navigate({
+            routeName: 'OnboardingProfileInfo'
+          })
+        )
+      }
+      break
+    }
+
+    case 'OnboardingProfileInfo': {
+      if (action.type === 'PERSISTENCE:SAVE_STATE_SUCCESS') {
+        const {
+          profile: {
+            info: {
+              isSaved: isUserNameSaved,
+              isSaving: isSavingUserName
+            }
+          }
+        } = nextState
+
+        if (!isSavingUserName && isUserNameSaved) {
+          navigator.dispatch(
+            navigationActions.navigate({
+              routeName: 'Conversation'
+            })
+          )
+        }
+      }
+      break
+    }
+
     default: 
       break
   }
 
-  return next(action)
+  return returnedAction
 }
 
 export default middleware
