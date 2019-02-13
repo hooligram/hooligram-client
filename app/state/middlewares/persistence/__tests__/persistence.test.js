@@ -118,10 +118,11 @@ describe('persistence middleware', () => {
     })
   })
 
-  describe('action is an api response action', () => {
+  describe('action is the one of the following', () => {
     [
       'API:SOME_ACTION_SUCCESS',
-      'API:SOME_ACTION_FAILURE'
+      'API:SOME_ACTION_FAILURE',
+      'SAVE_USER_NAME'
     ]
     .forEach(async actionType => {
       const action = {

@@ -39,7 +39,11 @@ const persistence = persistenceApi => store => next => async action => {
     return next(action)
   }
 
-  if (!action.type.match(/API:.*_SUCCESS/) && !action.type.match(/API:.*_FAILURE/)) {
+  if (
+    !action.type.match(/API:.*_SUCCESS/) &&
+    !action.type.match(/API:.*_FAILURE/) &&
+    !action.type.match(/SAVE_USER_NAME/)
+  ) {
     return next(action)
   }
 
