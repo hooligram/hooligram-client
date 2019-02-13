@@ -4,6 +4,7 @@ import {
   PERSISTENCE_SAVE_STATE_SUCCESS,
   PERSISTENCE_SAVE_STATE_FAILURE
 } from '@state/actions/persistence'
+import { PERSISTENCE_LOAD_STATE_SUCCESS } from '../../actions/persistence';
 
 const initialState = {
   isSaved: false,
@@ -46,6 +47,22 @@ const info = (state = initialState, action) => {
         ...state,
         isSaved: false,
         isSaving: false
+      }
+    }
+
+    case PERSISTENCE_LOAD_STATE_SUCCESS: {
+      const {
+        payload: {
+          state: {
+            profile: {
+              info: nextState
+            }
+          }
+        }
+      } = action
+
+      return {
+        ...nextState
       }
     }
 

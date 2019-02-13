@@ -102,4 +102,28 @@ describe('profile info reducer', () => {
       expect(nextState.isSaved).toEqual(false)
     })
   })
+
+  describe('loaded state from storage', () => {
+    const state = {}
+    const action = {
+      type: 'PERSISTENCE:LOAD_STATE_SUCCESS',
+      payload: {
+        state: {
+          profile: {
+            info: {
+              isSaved: 'is saved boolean',
+              isSaving: 'is saving boolean',
+              userName: 'akira-toya'
+            }
+          }
+        }
+      }
+    }
+
+    const nextState = profileInfoReducer(state, action)
+
+    it('should copy profile info state from storage', () => {
+      expect(nextState).toEqual(action.payload.state.profile.info)
+    })
+  })
 })
