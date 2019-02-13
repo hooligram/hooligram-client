@@ -6,6 +6,7 @@ import { Colors } from '@constants'
 
 class OnboardingProfileInfo extends Component {
   static propTypes = {
+    isSavingUserName: PropTypes.bool.isRequired,
     saveUserName: PropTypes.func.isRequired,
     setUserNameInput: PropTypes.func.isRequired,
     userNameInput: PropTypes.string.isRequired
@@ -13,6 +14,7 @@ class OnboardingProfileInfo extends Component {
 
   render() {
     const {
+      isSavingUserName,
       saveUserName,
       setUserNameInput,
       userNameInput
@@ -39,7 +41,8 @@ class OnboardingProfileInfo extends Component {
         <Button
           buttonStyle={styles.button}
           backgroundColor={Colors.lightGreen}
-          onPress={saveUserName}
+          loading={isSavingUserName}
+          onPress={saveUserName(userNameInput)}
           title={'I\'m ready!'}/>
       </View>
     )
