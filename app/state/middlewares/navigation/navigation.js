@@ -1,4 +1,7 @@
 import {
+  PERSISTENCE_SAVE_STATE_SUCCESS,
+} from '@state/actions'
+import {
   VERIFICATION_SUBMIT_CODE_SUCCESS,
   VERIFICATION_REQUEST_CODE_SUCCESS
 } from '@state/actions/profile'
@@ -69,7 +72,7 @@ const middleware = navigationActions => store => next => action => {
     }
 
     case 'OnboardingProfileInfo': {
-      if (action.type === 'PERSISTENCE:SAVE_STATE_SUCCESS') {
+      if (action.type === PERSISTENCE_SAVE_STATE_SUCCESS) {
         const {
           profile: {
             info: {
