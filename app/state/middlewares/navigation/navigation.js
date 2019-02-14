@@ -1,10 +1,8 @@
 import {
   PERSISTENCE_SAVE_STATE_SUCCESS,
-} from '@state/actions'
-import {
   VERIFICATION_SUBMIT_CODE_SUCCESS,
   VERIFICATION_REQUEST_CODE_SUCCESS
-} from '@state/actions/profile'
+} from '@state/actions'
 
 let navigator
 

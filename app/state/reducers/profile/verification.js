@@ -1,9 +1,9 @@
 import {
+  PERSISTENCE_LOAD_STATE_SUCCESS,
+  VERIFICATION_SUBMIT_CODE_FAILURE,
   VERIFICATION_SUBMIT_CODE_REQUEST,
-  VERIFICATION_SUBMIT_CODE_SUCCESS,
-  VERIFICATION_SUBMIT_CODE_FAILURE
-} from '@state/actions/profile'
-import { PERSISTENCE_LOAD_STATE_SUCCESS } from '@state/actions'
+  VERIFICATION_SUBMIT_CODE_SUCCESS
+} from '@state/actions'
 
 const initialState = {
   isLoading: false,
