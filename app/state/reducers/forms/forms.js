@@ -1,10 +1,9 @@
 import { 
-  SET_CURRENT_MESSAGE,
   FORMS_VERIFICATION_SET_PHONE_NUMBER,
   FORMS_VERIFICATION_SET_COUNTRY_CODE,
   FORMS_VERIFICATION_SET_CODE,
   FORMS_SET_USERNAME_INPUT
-} from '@state/actions/forms'
+} from '@state/actions'
 
 export const initialState = {
   chat: {

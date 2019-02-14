@@ -1,10 +1,10 @@
 import { SAVE_USER_NAME } from '@state/actions/profile'
 import {
+  PERSISTENCE_LOAD_STATE_SUCCESS,
   PERSISTENCE_SAVE_STATE_REQUEST,
   PERSISTENCE_SAVE_STATE_SUCCESS,
   PERSISTENCE_SAVE_STATE_FAILURE
-} from '@state/actions/persistence'
-import { PERSISTENCE_LOAD_STATE_SUCCESS } from '../../actions/persistence';
+} from '@state/actions'
 
 const initialState = {
   isSaved: false,

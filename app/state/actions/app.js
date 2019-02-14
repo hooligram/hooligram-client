@@ -1,4 +1,6 @@
-export const APP_STARTUP = 'APP:STARTUP'
+import {
+  APP_STARTUP,
+} from '.'
 
 export const appStartup = () => {
   return {

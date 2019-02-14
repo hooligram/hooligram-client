@@ -6,7 +6,7 @@ import {
   saveStateSuccess,
   saveStateFailure
 } from '@state/actions/persistence'
-import { APP_STARTUP } from '@state/actions/app'
+import { APP_STARTUP } from '@state/actions'
 
 const persistence = persistenceApi => store => next => async action => {
   const { getState, dispatch } = store
