@@ -1,4 +1,4 @@
-import { APP_STARTUP } from '@state/actions/app'
+import { APP_STARTUP } from '@state/actions'
 import { websocketInitRequest } from '@state/actions/websocket'
 
 export const ws = {
