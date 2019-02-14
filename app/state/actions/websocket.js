@@ -1,7 +1,9 @@
-export const WEBSOCKET_INIT_REQUEST = 'WEBSOCKET:INIT_REQUEST'
-export const WEBSOCKET_INIT_SUCCESS = 'WEBSOCKET:INIT_SUCCESS'
-export const WEBSOCKET_ERROR = 'WEBSOCKET:ERROR'
-export const WEBSOCKET_CLOSE = 'WEBSOCKET:CLOSE'
+import {
+  WEBSOCKET_CLOSE,
+  WEBSOCKET_ERROR,
+  WEBSOCKET_INIT_REQUEST,
+  WEBSOCKET_INIT_SUCCESS
+} from '@state/actions'
 
 export const websocketInitRequest = () => {
   return {
