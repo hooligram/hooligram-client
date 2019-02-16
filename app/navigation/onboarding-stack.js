@@ -1,6 +1,5 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 import {
-  Conversation,
   OnboardingAgree, 
   OnboardingRequestCode,
   OnboardingInitialize,
@@ -23,18 +22,15 @@ const routesConfigs = {
   },
   OnboardingProfileInfo: {
     screen: OnboardingProfileInfo
-  },
-  Conversation: {
-    screen: Conversation
   }
 }
 
 const stackNavigatorConfig = {
-  initialRouteName: 'OnboardingAgree',
+  initialRouteName: 'OnboardingRequestCode',
   headerMode: 'none'
-
 }
 
-export default createAppContainer(
-  createStackNavigator(routesConfigs, stackNavigatorConfig)
+export default createStackNavigator(
+  routesConfigs,
+  stackNavigatorConfig
 )

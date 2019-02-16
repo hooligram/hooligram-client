@@ -15,7 +15,7 @@ describe('navigation middleware', () => {
     callMiddleware = navigationMiddleware(navigationActions)(store)(next)
   })
 
-  describe('current route is `OnboardingAgree`', () => {
+  describe('current route is `Onboarding.OnboardingAgree`', () => {
     beforeEach(() => {
       setTopLevelNavigator({
         dispatch: jest.fn(),
@@ -24,7 +24,13 @@ describe('navigation middleware', () => {
             index: 0,
             routes: [
               {
-                routeName: 'OnboardingAgree'
+                index: 0,
+                routeName: 'Onboarding',
+                routes: [
+                  {
+                    routeName: 'OnboardingAgree'
+                  }
+                ]
               }
             ]
           }
@@ -65,7 +71,7 @@ describe('navigation middleware', () => {
     })
   })
 
-  describe('current route is `OnboardingRequestCode`', () => {
+  describe('current route is `Onboarding.OnboardingRequestCode`', () => {
     beforeEach(() => {
       setTopLevelNavigator({
         dispatch: jest.fn(),
@@ -74,7 +80,13 @@ describe('navigation middleware', () => {
             index: 0,
             routes: [
               {
-                routeName: 'OnboardingRequestCode'
+                index: 0,
+                routeName: 'Onboarding',
+                routes: [
+                  {
+                    routeName: 'OnboardingRequestCode'
+                  }
+                ]
               }
             ]
           }
@@ -115,7 +127,7 @@ describe('navigation middleware', () => {
     })
   })
 
-  describe('current route is `OnboardingSubmitCode`', () => {
+  describe('current route is `Onboarding.OnboardingSubmitCode`', () => {
     beforeEach(() => {
       setTopLevelNavigator({
         dispatch: jest.fn(),
@@ -124,7 +136,13 @@ describe('navigation middleware', () => {
             index: 0,
             routes: [
               {
-                routeName: 'OnboardingSubmitCode'
+                index: 0,
+                routeName: 'Onboarding',
+                routes: [
+                  {
+                    routeName: 'OnboardingSubmitCode'
+                  }
+                ]
               }
             ]
           }
@@ -164,7 +182,7 @@ describe('navigation middleware', () => {
     })
   })
 
-  describe('current route is `OnboardingInitialize`', () => {
+  describe('current route is `Onboarding.OnboardingInitialize`', () => {
     beforeEach(() => {
       setTopLevelNavigator({
         dispatch: jest.fn(),
@@ -173,7 +191,13 @@ describe('navigation middleware', () => {
             index: 0,
             routes: [
               {
-                routeName: 'OnboardingInitialize'
+                index: 0,
+                routeName: 'Onboarding',
+                routes: [
+                  {
+                    routeName: 'OnboardingInitialize'
+                  }
+                ]
               }
             ]
           }
@@ -214,7 +238,7 @@ describe('navigation middleware', () => {
     })
   })
 
-  describe('current route is `OnboardingProfileInfo`', () => {
+  describe('current route is `Onboarding.OnboardingProfileInfo`', () => {
     beforeEach(() => {
       setTopLevelNavigator({
         dispatch: jest.fn(),
@@ -223,7 +247,13 @@ describe('navigation middleware', () => {
             index: 0,
             routes: [
               {
-                routeName: 'OnboardingProfileInfo'
+                index: 0,
+                routeName: 'Onboarding',
+                routes: [
+                  {
+                    routeName: 'OnboardingProfileInfo'
+                  }
+                ]
               }
             ]
           }
