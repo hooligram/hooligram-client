@@ -4,8 +4,11 @@ import { View, Text } from 'react-native'
 
 export default class Conversation extends Component {
   static propTypes = {
-    userName: PropTypes.string.isRequired,
-    isAuthorized: PropTypes.bool.isRequired
+    code: PropTypes.string,
+    country_code: PropTypes.string,
+    phone_number: PropTypes.string,
+    isAuthorized: PropTypes.bool.isRequired,
+    userName: PropTypes.string.isRequired
   }
 
   render() {
@@ -29,5 +32,15 @@ export default class Conversation extends Component {
         <Text>username: ${userName}</Text>
       </View>
     )
+  }
+
+  componentDidMount() {
+    const {
+      code,
+      country_code,
+      phone_number
+    } = this.props
+
+    this.props.signIn(code, country_code, phone_number)
   }
 }
