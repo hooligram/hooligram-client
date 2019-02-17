@@ -11,7 +11,10 @@ describe('`profile.codeRequest` reducer', () => {
       expect(nextState).toEqual({
         isLoading: false,
         isLoaded: false,
-        isSuccess: false
+        isSuccess: false,
+        code: '',
+        country_code: '',
+        phone_number: ''
       })
     })
   })
@@ -27,7 +30,10 @@ describe('`profile.codeRequest` reducer', () => {
     const state = {
       isLoading: false,
       isLoaded: false,
-      isSuccess: false
+      isSuccess: false,
+      code: '',
+      country_code: '',
+      phone_number: ''
     }
 
     const nextState = profileCodeRequestReducer(state, action)
@@ -35,6 +41,11 @@ describe('`profile.codeRequest` reducer', () => {
     it('should be loading', () => {
       expect(nextState.isLoading).toBe(true)
       expect(nextState.isLoaded).toBe(false)
+    })
+
+    it('should update `country_code` and `phone_number`', () => {
+      expect(nextState.country_code).toEqual(action.payload.country_code)
+      expect(nextState.phone_number).toEqual(action.payload.phone_number)
     })
 
     it('should deep copy remaining state', () => {
@@ -48,6 +59,9 @@ describe('`profile.codeRequest` reducer', () => {
       payload: {}
     }
     const state = {
+      code: 'some code',
+      country_code: 'some country code',
+      phone_number: 'some phone number',
       isLoading: true,
       isLoaded: false,
       isSuccess: false
@@ -63,6 +77,20 @@ describe('`profile.codeRequest` reducer', () => {
     it('should mark as success', () => {
       expect(nextState.isSuccess).toBe(true)
     })
+
+    it('should maintain remaining state the same', () => {
+      const remainingPrevState = { ...state }
+      const remainingNextState = { ...nextState }
+
+      delete remainingPrevState.isLoaded
+      delete remainingPrevState.isLoading
+      delete remainingPrevState.isSuccess
+      delete remainingNextState.isLoaded
+      delete remainingNextState.isLoading
+      delete remainingNextState.isSuccess
+
+      expect(remainingNextState).toEqual(remainingPrevState)
+    })
   })
 
   describe('verification code request failure', () => {
@@ -73,6 +101,9 @@ describe('`profile.codeRequest` reducer', () => {
 
     describe('`isSuccess` is false', () => {
       const state = {
+        code: 'some code',
+        country_code: 'some country code',
+        phone_number: 'some phone number',
         isLoading: true,
         isLoaded: false,
         isSuccess: false
@@ -87,6 +118,20 @@ describe('`profile.codeRequest` reducer', () => {
   
       it('should mark as not success', () => {
         expect(nextState.isSuccess).toBe(false)
+      })
+
+      it('should maintain remaining state the same', () => {
+        const remainingPrevState = { ...state }
+        const remainingNextState = { ...nextState }
+
+        delete remainingPrevState.isLoaded
+        delete remainingPrevState.isLoading
+        delete remainingPrevState.isSuccess
+        delete remainingNextState.isLoaded
+        delete remainingNextState.isLoading
+        delete remainingNextState.isSuccess
+
+        expect(remainingNextState).toEqual(remainingPrevState)
       })
     })
 
@@ -140,6 +185,25 @@ describe('`profile.codeRequest` reducer', () => {
         isLoading: 'isLoading',
         isSuccess: 'isSuccess'
       })
+    })
+  })
+
+  describe('submits verification code', () => {
+    const action = {
+      type: 'API:VERIFICATION_SUBMIT_CODE_REQUEST',
+      payload: {
+        code: 'some code'
+      }
+    }
+
+    it('should update the verification code', () => {
+      const state = {
+        code: ''
+      }
+
+      const nextState = profileCodeRequestReducer(state, action)
+
+      expect(nextState.code).toEqual(action.payload.code)
     })
   })
 })
