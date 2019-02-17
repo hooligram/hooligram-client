@@ -1,10 +1,22 @@
 import profileCodeRequestReducer from '@state/reducers/profile/code-request'
 
 describe('`profile.codeRequest` reducer', () => {
+  let state
+  beforeEach(() => {
+    state = {
+      isLoading: false,
+        isLoaded: false,
+        isSuccess: false,
+        code: '',
+        country_code: '',
+        phone_number: ''
+    }
+  })
+
   describe('initially', () => {
     it('should return correct initial state', () => {
       const action = {}
-      const state = undefined
+      state = undefined
 
       const nextState = profileCodeRequestReducer(state, action)
 
@@ -27,28 +39,30 @@ describe('`profile.codeRequest` reducer', () => {
         phone_number: 'some phone number'
       }
     }
-    const state = {
+    state = {
+      ...state,
       isLoading: false,
       isLoaded: false,
-      isSuccess: false,
-      code: '',
-      country_code: '',
-      phone_number: ''
+      isSuccess: false
     }
 
-    const nextState = profileCodeRequestReducer(state, action)
-
     it('should be loading', () => {
+      const nextState = profileCodeRequestReducer(state, action)
+
       expect(nextState.isLoading).toBe(true)
       expect(nextState.isLoaded).toBe(false)
     })
 
     it('should update `country_code` and `phone_number`', () => {
+      const nextState = profileCodeRequestReducer(state, action)
+
       expect(nextState.country_code).toEqual(action.payload.country_code)
       expect(nextState.phone_number).toEqual(action.payload.phone_number)
     })
 
     it('should deep copy remaining state', () => {
+      const nextState = profileCodeRequestReducer(state, action)
+
       expect(nextState.isSuccess).toEqual(state.isSuccess)
     })
   })
@@ -58,33 +72,35 @@ describe('`profile.codeRequest` reducer', () => {
       type: 'API:VERIFICATION_REQUEST_CODE_SUCCESS',
       payload: {}
     }
-    const state = {
-      code: 'some code',
-      country_code: 'some country code',
-      phone_number: 'some phone number',
+    state = {
+      ...state,
       isLoading: true,
       isLoaded: false,
       isSuccess: false
     }
 
-    const nextState = profileCodeRequestReducer(state, action)
-
     it('should stop loading', () => {
+      const nextState = profileCodeRequestReducer(state, action)
+
       expect(nextState.isLoading).toBe(false)
       expect(nextState.isLoaded).toBe(true)
     })
 
     it('should mark as success', () => {
+      const nextState = profileCodeRequestReducer(state, action)
+      
       expect(nextState.isSuccess).toBe(true)
     })
 
     it('should maintain remaining state the same', () => {
       const remainingPrevState = { ...state }
-      const remainingNextState = { ...nextState }
-
       delete remainingPrevState.isLoaded
       delete remainingPrevState.isLoading
       delete remainingPrevState.isSuccess
+
+      const nextState = profileCodeRequestReducer(state, action)
+
+      const remainingNextState = { ...nextState }
       delete remainingNextState.isLoaded
       delete remainingNextState.isLoading
       delete remainingNextState.isSuccess
@@ -100,33 +116,35 @@ describe('`profile.codeRequest` reducer', () => {
     }
 
     describe('`isSuccess` is false', () => {
-      const state = {
-        code: 'some code',
-        country_code: 'some country code',
-        phone_number: 'some phone number',
+      state = {
+        ...state,
         isLoading: true,
         isLoaded: false,
         isSuccess: false
       }
   
-      const nextState = profileCodeRequestReducer(state, action)
-  
       it('should stop loading', () => {
+        const nextState = profileCodeRequestReducer(state, action)
+
         expect(nextState.isLoading).toBe(false)
         expect(nextState.isLoaded).toBe(true)
       })
   
       it('should mark as not success', () => {
+        const nextState = profileCodeRequestReducer(state, action)
+
         expect(nextState.isSuccess).toBe(false)
       })
 
       it('should maintain remaining state the same', () => {
         const remainingPrevState = { ...state }
-        const remainingNextState = { ...nextState }
-
         delete remainingPrevState.isLoaded
         delete remainingPrevState.isLoading
         delete remainingPrevState.isSuccess
+
+        const nextState = profileCodeRequestReducer(state, action)
+
+        const remainingNextState = { ...nextState }
         delete remainingNextState.isLoaded
         delete remainingNextState.isLoading
         delete remainingNextState.isSuccess
@@ -136,7 +154,8 @@ describe('`profile.codeRequest` reducer', () => {
     })
 
     describe('`isSuccess` is true', () => {
-      const state = {
+      state = {
+        ...state,
         isLoading: true,
         isLoaded: false,
         isSuccess: true
@@ -145,11 +164,15 @@ describe('`profile.codeRequest` reducer', () => {
       const nextState = profileCodeRequestReducer(state, action)
   
       it('should stop loading', () => {
+        const nextState = profileCodeRequestReducer(state, action)
+
         expect(nextState.isLoading).toBe(false)
         expect(nextState.isLoaded).toBe(true)
       })
   
       it('should mark as not success', () => {
+        const nextState = profileCodeRequestReducer(state, action)
+        
         expect(nextState.isSuccess).toBe(false)
       })
     })
@@ -157,7 +180,8 @@ describe('`profile.codeRequest` reducer', () => {
 
   describe('on action `PERSISTENCE:LOAD_STATE_SUCCESS`', () => {
     it('should copy profile code-request state from storage', () => {
-      const state = {
+      state = {
+        ...state,
         isLoaded: false,
         isLoading: false,
         isSuccess: false
@@ -197,7 +221,8 @@ describe('`profile.codeRequest` reducer', () => {
     }
 
     it('should update the verification code', () => {
-      const state = {
+      state = {
+        ...state,
         code: ''
       }
 
