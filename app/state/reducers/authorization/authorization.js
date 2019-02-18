@@ -1,4 +1,7 @@
-import { API_AUTHORIZATION_SIGN_IN_SUCCESS } from '@state/actions/authorization'
+import {
+  PERSISTENCE_LOAD_STATE_SUCCESS,
+  API_AUTHORIZATION_SIGN_IN_SUCCESS
+} from '@state/actions'
 
 export const initialState = {
   token: {}
@@ -21,6 +24,20 @@ const authorization = (state = initialState, action) => {
           country_code,
           phone_number
         }
+      }
+    }
+
+    case PERSISTENCE_LOAD_STATE_SUCCESS: {
+      const {
+        payload: {
+          state: {
+            authorization
+          }
+        }
+      } = action
+
+      return {
+        ...authorization
       }
     }
 

@@ -43,4 +43,31 @@ describe('authorization reducer', () => {
       })
     })
   })
+
+  describe('state is loaded from storage', () => {
+    let action, state
+    beforeEach(() => {
+      action = {
+        type: 'PERSISTENCE:LOAD_STATE_SUCCESS',
+        payload: {
+          state: {
+            authorization: {
+              token: {
+                code: 'some code',
+                country_code: 'some country code',
+                phone_number: 'some phone number'
+              }
+            }
+          }
+        }
+      }
+      state = undefined
+    })
+
+    it('should copy state', () => {
+      const nextState = authorizationReducer(state, action)
+
+      expect(nextState.verification).toEqual(action.payload.state.verification)
+    })
+  })
 })
