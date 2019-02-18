@@ -1,8 +1,8 @@
-export const API_AUTHORIZATION_SIGN_IN_SUCCESS = 'API:AUTHORIZATION_SIGN_IN_SUCCESS'
+import { API_AUTHORIZATION_SIGN_IN_REQUEST } from '.'
 
 export const authorizationSignInRequest = (code, country_code, phone_number) =>
   ({
-    type: 'API:AUTHORIZATION_SIGN_IN_REQUEST',
+    type: API_AUTHORIZATION_SIGN_IN_REQUEST,
     payload: {
       code,
       country_code,
