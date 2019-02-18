@@ -21,7 +21,6 @@ class MessageWriter extends Component {
       ...styles.textButton,
       backgroundColor: isActive ? Colors.boldGreen : Colors.grey
     }
-    const { sendMessage } = this.props
 
     return (
       <View style={styles.container}>
@@ -43,11 +42,18 @@ class MessageWriter extends Component {
           <Icon
             color={Colors.white}
             name={'send'}
-            onPress={sendMessage(text)}
+            onPress={this._sendMessage}
             size={25}/>
         </View>
       </View>
     )
+  }
+
+  _sendMessage = () => {
+    const { sendMessage } = this.props
+    const { text } = this.state
+    sendMessage(text)
+    this.setState({ text: '' })
   }
 }
 

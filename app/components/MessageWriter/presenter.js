@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    sendMessage: (country_code, phone_number) => (message) => () => {
+    sendMessage: (country_code, phone_number) => (message) => {
       dispatch(
         broadcastMessageRequest(
           message,
