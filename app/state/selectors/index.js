@@ -14,5 +14,14 @@ export default {
     state.profile.codeRequest.phone_number !== ''
       ? state.profile.codeRequest.phone_number
       : undefined
+  ),
+  currentUserCode: (state) => (
+    state.profile.codeRequest.code !== ''
+      ? state.profile.codeRequest.code
+      : undefined
+  ),
+  messages: (state) => (
+    state.messages.allIds
+      .map(id => state.messages.byId[id])
   )
 }
