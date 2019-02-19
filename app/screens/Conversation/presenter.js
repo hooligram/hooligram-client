@@ -27,7 +27,7 @@ export const mapStateToProps = state => {
         (
           sender != undefined
           && sender.country_code === country_code
-          && sender.country_code === country_code
+          && sender.phone_number === phone_number
         ) 
         ? true 
         : false    
