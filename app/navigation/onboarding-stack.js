@@ -26,7 +26,7 @@ const routesConfigs = {
 }
 
 const stackNavigatorConfig = {
-  initialRouteName: 'OnboardingRequestCode',
+  initialRouteName: 'OnboardingAgree',
   headerMode: 'none'
 }
 

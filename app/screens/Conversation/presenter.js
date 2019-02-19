@@ -2,49 +2,6 @@ import { connect as _connect } from 'react-redux'
 import { authorizationSignInRequest } from '@state/actions/authorization'
 import selectors from '@state/selectors'
 
-// debug
-const mockState = {
-  messages: {
-    byId: {
-      id1: {
-        id: 'id1',
-        message: 'Hello, world!',
-        sender: {
-          country_code: '1',
-          phone_number: '6478637073'
-        }
-      },
-      id2: {
-        id: 'id2',
-        message: 'Hola',
-        sender: {
-          country_code: '60',
-          phone_number: '199848974'
-        }
-      },
-      id3: {
-        id: 'id3',
-        message: 'Hooligram is the next chat app!',
-        sender: {
-          country_code: '65',
-          phone_number: '87503118'
-        }
-      },
-      id4: {
-        id: 'id4',
-        message: 'A very long text message asdfasdklfjkasldjfkljsadklf '
-        + 'asldjfklsadjflasdj asdfjlaskdlfjasdlkf lasjdlfjasdklfj '
-        + 'asldfklasdjflkasdjlfj klasdf;qweofiwfon',
-        sender: {
-          country_code: '1',
-          phone_number: '6478637073'
-        }
-      },
-    },
-    allIds: ['id1', 'id2', 'id3', 'id4']
-  }
-}
-
 export const mapStateToProps = state => {
   const {
     profile: {
@@ -58,8 +15,7 @@ export const mapStateToProps = state => {
   const country_code = selectors.currentUserCountryCode(state)
   const phone_number = selectors.currentUserPhoneNumber(state)
   const code = selectors.currentUserCode(state)
-  // const messages = selectors.messages(state)
-  const messages = selectors.messages(mockState)
+  const messages = selectors.messages(state)
     .map(({ message, sender }) => ({
       message,
       sender: (
