@@ -309,7 +309,7 @@ describe('navigation middleware', () => {
         callMiddleware = navigationMiddleware(navigationActions)(store)(next)
       })
 
-      it('should navigate to `GlobalChat` screen', () => {
+      it('should navigate to `Conversation` screen', () => {
         callMiddleware(action)
 
         expect(navigationActions.navigate).toHaveBeenCalledWith({

@@ -36,9 +36,6 @@ const hooligramApi = (config) => (store) => {
     // the message id, but we can think and discuss about it
     if (action.type === MESSAGING_BROADCAST_SUCCESS) {
       action.payload.id = `${Math.floor(Math.random() * 100000000)}`
-      console.log('***************')
-      console.log(action)
-      console.log('***************')
     }
 
     dispatch(action)
