@@ -24,51 +24,51 @@ const middleware = navigationActions => store => next => action => {
   const nextState = store.getState()
 
   switch (fullRouteName) {
-    case '/Onboarding/OnboardingAgree': {
+    case '/Onboarding/Agree': {
       if (action.type === 'AGREE_AND_CONTINUE') {
         navigator.dispatch(
           navigationActions.navigate({
-            routeName: 'OnboardingRequestCode'
+            routeName: 'RequestCode'
           })
         )
       }
       break
     }
 
-    case '/Onboarding/OnboardingRequestCode': {
+    case '/Onboarding/RequestCode': {
       if (action.type === VERIFICATION_REQUEST_CODE_SUCCESS) {
         navigator.dispatch(
           navigationActions.navigate({
-            routeName: 'OnboardingSubmitCode'
+            routeName: 'SubmitCode'
           })
         )
       }
       break
     }
 
-    case '/Onboarding/OnboardingSubmitCode': {
+    case '/Onboarding/SubmitCode': {
       if (action.type === VERIFICATION_SUBMIT_CODE_SUCCESS) {
         navigator.dispatch(
           navigationActions.navigate({
-            routeName: 'OnboardingInitialize'
+            routeName: 'Initialize'
           })
         )
       }
       break
     }
 
-    case '/Onboarding/OnboardingInitialize': {
+    case '/Onboarding/Initialize': {
       if (action.type === 'ONBOARDING_INITIALIZE_SUCCESS') {
         navigator.dispatch(
           navigationActions.navigate({
-            routeName: 'OnboardingProfileInfo'
+            routeName: 'ProfileInfo'
           })
         )
       }
       break
     }
 
-    case '/Onboarding/OnboardingProfileInfo': {
+    case '/Onboarding/ProfileInfo': {
       if (action.type === PERSISTENCE_SAVE_STATE_SUCCESS) {
         const {
           profile: {

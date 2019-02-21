@@ -7,26 +7,28 @@ import {
   OnboardingProfileInfo
 } from '@screens'
 
+import routeNames from '@navigation/routeNames'
+
 const routesConfigs = {
-  OnboardingAgree: {
+  [routeNames.Agree]: {
     screen: OnboardingAgree
   },
-  OnboardingRequestCode: {
+  [routeNames.RequestCode]: {
     screen: OnboardingRequestCode
   },
-  OnboardingSubmitCode: {
+  [routeNames.SubmitCode]: {
     screen: OnboardingSubmitCode
   },
-  OnboardingInitialize: {
+  [routeNames.Initialize]: {
     screen: OnboardingInitialize
   },
-  OnboardingProfileInfo: {
+  [routeNames.ProfileInfo]: {
     screen: OnboardingProfileInfo
   }
 }
 
 const stackNavigatorConfig = {
-  initialRouteName: 'OnboardingAgree',
+  initialRouteName: routeNames.Agree,
   headerMode: 'none'
 }
 

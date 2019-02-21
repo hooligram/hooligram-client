@@ -2,9 +2,10 @@ import { createStackNavigator } from 'react-navigation'
 import { Conversation } from '@screens'
 import { Colors } from '@constants'
 import { StatusBar } from 'react-native'
+import routeNames from '@navigation/routeNames'
 
 const routeConfigs = {
-  Conversation: {
+  [routeNames.Conversation]: {
     screen: Conversation,
     navigationOptions: () => {
       StatusBar.setBackgroundColor(Colors.bolderGreen)
