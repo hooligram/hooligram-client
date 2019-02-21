@@ -16,8 +16,8 @@ describe('selectors', () => {
           ...authorizationInitialState
         }
       }
-      state.authorization.token = {
-        code: 'some code',
+      state.authorization = {
+        token: 'some code',
         country_code: 'some country code',
         phone_number: 'some phone number'
       }
@@ -30,28 +30,28 @@ describe('selectors', () => {
     it('should return `false` otherwise', () => {
       [
         {
-          code: undefined,
+          token: undefined,
           country_code: 'some country code',
           phone_number: 'some phone number'
         },
         {
-          code: '',
+          token: '',
           country_code: 'some country code',
           phone_number: 'some phone number'
         }, 
         {
-          code: null,
+          token: null,
           country_code: 'some country code',
           phone_number: 'some phone number'
         }
       ]
-      .forEach(token => {
+      .forEach(authorizationState => {
         const state = {
           authorization: {
-            ...authorizationInitialState
+            ...authorizationInitialState,
+            ...authorizationState
           }
         }
-        state.authorization.token = token
   
         const result = isAuthorized(state)
   

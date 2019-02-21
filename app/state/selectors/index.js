@@ -1,9 +1,8 @@
 export default {
   isAuthorized: (state) => (
     !!state.authorization.token &&
-    !!state.authorization.token.code &&
-    !!state.authorization.token.country_code &&
-    !!state.authorization.token.phone_number
+    !!state.authorization.country_code &&
+    !!state.authorization.phone_number
   ),
   currentUserCountryCode: (state) => (
     state.profile.codeRequest.country_code !== ''

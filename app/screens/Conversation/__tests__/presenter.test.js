@@ -42,7 +42,9 @@ describe('Conversation screen presenter', () => {
           info: {}
         },
         authorization: {
-          token: {}
+          token: '',
+          country_code: '',
+          phone_number: ''
         }
       }
     })

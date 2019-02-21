@@ -4,7 +4,9 @@ import {
 } from '@state/actions'
 
 export const initialState = {
-  token: {}
+  country_code: '',
+  phone_number: '',
+  token: ''
 }
 
 const authorization = (state = initialState, action) => {
@@ -19,11 +21,9 @@ const authorization = (state = initialState, action) => {
       } = action
 
       return {
-        token: {
-          code,
-          country_code,
-          phone_number
-        }
+        country_code,
+        phone_number,
+        token: code
       }
     }
 

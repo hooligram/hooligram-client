@@ -1,4 +1,5 @@
 import authorizationReducer from '@state/reducers/authorization/authorization'
+import { initialState } from '@state/reducers/authorization/authorization'
 
 describe('authorization reducer', () => {
   describe('initially', () => {
@@ -11,9 +12,7 @@ describe('authorization reducer', () => {
     it('should return correct initial state', () => {
       const nextState = authorizationReducer(state, action)
 
-      expect(nextState).toEqual({
-        token: {}
-      })
+      expect(nextState).toEqual(initialState)
     })
   })
 
@@ -29,15 +28,15 @@ describe('authorization reducer', () => {
         }
       }
       state = {
-        token: {}
+        ...initialState
       }
     })
 
-    it('should update token from payload', () => {
+    it('should update token, phone_number & country_code from payload', () => {
       const nextState = authorizationReducer(state, action)
 
-      expect(nextState.token).toEqual({
-        code: 'some code',
+      expect(nextState).toEqual({
+        token: 'some code',
         phone_number: 'some phone number',
         country_code: 'some country code'
       })
@@ -52,11 +51,9 @@ describe('authorization reducer', () => {
         payload: {
           state: {
             authorization: {
-              token: {
-                code: 'some code',
-                country_code: 'some country code',
-                phone_number: 'some phone number'
-              }
+              token: 'some code',
+              country_code: 'some country code',
+              phone_number: 'some phone number'
             }
           }
         }
