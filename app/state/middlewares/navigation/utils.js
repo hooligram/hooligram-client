@@ -22,5 +22,5 @@ const _getFullRouteName = (route) => {
 
   const childRoute = routes[index]
 
-  return `${routeName}.${_getFullRouteName(childRoute)}`
+  return `${routeName}/${_getFullRouteName(childRoute)}`
 }

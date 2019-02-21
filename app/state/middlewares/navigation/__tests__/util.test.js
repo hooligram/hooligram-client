@@ -17,7 +17,7 @@ describe('navigation middleware utils', () => {
               }
             }
           },
-          expFullRouteName: '.A'
+          expFullRouteName: '/A'
         },
         {
           navigator: {
@@ -38,7 +38,7 @@ describe('navigation middleware utils', () => {
               }
             }
           },
-          expFullRouteName: '.A.B'
+          expFullRouteName: '/A/B'
         },
         {
           navigator: {
@@ -65,7 +65,7 @@ describe('navigation middleware utils', () => {
               }
             }
           },
-          expFullRouteName: '.A.D'
+          expFullRouteName: '/A/D'
         },
         {
           navigator: {
@@ -98,7 +98,7 @@ describe('navigation middleware utils', () => {
               }
             }
           },
-          expFullRouteName: '.A.C.E'
+          expFullRouteName: '/A/C/E'
         },
       ]
 
