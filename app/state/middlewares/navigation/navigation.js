@@ -3,6 +3,7 @@ import {
   VERIFICATION_SUBMIT_CODE_SUCCESS,
   VERIFICATION_REQUEST_CODE_SUCCESS
 } from '@state/actions'
+import { getFullRouteName } from '@state/middlewares/navigation/utils'
 
 let navigator
 
@@ -15,61 +16,59 @@ const middleware = navigationActions => store => next => action => {
     return next(action)
   }
 
-  const {
-    routeName: currentRouteName
-  } = navigator.state.nav.routes[navigator.state.nav.index]
+  const fullRouteName = getFullRouteName(navigator)
   const { getState } = store
 
   const prevState = store.getState()
   const returnedAction = next(action)
   const nextState = store.getState()
 
-  switch (currentRouteName) {
-    case 'OnboardingAgree': {
+  switch (fullRouteName) {
+    case '/Onboarding/Agree': {
       if (action.type === 'AGREE_AND_CONTINUE') {
         navigator.dispatch(
           navigationActions.navigate({
-            routeName: 'OnboardingRequestCode'
+            routeName: 'RequestCode'
           })
         )
       }
       break
     }
 
-    case 'OnboardingRequestCode': {
+    case '/Onboarding/RequestCode': {
       if (action.type === VERIFICATION_REQUEST_CODE_SUCCESS) {
         navigator.dispatch(
           navigationActions.navigate({
-            routeName: 'OnboardingSubmitCode'
+            routeName: 'SubmitCode'
           })
         )
       }
       break
     }
 
-    case 'OnboardingSubmitCode': {
+    case '/Onboarding/SubmitCode': {
       if (action.type === VERIFICATION_SUBMIT_CODE_SUCCESS) {
         navigator.dispatch(
           navigationActions.navigate({
-            routeName: 'OnboardingInitialize'
+            routeName: 'Initialize'
           })
         )
       }
       break
     }
 
-    case 'OnboardingInitialize': {
+    case '/Onboarding/Initialize': {
       if (action.type === 'ONBOARDING_INITIALIZE_SUCCESS') {
         navigator.dispatch(
           navigationActions.navigate({
-            routeName: 'OnboardingProfileInfo'
+            routeName: 'ProfileInfo'
           })
         )
       }
       break
     }
 
-    case 'OnboardingProfileInfo': {
+    case '/Onboarding/ProfileInfo': {
       if (action.type === PERSISTENCE_SAVE_STATE_SUCCESS) {
         const {
           profile: {

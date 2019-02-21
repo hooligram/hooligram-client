@@ -3,6 +3,7 @@ import {
   websocketError,
   websocketClose
 } from '@state/actions/websocket'
+import { MESSAGING_BROADCAST_SUCCESS } from '@state/actions'
 
 let ws
 
@@ -29,6 +30,14 @@ const hooligramApi = (config) => (store) => {
     catch (err) {
       action = websocketError(err)
     }
+
+    // hack since backend currently does not provide id for each message
+    // I believe it's the responsibility of backend to generate and provide
+    // the message id, but we can think and discuss about it
+    if (action.type === MESSAGING_BROADCAST_SUCCESS) {
+      action.payload.id = `${Math.floor(Math.random() * 100000000)}`
+    }
+
     dispatch(action)
   }
 

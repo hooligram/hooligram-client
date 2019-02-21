@@ -15,7 +15,7 @@ describe('navigation middleware', () => {
     callMiddleware = navigationMiddleware(navigationActions)(store)(next)
   })
 
-  describe('current route is `OnboardingAgree`', () => {
+  describe('current route is `/Onboarding/Agree`', () => {
     beforeEach(() => {
       setTopLevelNavigator({
         dispatch: jest.fn(),
@@ -24,7 +24,13 @@ describe('navigation middleware', () => {
             index: 0,
             routes: [
               {
-                routeName: 'OnboardingAgree'
+                index: 0,
+                routeName: 'Onboarding',
+                routes: [
+                  {
+                    routeName: 'Agree'
+                  }
+                ]
               }
             ]
           }
@@ -41,11 +47,11 @@ describe('navigation middleware', () => {
         }
       })
 
-      it('should navigate to `OnboardingRequestCode`', () => {
+      it('should navigate to `RequestCode`', () => {
         callMiddleware(action)
 
         expect(navigationActions.navigate).toHaveBeenCalledWith({
-          routeName: 'OnboardingRequestCode'
+          routeName: 'RequestCode'
         })
         expect(navigationActions.navigate).toHaveBeenCalledTimes(1)
       })
@@ -65,7 +71,7 @@ describe('navigation middleware', () => {
     })
   })
 
-  describe('current route is `OnboardingRequestCode`', () => {
+  describe('current route is `/Onboarding/RequestCode`', () => {
     beforeEach(() => {
       setTopLevelNavigator({
         dispatch: jest.fn(),
@@ -74,7 +80,13 @@ describe('navigation middleware', () => {
             index: 0,
             routes: [
               {
-                routeName: 'OnboardingRequestCode'
+                index: 0,
+                routeName: 'Onboarding',
+                routes: [
+                  {
+                    routeName: 'RequestCode'
+                  }
+                ]
               }
             ]
           }
@@ -91,11 +103,11 @@ describe('navigation middleware', () => {
         }
       })
 
-      it('should navigate to `OnboardingSubmitCode`', () => {
+      it('should navigate to `SubmitCode`', () => {
         callMiddleware(action)
 
         expect(navigationActions.navigate).toHaveBeenCalledWith({
-          routeName: 'OnboardingSubmitCode'
+          routeName: 'SubmitCode'
         })
         expect(navigationActions.navigate).toHaveBeenCalledTimes(1)
       })
@@ -115,7 +127,7 @@ describe('navigation middleware', () => {
     })
   })
 
-  describe('current route is `OnboardingSubmitCode`', () => {
+  describe('current route is `/Onboarding/SubmitCode`', () => {
     beforeEach(() => {
       setTopLevelNavigator({
         dispatch: jest.fn(),
@@ -124,7 +136,13 @@ describe('navigation middleware', () => {
             index: 0,
             routes: [
               {
-                routeName: 'OnboardingSubmitCode'
+                index: 0,
+                routeName: 'Onboarding',
+                routes: [
+                  {
+                    routeName: 'SubmitCode'
+                  }
+                ]
               }
             ]
           }
@@ -140,11 +158,11 @@ describe('navigation middleware', () => {
         }
       }
 
-      it('should navigate to `OnboardingInitialize`', () => {
+      it('should navigate to `Initialize`', () => {
         callMiddleware(action)
 
         expect(navigationActions.navigate).toHaveBeenLastCalledWith({
-          routeName: 'OnboardingInitialize'
+          routeName: 'Initialize'
         })
         expect(navigationActions.navigate).toHaveBeenCalledTimes(1)
       })
@@ -164,7 +182,7 @@ describe('navigation middleware', () => {
     })
   })
 
-  describe('current route is `OnboardingInitialize`', () => {
+  describe('current route is `/Onboarding/Initialize`', () => {
     beforeEach(() => {
       setTopLevelNavigator({
         dispatch: jest.fn(),
@@ -173,7 +191,13 @@ describe('navigation middleware', () => {
             index: 0,
             routes: [
               {
-                routeName: 'OnboardingInitialize'
+                index: 0,
+                routeName: 'Onboarding',
+                routes: [
+                  {
+                    routeName: 'Initialize'
+                  }
+                ]
               }
             ]
           }
@@ -204,17 +228,17 @@ describe('navigation middleware', () => {
         }
       }
 
-      it('should navigate to `OnboardingProfileInfo` screen', () => {
+      it('should navigate to `ProfileInfo` screen', () => {
         callMiddleware(action)
 
         expect(navigationActions.navigate).toHaveBeenCalledWith({
-          routeName: 'OnboardingProfileInfo'
+          routeName: 'ProfileInfo'
         })
       })
     })
   })
 
-  describe('current route is `OnboardingProfileInfo`', () => {
+  describe('current route is `/Onboarding/ProfileInfo`', () => {
     beforeEach(() => {
       setTopLevelNavigator({
         dispatch: jest.fn(),
@@ -223,7 +247,13 @@ describe('navigation middleware', () => {
             index: 0,
             routes: [
               {
-                routeName: 'OnboardingProfileInfo'
+                index: 0,
+                routeName: 'Onboarding',
+                routes: [
+                  {
+                    routeName: 'ProfileInfo'
+                  }
+                ]
               }
             ]
           }
@@ -279,7 +309,7 @@ describe('navigation middleware', () => {
         callMiddleware = navigationMiddleware(navigationActions)(store)(next)
       })
 
-      it('should navigate to `GlobalChat` screen', () => {
+      it('should navigate to `Conversation` screen', () => {
         callMiddleware(action)
 
         expect(navigationActions.navigate).toHaveBeenCalledWith({

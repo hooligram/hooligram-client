@@ -1,3 +1,4 @@
 import Conversation from './Conversation'
+import { connect } from './presenter'
 
-export default Conversation
+export default connect(Conversation)
