@@ -3,6 +3,7 @@ import {
   VERIFICATION_SUBMIT_CODE_SUCCESS,
   VERIFICATION_REQUEST_CODE_SUCCESS
 } from '@state/actions'
+import { getFullRouteName } from '@state/middlewares/navigation/utils'
 
 let navigator
 
@@ -15,8 +16,7 @@ const middleware = navigationActions => store => next => action => {
     return next(action)
   }
 
-  const route = navigator.state.nav.routes[navigator.state.nav.index]
-  const fullRouteName = `${route.routeName}.${route.routes[route.index].routeName}`
+  const fullRouteName = getFullRouteName(navigator)
   const { getState } = store
 
   const prevState = store.getState()
@@ -24,7 +24,7 @@ const middleware = navigationActions => store => next => action => {
   const nextState = store.getState()
 
   switch (fullRouteName) {
-    case 'Onboarding.OnboardingAgree': {
+    case '.Onboarding.OnboardingAgree': {
       if (action.type === 'AGREE_AND_CONTINUE') {
         navigator.dispatch(
           navigationActions.navigate({
@@ -35,7 +35,7 @@ const middleware = navigationActions => store => next => action => {
       break
     }
 
-    case 'Onboarding.OnboardingRequestCode': {
+    case '.Onboarding.OnboardingRequestCode': {
       if (action.type === VERIFICATION_REQUEST_CODE_SUCCESS) {
         navigator.dispatch(
           navigationActions.navigate({
@@ -46,7 +46,7 @@ const middleware = navigationActions => store => next => action => {
       break
     }
 
-    case 'Onboarding.OnboardingSubmitCode': {
+    case '.Onboarding.OnboardingSubmitCode': {
       if (action.type === VERIFICATION_SUBMIT_CODE_SUCCESS) {
         navigator.dispatch(
           navigationActions.navigate({
@@ -57,7 +57,7 @@ const middleware = navigationActions => store => next => action => {
       break
     }
 
-    case 'Onboarding.OnboardingInitialize': {
+    case '.Onboarding.OnboardingInitialize': {
       if (action.type === 'ONBOARDING_INITIALIZE_SUCCESS') {
         navigator.dispatch(
           navigationActions.navigate({
@@ -68,7 +68,7 @@ const middleware = navigationActions => store => next => action => {
       break
     }
 
-    case 'Onboarding.OnboardingProfileInfo': {
+    case '.Onboarding.OnboardingProfileInfo': {
       if (action.type === PERSISTENCE_SAVE_STATE_SUCCESS) {
         const {
           profile: {
