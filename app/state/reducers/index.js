@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import app from '@state/reducers/app';
+import app from '@state/reducers/app'
 import authorization from '@state/reducers/authorization'
 import forms from './forms'
 import profile from './profile'
