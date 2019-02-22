@@ -65,7 +65,7 @@ export default class Conversation extends Component {
             <MessageWriter/>
           </View>
         </KeyboardAvoidingView>
-        <ImageBackground 
+        <ImageBackground
           source={require('@resources/images/conversation-background.jpg')}
           style={styles.background}/>
       </React.Fragment>
