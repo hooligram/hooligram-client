@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import {
-  ActivityIndicator, 
   Image,
   StyleSheet,
   Text,
   View
 } from 'react-native'
+import { ActivityIndicator } from '@hooligram/components'
 import { Colors } from '@constants'
 
 class OnboardingInitialize extends Component {
@@ -23,13 +23,11 @@ class OnboardingInitialize extends Component {
               {'Please wait a moment'}
             </Text>
           </View>
-          <Image 
+          <Image
             style={styles.backgroundImage}
             source={require('@resources/images/background.png')}
             />
-          <ActivityIndicator
-            color={Colors.boldGreen}
-            size={45}/>
+          <ActivityIndicator />
         </View>
         <View style={styles.footer}>
         </View>
@@ -56,7 +54,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flex: 1,
-  },  
+  },
   bodyTop: {},
   title: {
     fontWeight: 'bold',
