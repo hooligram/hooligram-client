@@ -1,9 +1,9 @@
-import { SAVE_USER_NAME } from '@state/actions/profile'
 import {
   PERSISTENCE_LOAD_STATE_SUCCESS,
   PERSISTENCE_SAVE_STATE_REQUEST,
   PERSISTENCE_SAVE_STATE_SUCCESS,
-  PERSISTENCE_SAVE_STATE_FAILURE
+  PERSISTENCE_SAVE_STATE_FAILURE,
+  SAVE_USER_NAME
 } from '@state/actions'
 
 const initialState = {
@@ -33,7 +33,7 @@ const info = (state = initialState, action) => {
         isSaving: true
       }
     }
-    
+
     case PERSISTENCE_SAVE_STATE_SUCCESS: {
       return {
         ...state,
