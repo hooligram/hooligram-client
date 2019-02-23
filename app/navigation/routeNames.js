@@ -5,5 +5,6 @@ export default {
   ProfileInfo: 'ProfileInfo',
   RequestCode: 'RequestCode',
   SubmitCode: 'SubmitCode',
-  Conversation: 'Conversation'
+  Conversation: 'Conversation',
+  Splash: 'Splash'
 }
