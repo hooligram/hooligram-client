@@ -16,8 +16,12 @@ describe('persistence middleware', () => {
     }
     store = {
       dispatch: jest.fn(),
-      getState: jest.fn(() => stateFromStore)
+      getState: jest.fn(() => ({
+        app: {
+          isStartupDone: true
         }
+      }))
+    }
     next = jest.fn()
     callPersistenceMiddleware = persistenceMiddleware(persistenceApi)(store)(next)
   })
@@ -120,9 +124,7 @@ describe('persistence middleware', () => {
 
   describe('action is the one of the following', () => {
     [
-      'API:SOME_ACTION_SUCCESS',
-      'API:SOME_ACTION_FAILURE',
-      'SAVE_USER_NAME'
+      'API:AUTHORIZATION_SIGN_IN_SUCCESS'
     ]
     .forEach(async actionType => {
       const action = {
@@ -154,7 +156,11 @@ describe('persistence middleware', () => {
 
       it('should update storage with next state', async () => {
         const prevState = 'prevState'
-        const nextState = 'nextState'
+        const nextState = {
+          app: {
+            isStartupDone: true
+          }
+        }
         store.getState = jest
           .fn()
           .mockReturnValueOnce(() => prevState)
