@@ -301,7 +301,7 @@ describe('navigation middleware', () => {
           }
         }))
         action = {
-          type: 'PERSISTENCE:SAVE_STATE_SUCCESS',
+          type: 'SAVE_USER_NAME',
           payload: {
             username: 'someusername'
           }
