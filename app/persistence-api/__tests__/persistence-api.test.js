@@ -21,7 +21,7 @@ describe('persistence-api', () => {
 
       it('should return state from storage', async () => {
         const state = await PersistenceApi.getState()
-  
+
         expect(state).toEqual({
           mockedData: 'mockedData'
         })
@@ -44,10 +44,10 @@ describe('persistence-api', () => {
         }))
         PersistenceApi = require('@persistence-api/persistence-api').default
       })
-  
+
       it('should return `undefined`', async () => {
         const state = await PersistenceApi.getState()
-  
+
         expect(state).toEqual(undefined)
       })
     })
@@ -88,8 +88,8 @@ describe('persistence-api', () => {
     describe('state is not serializable', () => {
       let state
       beforeEach(() => {
-        state = {};
-        state.myself = state;
+        state = {}
+        state.myself = state
       })
 
       it('should throw error', async done => {
@@ -106,8 +106,8 @@ describe('persistence-api', () => {
     describe('Storage fails to save', () => {
       let state
       beforeEach(() => {
-        AsyncStorage.setItem = jest.fn(() => 
-          new Promise((_, reject) => 
+        AsyncStorage.setItem = jest.fn(() =>
+          new Promise((_, reject) =>
             reject()
           )
         )
