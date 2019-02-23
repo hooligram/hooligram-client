@@ -1,7 +1,8 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
-import OnboardingStackNavigation from '@navigation/onboarding-stack'
 import ConversationStackNavigation from '@navigation/conversation-stack'
+import OnboardingStackNavigation from '@navigation/onboarding-stack'
 import routeNames from '@navigation/routeNames'
+import { Splash } from '@screens'
 
 export default createAppContainer(
   createSwitchNavigator(
@@ -11,10 +12,13 @@ export default createAppContainer(
       },
       [routeNames.Onboarding]: {
         screen: OnboardingStackNavigation
+      },
+      [routeNames.Splash]: {
+        screen: Splash
       }
     },
     {
-      initialRouteName: routeNames.Onboarding
+      initialRouteName: routeNames.Splash
     }
   )
 )

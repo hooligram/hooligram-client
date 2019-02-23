@@ -5,6 +5,7 @@ import {
   VERIFICATION_REQUEST_CODE_SUCCESS,
   WEBSOCKET_INIT_SUCCESS
 } from '@state/actions'
+import routeNames from '@navigation/routeNames'
 import { getFullRouteName } from '@state/middlewares/navigation/utils'
 
 let navigator
@@ -31,30 +32,6 @@ const middleware = navigationActions => store => next => action => {
         navigator.dispatch(
           navigationActions.navigate({
             routeName: 'RequestCode'
-          })
-        )
-      }
-
-      if ([PERSISTENCE_LOAD_STATE_SUCCESS, WEBSOCKET_INIT_SUCCESS].includes(action.type)) {
-        const {
-          app: {
-            websocketOnline
-          },
-          authorization: {
-            country_code,
-            phone_number,
-            token
-          }
-        } = nextState
-
-        if (!websocketOnline) return
-        if (!country_code) return
-        if (!phone_number) return
-        if (!token) return
-
-        navigator.dispatch(
-          navigationActions.navigate({
-            routeName: 'Conversation'
           })
         )
       }
@@ -112,6 +89,36 @@ const middleware = navigationActions => store => next => action => {
             })
           )
         }
+      }
+      break
+    }
+
+    case `/${routeNames.Splash}`: {
+      if ([PERSISTENCE_LOAD_STATE_SUCCESS, WEBSOCKET_INIT_SUCCESS].includes(action.type)) {
+        const {
+          app: {
+            websocketOnline
+          },
+          authorization: {
+            country_code,
+            phone_number,
+            token
+          }
+        } = nextState
+
+        if (!websocketOnline) return
+
+        let routeName = routeNames.Conversation
+
+        if (!country_code || !phone_number || !token) {
+          routeName = routeNames.Agree
+        }
+
+        navigator.dispatch(
+          navigationActions.navigate({
+            routeName
+          })
+        )
       }
       break
     }
