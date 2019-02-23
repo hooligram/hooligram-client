@@ -1,10 +1,11 @@
 import {
   PERSISTENCE_LOAD_STATE_SUCCESS,
-  PERSISTENCE_SAVE_STATE_SUCCESS,
+  SAVE_USER_NAME,
   VERIFICATION_SUBMIT_CODE_SUCCESS,
   VERIFICATION_REQUEST_CODE_SUCCESS,
   WEBSOCKET_INIT_SUCCESS
 } from '@state/actions'
+import { appStartupSuccess } from '@state/actions/app'
 import routeNames from '@navigation/routeNames'
 import { getFullRouteName } from '@state/middlewares/navigation/utils'
 
@@ -71,8 +72,8 @@ const middleware = navigationActions => store => next => action => {
       break
     }
 
-    case '/Onboarding/ProfileInfo': {
-      if (action.type === PERSISTENCE_SAVE_STATE_SUCCESS) {
+    case `/${routeNames.Onboarding}/${routeNames.ProfileInfo}`: {
+      if (action.type === SAVE_USER_NAME) {
         const {
           profile: {
             info: {
@@ -114,6 +115,7 @@ const middleware = navigationActions => store => next => action => {
           routeName = routeNames.Agree
         }
 
+        store.dispatch(appStartupSuccess())
         navigator.dispatch(
           navigationActions.navigate({
             routeName

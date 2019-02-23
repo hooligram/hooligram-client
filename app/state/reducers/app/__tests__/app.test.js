@@ -11,6 +11,7 @@ describe('app reducer', () => {
     it('should return correct initial state', () => {
       expect(state).toEqual(
         {
+          isStartupDone: false,
           websocketOnline: false
         }
       )
@@ -23,6 +24,7 @@ describe('app reducer', () => {
 
       expect(nextState).toEqual(
         {
+          isStartupDone: false,
           websocketOnline: true
         }
       )

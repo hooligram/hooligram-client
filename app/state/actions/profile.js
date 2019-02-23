@@ -1,9 +1,8 @@
 import {
+  SAVE_USER_NAME,
   VERIFICATION_REQUEST_CODE_REQUEST,
   VERIFICATION_SUBMIT_CODE_REQUEST
 } from '@state/actions'
-
-export const SAVE_USER_NAME = 'SAVE_USER_NAME'
 
 export const requestVerificationCode = (countryCode, phoneNumber) => {
   return {
