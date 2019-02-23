@@ -5,6 +5,7 @@ import {
   VERIFICATION_REQUEST_CODE_SUCCESS,
   WEBSOCKET_INIT_SUCCESS
 } from '@state/actions'
+import { appStartupSuccess } from '@state/actions/app'
 import routeNames from '@navigation/routeNames'
 import { getFullRouteName } from '@state/middlewares/navigation/utils'
 
@@ -114,6 +115,7 @@ const middleware = navigationActions => store => next => action => {
           routeName = routeNames.Agree
         }
 
+        store.dispatch(appStartupSuccess())
         navigator.dispatch(
           navigationActions.navigate({
             routeName
