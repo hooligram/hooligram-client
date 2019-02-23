@@ -1,4 +1,10 @@
 import {
+  API_AUTHORIZATION_SIGN_IN_SUCCESS,
+  MESSAGING_BROADCAST_SUCCESS,
+  VERIFICATION_REQUEST_CODE_SUCCESS,
+  VERIFICATION_SUBMIT_CODE_SUCCESS
+} from '@state/actions'
+import {
   loadStateRequest,
   loadStateSuccess,
   loadStateFailure,
@@ -18,7 +24,7 @@ const persistence = persistenceApi => store => next => async action => {
     try {
       dispatch(loadStateRequest())
       nextState = await persistenceApi.getState()
-      
+
       if (nextState !== undefined && nextState !== null) {
         dispatch(loadStateSuccess(nextState))
       }
@@ -35,21 +41,22 @@ const persistence = persistenceApi => store => next => async action => {
     return returnedAction
   }
 
-  if (action.type.startsWith('PERSISTENCE:')) {
-    return next(action)
-  }
-
-  if (
-    !action.type.match(/API:.*_SUCCESS/) &&
-    !action.type.match(/API:.*_FAILURE/) &&
-    !action.type.match(/SAVE_USER_NAME/)
-  ) {
+  if (![
+    API_AUTHORIZATION_SIGN_IN_SUCCESS,
+    MESSAGING_BROADCAST_SUCCESS,
+    VERIFICATION_REQUEST_CODE_SUCCESS,
+    VERIFICATION_SUBMIT_CODE_SUCCESS
+  ].includes(action.type)) {
     return next(action)
   }
 
   const prevState = getState()
   const returnedAction = next(action)
   const nextState = getState()
+
+  if (!nextState.app.isStartupDone) {
+    return returnedAction
+  }
 
   try {
     dispatch(saveStateRequest(nextState))

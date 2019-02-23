@@ -1,14 +1,31 @@
 import {
+  APP_STARTUP,
+  APP_STARTUP_SUCCESS,
   WEBSOCKET_CLOSE,
   WEBSOCKET_INIT_SUCCESS
 } from '@state/actions'
 
 export const initialState = {
-  websocketOnline: false,
+  isStartupDone: false,
+  websocketOnline: false
 }
 
 const app = (state = initialState, action) => {
   switch (action.type) {
+    case APP_STARTUP: {
+      return {
+        ...state,
+        isStartupDone: false
+      }
+    }
+
+    case APP_STARTUP_SUCCESS: {
+      return {
+        ...state,
+        isStartupDone: true
+      }
+    }
+
     case WEBSOCKET_CLOSE: {
       return {
         ...state,
