@@ -1,4 +1,7 @@
-import { MESSAGING_BROADCAST_SUCCESS } from '@state/actions'
+import {
+  MESSAGING_BROADCAST_SUCCESS,
+  PERSISTENCE_LOAD_STATE_SUCCESS
+} from '@state/actions'
 
 const initialState = {
   byId: {},
@@ -34,6 +37,28 @@ const messages = (state = initialState, action) => {
         allIds: [ ...state.allIds ].concat(id)
       }
     }
+
+    case PERSISTENCE_LOAD_STATE_SUCCESS: {
+      const {
+        payload: {
+          state: {
+            messages: {
+              byId,
+              allIds
+            }
+          }
+        }
+      } = action
+
+      return {
+        ...state,
+        byId: {
+          ...byId
+        },
+        allIds: [ ...allIds ]
+      }
+    }
+
     default:
       return state
   }
