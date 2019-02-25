@@ -1,4 +1,4 @@
-import { mapStateToProps } from '@screens/OnboardingRequestCode/presenter'
+import { mapStateToProps } from '@hooligram/screens/OnboardingRequestCode/presenter'
 
 describe('OnboardingRequestCode.mapStateToProps', () => {
   let state
@@ -32,7 +32,7 @@ describe('OnboardingRequestCode.mapStateToProps', () => {
     it('should return true when code request is successful', () => {
       state.profile.codeRequest.isSuccess = true
       const props = mapStateToProps(state)
-  
+
       expect(props.isSuccess).toEqual(true)
     })
 

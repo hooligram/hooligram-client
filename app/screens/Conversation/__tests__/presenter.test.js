@@ -1,4 +1,4 @@
-import { mapStateToProps } from '@screens/Conversation/presenter'
+import { mapStateToProps } from '@hooligram/screens/Conversation/presenter'
 
 describe('Conversation screen presenter', () => {
   describe('mapStateToProps', () => {

@@ -1,7 +1,7 @@
-import { 
+import {
   mapStateToProps,
   mapDispatchToProps
-} from '@screens/OnboardingSubmitCode/presenter'
+} from '@hooligram/screens/OnboardingSubmitCode/presenter'
 
 describe('OnboardingSubmitCode.mapStateToProps', () => {
   let state
@@ -108,7 +108,7 @@ describe('OnboardingSubmitCode.mapDispatchToProps', () => {
     it('should dispatch `API:VERIFICATION_REQUEST_CODE_REQUEST with correct payload`', () => {
       const countryCode = 'some country code'
       const phoneNumber = 'some phone number'
-      
+
       props.resendSMS(countryCode, phoneNumber)()
 
       expect(dispatch).toHaveBeenCalledWith({
@@ -125,7 +125,7 @@ describe('OnboardingSubmitCode.mapDispatchToProps', () => {
   describe('submitCode', () => {
     it('should dispatch `API:VERIFICATION_SUBMIT_CODE_REQUEST` with correct payload', () => {
       const code = '123456'
-      
+
       props.submitCode(code)()
 
       expect(dispatch).toHaveBeenCalledWith({

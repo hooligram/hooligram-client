@@ -1,11 +1,11 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 import {
-  OnboardingAgree, 
+  OnboardingAgree,
   OnboardingRequestCode,
   OnboardingInitialize,
   OnboardingSubmitCode,
   OnboardingProfileInfo
-} from '@screens'
+} from '@hooligram/screens'
 
 import routeNames from '@navigation/routeNames'
 

@@ -1,5 +1,5 @@
 import { createStackNavigator } from 'react-navigation'
-import { Conversation } from '@screens'
+import { Conversation } from '@hooligram/screens'
 import { Colors } from '@constants'
 import { StatusBar } from 'react-native'
 import routeNames from '@navigation/routeNames'
