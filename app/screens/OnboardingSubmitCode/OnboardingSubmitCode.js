@@ -9,8 +9,8 @@ class OnboardingSubmitCode extends Component {
   static propTypes = {
     countryCode: PropTypes.string.isRequired,
     phoneNumber: PropTypes.string.isRequired,
-    resendSMS: PropTypes.func.isRequired,
-    submitCode: PropTypes.func.isRequired
+    resendVerificationCode: PropTypes.func.isRequired,
+    submitVerificationCode: PropTypes.func.isRequired
   }
 
   state = {
@@ -21,8 +21,8 @@ class OnboardingSubmitCode extends Component {
     const {
       countryCode,
       phoneNumber,
-      resendSMS,
-      submitCode
+      resendVerificationCode,
+      submitVerificationCode
     } = this.props
 
     const linkedTextStyle = {
@@ -62,7 +62,7 @@ class OnboardingSubmitCode extends Component {
           <Button
             backgroundColor={Colors.lightGreen}
             buttonStyle={styles.button}
-            onPress={submitCode(this.state.verificationCode)}
+            onPress={submitVerificationCode(this.state.verificationCode)}
             title={'SUBMIT CODE'}
           />
           <Divider style={styles.divider}/>
@@ -76,7 +76,7 @@ class OnboardingSubmitCode extends Component {
               size: 15,
               type: 'material'
             }}
-            onPress={resendSMS(countryCode, phoneNumber)}
+            onPress={resendVerificationCode(countryCode, phoneNumber)}
             title={'Resend SMS'}
             titleStyle={styles.resendButtonTitle}
             type={'clear'}

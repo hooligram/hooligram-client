@@ -20,10 +20,10 @@ export const mapStateToProps = state => {
 
 export const mapDispatchToProps = (dispatch) => {
   return {
-    resendSMS: (countryCode, phoneNumber) => () => {
+    resendVerificationCode: (countryCode, phoneNumber) => () => {
       dispatch(requestVerificationCode(countryCode, phoneNumber))
     },
-    submitCode: (verificationCode) => () => {
+    submitVerificationCode: (verificationCode) => () => {
       dispatch(submitVerificationCode(verificationCode))
     }
   }
