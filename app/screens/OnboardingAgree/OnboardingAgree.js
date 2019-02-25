@@ -49,46 +49,44 @@ export default class OnboardingAgree extends Component {
 
 const styles = StyleSheet.create({
   backgroundImage: {
-    width: 250,
-    height: 250
+    height: 250,
+    width: 250
   },
   body: {
-    flexGrow: 1,
     alignItems: 'center',
+    flexGrow: 1,
     justifyContent: 'center'
   },
   button: {
-    width: 300,
-    backgroundColor: Colors.lightGreen
+    backgroundColor: Colors.lightGreen,
+    width: 300
   },
   container: {
-    height: '100%',
-    justifyContent: 'space-between',
-    backgroundColor: Colors.white
+    flex: 1
   },
   footer: {
-    minHeight: 80,
-    justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 15,
+    justifyContent: 'center',
+    minHeight: 80,
+    paddingBottom: 15
   },
   header: {
-    minHeight: 50,
-    maxHeight: 100,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    maxHeight: 100,
+    minHeight: 50
   },
   link: {
     color: Colors.textLink
   },
   text: {
-    textAlign: 'center',
     marginVertical: 15,
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
+    textAlign: 'center'
   },
   title: {
-    fontSize: 20,
     color: Colors.boldGreen,
+    fontSize: 20,
     fontWeight: 'bold'
   }
 })
