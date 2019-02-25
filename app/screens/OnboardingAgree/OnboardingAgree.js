@@ -23,9 +23,9 @@ export default class OnboardingAgree extends Component {
         </View>
         <View style={styles.body}>
           <Image
-            style={styles.backgroundImage}
             source={require('@resources/images/background.png')}
-            />
+            style={styles.backgroundImage}
+          />
         </View>
         <View style={styles.footer}>
           <Text style={styles.text}>
@@ -35,11 +35,12 @@ export default class OnboardingAgree extends Component {
             <Text style={linkedTextStyles}>{' Terms of Service'}</Text>
           </Text>
           <Button
-            loading={false}
-            buttonStyle={styles.button}
             backgroundColor={styles.button.backgroundColor}
+            buttonStyle={styles.button}
+            loading={false}
+            onPress={agreeAndContinue}
             title={'AGREE AND CONTINUE'}
-            onPress={agreeAndContinue}/>
+          />
         </View>
       </View>
     )
@@ -47,21 +48,23 @@ export default class OnboardingAgree extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    height: '100%',
-    justifyContent: 'space-between',
-    backgroundColor: Colors.white
-  },
-  header: {
-    minHeight: 50,
-    maxHeight: 100,
-    alignItems: 'center',
-    justifyContent: 'center'
+  backgroundImage: {
+    width: 250,
+    height: 250
   },
   body: {
     flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  button: {
+    width: 300,
+    backgroundColor: Colors.lightGreen
+  },
+  container: {
+    height: '100%',
+    justifyContent: 'space-between',
+    backgroundColor: Colors.white
   },
   footer: {
     minHeight: 80,
@@ -69,25 +72,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 15,
   },
-  title: {
-    fontSize: 20,
-    color: Colors.boldGreen,
-    fontWeight: 'bold'
+  header: {
+    minHeight: 50,
+    maxHeight: 100,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  link: {
+    color: Colors.textLink
   },
   text: {
     textAlign: 'center',
     marginVertical: 15,
     paddingHorizontal: 15
   },
-  backgroundImage: {
-    width: 250,
-    height: 250
-  },
-  link: {
-    color: Colors.textLink
-  },
-  button: {
-    width: 300,
-    backgroundColor: Colors.lightGreen
+  title: {
+    fontSize: 20,
+    color: Colors.boldGreen,
+    fontWeight: 'bold'
   }
 })
