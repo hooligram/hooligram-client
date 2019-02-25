@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { Button, Divider } from 'react-native-elements'
-import { Colors } from '@constants'
+import { Colors } from '@hooligram/constants'
 
 class OnboardingSubmitCode extends Component {
   static propTypes = {
@@ -57,7 +57,7 @@ class OnboardingSubmitCode extends Component {
           <Text style={styles.textInputHelper}>
             {'Enter 6-digit code'}
           </Text>
-          <Button 
+          <Button
             backgroundColor={Colors.lightGreen}
             buttonStyle={styles.button}
             disabled={isSubmitDisabled}

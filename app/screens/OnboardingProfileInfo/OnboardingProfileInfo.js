@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { Button } from 'react-native-elements'
-import { Colors } from '@constants'
+import { Colors } from '@hooligram/constants'
 
 class OnboardingProfileInfo extends Component {
   static propTypes = {

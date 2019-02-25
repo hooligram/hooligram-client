@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, StyleSheet, Picker, TextInput, Keyboard } from 'react-native'
 import { Button } from 'react-native-elements'
-import { Colors } from '@constants'
+import { Colors } from '@hooligram/constants'
 
 class OnboardingRequestCode extends Component {
   static propTypes = {
@@ -42,7 +42,7 @@ class OnboardingRequestCode extends Component {
         </View>
         <View style={styles.body}>
           <Text style={styles.description}>{
-            'Hooligram will send an SMS message to verify your phone number. ' + 
+            'Hooligram will send an SMS message to verify your phone number. ' +
             'Enter your country code and phone number:'
           }</Text>
           <View style={styles.form}>
@@ -77,7 +77,7 @@ class OnboardingRequestCode extends Component {
           </View>
         </View>
         <View style={styles.footer}>
-          <Button 
+          <Button
             backgroundColor={styles.button.backgroundColor}
             buttonStyle={styles.button}
             fontSize={14}

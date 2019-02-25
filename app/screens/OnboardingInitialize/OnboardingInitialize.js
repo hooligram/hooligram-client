@@ -6,7 +6,7 @@ import {
   View
 } from 'react-native'
 import { ActivityIndicator } from '@hooligram/components'
-import { Colors } from '@constants'
+import { Colors } from '@hooligram/constants'
 
 class OnboardingInitialize extends Component {
   render() {

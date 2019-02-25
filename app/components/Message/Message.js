@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, View, Text } from 'react-native'
-import { Colors } from '@constants'
+import { Colors } from '@hooligram/constants'
 
 class Message extends Component {
   static propTypes = {
@@ -16,7 +16,7 @@ class Message extends Component {
       message,
       right
     } = this.props
-    
+
     const containerStyle = {
       ...styles.container,
       alignSelf: right ? 'flex-end' : 'flex-start',
