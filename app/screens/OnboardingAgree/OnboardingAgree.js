@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import { StyleSheet, View, Text, Image } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Colors } from '@constants'
@@ -11,7 +11,7 @@ export default class OnboardingAgree extends Component {
 
   render() {
     const { agreeAndContinue } = this.props
-    const linkedTextStyles = { 
+    const linkedTextStyles = {
       ...styles.text,
       ...styles.link
     }
@@ -22,7 +22,7 @@ export default class OnboardingAgree extends Component {
           <Text style={styles.title}>{'Welcome To Hooligram'}</Text>
         </View>
         <View style={styles.body}>
-          <Image 
+          <Image
             style={styles.backgroundImage}
             source={require('@resources/images/background.png')}
             />
@@ -34,7 +34,7 @@ export default class OnboardingAgree extends Component {
             <Text style={styles.text}>{'. Tap "Agree and continue" to accept the'}</Text>
             <Text style={linkedTextStyles}>{' Terms of Service'}</Text>
           </Text>
-          <Button 
+          <Button
             loading={false}
             buttonStyle={styles.button}
             backgroundColor={styles.button.backgroundColor}
