@@ -6,18 +6,16 @@ import { Colors } from '@hooligram/constants'
 
 class OnboardingProfileInfo extends Component {
   static propTypes = {
-    isSavingUserName: PropTypes.bool.isRequired,
-    saveUserName: PropTypes.func.isRequired,
-    setUserNameInput: PropTypes.func.isRequired,
-    userNameInput: PropTypes.string.isRequired
+    saveUserName: PropTypes.func.isRequired
+  }
+
+  state = {
+    userName: ''
   }
 
   render() {
     const {
-      isSavingUserName,
-      saveUserName,
-      setUserNameInput,
-      userNameInput
+      saveUserName
     } = this.props
 
     return (
@@ -33,16 +31,17 @@ class OnboardingProfileInfo extends Component {
           </Text>
           <TextInput
             autoFocus={true}
-            onChangeText={setUserNameInput}
+            onChangeText={(text) => {
+              this.setState({ userName: text })
+            }}
             style={styles.textInputUserName}
             underlineColorAndroid={Colors.boldGreen}
-            value={userNameInput}/>
+            value={this.state.userName}/>
         </View>
         <Button
           buttonStyle={styles.button}
           backgroundColor={Colors.lightGreen}
-          loading={isSavingUserName}
-          onPress={saveUserName(userNameInput)}
+          onPress={saveUserName(this.state.userName)}
           title={'I\'m ready!'}/>
       </View>
     )
