@@ -3,28 +3,26 @@ import PropTypes from 'prop-types'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { Button, Divider } from 'react-native-elements'
 import { Colors } from '@hooligram/constants'
+import { formatPhoneNumber } from '@hooligram/utils'
 
 class OnboardingSubmitCode extends Component {
   static propTypes = {
-    isResendLoading: PropTypes.bool.isRequired,
-    isSubmitDisabled: PropTypes.bool.isRequired,
-    isSubmitLoading: PropTypes.bool.isRequired,
-    isVerified: PropTypes.bool.isRequired,
-    onChangeCode: PropTypes.func.isRequired,
+    countryCode: PropTypes.string.isRequired,
     phoneNumber: PropTypes.string.isRequired,
-    verificationCode: PropTypes.string.isRequired
+    resendSMS: PropTypes.func.isRequired,
+    submitCode: PropTypes.func.isRequired
+  }
+
+  state = {
+    verificationCode: ''
   }
 
   render() {
     const {
-      isResendLoading,
-      isSubmitDisabled,
-      isSubmitLoading,
-      onChangeCode,
+      countryCode,
       phoneNumber,
       resendSMS,
-      submitCode,
-      verificationCode
+      submitCode
     } = this.props
 
     const linkedTextStyle = {
@@ -32,37 +30,39 @@ class OnboardingSubmitCode extends Component {
       ...styles.link
     }
 
+    const formattedPhoneNumber = formatPhoneNumber(countryCode, phoneNumber);
+
     return (
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>{
-            `Verify ${phoneNumber}`
+            `Verify ${formattedPhoneNumber}`
           }</Text>
         </View>
         <View style={styles.body}>
           <Text style={styles.text}>
-            {`We have sent an SMS with a code to ${phoneNumber}.`}
+            {`We have sent an SMS with a code to ${formattedPhoneNumber}.`}
             <Text style={linkedTextStyle}>{
               ' Wrong number?'
             }</Text>
           </Text>
           <TextInput
             keyboardType={'numeric'}
-            onChangeText={onChangeCode}
-            placeholder={'- - - - - -'}
+            onChangeText={(text) => {
+              this.setState({ verificationCode: text })
+            }}
+            placeholder={'- - - -'}
             style={styles.textInputVerificationCode}
             underlineColorAndroid={Colors.boldGreen}
-            value={verificationCode}
+            value={this.state.verificationCode}
           />
           <Text style={styles.textInputHelper}>
-            {'Enter 6-digit code'}
+            {'Enter 4-digit code'}
           </Text>
           <Button
             backgroundColor={Colors.lightGreen}
             buttonStyle={styles.button}
-            disabled={isSubmitDisabled}
-            loading={isSubmitLoading}
-            onPress={submitCode(verificationCode)}
+            onPress={submitCode(this.state.verificationCode)}
             title={'SUBMIT CODE'}
           />
           <Divider style={styles.divider}/>
@@ -72,12 +72,11 @@ class OnboardingSubmitCode extends Component {
             color={Colors.grey}
             icon={{
               color: Colors.grey,
-              name: isResendLoading ? '' : 'textsms',
+              name: 'textsms',
               size: 15,
               type: 'material'
             }}
-            loading={isResendLoading}
-            onPress={resendSMS}
+            onPress={resendSMS(countryCode, phoneNumber)}
             title={'Resend SMS'}
             titleStyle={styles.resendButtonTitle}
             type={'clear'}
