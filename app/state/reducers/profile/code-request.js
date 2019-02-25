@@ -1,4 +1,4 @@
-import { 
+import {
   PERSISTENCE_LOAD_STATE_SUCCESS,
   VERIFICATION_REQUEST_CODE_REQUEST,
   VERIFICATION_REQUEST_CODE_SUCCESS,
@@ -17,22 +17,6 @@ const initialState = {
 
 const codeRequest = (state = initialState, action) => {
   switch (action.type) {
-    case VERIFICATION_REQUEST_CODE_REQUEST: {
-      const {
-        payload: {
-          country_code,
-          phone_number
-        }
-      } = action
-
-      return {
-        ...state,
-        country_code,
-        phone_number,
-        isLoading: true
-      }
-    }
-
     case VERIFICATION_REQUEST_CODE_SUCCESS: {
       return {
         ...state,

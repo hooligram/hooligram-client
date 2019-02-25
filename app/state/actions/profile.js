@@ -4,16 +4,6 @@ import {
   VERIFICATION_SUBMIT_CODE_REQUEST
 } from '@state/actions'
 
-export const requestVerificationCode = (countryCode, phoneNumber) => {
-  return {
-    type: VERIFICATION_REQUEST_CODE_REQUEST,
-    payload: {
-      country_code: countryCode,
-      phone_number: phoneNumber
-    }
-  }
-}
-
 export const submitVerificationCode = (code) => {
   return {
     type: VERIFICATION_SUBMIT_CODE_REQUEST,

@@ -1,6 +1,7 @@
 import {
   PERSISTENCE_LOAD_STATE_SUCCESS,
-  API_AUTHORIZATION_SIGN_IN_SUCCESS
+  API_AUTHORIZATION_SIGN_IN_SUCCESS,
+  VERIFICATION_REQUEST_CODE_REQUEST
 } from '@state/actions'
 
 export const initialState = {
@@ -38,6 +39,21 @@ const authorization = (state = initialState, action) => {
 
       return {
         ...authorization
+      }
+    }
+
+    case VERIFICATION_REQUEST_CODE_REQUEST: {
+      const {
+        payload: {
+          country_code,
+          phone_number
+        }
+      } = action
+
+      return {
+        ...authorization,
+        country_code,
+        phone_number
       }
     }
 
