@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, TextInput, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { Colors } from '@constants'
+import { Colors } from '@hooligram/constants'
 
 class MessageWriter extends Component {
   static propTypes = {

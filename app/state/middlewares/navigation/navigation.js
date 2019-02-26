@@ -76,14 +76,11 @@ const middleware = navigationActions => store => next => action => {
       if (action.type === SAVE_USER_NAME) {
         const {
           profile: {
-            info: {
-              isSaved: isUserNameSaved,
-              isSaving: isSavingUserName
-            }
+            userName,
           }
         } = nextState
 
-        if (!isSavingUserName && isUserNameSaved) {
+        if (userName) {
           navigator.dispatch(
             navigationActions.navigate({
               routeName: 'Conversation'

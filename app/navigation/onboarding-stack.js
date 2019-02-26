@@ -1,6 +1,6 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 import {
-  OnboardingAgree, 
+  OnboardingAgree,
   OnboardingRequestCode,
   OnboardingInitialize,
   OnboardingSubmitCode,

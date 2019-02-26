@@ -1,38 +1,22 @@
-import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import { View, Text, StyleSheet, Picker, TextInput, Keyboard } from 'react-native'
 import { Button } from 'react-native-elements'
-import { Colors } from '@constants'
+import { Colors, countryCodes } from '@hooligram/constants'
 
 class OnboardingRequestCode extends Component {
   static propTypes = {
-    countryCodes: PropTypes.arrayOf(PropTypes.shape(
-      {
-        code: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired
-      }
-    )).isRequired,
-    isLoading: PropTypes.bool.isRequired,
-    isSuccess: PropTypes.bool.isRequired,
-    selectedCountryCode: PropTypes.string.isRequired,
-    selectedCountryName: PropTypes.string.isRequired,
-    onPressNext: PropTypes.func.isRequired,
-    onSelectCountryCode: PropTypes.func.isRequired,
-    onChangeCountryCode: PropTypes.func.isRequired,
-    phoneNumber: PropTypes.string.isRequired,
+    onPressNext: PropTypes.func.isRequired
+  }
+
+  state = {
+    phoneNumber: '',
+    selection: 0
   }
 
   render() {
     const {
-      countryCodes,
-      isLoading,
-      onChangePhoneNumber,
-      onChangeCountryCode,
-      onPressNext,
-      onSelectCountryCode,
-      selectedCountryCode,
-      selectedCountryName,
-      phoneNumber
+      onPressNext
     } = this.props
 
     return (
@@ -42,47 +26,53 @@ class OnboardingRequestCode extends Component {
         </View>
         <View style={styles.body}>
           <Text style={styles.description}>{
-            'Hooligram will send an SMS message to verify your phone number. ' + 
+            'Hooligram will send an SMS message to verify your phone number. ' +
             'Enter your country code and phone number:'
           }</Text>
           <View style={styles.form}>
             <Picker
-              onValueChange={onSelectCountryCode(countryCodes)}
-              selectedValue={selectedCountryName}
+              onValueChange={(_, index) => {
+                this.setState({ selection: index });
+              }}
+              selectedValue={this.state.selection}
               style={styles.pickerCountryCode}>
               {countryCodes.map(({ name }, key) => (
                 <Picker.Item
                   label={name}
-                  key={`${key}:${name}`}
-                  value={name}
+                  key={key}
+                  value={key}
                 />
               ))}
             </Picker>
             <TextInput
               editable={false}
               keyboardType={'numeric'}
-              onChangeText={onChangeCountryCode}
               style={styles.textInputCountryCode}
               underlineColorAndroid={Colors.boldGreen}
-              value={`+${selectedCountryCode}`}
+              value={`+${countryCodes[this.state.selection].code}`}
             />
             <TextInput
               autoFocus={true}
               keyboardType={'numeric'}
-              onChangeText={onChangePhoneNumber}
+              onChangeText={(text) => {
+                this.setState({ phoneNumber: text })
+              }}
               style={styles.textInputPhoneNumber}
               underlineColorAndroid={Colors.boldGreen}
-              value={phoneNumber}
+              value={this.state.phoneNumber}
             />
           </View>
         </View>
         <View style={styles.footer}>
-          <Button 
+          <Button
             backgroundColor={styles.button.backgroundColor}
             buttonStyle={styles.button}
             fontSize={14}
-            loading={isLoading}
-            onPress={onPressNext(selectedCountryCode, phoneNumber, Keyboard)}
+            onPress={onPressNext(
+              countryCodes[this.state.selection].code,
+              this.state.phoneNumber,
+              Keyboard
+            )}
             raised
             title={'REQUEST CODE'}/>
         </View>

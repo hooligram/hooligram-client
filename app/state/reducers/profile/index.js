@@ -1,10 +1,25 @@
-import { combineReducers } from 'redux'
-import verification from './verification'
-import codeRequest from './code-request'
-import info from './info'
+import { SAVE_USER_NAME } from '@state/actions'
 
-export default combineReducers({
-  verification,
-  codeRequest,
-  info
-})
+const initialState = {
+  userName: ''
+}
+
+export default (state = initialState, action) => {
+  switch (action.type) {
+    case SAVE_USER_NAME: {
+      const {
+        payload: {
+          userName
+        }
+      } = action
+      return {
+        ...state,
+        userName
+      }
+    }
+
+    default: {
+      return state
+    }
+  }
+}

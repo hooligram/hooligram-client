@@ -35,16 +35,12 @@ describe('Conversation screen presenter', () => {
           allIds: ['id1', 'id2', 'id3']
         },
         profile: {
-          codeRequest: {
-            country_code: '1',
-            phone_number: '123456789'
-          },
-          info: {}
+          userName: '',
         },
         authorization: {
           token: '',
-          country_code: '',
-          phone_number: ''
+          country_code: '1',
+          phone_number: '123456789'
         }
       }
     })

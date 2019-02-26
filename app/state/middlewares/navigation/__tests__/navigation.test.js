@@ -294,16 +294,13 @@ describe('navigation middleware', () => {
       beforeEach(() => {
         store.getState = jest.fn(() => ({
           profile: {
-            info: {
-              isSaving: false,
-              isSaved: true
-            }
+            userName: 'Nobita'
           }
         }))
         action = {
           type: 'SAVE_USER_NAME',
           payload: {
-            username: 'someusername'
+            userName: 'someusername'
           }
         }
         callMiddleware = navigationMiddleware(navigationActions)(store)(next)

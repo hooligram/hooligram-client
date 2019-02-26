@@ -5,9 +5,7 @@ import selectors from '@state/selectors'
 export const mapStateToProps = state => {
   const {
     profile: {
-      info: {
-        userName
-      }
+      userName
     }
   } = state
 
@@ -28,9 +26,9 @@ export const mapStateToProps = state => {
           sender != undefined
           && sender.country_code === country_code
           && sender.phone_number === phone_number
-        ) 
-        ? true 
-        : false    
+        )
+        ? true
+        : false
       )
     }))
 

@@ -16,6 +16,12 @@
 5. `yarn` or `npm install`
 6. `yarn android` or `npm run android`
 
+### Remote debugging on a real device
+
+1. `adb reverse tcp:8081 tcp:8081`
+2. Open [React Native Debugger](https://github.com/jhen0409/react-native-debugger)
+3. _**Shake**_ the device & select _Debug JS Remotely_
+
 ## Connecting to local hooligram-server
 
 For debugging end-to-end, sometimes it's good to connect to a local a hooligram-server.

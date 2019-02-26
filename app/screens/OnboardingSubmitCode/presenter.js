@@ -1,66 +1,30 @@
 import { connect as _connect } from 'react-redux'
-import { setVerificationCode } from '@state/actions/forms'
-import { 
+import {
   requestVerificationCode,
   submitVerificationCode
-} from '@state/actions/profile'
+} from '@state/actions/authorization'
 
 export const mapStateToProps = state => {
   const {
-    profile: {
-      codeRequest: {
-        isLoading: isResendLoading
-      },
-      verification: {
-        isLoading: isSubmitLoading,
-        isVerified
-      }
-    },
-    forms: {
-      verification: {
-        phoneNumber,
-        countryCodes: {
-          selected: {
-            code: countryCode
-          }
-        },
-        code: verificationCode
-      }
+    authorization: {
+      country_code,
+      phone_number
     }
   } = state
 
-  const areaCode = phoneNumber.slice(0, 3)
-  const phonePartOne = phoneNumber.slice(3, 6)
-  const phonePartTwo = phoneNumber.slice(6, 10)
-  const formattedPhoneNumber = `+${countryCode}`
-    .concat(` (${areaCode})`)
-    .concat(` ${phonePartOne}-${phonePartTwo}`)
-  
-  const isSubmitDisabled = verificationCode.length < 4
-
   return {
-    isResendLoading,
-    isSubmitDisabled,
-    isSubmitLoading,
-    isVerified,
-    phoneNumber: formattedPhoneNumber,
-    verificationCode
+    countryCode: country_code,
+    phoneNumber: phone_number
   }
 }
 
 export const mapDispatchToProps = (dispatch) => {
   return {
-    onChangeCode: (code) => {
-      if (code.length > 6) {
-        return
-      }
-      dispatch(setVerificationCode(code))
-    },
-    resendSMS: (countryCode, phoneNumber) => () => {
+    resendVerificationCode: (countryCode, phoneNumber) => () => {
       dispatch(requestVerificationCode(countryCode, phoneNumber))
     },
-    submitCode: (code) => () => {
-      dispatch(submitVerificationCode(code))
+    submitVerificationCode: (verificationCode) => () => {
+      dispatch(submitVerificationCode(verificationCode))
     }
   }
 }

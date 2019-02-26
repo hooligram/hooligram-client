@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import { StyleSheet, View, Text, Image } from 'react-native'
 import { Button } from 'react-native-elements'
-import { Colors } from '@constants'
+import { Colors } from '@hooligram/constants'
 
 export default class OnboardingAgree extends Component {
   static propTypes = {
@@ -11,7 +11,7 @@ export default class OnboardingAgree extends Component {
 
   render() {
     const { agreeAndContinue } = this.props
-    const linkedTextStyles = { 
+    const linkedTextStyles = {
       ...styles.text,
       ...styles.link
     }
@@ -22,10 +22,10 @@ export default class OnboardingAgree extends Component {
           <Text style={styles.title}>{'Welcome To Hooligram'}</Text>
         </View>
         <View style={styles.body}>
-          <Image 
-            style={styles.backgroundImage}
+          <Image
             source={require('@resources/images/background.png')}
-            />
+            style={styles.backgroundImage}
+          />
         </View>
         <View style={styles.footer}>
           <Text style={styles.text}>
@@ -34,12 +34,13 @@ export default class OnboardingAgree extends Component {
             <Text style={styles.text}>{'. Tap "Agree and continue" to accept the'}</Text>
             <Text style={linkedTextStyles}>{' Terms of Service'}</Text>
           </Text>
-          <Button 
-            loading={false}
-            buttonStyle={styles.button}
+          <Button
             backgroundColor={styles.button.backgroundColor}
+            buttonStyle={styles.button}
+            loading={false}
+            onPress={agreeAndContinue}
             title={'AGREE AND CONTINUE'}
-            onPress={agreeAndContinue}/>
+          />
         </View>
       </View>
     )
@@ -47,47 +48,45 @@ export default class OnboardingAgree extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    height: '100%',
-    justifyContent: 'space-between',
-    backgroundColor: Colors.white
-  },
-  header: {
-    minHeight: 50,
-    maxHeight: 100,
-    alignItems: 'center',
-    justifyContent: 'center'
+  backgroundImage: {
+    height: 250,
+    width: 250
   },
   body: {
-    flexGrow: 1,
     alignItems: 'center',
+    flexGrow: 1,
     justifyContent: 'center'
   },
+  button: {
+    backgroundColor: Colors.lightGreen,
+    width: 300
+  },
+  container: {
+    flex: 1
+  },
   footer: {
-    minHeight: 80,
-    justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 15,
+    justifyContent: 'center',
+    minHeight: 80,
+    paddingBottom: 15
   },
-  title: {
-    fontSize: 20,
-    color: Colors.boldGreen,
-    fontWeight: 'bold'
-  },
-  text: {
-    textAlign: 'center',
-    marginVertical: 15,
-    paddingHorizontal: 15
-  },
-  backgroundImage: {
-    width: 250,
-    height: 250
+  header: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    maxHeight: 100,
+    minHeight: 50
   },
   link: {
     color: Colors.textLink
   },
-  button: {
-    width: 300,
-    backgroundColor: Colors.lightGreen
+  text: {
+    marginVertical: 15,
+    paddingHorizontal: 15,
+    textAlign: 'center'
+  },
+  title: {
+    color: Colors.boldGreen,
+    fontSize: 20,
+    fontWeight: 'bold'
   }
 })
