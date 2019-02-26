@@ -5,7 +5,7 @@ import {
   OnboardingInitialize,
   OnboardingSubmitCode,
   OnboardingProfileInfo
-} from '@hooligram/screens'
+} from '@screens'
 
 import routeNames from '@navigation/routeNames'
 

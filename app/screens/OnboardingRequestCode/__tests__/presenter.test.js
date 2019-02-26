@@ -1,4 +1,4 @@
-import { mapStateToProps } from '@hooligram/screens/OnboardingRequestCode/presenter'
+import { mapStateToProps } from '@screens/OnboardingRequestCode/presenter'
 
 describe('OnboardingRequestCode.mapStateToProps', () => {
   let state

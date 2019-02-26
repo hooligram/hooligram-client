@@ -1,4 +1,4 @@
-import { mapDispatchToProps } from '@hooligram/screens/OnboardingAgree/presenter'
+import { mapDispatchToProps } from '@screens/OnboardingAgree/presenter'
 
 describe('OnboardingAgree.mapDispatchToProps', () => {
   let dispatch, props

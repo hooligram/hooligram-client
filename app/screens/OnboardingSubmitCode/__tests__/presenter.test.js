@@ -1,7 +1,7 @@
 import {
   mapStateToProps,
   mapDispatchToProps
-} from '@hooligram/screens/OnboardingSubmitCode/presenter'
+} from '@screens/OnboardingSubmitCode/presenter'
 
 describe('OnboardingSubmitCode.mapStateToProps', () => {
   let state
