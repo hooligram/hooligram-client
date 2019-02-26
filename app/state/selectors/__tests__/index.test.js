@@ -2,9 +2,6 @@ import selectors from '@state/selectors'
 import {
   initialState as authorizationInitialState
 } from '@state/reducers/authorization'
-import {
-  initialState as profileCodeRequestInitialState
-} from '@state/reducers/profile/code-request'
 
 describe('selectors', () => {
   describe('isAuthorized', () => {
@@ -38,7 +35,7 @@ describe('selectors', () => {
           token: '',
           country_code: 'some country code',
           phone_number: 'some phone number'
-        }, 
+        },
         {
           token: null,
           country_code: 'some country code',
@@ -52,92 +49,11 @@ describe('selectors', () => {
             ...authorizationState
           }
         }
-  
+
         const result = isAuthorized(state)
-  
+
         expect(result).toBe(false)
       })
-    })
-  })
-
-  describe('currentUserCountryCode', () => {
-    const { currentUserCountryCode } = selectors
-    let state
-    beforeEach(() => {
-      state = {
-        profile: {
-          codeRequest: { ...profileCodeRequestInitialState }
-        }
-      }
-    })
-
-    it('should return `undefined` when not available', () => {
-      const result = currentUserCountryCode(state)
-
-      expect(result).toEqual(undefined)
-    })
-
-    it('should select correct country_code from state', () => {
-      const expected = 'some country code'
-      state.profile.codeRequest.country_code = expected
-
-      const result = currentUserCountryCode(state)
-
-      expect(result).toEqual(expected)
-    })
-  })
-
-  describe('currentUserPhoneNumber', () => {
-    const { currentUserPhoneNumber } = selectors
-    let state
-    beforeEach(() => {
-      state = {
-        profile: {
-          codeRequest: { ...profileCodeRequestInitialState }
-        }
-      }
-    })
-
-    it('should return `undefined` when not available', () => {
-      const result = currentUserPhoneNumber(state)
-
-      expect(result).toEqual(undefined)
-    })
-
-    it('should select correct country_code from state', () => {
-      const expected = 'some phone number'
-      state.profile.codeRequest.phone_number = expected
-
-      const result = currentUserPhoneNumber(state)
-
-      expect(result).toEqual(expected)
-    })
-  })
-
-  describe('currentUserCode', () => {
-    const { currentUserCode } = selectors
-    let state
-    beforeEach(() => {
-      state = {
-        profile: {
-          codeRequest: { ...profileCodeRequestInitialState }
-        }
-      }
-    })
-
-    it('should return `undefined` when not available', () => {
-      const result = currentUserCode(state)
-
-      expect(result).toEqual(undefined)
-    })
-
-    it('should select correct `code` from state', () => {
-      const expected = 'some code'
-      state.profile.codeRequest.code = expected
-
-      const result = currentUserCode(state)
-
-      expect(result).toEqual(expected)
     })
   })
 
