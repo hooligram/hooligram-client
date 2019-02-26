@@ -5,18 +5,18 @@ export default {
     !!state.authorization.phone_number
   ),
   currentUserCountryCode: (state) => (
-    state.profile.codeRequest.country_code !== ''
-      ? state.profile.codeRequest.country_code
+    state.authorization.country_code !== ''
+      ? state.authorization.country_code
       : undefined
   ),
   currentUserPhoneNumber: (state) => (
-    state.profile.codeRequest.phone_number !== ''
-      ? state.profile.codeRequest.phone_number
+    state.authorization.phone_number !== ''
+      ? state.authorization.phone_number
       : undefined
   ),
   currentUserCode: (state) => (
-    state.profile.codeRequest.code !== ''
-      ? state.profile.codeRequest.code
+    state.authorization.token !== ''
+      ? state.authorization.token
       : undefined
   ),
   messages: (state) => (
