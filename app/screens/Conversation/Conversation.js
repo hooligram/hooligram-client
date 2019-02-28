@@ -3,12 +3,14 @@ import PropTypes from 'prop-types'
 import {
   View,
   Text,
-  StyleSheet,
+  TextInput,
   FlatList,
   ImageBackground,
   KeyboardAvoidingView
 } from 'react-native'
-import { MessageWriter, Message } from '@hooligram/components'
+import { Colors } from '@hooligram/constants'
+import { Icon } from 'react-native-elements'
+import { Dimensions } from 'react-native';
 
 export default class Conversation extends Component {
   static propTypes = {
@@ -27,6 +29,10 @@ export default class Conversation extends Component {
     )
   }
 
+  state = {
+    text: ''
+  }
+
   render() {
     const {
       isAuthorized,
@@ -42,33 +48,119 @@ export default class Conversation extends Component {
         </View>
       )
     }
+    const { height } = Dimensions.get('window')
 
     return (
-      <React.Fragment>
+      <ImageBackground
+        source={require('@resources/images/conversation-background.jpg')}
+        style={{
+          flex: 1,
+          height
+        }}
+      >
         <KeyboardAvoidingView
-          behavior={'padding'}
-          keyboardVerticalOffset={-180}
-          style={styles.container}>
-          <View style={styles.messages}>
+          style={{
+            flex: 1
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              margin: 4
+            }}
+          >
             <FlatList
               data={messages}
               keyExtractor={(_, index) => `${index}`}
-              renderItem={({ item }) => (
-                <Message
-                  message={item.message}
-                  sender={item.sender}
-                  right={item.isCurrentUser}/>
-              )}
-              style={styles.flatList}/>
+              onContentSizeChange={() => this.messages.scrollToEnd({ animated: true })}
+              onLayout={() => this.messages.scrollToEnd({ animated: true })}
+              ref={ref => this.messages = ref}
+              renderItem={({ item }) => {
+                const isMine = item.isCurrentUser
+
+                const alignment = isMine ? 'flex-end' : 'flex-start'
+                const cloudColor = isMine ? Colors.lighterGreen : Colors.white
+
+                return (
+                    <View
+                      style={{
+                        alignItems: alignment,
+                        alignSelf: alignment,
+                        backgroundColor: cloudColor,
+                        borderRadius: 5,
+                        marginHorizontal: 8,
+                        marginVertical: 2,
+                        maxWidth: '90%',
+                        padding: 4
+                      }}
+                    >
+                      {!isMine && (
+                        <Text
+                          style={{
+                            color: Colors.lightBlue,
+                            fontSize: 16,
+                          }}
+                        >
+                          {item.sender}
+                        </Text>
+                      )}
+                      <Text
+                        style={{
+                          fontSize: 16,
+                        }}
+                      >
+                        {item.message}
+                      </Text>
+                    </View>
+                )
+              }}
+            />
           </View>
-          <View style={styles.messageWriter}>
-            <MessageWriter/>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              margin: 4
+            }}
+          >
+            <View
+              style={{
+                backgroundColor: Colors.white,
+                borderRadius: 45,
+                flex: 1,
+                height: 45,
+                marginRight: 4,
+                paddingHorizontal: 8
+              }}
+            >
+              <TextInput
+                onChangeText={((text) => { this.setState({ text })})}
+                style={{
+                  fontSize: 18
+                }}
+                value={this.state.text}
+              />
+            </View>
+            <View
+              style={{
+                backgroundColor: Colors.boldGreen,
+                borderRadius: 45,
+                height: 45,
+                justifyContent: 'center',
+                width: 45
+              }}
+            >
+              <Icon
+                color={Colors.white}
+                name={'send'}
+                onPress={this._sendMessage}
+                size={25}
+                underlayColor='transparent'
+              />
+            </View>
           </View>
         </KeyboardAvoidingView>
-        <ImageBackground
-          source={require('@resources/images/conversation-background.jpg')}
-          style={styles.background}/>
-      </React.Fragment>
+      </ImageBackground>
     )
   }
 
@@ -81,31 +173,13 @@ export default class Conversation extends Component {
 
     this.props.signIn(code, country_code, phone_number)
   }
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    justifyContent: 'space-between'
-  },
-  background: {
-    top: 0,
-    zIndex: -1,
-    position: 'absolute',
-    height: '100%',
-    width: '100%'
-  },
-  messages: {
-    flexGrow: 1,
-    padding: 10
-  },
-  flatList: {
-    flexGrow: 0.9,
-  },
-  messageWriter: {
-    position: 'absolute',
-    bottom: 0,
-    minHeight: 50,
-    width: '100%'
+  _sendMessage = () => {
+    const { sendMessage } = this.props
+    const { text } = this.state
+    if (text) {
+      sendMessage(text)
+    }
+    this.setState({ text: '' })
   }
-})
+}

@@ -1,6 +1,7 @@
 import { connect as _connect } from 'react-redux'
 import { authorizationSignInRequest } from '@state/actions/authorization'
 import selectors from '@state/selectors'
+import { broadcastMessageRequest } from '@state/actions/messaging'
 
 export const mapStateToProps = state => {
   const {
@@ -44,6 +45,15 @@ export const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    sendMessage: (country_code, phone_number) => (message) => {
+      dispatch(
+        broadcastMessageRequest(
+          message,
+          country_code,
+          phone_number
+        )
+      )
+    },
     signIn: (code, country_code, phone_number) => {
       dispatch(
         authorizationSignInRequest(
@@ -56,7 +66,26 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
+const mergeProps = (stateProps, dispatchProps) => {
+  const { sendMessage } = dispatchProps
+  const {
+    message,
+    country_code,
+    phone_number
+  } = stateProps
+
+  return {
+    ...stateProps,
+    ...dispatchProps,
+    sendMessage: sendMessage(
+      country_code,
+      phone_number
+    )
+  }
+}
+
 export const connect = _connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
+  mergeProps
 )
