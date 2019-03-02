@@ -107,6 +107,7 @@ export default class Conversation extends Component {
                       )}
                       <Text
                         style={{
+                          color: Colors.black,
                           fontSize: 18,
                         }}
                       >
