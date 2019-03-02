@@ -88,7 +88,7 @@ export default class Conversation extends Component {
                         alignItems: alignment,
                         alignSelf: alignment,
                         backgroundColor: cloudColor,
-                        borderRadius: 5,
+                        borderRadius: dimensions.BORDER_RADIUS,
                         marginHorizontal: dimensions.MARGIN,
                         marginVertical: dimensions.MARGIN_XSMALL,
                         maxWidth: '90%',
@@ -129,7 +129,7 @@ export default class Conversation extends Component {
             <View
               style={{
                 backgroundColor: Colors.white,
-                borderRadius: 25,
+                borderRadius: dimensions.BUTTON_ICON_LENGTH / 2,
                 flex: 1,
                 marginRight: dimensions.MARGIN_SMALL,
                 paddingHorizontal: dimensions.PADDING
@@ -148,17 +148,17 @@ export default class Conversation extends Component {
             <View
               style={{
                 backgroundColor: Colors.boldGreen,
-                borderRadius: 25,
-                height: 50,
+                borderRadius: dimensions.BUTTON_ICON_LENGTH / 2,
+                height: dimensions.BUTTON_ICON_LENGTH,
                 justifyContent: 'center',
-                width: 50
+                width: dimensions.BUTTON_ICON_LENGTH
               }}
             >
               <Icon
                 color={Colors.white}
                 name={'send'}
                 onPress={this._sendMessage}
-                size={30}
+                size={dimensions.ICON_SIZE}
                 underlayColor='transparent'
               />
             </View>

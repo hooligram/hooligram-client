@@ -1,4 +1,10 @@
 export default {
+  BORDER_RADIUS: 8,
+
+  BUTTON_ICON_LENGTH: 48,
+
+  ICON_SIZE: 32,
+
   MARGIN_XSMALL: 2,
   MARGIN_SMALL: 4,
   MARGIN: 8,
