@@ -1,30 +1,36 @@
-import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import {
-  View,
-  Text,
-  StyleSheet,
+  Dimensions,
   FlatList,
   ImageBackground,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Text,
+  TextInput,
+  View
 } from 'react-native'
-import { MessageWriter, Message } from '@hooligram/components'
+import { Icon } from 'react-native-elements'
+import { Colors, dimensions, fontSizes } from '@hooligram/constants'
 
 export default class Conversation extends Component {
   static propTypes = {
     code: PropTypes.string,
     country_code: PropTypes.string,
-    phone_number: PropTypes.string,
     isAuthorized: PropTypes.bool.isRequired,
     messages: PropTypes.arrayOf(
       PropTypes.shape(
         {
+          isCurrentUser: PropTypes.bool,
           message: PropTypes.string.isRequired,
-          sender: PropTypes.string.isRequired,
-          isCurrentUser: PropTypes.bool
+          sender: PropTypes.string.isRequired
         }
       )
-    )
+    ),
+    phone_number: PropTypes.string
+  }
+
+  state = {
+    text: ''
   }
 
   render() {
@@ -43,32 +49,122 @@ export default class Conversation extends Component {
       )
     }
 
+    const { height } = Dimensions.get('window')
+
     return (
-      <React.Fragment>
+      <ImageBackground
+        source={require('@resources/images/conversation-background.jpg')}
+        style={{
+          flex: 1,
+          height
+        }}
+      >
         <KeyboardAvoidingView
-          behavior={'padding'}
-          keyboardVerticalOffset={-180}
-          style={styles.container}>
-          <View style={styles.messages}>
+          style={{
+            flex: 1
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              margin: dimensions.MARGIN_SMALL
+            }}
+          >
             <FlatList
               data={messages}
               keyExtractor={(_, index) => `${index}`}
-              renderItem={({ item }) => (
-                <Message
-                  message={item.message}
-                  sender={item.sender}
-                  right={item.isCurrentUser}/>
-              )}
-              style={styles.flatList}/>
+              onContentSizeChange={() => this.messages.scrollToEnd({ animated: true })}
+              onLayout={() => this.messages.scrollToEnd({ animated: true })}
+              ref={ref => this.messages = ref}
+              renderItem={({ item }) => {
+                const isMine = item.isCurrentUser
+
+                const alignment = isMine ? 'flex-end' : 'flex-start'
+                const cloudColor = isMine ? Colors.lighterGreen : Colors.white
+
+                return (
+                    <View
+                      style={{
+                        alignItems: alignment,
+                        alignSelf: alignment,
+                        backgroundColor: cloudColor,
+                        borderRadius: dimensions.BORDER_RADIUS,
+                        marginHorizontal: dimensions.MARGIN,
+                        marginVertical: dimensions.MARGIN_XSMALL,
+                        maxWidth: '90%',
+                        padding: dimensions.PADDING_SMALL
+                      }}
+                    >
+                      {!isMine && (
+                        <Text
+                          style={{
+                            color: Colors.lightBlue,
+                            fontSize: fontSizes.MEDIUM,
+                          }}
+                        >
+                          {item.sender}
+                        </Text>
+                      )}
+                      <Text
+                        style={{
+                          color: Colors.black,
+                          fontSize: fontSizes.MEDIUM,
+                        }}
+                      >
+                        {item.message}
+                      </Text>
+                    </View>
+                )
+              }}
+            />
           </View>
-          <View style={styles.messageWriter}>
-            <MessageWriter/>
+          <View
+            style={{
+              alignItems: 'flex-end',
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              margin: dimensions.MARGIN_SMALL
+            }}
+          >
+            <View
+              style={{
+                backgroundColor: Colors.white,
+                borderRadius: dimensions.BUTTON_ICON_LENGTH / 2,
+                flex: 1,
+                marginRight: dimensions.MARGIN_SMALL,
+                paddingHorizontal: dimensions.PADDING
+              }}
+            >
+              <TextInput
+                multiline={true}
+                onChangeText={((text) => { this.setState({ text })})}
+                style={{
+                  fontSize: fontSizes.MEDIUM,
+                  marginTop: -1
+                }}
+                value={this.state.text}
+              />
+            </View>
+            <View
+              style={{
+                backgroundColor: Colors.boldGreen,
+                borderRadius: dimensions.BUTTON_ICON_LENGTH / 2,
+                height: dimensions.BUTTON_ICON_LENGTH,
+                justifyContent: 'center',
+                width: dimensions.BUTTON_ICON_LENGTH
+              }}
+            >
+              <Icon
+                color={Colors.white}
+                name={'send'}
+                onPress={this._sendMessage}
+                size={dimensions.ICON_SIZE}
+                underlayColor='transparent'
+              />
+            </View>
           </View>
         </KeyboardAvoidingView>
-        <ImageBackground
-          source={require('@resources/images/conversation-background.jpg')}
-          style={styles.background}/>
-      </React.Fragment>
+      </ImageBackground>
     )
   }
 
@@ -81,31 +177,15 @@ export default class Conversation extends Component {
 
     this.props.signIn(code, country_code, phone_number)
   }
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    justifyContent: 'space-between'
-  },
-  background: {
-    top: 0,
-    zIndex: -1,
-    position: 'absolute',
-    height: '100%',
-    width: '100%'
-  },
-  messages: {
-    flexGrow: 1,
-    padding: 10
-  },
-  flatList: {
-    flexGrow: 0.9,
-  },
-  messageWriter: {
-    position: 'absolute',
-    bottom: 0,
-    minHeight: 50,
-    width: '100%'
+  _sendMessage = () => {
+    const { sendMessage } = this.props
+    const { text } = this.state
+
+    if (text) {
+      sendMessage(text)
+    }
+
+    this.setState({ text: '' })
   }
-})
+}
