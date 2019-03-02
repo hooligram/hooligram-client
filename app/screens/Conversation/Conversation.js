@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import {
-  View,
-  Text,
-  TextInput,
+  Dimensions,
   FlatList,
   ImageBackground,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Text,
+  TextInput,
+  View
 } from 'react-native'
-import { Colors } from '@hooligram/constants'
 import { Icon } from 'react-native-elements'
-import { Dimensions } from 'react-native';
+import { Colors } from '@hooligram/constants'
 
 export default class Conversation extends Component {
   static propTypes = {
