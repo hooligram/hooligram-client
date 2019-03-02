@@ -5,7 +5,7 @@ import api from '@state/middlewares/api'
 import logger from '@state/middlewares/logger'
 import navigation from '@state/middlewares/navigation'
 import persistence from '@state/middlewares/persistence'
-import getOrCreateWsClient from '@hooligram-api'
+import getOrCreateWsClient from 'hg/websocket'
 import PersistenceApi from '@persistence-api'
 
 const middlewares = [
@@ -17,4 +17,4 @@ const middlewares = [
 
 const store = createStore(reducer, applyMiddleware(...middlewares))
 
-export default store 
+export default store

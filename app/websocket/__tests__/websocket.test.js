@@ -1,11 +1,11 @@
-import hooligramApi from '../hooligramApi'
+import websocket from 'hg/websocket/websocket'
 
-describe('hooligramApi', () => {
+describe('websocket', () => {
   const config = {
     host: 'ws://somehost'
   }
   const store = { dispatch: jest.fn() }
-  const api = hooligramApi(config)(store)
+  const api = websocket(config)(store)
 
   describe('onopen', () => {
     it('should dispatch `WEBSOCKET:INIT_SUCCESS`', () => {
