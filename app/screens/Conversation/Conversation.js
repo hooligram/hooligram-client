@@ -99,7 +99,7 @@ export default class Conversation extends Component {
                         <Text
                           style={{
                             color: Colors.lightBlue,
-                            fontSize: 16,
+                            fontSize: 18,
                           }}
                         >
                           {item.sender}
@@ -107,7 +107,7 @@ export default class Conversation extends Component {
                       )}
                       <Text
                         style={{
-                          fontSize: 16,
+                          fontSize: 18,
                         }}
                       >
                         {item.message}
@@ -137,7 +137,7 @@ export default class Conversation extends Component {
               <TextInput
                 onChangeText={((text) => { this.setState({ text })})}
                 style={{
-                  fontSize: 18
+                  fontSize: 18,
                 }}
                 value={this.state.text}
               />
