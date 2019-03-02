@@ -119,6 +119,7 @@ export default class Conversation extends Component {
           </View>
           <View
             style={{
+              alignItems: 'flex-end',
               flexDirection: 'row',
               justifyContent: 'flex-end',
               margin: 4
@@ -127,14 +128,14 @@ export default class Conversation extends Component {
             <View
               style={{
                 backgroundColor: Colors.white,
-                borderRadius: 45,
+                borderRadius: 25,
                 flex: 1,
-                height: 45,
                 marginRight: 4,
                 paddingHorizontal: 8
               }}
             >
               <TextInput
+                multiline={true}
                 onChangeText={((text) => { this.setState({ text })})}
                 style={{
                   fontSize: 18,
@@ -145,17 +146,17 @@ export default class Conversation extends Component {
             <View
               style={{
                 backgroundColor: Colors.boldGreen,
-                borderRadius: 45,
-                height: 45,
+                borderRadius: 25,
+                height: 50,
                 justifyContent: 'center',
-                width: 45
+                width: 50
               }}
             >
               <Icon
                 color={Colors.white}
                 name={'send'}
                 onPress={this._sendMessage}
-                size={25}
+                size={30}
                 underlayColor='transparent'
               />
             </View>
