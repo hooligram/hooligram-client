@@ -16,17 +16,17 @@ export default class Conversation extends Component {
   static propTypes = {
     code: PropTypes.string,
     country_code: PropTypes.string,
-    phone_number: PropTypes.string,
     isAuthorized: PropTypes.bool.isRequired,
     messages: PropTypes.arrayOf(
       PropTypes.shape(
         {
+          isCurrentUser: PropTypes.bool,
           message: PropTypes.string.isRequired,
-          sender: PropTypes.string.isRequired,
-          isCurrentUser: PropTypes.bool
+          sender: PropTypes.string.isRequired
         }
       )
-    )
+    ),
+    phone_number: PropTypes.string
   }
 
   state = {
@@ -48,6 +48,7 @@ export default class Conversation extends Component {
         </View>
       )
     }
+
     const { height } = Dimensions.get('window')
 
     return (
@@ -177,9 +178,11 @@ export default class Conversation extends Component {
   _sendMessage = () => {
     const { sendMessage } = this.props
     const { text } = this.state
+
     if (text) {
       sendMessage(text)
     }
+
     this.setState({ text: '' })
   }
 }
