@@ -1,0 +1,14 @@
+{
+  "env": {
+    "react-native/react-native": true
+  },
+  "extends": "standard",
+  "parser": "babel-eslint",
+  "plugins": [
+    "react",
+    "react-native"
+  ],
+  "rules": {
+    "no-unused-vars": 0
+  }
+}
