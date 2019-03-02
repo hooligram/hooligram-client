@@ -140,7 +140,7 @@ export default class Conversation extends Component {
                 onChangeText={((text) => { this.setState({ text })})}
                 style={{
                   fontSize: fontSizes.MEDIUM,
-                  marginTop: 1
+                  marginTop: -1
                 }}
                 value={this.state.text}
               />
