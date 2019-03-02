@@ -6,7 +6,7 @@ import Navigation from '@navigation'
 import { setTopLevelNavigator } from '@state/middlewares/navigation/navigation'
 
 export default class App extends Component {
-  render() {
+  render () {
     return (
       <Provider store={store}>
         <Navigation ref={setTopLevelNavigator}/>
@@ -14,7 +14,7 @@ export default class App extends Component {
     )
   }
 
-  componentDidMount() {
+  componentDidMount () {
     store.dispatch(appStartup())
   }
 
