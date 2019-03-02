@@ -5,7 +5,9 @@
   "scripts": {
     "start": "react-native start",
     "android": "react-native run-android",
-    "test": "jest"
+    "test": "jest",
+    "fix": "./node_modules/.bin/eslint --fix *.js **/*.js",
+    "lint": "./node_modules/.bin/eslint *.js **/*.js"
   },
   "dependencies": {
     "react": "16.6.3",
