@@ -1,0 +1,8 @@
+export default {
+  MARGIN_XSMALL: 2,
+  MARGIN_SMALL: 4,
+  MARGIN: 8,
+
+  PADDING_SMALL: 4,
+  PADDING: 8
+}

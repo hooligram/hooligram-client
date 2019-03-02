@@ -10,7 +10,7 @@ import {
   View
 } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { Colors } from '@hooligram/constants'
+import { Colors, dimensions, fontSizes } from '@hooligram/constants'
 
 export default class Conversation extends Component {
   static propTypes = {
@@ -67,7 +67,7 @@ export default class Conversation extends Component {
           <View
             style={{
               flex: 1,
-              margin: 4
+              margin: dimensions.MARGIN_SMALL
             }}
           >
             <FlatList
@@ -89,17 +89,17 @@ export default class Conversation extends Component {
                         alignSelf: alignment,
                         backgroundColor: cloudColor,
                         borderRadius: 5,
-                        marginHorizontal: 8,
-                        marginVertical: 2,
+                        marginHorizontal: dimensions.MARGIN,
+                        marginVertical: dimensions.MARGIN_XSMALL,
                         maxWidth: '90%',
-                        padding: 4
+                        padding: dimensions.PADDING_SMALL
                       }}
                     >
                       {!isMine && (
                         <Text
                           style={{
                             color: Colors.lightBlue,
-                            fontSize: 18,
+                            fontSize: fontSizes.MEDIUM,
                           }}
                         >
                           {item.sender}
@@ -108,7 +108,7 @@ export default class Conversation extends Component {
                       <Text
                         style={{
                           color: Colors.black,
-                          fontSize: 18,
+                          fontSize: fontSizes.MEDIUM,
                         }}
                       >
                         {item.message}
@@ -123,7 +123,7 @@ export default class Conversation extends Component {
               alignItems: 'flex-end',
               flexDirection: 'row',
               justifyContent: 'flex-end',
-              margin: 4
+              margin: dimensions.MARGIN_SMALL
             }}
           >
             <View
@@ -131,15 +131,15 @@ export default class Conversation extends Component {
                 backgroundColor: Colors.white,
                 borderRadius: 25,
                 flex: 1,
-                marginRight: 4,
-                paddingHorizontal: 8
+                marginRight: dimensions.MARGIN_SMALL,
+                paddingHorizontal: dimensions.PADDING
               }}
             >
               <TextInput
                 multiline={true}
                 onChangeText={((text) => { this.setState({ text })})}
                 style={{
-                  fontSize: 18,
+                  fontSize: fontSizes.MEDIUM,
                   marginTop: 1
                 }}
                 value={this.state.text}
