@@ -1,4 +1,4 @@
-import navigationMiddleware from 'hg/state/middlewares/navigation'
+import navigationMiddleware from 'hg/state/middlewares/navigation/middleware'
 import { setTopLevelNavigator } from 'hg/state/middlewares/navigation/middleware'
 
 describe('navigation middleware', () => {
