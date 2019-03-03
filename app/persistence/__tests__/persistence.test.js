@@ -1,6 +1,4 @@
-// import PersistenceApi from '@persistence-api/persistence-api'
-
-describe('persistence-api', () => {
+describe('persistence', () => {
   describe('getState', () => {
     describe('state exists in storage', () => {
       let PersistenceApi
@@ -16,7 +14,7 @@ describe('persistence-api', () => {
             setItem: jest.fn()
           }
         }))
-        PersistenceApi = require('@persistence-api/persistence-api').default
+        PersistenceApi = require('hg/persistence/persistence').default
       })
 
       it('should return state from storage', async () => {
@@ -42,7 +40,7 @@ describe('persistence-api', () => {
             setItem: jest.fn()
           }
         }))
-        PersistenceApi = require('@persistence-api/persistence-api').default
+        PersistenceApi = require('hg/persistence/persistence').default
       })
 
       it('should return `undefined`', async () => {
@@ -67,7 +65,7 @@ describe('persistence-api', () => {
           )
         }
       }))
-      PersistenceApi = require('@persistence-api/persistence-api').default
+      PersistenceApi = require('hg/persistence/persistence').default
       AsyncStorage = require('react-native').AsyncStorage
     })
 

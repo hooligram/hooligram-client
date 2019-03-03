@@ -2,7 +2,7 @@ import { AsyncStorage } from 'react-native'
 
 const STORAGE_KEY_STATE = 'STORAGE:STATE'
 
-export default class PersistenceApi {
+export default class {
   static getState = async () => {
     const result = await AsyncStorage.getItem(STORAGE_KEY_STATE)
     try {

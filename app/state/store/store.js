@@ -6,10 +6,10 @@ import logger from '@state/middlewares/logger'
 import navigation from '@state/middlewares/navigation'
 import persistence from '@state/middlewares/persistence'
 import getOrCreateWsClient from 'hg/websocket'
-import PersistenceApi from '@persistence-api'
+import { default as _persistence } from 'hg/persistence'
 
 const middlewares = [
-  persistence(PersistenceApi),
+  persistence(_persistence),
   api(getOrCreateWsClient),
   navigation(NavigationActions),
   logger
