@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, Image } from 'react-native'
 import { Button } from 'react-native-elements'
-import { Colors } from '@hooligram/constants'
+import { Colors } from 'hg/constants'
 
 export default class OnboardingAgree extends Component {
   static propTypes = {
@@ -23,7 +23,7 @@ export default class OnboardingAgree extends Component {
         </View>
         <View style={styles.body}>
           <Image
-            source={require('@resources/images/background.png')}
+            source={require('hg/resources/images/background.png')}
             style={styles.backgroundImage}
           />
         </View>

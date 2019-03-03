@@ -10,7 +10,7 @@ import {
   View
 } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { Colors, dimensions, fontSizes } from '@hooligram/constants'
+import { Colors, dimensions, fontSizes } from 'hg/constants'
 
 export default class Conversation extends Component {
   static propTypes = {
@@ -53,7 +53,7 @@ export default class Conversation extends Component {
 
     return (
       <ImageBackground
-        source={require('@resources/images/conversation-background.jpg')}
+        source={require('hg/resources/images/conversation-background.jpg')}
         style={{
           flex: 1,
           height

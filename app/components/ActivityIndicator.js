@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { ActivityIndicator } from 'react-native'
-import { Colors } from '@hooligram/constants'
+import { Colors } from 'hg/constants'
 
 export default class extends Component {
   render() {

@@ -5,7 +5,7 @@ import {
   OnboardingInitialize,
   OnboardingSubmitCode,
   OnboardingProfileInfo
-} from '@screens'
+} from 'hg/screens'
 import { routeNames } from 'hg/state/middlewares/navigation'
 
 const routesConfigs = {

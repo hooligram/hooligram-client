@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { Button, Divider } from 'react-native-elements'
-import { Colors } from '@hooligram/constants'
-import { formatPhoneNumber } from '@hooligram/utils'
+import { Colors } from 'hg/constants'
+import { formatPhoneNumber } from 'hg/utils'
 
 class OnboardingSubmitCode extends Component {
   static propTypes = {
