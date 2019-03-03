@@ -1,5 +1,4 @@
 import { createStore, applyMiddleware } from 'redux'
-import { NavigationActions } from 'react-navigation'
 import reducer from 'hg/state/reducers'
 import websocket from 'hg/state/middlewares/websocket'
 import logger from 'hg/state/middlewares/logger'
@@ -9,7 +8,7 @@ import persistence from 'hg/state/middlewares/persistence'
 const middlewares = [
   persistence,
   websocket,
-  navigation(NavigationActions),
+  navigation,
   logger
 ]
 

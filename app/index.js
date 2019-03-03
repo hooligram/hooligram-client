@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 import { appStartup } from 'hg/state/actions/app'
 import store from 'hg/state/store'
 import Navigation from 'hg/state/middlewares/navigation/stacks'
-import { setTopLevelNavigator } from 'hg/state/middlewares/navigation/navigation'
+import { setTopLevelNavigator } from 'hg/state/middlewares/navigation/middleware'
 
 export default class App extends Component {
   render () {
