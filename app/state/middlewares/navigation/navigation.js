@@ -6,7 +6,7 @@ import {
   WEBSOCKET_INIT_SUCCESS
 } from '@state/actions'
 import { appStartupSuccess } from '@state/actions/app'
-import routeNames from '@navigation/routeNames'
+import { routeNames } from './'
 import { getFullRouteName } from '@state/middlewares/navigation/utils'
 
 let navigator

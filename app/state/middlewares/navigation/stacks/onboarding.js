@@ -1,4 +1,4 @@
-import { createStackNavigator, createAppContainer } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import {
   OnboardingAgree,
   OnboardingRequestCode,
@@ -6,8 +6,7 @@ import {
   OnboardingSubmitCode,
   OnboardingProfileInfo
 } from '@screens'
-
-import routeNames from '@navigation/routeNames'
+import { routeNames } from '@state/middlewares/navigation'
 
 const routesConfigs = {
   [routeNames.Agree]: {

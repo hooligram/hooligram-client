@@ -1,10 +1,10 @@
 export default {
-  Onboarding: 'Onboarding',
   Agree: 'Agree',
+  Conversation: 'Conversation',
   Initialize: 'Initialize',
+  Onboarding: 'Onboarding',
   ProfileInfo: 'ProfileInfo',
   RequestCode: 'RequestCode',
+  Splash: 'Splash',
   SubmitCode: 'SubmitCode',
-  Conversation: 'Conversation',
-  Splash: 'Splash'
 }
