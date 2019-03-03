@@ -1,5 +1,4 @@
 import {
-  mapStateToProps,
   mapDispatchToProps
 } from 'hg/screens/OnboardingSubmitCode/presenter'
 

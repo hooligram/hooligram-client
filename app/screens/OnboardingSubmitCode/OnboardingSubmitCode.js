@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { Button, Divider } from 'react-native-elements'
 import { colors } from 'hg/constants'
