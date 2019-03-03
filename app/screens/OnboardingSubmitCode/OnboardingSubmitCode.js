@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { Button, Divider } from 'react-native-elements'
-import { Colors } from 'hg/constants'
+import { colors } from 'hg/constants'
 import { formatPhoneNumber } from 'hg/utils'
 
 class OnboardingSubmitCode extends Component {
@@ -53,25 +53,25 @@ class OnboardingSubmitCode extends Component {
             }}
             placeholder={'- - - -'}
             style={styles.textInputVerificationCode}
-            underlineColorAndroid={Colors.boldGreen}
+            underlineColorAndroid={colors.boldGreen}
             value={this.state.verificationCode}
           />
           <Text style={styles.textInputHelper}>
             {'Enter 4-digit code'}
           </Text>
           <Button
-            backgroundColor={Colors.lightGreen}
+            backgroundColor={colors.lightGreen}
             buttonStyle={styles.button}
             onPress={submitVerificationCode(this.state.verificationCode)}
             title={'SUBMIT CODE'}
           />
           <Divider style={styles.divider}/>
           <Button
-            backgroundColor={Colors.white}
+            backgroundColor={colors.white}
             buttonStyle={styles.resendButton}
-            color={Colors.grey}
+            color={colors.grey}
             icon={{
-              color: Colors.grey,
+              color: colors.grey,
               name: 'textsms',
               size: 15,
               type: 'material'
@@ -91,7 +91,7 @@ class OnboardingSubmitCode extends Component {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    backgroundColor: Colors.white
+    backgroundColor: colors.white
   },
   header: {
     minHeight: 50,
@@ -101,18 +101,18 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    color: Colors.boldGreen,
+    color: colors.boldGreen,
     fontWeight: 'bold'
   },
   text: {
-    color: Colors.black,
+    color: colors.black,
     lineHeight: 24,
     marginVertical: 15,
     paddingHorizontal: 15,
     textAlign: 'center'
   },
   link: {
-    color: Colors.textLink
+    color: colors.textLink
   },
   textInputVerificationCode: {
     width: 120,

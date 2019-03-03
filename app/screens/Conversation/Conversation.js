@@ -10,7 +10,7 @@ import {
   View
 } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { Colors, dimensions, fontSizes } from 'hg/constants'
+import { colors, dimensions, fontSizes } from 'hg/constants'
 
 export default class Conversation extends Component {
   static propTypes = {
@@ -80,7 +80,7 @@ export default class Conversation extends Component {
                 const isMine = item.isCurrentUser
 
                 const alignment = isMine ? 'flex-end' : 'flex-start'
-                const cloudColor = isMine ? Colors.lighterGreen : Colors.white
+                const cloudColor = isMine ? colors.lighterGreen : colors.white
 
                 return (
                     <View
@@ -98,7 +98,7 @@ export default class Conversation extends Component {
                       {!isMine && (
                         <Text
                           style={{
-                            color: Colors.lightBlue,
+                            color: colors.lightBlue,
                             fontSize: fontSizes.MEDIUM,
                           }}
                         >
@@ -107,7 +107,7 @@ export default class Conversation extends Component {
                       )}
                       <Text
                         style={{
-                          color: Colors.black,
+                          color: colors.black,
                           fontSize: fontSizes.MEDIUM,
                         }}
                       >
@@ -128,7 +128,7 @@ export default class Conversation extends Component {
           >
             <View
               style={{
-                backgroundColor: Colors.white,
+                backgroundColor: colors.white,
                 borderRadius: dimensions.BUTTON_ICON_LENGTH / 2,
                 flex: 1,
                 marginRight: dimensions.MARGIN_SMALL,
@@ -147,7 +147,7 @@ export default class Conversation extends Component {
             </View>
             <View
               style={{
-                backgroundColor: Colors.boldGreen,
+                backgroundColor: colors.boldGreen,
                 borderRadius: dimensions.BUTTON_ICON_LENGTH / 2,
                 height: dimensions.BUTTON_ICON_LENGTH,
                 justifyContent: 'center',
@@ -155,7 +155,7 @@ export default class Conversation extends Component {
               }}
             >
               <Icon
-                color={Colors.white}
+                color={colors.white}
                 name={'send'}
                 onPress={this._sendMessage}
                 size={dimensions.ICON_SIZE}

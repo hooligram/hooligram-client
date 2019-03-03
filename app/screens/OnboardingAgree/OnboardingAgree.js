@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, Image } from 'react-native'
 import { Button } from 'react-native-elements'
-import { Colors } from 'hg/constants'
+import { colors } from 'hg/constants'
 
 export default class OnboardingAgree extends Component {
   static propTypes = {
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   button: {
-    backgroundColor: Colors.lightGreen,
+    backgroundColor: colors.lightGreen,
     width: 300
   },
   container: {
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     minHeight: 50
   },
   link: {
-    color: Colors.textLink
+    color: colors.textLink
   },
   text: {
     marginVertical: 15,
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   title: {
-    color: Colors.boldGreen,
+    color: colors.boldGreen,
     fontSize: 20,
     fontWeight: 'bold'
   }

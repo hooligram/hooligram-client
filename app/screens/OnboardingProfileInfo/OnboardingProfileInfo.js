@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { Button } from 'react-native-elements'
-import { Colors } from 'hg/constants'
+import { colors } from 'hg/constants'
 
 class OnboardingProfileInfo extends Component {
   static propTypes = {
@@ -35,12 +35,12 @@ class OnboardingProfileInfo extends Component {
               this.setState({ userName: text })
             }}
             style={styles.textInputUserName}
-            underlineColorAndroid={Colors.boldGreen}
+            underlineColorAndroid={colors.boldGreen}
             value={this.state.userName}/>
         </View>
         <Button
           buttonStyle={styles.button}
-          backgroundColor={Colors.lightGreen}
+          backgroundColor={colors.lightGreen}
           onPress={saveUserName(this.state.userName)}
           title={'I\'m ready!'}/>
       </View>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: '100%',
     justifyContent: 'space-between',
-    backgroundColor: Colors.white
+    backgroundColor: colors.white
   },
   header: {
     minHeight: 50,
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: Colors.boldGreen
+    color: colors.boldGreen
   },
   body: {
     flexGrow: 1

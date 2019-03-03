@@ -6,7 +6,7 @@ import {
   View
 } from 'react-native'
 import { ActivityIndicator } from 'hg/components'
-import { Colors } from 'hg/constants'
+import { colors } from 'hg/constants'
 
 class OnboardingInitialize extends Component {
   render() {
@@ -43,7 +43,7 @@ class OnboardingInitialize extends Component {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    backgroundColor: Colors.white
+    backgroundColor: colors.white
   },
   header: {
     minHeight: 50
@@ -60,12 +60,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     alignSelf: 'center',
     fontSize: 18,
-    color: Colors.boldGreen
+    color: colors.boldGreen
   },
   subTitle: {
     alignSelf: 'center',
     fontSize: 14,
-    color: Colors.grey
+    color: colors.grey
   },
   backgroundImage: {
     width: 250,
