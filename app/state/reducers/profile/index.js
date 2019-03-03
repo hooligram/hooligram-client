@@ -1,4 +1,4 @@
-import { SAVE_USER_NAME } from '@state/actions'
+import { SAVE_USER_NAME } from 'hg/state/actions'
 
 const initialState = {
   userName: ''

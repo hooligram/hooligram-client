@@ -1,5 +1,5 @@
-import authorizationReducer from '@state/reducers/authorization/authorization'
-import { initialState } from '@state/reducers/authorization/authorization'
+import authorizationReducer from 'hg/state/reducers/authorization/authorization'
+import { initialState } from 'hg/state/reducers/authorization/authorization'
 
 describe('authorization reducer', () => {
   describe('initially', () => {

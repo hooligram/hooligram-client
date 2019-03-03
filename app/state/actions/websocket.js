@@ -3,7 +3,7 @@ import {
   WEBSOCKET_ERROR,
   WEBSOCKET_INIT_REQUEST,
   WEBSOCKET_INIT_SUCCESS
-} from '@state/actions'
+} from 'hg/state/actions'
 
 export const websocketInitRequest = () => {
   return {

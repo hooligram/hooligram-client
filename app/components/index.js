@@ -1,1 +1,1 @@
-export { default as ActivityIndicator } from '@hooligram/components/ActivityIndicator'
+export { default as ActivityIndicator } from './ActivityIndicator'

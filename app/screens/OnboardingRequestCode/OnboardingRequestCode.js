@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, Picker, TextInput, Keyboard } from 'react-native'
 import { Button } from 'react-native-elements'
-import { Colors, countryCodes } from '@hooligram/constants'
+import { colors, countryCodes } from 'hg/constants'
 
 class OnboardingRequestCode extends Component {
   static propTypes = {
@@ -48,7 +48,7 @@ class OnboardingRequestCode extends Component {
               editable={false}
               keyboardType={'numeric'}
               style={styles.textInputCountryCode}
-              underlineColorAndroid={Colors.boldGreen}
+              underlineColorAndroid={colors.boldGreen}
               value={`+${countryCodes[this.state.selection].code}`}
             />
             <TextInput
@@ -58,7 +58,7 @@ class OnboardingRequestCode extends Component {
                 this.setState({ phoneNumber: text })
               }}
               style={styles.textInputPhoneNumber}
-              underlineColorAndroid={Colors.boldGreen}
+              underlineColorAndroid={colors.boldGreen}
               value={this.state.phoneNumber}
             />
           </View>
@@ -84,7 +84,7 @@ class OnboardingRequestCode extends Component {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    backgroundColor: Colors.white
+    backgroundColor: colors.white
   },
   header: {
     minHeight: 50,
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    color: Colors.boldGreen,
+    color: colors.boldGreen,
     fontWeight: 'bold'
   },
   body: {
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     fontSize: 14,
     lineHeight: 24,
-    color: Colors.black,
+    color: colors.black,
     textAlign: 'center',
     width: '100%'
   },
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   button: {
     width: 140,
     height: 38,
-    backgroundColor: Colors.lightGreen
+    backgroundColor: colors.lightGreen
   }
 })
 

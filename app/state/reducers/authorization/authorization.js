@@ -3,7 +3,7 @@ import {
   API_AUTHORIZATION_SIGN_IN_SUCCESS,
   VERIFICATION_REQUEST_CODE_REQUEST,
   VERIFICATION_SUBMIT_CODE_REQUEST
-} from '@state/actions'
+} from 'hg/state/actions'
 
 export const initialState = {
   country_code: '',

@@ -1,4 +1,4 @@
-import { mapDispatchToProps } from '@screens/OnboardingAgree/presenter'
+import { mapDispatchToProps } from 'hg/screens/OnboardingAgree/presenter'
 
 describe('OnboardingAgree.mapDispatchToProps', () => {
   let dispatch, props

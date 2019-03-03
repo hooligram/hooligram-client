@@ -1,17 +1,17 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
-import ConversationStackNavigation from '@navigation/conversation-stack'
-import OnboardingStackNavigation from '@navigation/onboarding-stack'
-import routeNames from '@navigation/routeNames'
-import { Splash } from '@screens'
+import ConversationStack from './conversation'
+import OnboardingStack from './onboarding'
+import { routeNames } from 'hg/state/middlewares/navigation'
+import { Splash } from 'hg/screens'
 
 export default createAppContainer(
   createSwitchNavigator(
     {
       [routeNames.Conversation]: {
-        screen: ConversationStackNavigation
+        screen: ConversationStack
       },
       [routeNames.Onboarding]: {
-        screen: OnboardingStackNavigation
+        screen: OnboardingStack
       },
       [routeNames.Splash]: {
         screen: Splash

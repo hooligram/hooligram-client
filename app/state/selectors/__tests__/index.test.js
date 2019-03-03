@@ -1,7 +1,7 @@
-import selectors from '@state/selectors'
+import selectors from 'hg/state/selectors'
 import {
   initialState as authorizationInitialState
-} from '@state/reducers/authorization'
+} from 'hg/state/reducers/authorization'
 
 describe('selectors', () => {
   describe('isAuthorized', () => {

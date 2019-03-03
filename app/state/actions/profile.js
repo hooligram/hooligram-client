@@ -1,6 +1,6 @@
 import {
   SAVE_USER_NAME
-} from '@state/actions'
+} from 'hg/state/actions'
 
 export const saveUserName = (userName) => {
   return {

@@ -1,13 +1,12 @@
-import { createStackNavigator, createAppContainer } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import {
   OnboardingAgree,
   OnboardingRequestCode,
   OnboardingInitialize,
   OnboardingSubmitCode,
   OnboardingProfileInfo
-} from '@screens'
-
-import routeNames from '@navigation/routeNames'
+} from 'hg/screens'
+import { routeNames } from 'hg/state/middlewares/navigation'
 
 const routesConfigs = {
   [routeNames.Agree]: {

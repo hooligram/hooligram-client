@@ -1,3 +1,4 @@
-import persistenceMiddleware from './persistence'
+import middleware from './middleware'
+import persistence from './persistence'
 
-export default persistenceMiddleware
+export default middleware(persistence)

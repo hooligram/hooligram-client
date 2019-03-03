@@ -3,7 +3,7 @@ import {
   FORMS_VERIFICATION_SET_CODE,
   FORMS_VERIFICATION_SET_COUNTRY_CODE,
   FORMS_VERIFICATION_SET_PHONE_NUMBER
-} from '@state/actions'
+} from 'hg/state/actions'
 
 export const setVerificationCode = (code) => {
   return {

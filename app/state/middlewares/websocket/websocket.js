@@ -1,13 +1,13 @@
-import { 
-  websocketInitSuccess, 
+import { MESSAGING_BROADCAST_SUCCESS } from 'hg/state/actions'
+import {
+  websocketInitSuccess,
   websocketError,
   websocketClose
-} from '@state/actions/websocket'
-import { MESSAGING_BROADCAST_SUCCESS } from '@state/actions'
+} from 'hg/state/actions/websocket'
 
 let ws
 
-const hooligramApi = (config) => (store) => {
+const websocket = (config) => (store) => {
   if (ws) {
     return ws
   }
@@ -58,4 +58,4 @@ const hooligramApi = (config) => (store) => {
   return ws
 }
 
-export default hooligramApi
+export default websocket

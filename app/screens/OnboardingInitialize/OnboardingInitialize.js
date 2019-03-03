@@ -5,8 +5,8 @@ import {
   Text,
   View
 } from 'react-native'
-import { ActivityIndicator } from '@hooligram/components'
-import { Colors } from '@hooligram/constants'
+import { ActivityIndicator } from 'hg/components'
+import { colors } from 'hg/constants'
 
 class OnboardingInitialize extends Component {
   render() {
@@ -25,7 +25,7 @@ class OnboardingInitialize extends Component {
           </View>
           <Image
             style={styles.backgroundImage}
-            source={require('@resources/images/background.png')}
+            source={require('hg/resources/images/background.png')}
             />
           <ActivityIndicator />
         </View>
@@ -43,7 +43,7 @@ class OnboardingInitialize extends Component {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    backgroundColor: Colors.white
+    backgroundColor: colors.white
   },
   header: {
     minHeight: 50
@@ -60,12 +60,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     alignSelf: 'center',
     fontSize: 18,
-    color: Colors.boldGreen
+    color: colors.boldGreen
   },
   subTitle: {
     alignSelf: 'center',
     fontSize: 14,
-    color: Colors.grey
+    color: colors.grey
   },
   backgroundImage: {
     width: 250,

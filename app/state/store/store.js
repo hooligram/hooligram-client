@@ -1,20 +1,17 @@
 import { createStore, applyMiddleware } from 'redux'
-import { NavigationActions } from 'react-navigation'
-import reducer from '@state/reducers'
-import api from '@state/middlewares/api'
-import logger from '@state/middlewares/logger'
-import navigation from '@state/middlewares/navigation'
-import persistence from '@state/middlewares/persistence'
-import getOrCreateWsClient from '@hooligram-api'
-import PersistenceApi from '@persistence-api'
+import reducer from 'hg/state/reducers'
+import websocket from 'hg/state/middlewares/websocket'
+import logger from 'hg/state/middlewares/logger'
+import navigation from 'hg/state/middlewares/navigation'
+import persistence from 'hg/state/middlewares/persistence'
 
 const middlewares = [
-  persistence(PersistenceApi),
-  api(getOrCreateWsClient),
-  navigation(NavigationActions),
+  persistence,
+  websocket,
+  navigation,
   logger
 ]
 
 const store = createStore(reducer, applyMiddleware(...middlewares))
 
-export default store 
+export default store

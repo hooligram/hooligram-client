@@ -3,7 +3,7 @@ import {
   StyleSheet,
   View
 } from 'react-native'
-import { ActivityIndicator } from '@hooligram/components'
+import { ActivityIndicator } from 'hg/components'
 
 class Splash extends Component {
   render() {

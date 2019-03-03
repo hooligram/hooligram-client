@@ -1,7 +1,6 @@
 import {
-  mapStateToProps,
   mapDispatchToProps
-} from '@screens/OnboardingSubmitCode/presenter'
+} from 'hg/screens/OnboardingSubmitCode/presenter'
 
 describe('OnboardingSubmitCode.mapDispatchToProps', () => {
   let dispatch, props
