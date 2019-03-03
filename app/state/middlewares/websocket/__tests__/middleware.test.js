@@ -1,4 +1,4 @@
-import apiMiddleware, { ws } from 'hg/state/middlewares/api/api'
+import apiMiddleware, { ws } from 'hg/state/middlewares/websocket/middleware'
 
 describe('api middleware', () => {
   let getOrCreateWsClient, store, next, callApiMiddleware

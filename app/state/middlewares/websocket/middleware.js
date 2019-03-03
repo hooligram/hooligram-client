@@ -7,11 +7,11 @@ export const ws = {
   }
 }
 
-const api = getOrCreateWsClient => store => next => action => {
+const middleware = websocket => store => next => action => {
   if (action.type === APP_STARTUP) {
     const returnedAction = next(action)
     store.dispatch(websocketInitRequest())
-    ws._ws = getOrCreateWsClient(store)
+    ws._ws = websocket(store)
     return returnedAction
   }
 
@@ -28,4 +28,4 @@ const api = getOrCreateWsClient => store => next => action => {
   return next(action)
 }
 
-export default api
+export default middleware

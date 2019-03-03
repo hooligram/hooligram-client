@@ -1,4 +1,4 @@
-import websocket from 'hg/websocket/websocket'
+import websocket from 'hg/state/middlewares/websocket/websocket'
 
 describe('websocket', () => {
   const config = {
