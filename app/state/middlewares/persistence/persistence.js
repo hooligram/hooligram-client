@@ -1,73 +1,20 @@
-import {
-  API_AUTHORIZATION_SIGN_IN_SUCCESS,
-  MESSAGING_BROADCAST_SUCCESS,
-  VERIFICATION_REQUEST_CODE_SUCCESS,
-  VERIFICATION_SUBMIT_CODE_SUCCESS
-} from 'hg/state/actions'
-import {
-  loadStateRequest,
-  loadStateSuccess,
-  loadStateFailure,
-  saveStateRequest,
-  saveStateSuccess,
-  saveStateFailure
-} from 'hg/state/actions/persistence'
-import { APP_STARTUP } from 'hg/state/actions'
+import { AsyncStorage } from 'react-native'
 
-const persistence = persistenceApi => store => next => async action => {
-  const { getState, dispatch } = store
+const STORAGE_KEY_STATE = 'STORAGE:STATE'
 
-  if (action.type === APP_STARTUP) {
-    let nextState
-    const returnedAction = next(action)
-
+export default class {
+  static getState = async () => {
+    const result = await AsyncStorage.getItem(STORAGE_KEY_STATE)
     try {
-      dispatch(loadStateRequest())
-      nextState = await persistenceApi.getState()
-
-      if (nextState !== undefined && nextState !== null) {
-        dispatch(loadStateSuccess(nextState))
-      }
-      else {
-        dispatch(loadStateFailure(
-          new Error('Error: state in storage is `undefined` or `null`')
-        ))
-      }
+      return JSON.parse(result)
     }
-    catch (error) {
-      dispatch(loadStateFailure(error))
+    catch (_) {
+      return undefined
     }
-
-    return returnedAction
   }
 
-  if (![
-    API_AUTHORIZATION_SIGN_IN_SUCCESS,
-    MESSAGING_BROADCAST_SUCCESS,
-    VERIFICATION_REQUEST_CODE_SUCCESS,
-    VERIFICATION_SUBMIT_CODE_SUCCESS
-  ].includes(action.type)) {
-    return next(action)
+  static saveState = async (state) => {
+    const stateString = JSON.stringify(state)
+    await AsyncStorage.setItem(STORAGE_KEY_STATE, stateString)
   }
-
-  const prevState = getState()
-  const returnedAction = next(action)
-  const nextState = getState()
-
-  if (!nextState.app.isStartupDone) {
-    return returnedAction
-  }
-
-  try {
-    dispatch(saveStateRequest(nextState))
-    await persistenceApi.saveState(nextState)
-    dispatch(saveStateSuccess())
-  }
-  catch (error) {
-    dispatch(saveStateFailure(error))
-  }
-
-  return returnedAction
 }
-
-export default persistence
