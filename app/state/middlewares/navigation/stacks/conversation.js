@@ -2,7 +2,7 @@ import { createStackNavigator } from 'react-navigation'
 import { Conversation } from '@screens'
 import { Colors } from '@hooligram/constants'
 import { StatusBar } from 'react-native'
-import { routeNames } from '@state/middlewares/navigation'
+import { routeNames } from 'hg/state/middlewares/navigation'
 
 const routeConfigs = {
   [routeNames.Conversation]: {

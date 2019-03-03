@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import { appStartup } from '@state/actions/app'
-import store from '@state/store'
-import Navigation from '@state/middlewares/navigation/stacks'
-import { setTopLevelNavigator } from '@state/middlewares/navigation/navigation'
+import { appStartup } from 'hg/state/actions/app'
+import store from 'hg/state/store'
+import Navigation from 'hg/state/middlewares/navigation/stacks'
+import { setTopLevelNavigator } from 'hg/state/middlewares/navigation/navigation'
 
 export default class App extends Component {
   render () {

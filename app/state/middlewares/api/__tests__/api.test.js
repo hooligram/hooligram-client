@@ -1,4 +1,4 @@
-import apiMiddleware, { ws } from '@state/middlewares/api/api'
+import apiMiddleware, { ws } from 'hg/state/middlewares/api/api'
 
 describe('api middleware', () => {
   let getOrCreateWsClient, store, next, callApiMiddleware
@@ -53,7 +53,7 @@ describe('api middleware', () => {
       ]
       .forEach(actionType => {
         action.type = actionType
-        
+
         callApiMiddleware(action)
 
         expect(ws.sendMessage).not.toHaveBeenCalled()

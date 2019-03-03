@@ -1,5 +1,5 @@
 import { connect as _connect } from 'react-redux'
-import { saveUserName } from '@state/actions/profile'
+import { saveUserName } from 'hg/state/actions/profile'
 
 const mapStateToProps = (state) => ({})
 

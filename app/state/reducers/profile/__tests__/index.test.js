@@ -1,4 +1,4 @@
-import profileReducer from '@state/reducers/profile'
+import profileReducer from 'hg/state/reducers/profile'
 
 describe('profile reducer', () => {
   describe('initial state', () => {

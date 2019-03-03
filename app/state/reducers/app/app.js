@@ -3,7 +3,7 @@ import {
   APP_STARTUP_SUCCESS,
   WEBSOCKET_CLOSE,
   WEBSOCKET_INIT_SUCCESS
-} from '@state/actions'
+} from 'hg/state/actions'
 
 export const initialState = {
   isStartupDone: false,

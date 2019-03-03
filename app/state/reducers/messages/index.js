@@ -1,3 +1,3 @@
-import messages from '@state/reducers/messages/messages'
+import messages from 'hg/state/reducers/messages/messages'
 
 export default messages

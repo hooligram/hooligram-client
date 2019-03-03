@@ -1,4 +1,4 @@
-import appReducer from '@state/reducers/app/app'
+import appReducer from 'hg/state/reducers/app/app'
 
 describe('app reducer', () => {
   let state

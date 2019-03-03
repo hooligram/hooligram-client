@@ -1,5 +1,5 @@
-import { APP_STARTUP } from '@state/actions'
-import { websocketInitRequest } from '@state/actions/websocket'
+import { APP_STARTUP } from 'hg/state/actions'
+import { websocketInitRequest } from 'hg/state/actions/websocket'
 
 export const ws = {
   sendMessage: (messageString) => {
@@ -10,7 +10,7 @@ export const ws = {
 const api = getOrCreateWsClient => store => next => action => {
   if (action.type === APP_STARTUP) {
     const returnedAction = next(action)
-    store.dispatch(websocketInitRequest()) 
+    store.dispatch(websocketInitRequest())
     ws._ws = getOrCreateWsClient(store)
     return returnedAction
   }

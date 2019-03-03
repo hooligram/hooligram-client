@@ -2,7 +2,7 @@ import { connect as _connect } from 'react-redux'
 import {
   requestVerificationCode,
   submitVerificationCode
-} from '@state/actions/authorization'
+} from 'hg/state/actions/authorization'
 
 export const mapStateToProps = state => {
   const {

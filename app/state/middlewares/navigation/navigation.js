@@ -4,10 +4,10 @@ import {
   VERIFICATION_SUBMIT_CODE_SUCCESS,
   VERIFICATION_REQUEST_CODE_SUCCESS,
   WEBSOCKET_INIT_SUCCESS
-} from '@state/actions'
-import { appStartupSuccess } from '@state/actions/app'
+} from 'hg/state/actions'
+import { appStartupSuccess } from 'hg/state/actions/app'
 import { routeNames } from './'
-import { getFullRouteName } from '@state/middlewares/navigation/utils'
+import { getFullRouteName } from 'hg/state/middlewares/navigation/utils'
 
 let navigator
 

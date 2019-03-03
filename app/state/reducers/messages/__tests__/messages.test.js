@@ -1,4 +1,4 @@
-import messagesReducer from '@state/reducers/messages/messages'
+import messagesReducer from 'hg/state/reducers/messages/messages'
 
 describe('messages reducer', () => {
   describe('initially', () => {

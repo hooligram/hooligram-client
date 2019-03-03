@@ -2,8 +2,8 @@ import {
   websocketInitSuccess,
   websocketError,
   websocketClose
-} from '@state/actions/websocket'
-import { MESSAGING_BROADCAST_SUCCESS } from '@state/actions'
+} from 'hg/state/actions/websocket'
+import { MESSAGING_BROADCAST_SUCCESS } from 'hg/state/actions'
 
 let ws
 
