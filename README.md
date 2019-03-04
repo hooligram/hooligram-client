@@ -32,3 +32,19 @@ Assuming a local server is running on `ws://localhost:8080` (see the README at t
 3. `adb tcp:8080 tcp:8080`
 4. `yarn android`
 5. check out the client-side & server logs and you should see that they are interacting with each other!
+
+## Generating signed APK
+
+1. Fill up `android/gradle.properties` details.
+
+   ```env
+   RELEASE_KEY_ALIAS=*******
+   RELEASE_KEY_PASSWORD=*******
+   RELEASE_STORE_FILE=*******
+   RELEASE_STORE_PASSWORD=*******
+   ```
+
+2. Put `hooligram.keystore` file in `android/app` directory.
+3. `cd android`
+4. `./gradlew assembleRelease`
+5. Find the APK here `android/app/build/outputs/apk/release/app-release.apk`
