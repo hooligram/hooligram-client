@@ -28,9 +28,9 @@ const websocket = (store) => {
 
   ws.onopen = () => {
     dispatch(websocketInitSuccess(Config.API_HOST))
-    const isReconnect = code && countryCode && phoneNumber
+    const shouldReconnect = code && countryCode && phoneNumber
 
-    if (isReconnect) {
+    if (shouldReconnect) {
       dispatch(authorizationSignInRequest(code, countryCode, phoneNumber))
     }
   }
