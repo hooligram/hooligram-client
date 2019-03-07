@@ -1,22 +1,14 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import { appStartup } from 'hg/state/actions/app'
 import store from 'hg/state/store'
-import Navigation from 'hg/state/middlewares/navigation/stacks'
-import { setTopLevelNavigator } from 'hg/state/middlewares/navigation/middleware'
+import App from './App'
 
-export default class App extends Component {
+export default class extends Component {
   render () {
     return (
       <Provider store={store}>
-        <Navigation ref={setTopLevelNavigator}/>
+        <App/>
       </Provider>
     )
   }
-
-  componentDidMount () {
-    store.dispatch(appStartup())
-  }
-
-  goToNextScreen = () => console.log('goToNextScreen')
 }
