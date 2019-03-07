@@ -1,28 +1,44 @@
+import Config from 'react-native-config'
 import { MESSAGING_BROADCAST_SUCCESS } from 'hg/state/actions'
+import { authorizationSignInRequest } from 'hg/state/actions/authorization'
 import {
-  websocketInitSuccess,
-  websocketError,
-  websocketClose
+  websocketClose,
+  websocketInitSuccess
 } from 'hg/state/actions/websocket'
+import selectors from 'hg/state/selectors'
 
-let ws
+let instance
 
-const websocket = (config) => (store) => {
-  if (ws) {
-    return ws
-  }
+export default (store) => {
+  if (instance) return instance
 
-  const { host } = config
+  instance = websocket(store)
+  return instance
+}
+
+const websocket = (store) => {
   const { dispatch } = store
-  ws = new WebSocket(host)
+
+  const state = store.getState()
+  const code = selectors.currentUserCode(state)
+  const countryCode = selectors.currentUserCountryCode(state)
+  const phoneNumber = selectors.currentUserPhoneNumber(state)
+
+  const ws = new WebSocket(Config.API_HOST)
 
   ws.onopen = () => {
-    dispatch(websocketInitSuccess(host))
+    dispatch(websocketInitSuccess(Config.API_HOST))
+    const isReconnect = code && countryCode && phoneNumber
+
+    if (isReconnect) {
+      dispatch(authorizationSignInRequest(code, countryCode, phoneNumber))
+    }
   }
 
   ws.onmessage = (event) => {
     const { data } = event
     let action
+
     try {
       action = JSON.parse(data)
       action.type = 'API:'.concat(action.type)
@@ -41,21 +57,10 @@ const websocket = (config) => (store) => {
     dispatch(action)
   }
 
-  ws.onerror = (event) => {
-    const err = new Error(`WebSocketError: ${event}`)
-    dispatch(websocketError(err))
-  }
-
-  ws.onclose = (event) => {
-    const {
-      code,
-      reason
-    } = event
-    dispatch(websocketClose(reason, code))
-    ws = undefined
+  ws.onclose = () => {
+    instance = null
+    dispatch(websocketClose(null, code))
   }
 
   return ws
 }
-
-export default websocket
