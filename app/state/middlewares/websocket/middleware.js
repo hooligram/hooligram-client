@@ -1,18 +1,10 @@
-import { APP_STARTUP } from 'hg/state/actions'
-import { websocketInitRequest } from 'hg/state/actions/websocket'
+import websocket from './websocket'
 
-export const ws = {
-  sendMessage: (messageString) => {
-    ws._ws.send(messageString)
-  }
-}
+export default store => next => action => {
+  const ws = websocket(store)
 
-const middleware = websocket => store => next => action => {
-  if (action.type === APP_STARTUP) {
-    const returnedAction = next(action)
-    store.dispatch(websocketInitRequest())
-    ws._ws = websocket(store)
-    return returnedAction
+  if (!store.getState().app.websocketOnline) {
+    return next(action)
   }
 
   if (!action.type.match(/^API:(.*)_REQUEST$/)) {
@@ -23,9 +15,13 @@ const middleware = websocket => store => next => action => {
     ...action,
     type: action.type.replace('API:', '')
   })
-  ws.sendMessage(actionString)
+
+  try {
+    ws.send(actionString)
+  }
+  catch (err) {
+    console.log(err)
+  }
 
   return next(action)
 }
-
-export default middleware

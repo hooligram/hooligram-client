@@ -8,15 +8,15 @@ const routeConfigs = {
   [routeNames.Conversation]: {
     screen: Conversation,
     navigationOptions: () => {
-      StatusBar.setBackgroundColor(colors.bolderGreen)
+      StatusBar.setBackgroundColor(colors.BOLDER_GREEN)
 
       return {
         title: 'Conversation',
         headerStyle: {
-          backgroundColor: colors.boldGreen
+          backgroundColor: colors.BOLD_GREEN
         },
         headerTitleStyle: {
-          color: colors.white
+          color: colors.WHITE
         }
       }
     }

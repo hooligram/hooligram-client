@@ -1,6 +1,6 @@
 import websocket from 'hg/state/middlewares/websocket/websocket'
 
-describe('websocket', () => {
+xdescribe('websocket', () => {
   const config = {
     host: 'ws://somehost'
   }

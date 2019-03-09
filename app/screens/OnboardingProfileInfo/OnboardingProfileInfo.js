@@ -35,12 +35,12 @@ class OnboardingProfileInfo extends Component {
               this.setState({ userName: text })
             }}
             style={styles.textInputUserName}
-            underlineColorAndroid={colors.boldGreen}
+            underlineColorAndroid={colors.BOLD_GREEN}
             value={this.state.userName}/>
         </View>
         <Button
           buttonStyle={styles.button}
-          backgroundColor={colors.lightGreen}
+          backgroundColor={colors.LIGHT_GREEN}
           onPress={saveUserName(this.state.userName)}
           title={'I\'m ready!'}/>
       </View>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: '100%',
     justifyContent: 'space-between',
-    backgroundColor: colors.white
+    backgroundColor: colors.WHITE
   },
   header: {
     minHeight: 50,
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: colors.boldGreen
+    color: colors.BOLD_GREEN
   },
   body: {
     flexGrow: 1

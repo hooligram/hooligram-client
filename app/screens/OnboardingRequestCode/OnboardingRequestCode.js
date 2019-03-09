@@ -48,7 +48,7 @@ class OnboardingRequestCode extends Component {
               editable={false}
               keyboardType={'numeric'}
               style={styles.textInputCountryCode}
-              underlineColorAndroid={colors.boldGreen}
+              underlineColorAndroid={colors.BOLD_GREEN}
               value={`+${countryCodes[this.state.selection].code}`}
             />
             <TextInput
@@ -58,7 +58,7 @@ class OnboardingRequestCode extends Component {
                 this.setState({ phoneNumber: text })
               }}
               style={styles.textInputPhoneNumber}
-              underlineColorAndroid={colors.boldGreen}
+              underlineColorAndroid={colors.BOLD_GREEN}
               value={this.state.phoneNumber}
             />
           </View>
@@ -84,7 +84,7 @@ class OnboardingRequestCode extends Component {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    backgroundColor: colors.white
+    backgroundColor: colors.WHITE
   },
   header: {
     minHeight: 50,
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    color: colors.boldGreen,
+    color: colors.BOLD_GREEN,
     fontWeight: 'bold'
   },
   body: {
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     fontSize: 14,
     lineHeight: 24,
-    color: colors.black,
+    color: colors.BLACK,
     textAlign: 'center',
     width: '100%'
   },
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   button: {
     width: 140,
     height: 38,
-    backgroundColor: colors.lightGreen
+    backgroundColor: colors.LIGHT_GREEN
   }
 })
 

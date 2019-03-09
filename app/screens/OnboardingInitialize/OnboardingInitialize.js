@@ -43,7 +43,7 @@ class OnboardingInitialize extends Component {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    backgroundColor: colors.white
+    backgroundColor: colors.WHITE
   },
   header: {
     minHeight: 50
@@ -60,12 +60,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     alignSelf: 'center',
     fontSize: 18,
-    color: colors.boldGreen
+    color: colors.BOLD_GREEN
   },
   subTitle: {
     alignSelf: 'center',
     fontSize: 14,
-    color: colors.grey
+    color: colors.GREY
   },
   backgroundImage: {
     width: 250,
