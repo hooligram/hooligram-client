@@ -59,7 +59,7 @@ const websocket = (store) => {
 
   ws.onclose = () => {
     instance = null
-    dispatch(websocketClose(null, code))
+    dispatch(websocketClose())
   }
 
   return ws
