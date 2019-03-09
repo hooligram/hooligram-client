@@ -1,16 +1,8 @@
 import {
   WEBSOCKET_CLOSE,
   WEBSOCKET_ERROR,
-  WEBSOCKET_INIT_REQUEST,
   WEBSOCKET_INIT_SUCCESS
 } from 'hg/state/actions'
-
-export const websocketInitRequest = () => {
-  return {
-    type: WEBSOCKET_INIT_REQUEST,
-    payload: {}
-  }
-}
 
 export const websocketInitSuccess = (host) => {
   return {
