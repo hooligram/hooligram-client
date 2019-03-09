@@ -95,7 +95,7 @@ const middleware = navigationActions => store => next => action => {
       if ([PERSISTENCE_LOAD_STATE_SUCCESS, WEBSOCKET_INIT_SUCCESS].includes(action.type)) {
         const {
           app: {
-            websocketOnline
+            isWebsocketOnline
           },
           authorization: {
             country_code,
@@ -104,7 +104,7 @@ const middleware = navigationActions => store => next => action => {
           }
         } = nextState
 
-        if (!websocketOnline) return
+        if (!isWebsocketOnline) return
 
         let routeName = routeNames.Conversation
 

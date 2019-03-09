@@ -47,12 +47,12 @@ class App extends Component {
 const mapStateToProps = (state) => {
   const {
     app: {
-      websocketOnline
+      isWebsocketOnline
     }
   } = state
 
   return {
-    isWebsocketOnline: websocketOnline
+    isWebsocketOnline
   }
 }
 

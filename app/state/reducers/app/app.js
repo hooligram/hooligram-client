@@ -7,7 +7,7 @@ import {
 
 export const initialState = {
   isStartupDone: false,
-  websocketOnline: false
+  isWebsocketOnline: false
 }
 
 const app = (state = initialState, action) => {
@@ -29,14 +29,14 @@ const app = (state = initialState, action) => {
     case WEBSOCKET_CLOSE: {
       return {
         ...state,
-        websocketOnline: false
+        isWebsocketOnline: false
       }
     }
 
     case WEBSOCKET_INIT_SUCCESS: {
       return {
         ...state,
-        websocketOnline: true
+        isWebsocketOnline: true
       }
     }
 

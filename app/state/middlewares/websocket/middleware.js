@@ -3,7 +3,7 @@ import websocket from './websocket'
 export default store => next => action => {
   const ws = websocket(store)
 
-  if (!store.getState().app.websocketOnline) {
+  if (!store.getState().app.isWebsocketOnline) {
     return next(action)
   }
 
