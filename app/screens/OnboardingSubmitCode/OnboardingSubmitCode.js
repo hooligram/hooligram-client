@@ -53,25 +53,25 @@ class OnboardingSubmitCode extends Component {
             }}
             placeholder={'- - - -'}
             style={styles.textInputVerificationCode}
-            underlineColorAndroid={colors.boldGreen}
+            underlineColorAndroid={colors.BOLD_GREEN}
             value={this.state.verificationCode}
           />
           <Text style={styles.textInputHelper}>
             {'Enter 4-digit code'}
           </Text>
           <Button
-            backgroundColor={colors.lightGreen}
+            backgroundColor={colors.LIGHT_GREEN}
             buttonStyle={styles.button}
             onPress={submitVerificationCode(this.state.verificationCode)}
             title={'SUBMIT CODE'}
           />
           <Divider style={styles.divider}/>
           <Button
-            backgroundColor={colors.white}
+            backgroundColor={colors.WHITE}
             buttonStyle={styles.resendButton}
-            color={colors.grey}
+            color={colors.GREY}
             icon={{
-              color: colors.grey,
+              color: colors.GREY,
               name: 'textsms',
               size: 15,
               type: 'material'
@@ -91,7 +91,7 @@ class OnboardingSubmitCode extends Component {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    backgroundColor: colors.white
+    backgroundColor: colors.WHITE
   },
   header: {
     minHeight: 50,
@@ -101,18 +101,18 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    color: colors.boldGreen,
+    color: colors.BOLD_GREEN,
     fontWeight: 'bold'
   },
   text: {
-    color: colors.black,
+    color: colors.BLACK,
     lineHeight: 24,
     marginVertical: 15,
     paddingHorizontal: 15,
     textAlign: 'center'
   },
   link: {
-    color: colors.textLink
+    color: colors.TEXT_LINK
   },
   textInputVerificationCode: {
     width: 120,

@@ -80,7 +80,7 @@ export default class Conversation extends Component {
                 const isMine = item.isCurrentUser
 
                 const alignment = isMine ? 'flex-end' : 'flex-start'
-                const cloudColor = isMine ? colors.lighterGreen : colors.white
+                const cloudColor = isMine ? colors.LIGHTER_GREEN : colors.WHITE
 
                 return (
                     <View
@@ -98,7 +98,7 @@ export default class Conversation extends Component {
                       {!isMine && (
                         <Text
                           style={{
-                            color: colors.lightBlue,
+                            color: colors.LIGHT_BLUE,
                             fontSize: fontSizes.MEDIUM,
                           }}
                         >
@@ -107,7 +107,7 @@ export default class Conversation extends Component {
                       )}
                       <Text
                         style={{
-                          color: colors.black,
+                          color: colors.BLACK,
                           fontSize: fontSizes.MEDIUM,
                         }}
                       >
@@ -128,7 +128,7 @@ export default class Conversation extends Component {
           >
             <View
               style={{
-                backgroundColor: colors.white,
+                backgroundColor: colors.WHITE,
                 borderRadius: dimensions.BUTTON_ICON_LENGTH / 2,
                 flex: 1,
                 marginRight: dimensions.MARGIN_SMALL,
@@ -147,7 +147,7 @@ export default class Conversation extends Component {
             </View>
             <View
               style={{
-                backgroundColor: colors.boldGreen,
+                backgroundColor: colors.BOLD_GREEN,
                 borderRadius: dimensions.BUTTON_ICON_LENGTH / 2,
                 height: dimensions.BUTTON_ICON_LENGTH,
                 justifyContent: 'center',
@@ -155,7 +155,7 @@ export default class Conversation extends Component {
               }}
             >
               <Icon
-                color={colors.white}
+                color={colors.WHITE}
                 name={'send'}
                 onPress={this._sendMessage}
                 size={dimensions.ICON_SIZE}

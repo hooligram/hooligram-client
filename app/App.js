@@ -27,7 +27,7 @@ class App extends Component {
           >
             <Text
               style={{
-                color: colors.white
+                color: colors.WHITE
               }}
             >You are offline. Reconnecting...</Text>
           </View>

@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   button: {
-    backgroundColor: colors.lightGreen,
+    backgroundColor: colors.LIGHT_GREEN,
     width: 300
   },
   container: {
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     minHeight: 50
   },
   link: {
-    color: colors.textLink
+    color: colors.TEXT_LINK
   },
   text: {
     marginVertical: 15,
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   title: {
-    color: colors.boldGreen,
+    color: colors.BOLD_GREEN,
     fontSize: 20,
     fontWeight: 'bold'
   }
