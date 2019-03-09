@@ -3,7 +3,7 @@ import { MESSAGING_BROADCAST_SUCCESS } from 'hg/state/actions'
 import { authorizationSignInRequest } from 'hg/state/actions/authorization'
 import {
   websocketClose,
-  websocketInitSuccess
+  websocketOpen
 } from 'hg/state/actions/websocket'
 import selectors from 'hg/state/selectors'
 
@@ -27,7 +27,7 @@ const websocket = (store) => {
   const ws = new WebSocket(Config.API_HOST)
 
   ws.onopen = () => {
-    dispatch(websocketInitSuccess(Config.API_HOST))
+    dispatch(websocketOpen(Config.API_HOST))
     const shouldReconnect = code && countryCode && phoneNumber
 
     if (shouldReconnect) {

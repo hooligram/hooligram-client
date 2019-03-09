@@ -1,17 +1,8 @@
 import {
   WEBSOCKET_CLOSE,
   WEBSOCKET_ERROR,
-  WEBSOCKET_INIT_SUCCESS
+  WEBSOCKET_OPEN
 } from 'hg/state/actions'
-
-export const websocketInitSuccess = (host) => {
-  return {
-    type: WEBSOCKET_INIT_SUCCESS,
-    payload: {
-      host
-    }
-  }
-}
 
 export const websocketClose = (reason, code) => {
   return {
@@ -28,6 +19,15 @@ export const websocketError = (err) => {
     type: WEBSOCKET_ERROR,
     payload: {
       err
+    }
+  }
+}
+
+export const websocketOpen = (host) => {
+  return {
+    type: WEBSOCKET_OPEN,
+    payload: {
+      host
     }
   }
 }

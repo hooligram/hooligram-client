@@ -2,7 +2,7 @@ import {
   APP_STARTUP,
   APP_STARTUP_SUCCESS,
   WEBSOCKET_CLOSE,
-  WEBSOCKET_INIT_SUCCESS
+  WEBSOCKET_OPEN
 } from 'hg/state/actions'
 
 export const initialState = {
@@ -33,7 +33,7 @@ const app = (state = initialState, action) => {
       }
     }
 
-    case WEBSOCKET_INIT_SUCCESS: {
+    case WEBSOCKET_OPEN: {
       return {
         ...state,
         isWebsocketOnline: true

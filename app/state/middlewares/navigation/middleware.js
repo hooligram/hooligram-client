@@ -3,7 +3,7 @@ import {
   SAVE_USER_NAME,
   VERIFICATION_SUBMIT_CODE_SUCCESS,
   VERIFICATION_REQUEST_CODE_SUCCESS,
-  WEBSOCKET_INIT_SUCCESS
+  WEBSOCKET_OPEN
 } from 'hg/state/actions'
 import { appStartupSuccess } from 'hg/state/actions/app'
 import { getFullRouteName } from 'hg/state/middlewares/navigation/utils'
@@ -92,7 +92,7 @@ const middleware = navigationActions => store => next => action => {
     }
 
     case `/${routeNames.Splash}`: {
-      if ([PERSISTENCE_LOAD_STATE_SUCCESS, WEBSOCKET_INIT_SUCCESS].includes(action.type)) {
+      if ([PERSISTENCE_LOAD_STATE_SUCCESS, WEBSOCKET_OPEN].includes(action.type)) {
         const {
           app: {
             isWebsocketOnline
