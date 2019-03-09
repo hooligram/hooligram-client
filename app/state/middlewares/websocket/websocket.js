@@ -44,7 +44,12 @@ const websocket = (store) => {
       action.type = 'API:'.concat(action.type)
     }
     catch (err) {
-      action = websocketError(err)
+      if (__DEV__) {
+        console.log('__WEBSOCKET__ action parse error')
+        console.log(err)
+      }
+
+      return
     }
 
     // hack since backend currently does not provide id for each message
