@@ -1,7 +1,18 @@
+let actionCount = 0
+const actionTypeCount = new Map()
+
 export default store => next => action => {
-  console.log('prevState', store.getState())
-  console.log('action', action)
-  const nextAction = next(action)
-  console.log('nextState', store.getState())
-  return nextAction
+  if (__DEV__) {
+    const actionType = action.type
+    actionCount += 1
+
+    if (!actionTypeCount.has(actionType)) {
+      actionTypeCount.set(actionType, 0)
+    }
+
+    actionTypeCount.set(actionType, actionTypeCount.get(actionType) + 1)
+    console.log(`__DEV__ (${actionCount}) ${actionType} [${actionTypeCount.get(actionType)}]`)
+  }
+
+  return next(action)
 }
