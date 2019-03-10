@@ -13,7 +13,7 @@ class App extends Component {
     isWebsocketOnline: PropTypes.bool.isRequired
   }
 
-  render() {
+  render () {
     return (
       <>
         {!this.props.isWebsocketOnline && (
@@ -22,7 +22,7 @@ class App extends Component {
               alignItems: 'center',
               backgroundColor: colors.GOOGLE_RED,
               justifyContent: 'center',
-              paddingVertical: dimensions.PADDING,
+              paddingVertical: dimensions.PADDING
             }}
           >
             <Text
