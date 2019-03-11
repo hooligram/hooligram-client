@@ -1,4 +1,10 @@
-import { WEBSOCKET_CONNECT } from 'hg/state/actions'
+import {
+  AUTHORIZATION_SIGN_IN_REQUEST,
+  MESSAGING_BROADCAST_REQUEST,
+  VERIFICATION_REQUEST_CODE_REQUEST,
+  VERIFICATION_SUBMIT_CODE_REQUEST,
+  WEBSOCKET_CONNECT
+} from 'hg/state/actions'
 import selectors from 'hg/state/selectors'
 import websocket from './websocket'
 
@@ -15,7 +21,12 @@ export default store => next => action => {
     return next(action)
   }
 
-  if (!action.type.match(/^API:(.*)_REQUEST$/)) {
+  if (![
+    AUTHORIZATION_SIGN_IN_REQUEST,
+    MESSAGING_BROADCAST_REQUEST,
+    VERIFICATION_REQUEST_CODE_REQUEST,
+    VERIFICATION_SUBMIT_CODE_REQUEST
+  ].includes(action.type)) {
     return next(action)
   }
 

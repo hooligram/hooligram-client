@@ -1,12 +1,12 @@
 import {
-  API_AUTHORIZATION_SIGN_IN_REQUEST,
+  AUTHORIZATION_SIGN_IN_REQUEST,
   VERIFICATION_REQUEST_CODE_REQUEST,
   VERIFICATION_SUBMIT_CODE_REQUEST
 } from '.'
 
 export const authorizationSignInRequest = (code, country_code, phone_number) => {
   return {
-    type: API_AUTHORIZATION_SIGN_IN_REQUEST,
+    type: AUTHORIZATION_SIGN_IN_REQUEST,
     payload: {
       code,
       country_code,

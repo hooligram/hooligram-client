@@ -16,13 +16,8 @@ export default () => {
     },
 
     sendAction: (action) => {
-      const actionString = JSON.stringify({
-        ...action,
-        type: action.type.replace('API:', '')
-      })
-
       try {
-        instance.send(actionString)
+        instance.send(JSON.stringify(action))
       }
       catch (err) {
         console.log(err)
@@ -49,7 +44,6 @@ const websocket = (dispatch, countryCode, phoneNumber, verificationCode) => {
 
     try {
       action = JSON.parse(data)
-      action.type = 'API:'.concat(action.type)
     }
     catch (err) {
       if (__DEV__) {
