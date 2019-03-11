@@ -19,7 +19,7 @@ describe('app reducer', () => {
 
     it('should set isWebsocketOnline to true', () => {
       const nextState = appReducer(state, {
-        type: 'WEBSOCKET:INIT_SUCCESS'
+        type: 'WEBSOCKET_OPEN'
       })
 
       expect(nextState).toEqual(
@@ -40,7 +40,7 @@ describe('app reducer', () => {
 
     it('should set isWebsocketOnline to false', () => {
       const nextState = appReducer(state, {
-        type: 'WEBSOCKET:CLOSE'
+        type: 'WEBSOCKET_CLOSE'
       })
 
       expect(nextState).toEqual(
