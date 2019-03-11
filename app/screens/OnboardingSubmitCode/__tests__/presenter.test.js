@@ -10,14 +10,14 @@ describe('OnboardingSubmitCode.mapDispatchToProps', () => {
   })
 
   describe('resendSMS', () => {
-    it('should dispatch `API:VERIFICATION_REQUEST_CODE_REQUEST with correct payload`', () => {
+    it('should dispatch `VERIFICATION_REQUEST_CODE_REQUEST with correct payload`', () => {
       const countryCode = 'some country code'
       const phoneNumber = 'some phone number'
 
       props.resendVerificationCode(countryCode, phoneNumber)()
 
       expect(dispatch).toHaveBeenCalledWith({
-        type: 'API:VERIFICATION_REQUEST_CODE_REQUEST',
+        type: 'VERIFICATION_REQUEST_CODE_REQUEST',
         payload: {
           country_code: countryCode,
           phone_number: phoneNumber
@@ -28,13 +28,13 @@ describe('OnboardingSubmitCode.mapDispatchToProps', () => {
   })
 
   describe('submitCode', () => {
-    it('should dispatch `API:VERIFICATION_SUBMIT_CODE_REQUEST` with correct payload', () => {
+    it('should dispatch `VERIFICATION_SUBMIT_CODE_REQUEST` with correct payload', () => {
       const code = '123456'
 
       props.submitVerificationCode(code)()
 
       expect(dispatch).toHaveBeenCalledWith({
-        type: 'API:VERIFICATION_SUBMIT_CODE_REQUEST',
+        type: 'VERIFICATION_SUBMIT_CODE_REQUEST',
         payload: {
           code
         }

@@ -20,7 +20,7 @@ describe('authorization reducer', () => {
     let action, state
     beforeEach(() => {
       action = {
-        type: 'API:AUTHORIZATION_SIGN_IN_SUCCESS',
+        type: 'AUTHORIZATION_SIGN_IN_SUCCESS',
         payload: {
           code: 'some code',
           phone_number: 'some phone number',

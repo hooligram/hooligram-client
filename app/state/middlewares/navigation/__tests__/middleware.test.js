@@ -98,7 +98,7 @@ describe('navigation middleware', () => {
       let action
       beforeEach(() => {
         action = {
-          type: 'API:VERIFICATION_REQUEST_CODE_SUCCESS',
+          type: 'VERIFICATION_REQUEST_CODE_SUCCESS',
           payload: {}
         }
       })
@@ -152,7 +152,7 @@ describe('navigation middleware', () => {
 
     describe('verification code submission successful', () => {
       const action = {
-        type: 'API:VERIFICATION_SUBMIT_CODE_SUCCESS',
+        type: 'VERIFICATION_SUBMIT_CODE_SUCCESS',
         payload: {
           somePayload: 'somePayload'
         }

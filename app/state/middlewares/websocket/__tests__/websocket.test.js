@@ -37,7 +37,7 @@ xdescribe('websocket', () => {
         api.onmessage(event)
 
         expect(store.dispatch).toHaveBeenCalledWith({
-          type: 'API:SOME_ACTION_TYPE',
+          type: 'SOME_ACTION_TYPE',
           payload: {
             someData: 'someData'
           }

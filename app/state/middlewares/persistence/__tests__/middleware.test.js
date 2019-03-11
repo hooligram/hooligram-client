@@ -99,7 +99,7 @@ describe('persistence middleware', () => {
     [
       'PERSISTENCE:SOME_ACTION',
       'SOME_ACTION',
-      'API:SOME_ACTION_REQUEST'
+      'SOME_ACTION_REQUEST'
     ]
     .forEach(async actionType => {
       const action = {
@@ -124,7 +124,7 @@ describe('persistence middleware', () => {
 
   describe('action is the one of the following', () => {
     [
-      'API:AUTHORIZATION_SIGN_IN_SUCCESS'
+      'AUTHORIZATION_SIGN_IN_SUCCESS'
     ]
     .forEach(async actionType => {
       const action = {

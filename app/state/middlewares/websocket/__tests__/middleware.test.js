@@ -45,8 +45,8 @@ xdescribe('api middleware', () => {
 
     it('should not send message over websocket', () => {
       [
-        'API:SOME_ACTION_SUCCESS',
-        'API:SOME_ACTION_FAILURE',
+        'SOME_ACTION_SUCCESS',
+        'SOME_ACTION_FAILURE',
         'SOMETHING:NON_API',
         'SOME_ACTION',
         'SOME_SERVICE:SOME_ACTION_REQUEST'
@@ -70,7 +70,7 @@ xdescribe('api middleware', () => {
 
     it('should send message over websocket', () => {
       [
-        'API:SOME_ACTION_REQUEST'
+        'SOME_ACTION_REQUEST'
       ]
       .forEach(actionType => {
         action.type = actionType
