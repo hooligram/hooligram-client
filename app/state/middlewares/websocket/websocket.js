@@ -3,35 +3,43 @@ import { MESSAGING_BROADCAST_SUCCESS } from 'hg/state/actions'
 import { authorizationSignInRequest } from 'hg/state/actions/authorization'
 import {
   websocketClose,
+  websocketConnect,
   websocketOpen
 } from 'hg/state/actions/websocket'
-import selectors from 'hg/state/selectors'
 
 let instance
 
-export default (store) => {
-  if (instance) return instance
+export default () => {
+  return {
+    connect: (dispatch, countryCode, phoneNumber, verificationCode) => {
+      instance = websocket(dispatch, countryCode, phoneNumber, verificationCode)
+    },
 
-  instance = websocket(store)
-  return instance
+    sendAction: (action) => {
+      const actionString = JSON.stringify({
+        ...action,
+        type: action.type.replace('API:', '')
+      })
+
+      try {
+        instance.send(actionString)
+      }
+      catch (err) {
+        console.log(err)
+      }
+    }
+  }
 }
 
-const websocket = (store) => {
-  const { dispatch } = store
-
-  const state = store.getState()
-  const code = selectors.currentUserCode(state)
-  const countryCode = selectors.currentUserCountryCode(state)
-  const phoneNumber = selectors.currentUserPhoneNumber(state)
-
+const websocket = (dispatch, countryCode, phoneNumber, verificationCode) => {
   const ws = new WebSocket(Config.API_HOST)
 
   ws.onopen = () => {
     dispatch(websocketOpen(Config.API_HOST))
-    const shouldReconnect = code && countryCode && phoneNumber
+    const canSignIn = countryCode && phoneNumber && verificationCode
 
-    if (shouldReconnect) {
-      dispatch(authorizationSignInRequest(code, countryCode, phoneNumber))
+    if (canSignIn) {
+      dispatch(authorizationSignInRequest(verificationCode, countryCode, phoneNumber))
     }
   }
 
@@ -65,6 +73,9 @@ const websocket = (store) => {
   ws.onclose = () => {
     instance = null
     dispatch(websocketClose())
+    setTimeout(() => {
+      dispatch(websocketConnect())
+    }, 1000)
   }
 
   return ws

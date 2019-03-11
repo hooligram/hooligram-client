@@ -4,6 +4,7 @@ import { Text, View } from 'react-native'
 import { connect } from 'react-redux'
 import { colors, dimensions } from 'hg/constants'
 import { appStartup } from 'hg/state/actions/app'
+import { websocketConnect } from 'hg/state/actions/websocket'
 import { setTopLevelNavigator } from 'hg/state/middlewares/navigation/middleware'
 import Navigation from 'hg/state/middlewares/navigation/stacks'
 
@@ -39,6 +40,7 @@ class App extends Component {
 
   componentDidMount () {
     this.props.appStartup()
+    this.props.websocketConnect()
   }
 
   goToNextScreen = () => console.log('goToNextScreen')
@@ -60,6 +62,10 @@ const mapDispatchToProps = dispatch => {
   return {
     appStartup: () => {
       dispatch(appStartup())
+    },
+
+    websocketConnect: () => {
+      dispatch(websocketConnect())
     }
   }
 }

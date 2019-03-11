@@ -1,11 +1,20 @@
 import {
   WEBSOCKET_CLOSE,
+  WEBSOCKET_CONNECT,
   WEBSOCKET_OPEN
 } from 'hg/state/actions'
 
 export const websocketClose = () => {
   return {
     type: WEBSOCKET_CLOSE,
+    payload: {
+    }
+  }
+}
+
+export const websocketConnect = () => {
+  return {
+    type: WEBSOCKET_CONNECT,
     payload: {
     }
   }
