@@ -1,6 +1,6 @@
 import {
   PERSISTENCE_LOAD_STATE_SUCCESS,
-  SAVE_USER_NAME,
+  SET_USER_NAME,
   VERIFICATION_SUBMIT_CODE_SUCCESS,
   VERIFICATION_REQUEST_CODE_SUCCESS,
   WEBSOCKET_OPEN
@@ -73,7 +73,7 @@ const middleware = navigationActions => store => next => action => {
     }
 
     case `/${routeNames.Onboarding}/${routeNames.ProfileInfo}`: {
-      if (action.type === SAVE_USER_NAME) {
+      if (action.type === SET_USER_NAME) {
         const {
           profile: {
             userName,

@@ -19,7 +19,7 @@ describe('profile reducer', () => {
         payload: {
           userName: 'Fujiwara Sai'
         },
-        type: 'SAVE_USER_NAME'
+        type: 'SET_USER_NAME'
       })
       expect(state).toEqual({
         userName: 'Fujiwara Sai'
@@ -31,7 +31,7 @@ describe('profile reducer', () => {
         payload: {
           userName: 'Fujiwara Sai'
         },
-        type: 'SAVE_USER_NAME_TYPO'
+        type: 'SET_USER_NAME_TYPO'
       })
       expect(state).toEqual({
         userName: ''

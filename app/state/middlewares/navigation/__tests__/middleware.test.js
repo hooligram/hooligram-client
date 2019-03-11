@@ -298,7 +298,7 @@ describe('navigation middleware', () => {
           }
         }))
         action = {
-          type: 'SAVE_USER_NAME',
+          type: 'SET_USER_NAME',
           payload: {
             userName: 'someusername'
           }
