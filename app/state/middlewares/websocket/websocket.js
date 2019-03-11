@@ -1,5 +1,6 @@
 import Config from 'react-native-config'
 import { MESSAGING_BROADCAST_SUCCESS } from 'hg/state/actions'
+import { signOut } from 'hg/state/actions/app'
 import { authorizationSignInRequest } from 'hg/state/actions/authorization'
 import {
   websocketClose,
@@ -20,6 +21,7 @@ export default () => {
         instance.send(JSON.stringify(action))
       }
       catch (err) {
+        console.log('__WEBSOCKET__ send action error')
         console.log(err)
       }
     }
@@ -34,7 +36,7 @@ const websocket = (dispatch, countryCode, phoneNumber, verificationCode) => {
     const canSignIn = countryCode && phoneNumber && verificationCode
 
     if (canSignIn) {
-      dispatch(authorizationSignInRequest(verificationCode, countryCode, phoneNumber))
+      instance.send(JSON.stringify(authorizationSignInRequest(verificationCode, countryCode, phoneNumber)))
     }
   }
 
@@ -67,6 +69,7 @@ const websocket = (dispatch, countryCode, phoneNumber, verificationCode) => {
   ws.onclose = () => {
     instance = null
     dispatch(websocketClose())
+    dispatch(signOut())
     setTimeout(() => {
       dispatch(websocketConnect())
     }, 1000)
