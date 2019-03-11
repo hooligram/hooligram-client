@@ -15,7 +15,7 @@ xdescribe('api middleware', () => {
 
   describe('app just starts up', () => {
     const action = {
-      type: 'APP:STARTUP',
+      type: 'APP_STARTUP',
       payload: {}
     }
 

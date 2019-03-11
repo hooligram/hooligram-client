@@ -273,7 +273,7 @@ describe('navigation middleware', () => {
           }
         }))
         action = {
-          type: 'PERSISTENCE:SAVE_STATE_SUCCESS',
+          type: 'PERSISTENCE_SAVE_STATE_SUCCESS',
           payload: {}
         }
         callMiddleware = navigationMiddleware(navigationActions)(store)(next)

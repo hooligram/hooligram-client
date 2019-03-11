@@ -28,7 +28,7 @@ describe('persistence middleware', () => {
 
   describe('on app startup', () => {
     const action = {
-      type: 'APP:STARTUP',
+      type: 'APP_STARTUP',
       payload: {}
     }
 
@@ -36,7 +36,7 @@ describe('persistence middleware', () => {
       await callPersistenceMiddleware(action)
 
       expect(store.dispatch).toHaveBeenCalledWith({
-        type: 'PERSISTENCE:LOAD_STATE_REQUEST',
+        type: 'PERSISTENCE_LOAD_STATE_REQUEST',
         payload: {}
       })
     })
@@ -61,7 +61,7 @@ describe('persistence middleware', () => {
           await callPersistenceMiddleware(action)
 
           expect(store.dispatch({
-            type: 'PERSISTENCE:LOAD_STATE_FAILURE',
+            type: 'PERSISTENCE_LOAD_STATE_FAILURE',
             payload: {
               error: new Error('Error: state in storage is `undefined` or `null`')
             }
@@ -86,7 +86,7 @@ describe('persistence middleware', () => {
         await callPersistenceMiddleware(action)
 
         expect(store.dispatch).toHaveBeenCalledWith({
-          type: 'PERSISTENCE:LOAD_STATE_FAILURE',
+          type: 'PERSISTENCE_LOAD_STATE_FAILURE',
           payload: {
             error
           }
@@ -95,9 +95,9 @@ describe('persistence middleware', () => {
     })
   })
 
-  describe('action is a PERSISTENCE:* or not api response action', () => {
+  describe('action is a PERSISTENCE_* or not api response action', () => {
     [
-      'PERSISTENCE:SOME_ACTION',
+      'PERSISTENCE_SOME_ACTION',
       'SOME_ACTION',
       'SOME_ACTION_REQUEST'
     ]
@@ -190,7 +190,7 @@ describe('persistence middleware', () => {
           await callPersistenceMiddleware(action)
 
           expect(store.dispatch).toHaveBeenCalledWith({
-            type: 'PERSISTENCE:SAVE_STATE_FAILURE',
+            type: 'PERSISTENCE_SAVE_STATE_FAILURE',
             payload: {
               error
             }
