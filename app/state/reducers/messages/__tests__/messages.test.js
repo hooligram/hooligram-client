@@ -34,7 +34,7 @@ describe('messages reducer', () => {
         allIds: ['id1', 'id2']
       }
       action = {
-        type: 'API:MESSAGING_BROADCAST_SUCCESS',
+        type: 'MESSAGING_BROADCAST_SUCCESS',
         payload: {
           message: 'some new message',
           sender: {

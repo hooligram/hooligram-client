@@ -1,13 +1,16 @@
 import {
   APP_STARTUP,
   APP_STARTUP_SUCCESS,
+  SIGN_IN,
+  SIGN_OUT,
   WEBSOCKET_CLOSE,
-  WEBSOCKET_INIT_SUCCESS
+  WEBSOCKET_OPEN
 } from 'hg/state/actions'
 
 export const initialState = {
+  isSignedIn: false,
   isStartupDone: false,
-  websocketOnline: false
+  isWebsocketOnline: false
 }
 
 const app = (state = initialState, action) => {
@@ -26,17 +29,31 @@ const app = (state = initialState, action) => {
       }
     }
 
-    case WEBSOCKET_CLOSE: {
+    case SIGN_IN: {
       return {
         ...state,
-        websocketOnline: false
+        isSignedIn: true
       }
     }
 
-    case WEBSOCKET_INIT_SUCCESS: {
+    case SIGN_OUT: {
       return {
         ...state,
-        websocketOnline: true
+        isSignedIn: false
+      }
+    }
+
+    case WEBSOCKET_CLOSE: {
+      return {
+        ...state,
+        isWebsocketOnline: false
+      }
+    }
+
+    case WEBSOCKET_OPEN: {
+      return {
+        ...state,
+        isWebsocketOnline: true
       }
     }
 

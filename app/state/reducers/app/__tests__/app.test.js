@@ -11,21 +11,23 @@ describe('app reducer', () => {
     it('should return correct initial state', () => {
       expect(state).toEqual(
         {
+          isSignedIn: false,
           isStartupDone: false,
-          websocketOnline: false
+          isWebsocketOnline: false
         }
       )
     })
 
-    it('should set websocketOnline to true', () => {
+    it('should set isWebsocketOnline to true', () => {
       const nextState = appReducer(state, {
-        type: 'WEBSOCKET:INIT_SUCCESS'
+        type: 'WEBSOCKET_OPEN'
       })
 
       expect(nextState).toEqual(
         {
+          isSignedIn: false,
           isStartupDone: false,
-          websocketOnline: true
+          isWebsocketOnline: true
         }
       )
     })
@@ -34,18 +36,18 @@ describe('app reducer', () => {
   describe('websocket is online', () => {
     beforeEach(() => {
       state = {
-        websocketOnline: true
+        isWebsocketOnline: true
       }
     })
 
-    it('should set websocketOnline to false', () => {
+    it('should set isWebsocketOnline to false', () => {
       const nextState = appReducer(state, {
-        type: 'WEBSOCKET:CLOSE'
+        type: 'WEBSOCKET_CLOSE'
       })
 
       expect(nextState).toEqual(
         {
-          websocketOnline: false
+          isWebsocketOnline: false
         }
       )
     })

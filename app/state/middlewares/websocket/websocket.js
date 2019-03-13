@@ -1,37 +1,42 @@
 import Config from 'react-native-config'
 import { MESSAGING_BROADCAST_SUCCESS } from 'hg/state/actions'
+import { signOut } from 'hg/state/actions/app'
 import { authorizationSignInRequest } from 'hg/state/actions/authorization'
 import {
   websocketClose,
-  websocketInitSuccess
+  websocketConnect,
+  websocketOpen
 } from 'hg/state/actions/websocket'
-import selectors from 'hg/state/selectors'
 
 let instance
 
-export default (store) => {
-  if (instance) return instance
+export default () => {
+  return {
+    connect: (dispatch, countryCode, phoneNumber, verificationCode) => {
+      instance = websocket(dispatch, countryCode, phoneNumber, verificationCode)
+    },
 
-  instance = websocket(store)
-  return instance
+    sendAction: (action) => {
+      try {
+        instance.send(JSON.stringify(action))
+      }
+      catch (err) {
+        console.log('__WEBSOCKET__ send action error')
+        console.log(err)
+      }
+    }
+  }
 }
 
-const websocket = (store) => {
-  const { dispatch } = store
-
-  const state = store.getState()
-  const code = selectors.currentUserCode(state)
-  const countryCode = selectors.currentUserCountryCode(state)
-  const phoneNumber = selectors.currentUserPhoneNumber(state)
-
+const websocket = (dispatch, countryCode, phoneNumber, verificationCode) => {
   const ws = new WebSocket(Config.API_HOST)
 
   ws.onopen = () => {
-    dispatch(websocketInitSuccess(Config.API_HOST))
-    const shouldReconnect = code && countryCode && phoneNumber
+    dispatch(websocketOpen(Config.API_HOST))
+    const canSignIn = countryCode && phoneNumber && verificationCode
 
-    if (shouldReconnect) {
-      dispatch(authorizationSignInRequest(code, countryCode, phoneNumber))
+    if (canSignIn) {
+      instance.send(JSON.stringify(authorizationSignInRequest(verificationCode, countryCode, phoneNumber)))
     }
   }
 
@@ -41,10 +46,14 @@ const websocket = (store) => {
 
     try {
       action = JSON.parse(data)
-      action.type = 'API:'.concat(action.type)
     }
     catch (err) {
-      action = websocketError(err)
+      if (__DEV__) {
+        console.log('__WEBSOCKET__ action parse error')
+        console.log(err)
+      }
+
+      return
     }
 
     // hack since backend currently does not provide id for each message
@@ -59,7 +68,11 @@ const websocket = (store) => {
 
   ws.onclose = () => {
     instance = null
-    dispatch(websocketClose(null, code))
+    dispatch(websocketClose())
+    dispatch(signOut())
+    setTimeout(() => {
+      dispatch(websocketConnect())
+    }, 1000)
   }
 
   return ws

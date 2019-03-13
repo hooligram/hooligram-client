@@ -1,9 +1,9 @@
 import {
   PERSISTENCE_LOAD_STATE_SUCCESS,
-  SAVE_USER_NAME,
+  SET_USER_NAME,
   VERIFICATION_SUBMIT_CODE_SUCCESS,
   VERIFICATION_REQUEST_CODE_SUCCESS,
-  WEBSOCKET_INIT_SUCCESS
+  WEBSOCKET_OPEN
 } from 'hg/state/actions'
 import { appStartupSuccess } from 'hg/state/actions/app'
 import { getFullRouteName } from 'hg/state/middlewares/navigation/utils'
@@ -73,7 +73,7 @@ const middleware = navigationActions => store => next => action => {
     }
 
     case `/${routeNames.Onboarding}/${routeNames.ProfileInfo}`: {
-      if (action.type === SAVE_USER_NAME) {
+      if (action.type === SET_USER_NAME) {
         const {
           profile: {
             userName,
@@ -92,10 +92,10 @@ const middleware = navigationActions => store => next => action => {
     }
 
     case `/${routeNames.Splash}`: {
-      if ([PERSISTENCE_LOAD_STATE_SUCCESS, WEBSOCKET_INIT_SUCCESS].includes(action.type)) {
+      if ([PERSISTENCE_LOAD_STATE_SUCCESS, WEBSOCKET_OPEN].includes(action.type)) {
         const {
           app: {
-            websocketOnline
+            isWebsocketOnline
           },
           authorization: {
             country_code,
@@ -104,7 +104,7 @@ const middleware = navigationActions => store => next => action => {
           }
         } = nextState
 
-        if (!websocketOnline) return
+        if (!isWebsocketOnline) return
 
         let routeName = routeNames.Conversation
 
