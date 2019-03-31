@@ -2,13 +2,18 @@ import Config from 'react-native-config'
 import { MESSAGING_BROADCAST_SUCCESS } from 'hg/actions'
 import { signOut } from 'hg/actions/app'
 import { authorizationSignInRequest } from 'hg/actions/authorization'
+import { connKeepAliveRequest } from 'hg/actions/app'
 import {
   websocketClose,
   websocketConnect,
   websocketOpen
 } from 'hg/actions/websocket'
 
+const KEEP_ALIVE_REQUEST_INTERVAL = 30000
+const RECONNECT_INTERVAL = 1000
+
 let instance
+let keepAliveIntervalId
 
 export default () => {
   return {
@@ -38,6 +43,10 @@ const websocket = (dispatch, countryCode, phoneNumber, verificationCode) => {
     if (canSignIn) {
       instance.send(JSON.stringify(authorizationSignInRequest(verificationCode, countryCode, phoneNumber)))
     }
+
+    keepAliveIntervalId = setInterval(() => {
+      instance.send(JSON.stringify(connKeepAliveRequest()))
+    }, KEEP_ALIVE_REQUEST_INTERVAL)
   }
 
   ws.onmessage = (event) => {
@@ -68,11 +77,12 @@ const websocket = (dispatch, countryCode, phoneNumber, verificationCode) => {
 
   ws.onclose = () => {
     instance = null
+    clearInterval(keepAliveIntervalId)
     dispatch(websocketClose())
     dispatch(signOut())
     setTimeout(() => {
       dispatch(websocketConnect())
-    }, 1000)
+    }, RECONNECT_INTERVAL)
   }
 
   return ws
