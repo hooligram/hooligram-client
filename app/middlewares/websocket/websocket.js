@@ -1,5 +1,4 @@
 import Config from 'react-native-config'
-import { MESSAGING_BROADCAST_SUCCESS } from 'hg/actions'
 import { signOut } from 'hg/actions/app'
 import { authorizationSignInRequest } from 'hg/actions/authorization'
 import { connKeepAliveRequest } from 'hg/actions/app'
@@ -65,13 +64,6 @@ const websocket = (dispatch, countryCode, phoneNumber, verificationCode) => {
       }
 
       return
-    }
-
-    // hack since backend currently does not provide id for each message
-    // I believe it's the responsibility of backend to generate and provide
-    // the message id, but we can think and discuss about it
-    if (action.type === MESSAGING_BROADCAST_SUCCESS) {
-      action.payload.id = `${Math.floor(Math.random() * 100000000)}`
     }
 
     dispatch(action)

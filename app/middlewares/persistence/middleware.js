@@ -1,6 +1,5 @@
 import {
   AUTHORIZATION_SIGN_IN_SUCCESS,
-  MESSAGING_BROADCAST_SUCCESS,
   VERIFICATION_REQUEST_CODE_SUCCESS,
   VERIFICATION_SUBMIT_CODE_SUCCESS
 } from 'hg/actions'
@@ -43,7 +42,6 @@ const persistence = persistenceApi => store => next => async action => {
 
   if (![
     AUTHORIZATION_SIGN_IN_SUCCESS,
-    MESSAGING_BROADCAST_SUCCESS,
     VERIFICATION_REQUEST_CODE_SUCCESS,
     VERIFICATION_SUBMIT_CODE_SUCCESS
   ].includes(action.type)) {

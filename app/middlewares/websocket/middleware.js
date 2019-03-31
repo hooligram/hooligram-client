@@ -1,7 +1,6 @@
 import {
   AUTHORIZATION_SIGN_IN_REQUEST,
   AUTHORIZATION_SIGN_IN_SUCCESS,
-  MESSAGING_BROADCAST_REQUEST,
   VERIFICATION_REQUEST_CODE_REQUEST,
   VERIFICATION_SUBMIT_CODE_REQUEST,
   WEBSOCKET_CONNECT
@@ -43,12 +42,6 @@ export default store => next => action => {
     VERIFICATION_SUBMIT_CODE_REQUEST
   ].includes(action.type)) {
     ws.sendAction(action)
-    return next(action)
-  }
-
-  if (![
-    MESSAGING_BROADCAST_REQUEST,
-  ].includes(action.type)) {
     return next(action)
   }
 
