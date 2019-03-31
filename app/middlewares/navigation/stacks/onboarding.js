@@ -6,7 +6,7 @@ import {
   OnboardingSubmitCode,
   OnboardingProfileInfo
 } from 'hg/screens'
-import { routeNames } from 'hg/state/middlewares/navigation'
+import { routeNames } from 'hg/middlewares/navigation'
 
 const routesConfigs = {
   [routeNames.Agree]: {

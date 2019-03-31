@@ -1,7 +1,7 @@
 import {
   MESSAGING_BROADCAST_SUCCESS,
   PERSISTENCE_LOAD_STATE_SUCCESS
-} from 'hg/state/actions'
+} from 'hg/actions'
 
 const initialState = {
   byId: {},

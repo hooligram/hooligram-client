@@ -1,4 +1,4 @@
-import persistenceMiddleware from 'hg/state/middlewares/persistence/middleware'
+import persistenceMiddleware from 'hg/middlewares/persistence/middleware'
 
 describe('persistence middleware', () => {
   let store, next, callPersistenceMiddleware, persistenceApi, stateFromStorage, stateFromStore

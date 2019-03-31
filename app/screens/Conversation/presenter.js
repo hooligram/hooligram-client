@@ -1,7 +1,7 @@
 import { connect as _connect } from 'react-redux'
-import { authorizationSignInRequest } from 'hg/state/actions/authorization'
-import { broadcastMessageRequest } from 'hg/state/actions/messaging'
-import selectors from 'hg/state/selectors'
+import { authorizationSignInRequest } from 'hg/actions/authorization'
+import { broadcastMessageRequest } from 'hg/actions/messaging'
+import selectors from 'hg/selectors'
 
 export const mapStateToProps = state => {
   const {

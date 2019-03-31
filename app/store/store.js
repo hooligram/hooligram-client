@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware } from 'redux'
-import reducer from 'hg/state/reducers'
-import websocket from 'hg/state/middlewares/websocket'
-import logger from 'hg/state/middlewares/logger'
-import navigation from 'hg/state/middlewares/navigation'
-import persistence from 'hg/state/middlewares/persistence'
+import reducer from 'hg/reducers'
+import websocket from 'hg/middlewares/websocket'
+import logger from 'hg/middlewares/logger'
+import navigation from 'hg/middlewares/navigation'
+import persistence from 'hg/middlewares/persistence'
 
 const middlewares = [
   persistence,

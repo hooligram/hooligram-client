@@ -5,7 +5,7 @@ import {
   SIGN_OUT,
   WEBSOCKET_CLOSE,
   WEBSOCKET_OPEN
-} from 'hg/state/actions'
+} from 'hg/actions'
 
 export const initialState = {
   isSignedIn: false,

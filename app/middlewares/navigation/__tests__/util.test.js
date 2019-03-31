@@ -1,4 +1,4 @@
-import { getFullRouteName } from 'hg/state/middlewares/navigation/utils'
+import { getFullRouteName } from 'hg/middlewares/navigation/utils'
 
 describe('navigation middleware utils', () => {
   describe('getFullRouteName', () => {

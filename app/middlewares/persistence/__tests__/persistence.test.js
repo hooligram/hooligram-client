@@ -14,7 +14,7 @@ describe('persistence', () => {
             setItem: jest.fn()
           }
         }))
-        PersistenceApi = require('hg/state/middlewares/persistence/persistence').default
+        PersistenceApi = require('hg/middlewares/persistence/persistence').default
       })
 
       it('should return state from storage', async () => {
@@ -40,7 +40,7 @@ describe('persistence', () => {
             setItem: jest.fn()
           }
         }))
-        PersistenceApi = require('hg/state/middlewares/persistence/persistence').default
+        PersistenceApi = require('hg/middlewares/persistence/persistence').default
       })
 
       it('should return `undefined`', async () => {
@@ -65,7 +65,7 @@ describe('persistence', () => {
           )
         }
       }))
-      PersistenceApi = require('hg/state/middlewares/persistence/persistence').default
+      PersistenceApi = require('hg/middlewares/persistence/persistence').default
       AsyncStorage = require('react-native').AsyncStorage
     })
 

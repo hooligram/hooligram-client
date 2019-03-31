@@ -3,7 +3,7 @@ import {
   MESSAGING_BROADCAST_SUCCESS,
   VERIFICATION_REQUEST_CODE_SUCCESS,
   VERIFICATION_SUBMIT_CODE_SUCCESS
-} from 'hg/state/actions'
+} from 'hg/actions'
 import {
   loadStateRequest,
   loadStateSuccess,
@@ -11,8 +11,8 @@ import {
   saveStateRequest,
   saveStateSuccess,
   saveStateFailure
-} from 'hg/state/actions/persistence'
-import { APP_STARTUP } from 'hg/state/actions'
+} from 'hg/actions/persistence'
+import { APP_STARTUP } from 'hg/actions'
 
 const persistence = persistenceApi => store => next => async action => {
   const { getState, dispatch } = store

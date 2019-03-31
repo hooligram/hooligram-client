@@ -1,12 +1,12 @@
 import Config from 'react-native-config'
-import { MESSAGING_BROADCAST_SUCCESS } from 'hg/state/actions'
-import { signOut } from 'hg/state/actions/app'
-import { authorizationSignInRequest } from 'hg/state/actions/authorization'
+import { MESSAGING_BROADCAST_SUCCESS } from 'hg/actions'
+import { signOut } from 'hg/actions/app'
+import { authorizationSignInRequest } from 'hg/actions/authorization'
 import {
   websocketClose,
   websocketConnect,
   websocketOpen
-} from 'hg/state/actions/websocket'
+} from 'hg/actions/websocket'
 
 let instance
 

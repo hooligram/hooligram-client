@@ -5,7 +5,7 @@ import {
   PERSISTENCE_SAVE_STATE_FAILURE,
   PERSISTENCE_SAVE_STATE_REQUEST,
   PERSISTENCE_SAVE_STATE_SUCCESS
-} from 'hg/state/actions'
+} from 'hg/actions'
 
 export const loadStateRequest = () => {
   return {

@@ -1,5 +1,5 @@
-import navigationMiddleware from 'hg/state/middlewares/navigation/middleware'
-import { setTopLevelNavigator } from 'hg/state/middlewares/navigation/middleware'
+import navigationMiddleware from 'hg/middlewares/navigation/middleware'
+import { setTopLevelNavigator } from 'hg/middlewares/navigation/middleware'
 
 describe('navigation middleware', () => {
   let navigationActions, callMiddleware, store, next

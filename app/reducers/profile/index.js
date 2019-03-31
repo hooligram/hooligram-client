@@ -1,4 +1,4 @@
-import { SET_USER_NAME } from 'hg/state/actions'
+import { SET_USER_NAME } from 'hg/actions'
 
 const initialState = {
   userName: ''

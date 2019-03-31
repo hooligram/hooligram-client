@@ -5,9 +5,9 @@ import {
   VERIFICATION_REQUEST_CODE_REQUEST,
   VERIFICATION_SUBMIT_CODE_REQUEST,
   WEBSOCKET_CONNECT
-} from 'hg/state/actions'
-import { signIn } from 'hg/state/actions/app'
-import selectors from 'hg/state/selectors'
+} from 'hg/actions'
+import { signIn } from 'hg/actions/app'
+import selectors from 'hg/selectors'
 import websocket from './websocket'
 
 let authActionQueue = []
