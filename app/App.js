@@ -3,10 +3,10 @@ import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import { connect } from 'react-redux'
 import { colors, dimensions } from 'hg/constants'
-import { appStartup } from 'hg/state/actions/app'
-import { websocketConnect } from 'hg/state/actions/websocket'
-import { setTopLevelNavigator } from 'hg/state/middlewares/navigation/middleware'
-import Navigation from 'hg/state/middlewares/navigation/stacks'
+import { appStartup } from 'hg/actions/app'
+import { websocketConnect } from 'hg/actions/websocket'
+import { setTopLevelNavigator } from 'hg/middlewares/navigation/middleware'
+import Navigation from 'hg/middlewares/navigation/stacks'
 
 class App extends Component {
   static propTypes = {
