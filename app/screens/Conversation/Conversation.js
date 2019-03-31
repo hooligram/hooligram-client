@@ -175,7 +175,7 @@ export default class Conversation extends Component {
       phone_number
     } = this.props
 
-    this.props.signIn(code, country_code, phone_number)
+    this.props.signIn(country_code, phone_number, code)
   }
 
   _sendMessage = () => {

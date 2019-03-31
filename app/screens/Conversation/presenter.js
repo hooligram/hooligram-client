@@ -54,14 +54,8 @@ const mapDispatchToProps = dispatch => {
         )
       )
     },
-    signIn: (code, country_code, phone_number) => {
-      dispatch(
-        authorizationSignInRequest(
-          code,
-          country_code,
-          phone_number
-        )
-      )
+    signIn: (countryCode, phoneNumber, verificationCode) => {
+      dispatch(authorizationSignInRequest(countryCode, phoneNumber, verificationCode))
     }
   }
 }

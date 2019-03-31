@@ -4,32 +4,32 @@ import {
   VERIFICATION_SUBMIT_CODE_REQUEST
 } from '.'
 
-export const authorizationSignInRequest = (code, country_code, phone_number) => {
+export const authorizationSignInRequest = (countryCode, phoneNumber, verificationCode) => {
   return {
-    type: AUTHORIZATION_SIGN_IN_REQUEST,
     payload: {
-      code,
-      country_code,
-      phone_number
-    }
+      country_code: countryCode,
+      phone_number: phoneNumber,
+      verification_code: verificationCode
+    },
+    type: AUTHORIZATION_SIGN_IN_REQUEST
   }
 }
 
 export const requestVerificationCode = (countryCode, phoneNumber) => {
   return {
-    type: VERIFICATION_REQUEST_CODE_REQUEST,
     payload: {
       country_code: countryCode,
       phone_number: phoneNumber
-    }
+    },
+    type: VERIFICATION_REQUEST_CODE_REQUEST
   }
 }
 
-export const submitVerificationCode = (code) => {
+export const submitVerificationCode = (verificationCode) => {
   return {
-    type: VERIFICATION_SUBMIT_CODE_REQUEST,
     payload: {
-      code
-    }
+      verification_code: verificationCode
+    },
+    type: VERIFICATION_SUBMIT_CODE_REQUEST
   }
 }

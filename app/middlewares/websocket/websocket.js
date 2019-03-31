@@ -41,7 +41,9 @@ const websocket = (dispatch, countryCode, phoneNumber, verificationCode) => {
     const canSignIn = countryCode && phoneNumber && verificationCode
 
     if (canSignIn) {
-      instance.send(JSON.stringify(authorizationSignInRequest(verificationCode, countryCode, phoneNumber)))
+      instance.send(JSON.stringify(authorizationSignInRequest(
+        countryCode, phoneNumber, verificationCode
+      )))
     }
 
     keepAliveIntervalId = setInterval(() => {

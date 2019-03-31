@@ -16,16 +16,16 @@ const authorization = (state = initialState, action) => {
     case AUTHORIZATION_SIGN_IN_SUCCESS: {
       const {
         payload: {
-          code,
-          country_code,
-          phone_number
+          country_code: countryCode,
+          phone_number: phoneNumber,
+          verification_code: verificationCode
         }
       } = action
 
       return {
-        country_code,
-        phone_number,
-        token: code
+        country_code: countryCode,
+        phone_number: phoneNumber,
+        token: verificationCode
       }
     }
 
