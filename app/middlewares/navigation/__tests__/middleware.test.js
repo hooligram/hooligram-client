@@ -306,11 +306,11 @@ describe('navigation middleware', () => {
         callMiddleware = navigationMiddleware(navigationActions)(store)(next)
       })
 
-      it('should navigate to `Conversation` screen', () => {
+      it('should navigate to `Home` screen', () => {
         callMiddleware(action)
 
         expect(navigationActions.navigate).toHaveBeenCalledWith({
-          routeName: 'Conversation'
+          routeName: 'Home'
         })
       })
     })
