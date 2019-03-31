@@ -1,3 +1,4 @@
+import { getCurrentTimestamp } from 'hg/utils'
 import {
   AUTHORIZATION_SIGN_IN_REQUEST,
   VERIFICATION_REQUEST_CODE_REQUEST,
@@ -6,6 +7,7 @@ import {
 
 export const authorizationSignInRequest = (countryCode, phoneNumber, verificationCode) => {
   return {
+    id: getCurrentTimestamp(),
     payload: {
       country_code: countryCode,
       phone_number: phoneNumber,
@@ -17,6 +19,7 @@ export const authorizationSignInRequest = (countryCode, phoneNumber, verificatio
 
 export const requestVerificationCode = (countryCode, phoneNumber) => {
   return {
+    id: getCurrentTimestamp(),
     payload: {
       country_code: countryCode,
       phone_number: phoneNumber
@@ -27,6 +30,7 @@ export const requestVerificationCode = (countryCode, phoneNumber) => {
 
 export const submitVerificationCode = (verificationCode) => {
   return {
+    id: getCurrentTimestamp(),
     payload: {
       verification_code: verificationCode
     },

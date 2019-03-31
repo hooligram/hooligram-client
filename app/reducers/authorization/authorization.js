@@ -1,6 +1,5 @@
 import {
   PERSISTENCE_LOAD_STATE_SUCCESS,
-  AUTHORIZATION_SIGN_IN_SUCCESS,
   VERIFICATION_REQUEST_CODE_REQUEST,
   VERIFICATION_SUBMIT_CODE_REQUEST
 } from 'hg/actions'
@@ -13,22 +12,6 @@ export const initialState = {
 
 const authorization = (state = initialState, action) => {
   switch (action.type) {
-    case AUTHORIZATION_SIGN_IN_SUCCESS: {
-      const {
-        payload: {
-          country_code: countryCode,
-          phone_number: phoneNumber,
-          verification_code: verificationCode
-        }
-      } = action
-
-      return {
-        country_code: countryCode,
-        phone_number: phoneNumber,
-        token: verificationCode
-      }
-    }
-
     case PERSISTENCE_LOAD_STATE_SUCCESS: {
       const {
         payload: {
@@ -61,13 +44,13 @@ const authorization = (state = initialState, action) => {
     case VERIFICATION_SUBMIT_CODE_REQUEST: {
       const {
         payload: {
-          code
+          verification_code
         }
       } = action
 
       return {
         ...state,
-        token: code
+        token: verification_code
       }
     }
 
