@@ -1,4 +1,4 @@
-export { default as Conversation } from './Conversation'
+export { default as Home } from './Home'
 export { default as OnboardingAgree } from './OnboardingAgree'
 export { default as OnboardingInitialize } from './OnboardingInitialize'
 export { default as OnboardingProfileInfo } from './OnboardingProfileInfo'
