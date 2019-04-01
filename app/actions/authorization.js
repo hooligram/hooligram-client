@@ -4,9 +4,8 @@ import {
   VERIFICATION_SUBMIT_CODE_REQUEST
 } from '.'
 
-export const authorizationSignInRequest = (id, countryCode, phoneNumber, verificationCode) => {
+export const authorizationSignInRequest = (countryCode, phoneNumber, verificationCode) => {
   return {
-    id,
     payload: {
       country_code: countryCode,
       phone_number: phoneNumber,
@@ -16,7 +15,7 @@ export const authorizationSignInRequest = (id, countryCode, phoneNumber, verific
   }
 }
 
-export const requestVerificationCode = (id, countryCode, phoneNumber) => {
+export const requestVerificationCode = (countryCode, phoneNumber) => {
   return {
     payload: {
       country_code: countryCode,
@@ -26,9 +25,8 @@ export const requestVerificationCode = (id, countryCode, phoneNumber) => {
   }
 }
 
-export const submitVerificationCode = (id, verificationCode) => {
+export const submitVerificationCode = (verificationCode) => {
   return {
-    id,
     payload: {
       verification_code: verificationCode
     },
