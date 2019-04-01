@@ -1,5 +1,4 @@
-import authorizationReducer from 'hg/reducers/authorization/authorization'
-import { initialState } from 'hg/reducers/authorization/authorization'
+import authorizationReducer, { initialState } from 'hg/reducers/authorization/authorization'
 
 describe('authorization reducer', () => {
   describe('initially', () => {
@@ -20,11 +19,12 @@ describe('authorization reducer', () => {
     let action, state
     beforeEach(() => {
       action = {
+        id: '123',
         type: 'AUTHORIZATION_SIGN_IN_SUCCESS',
         payload: {
-          code: 'some code',
+          country_code: 'some country code',
           phone_number: 'some phone number',
-          country_code: 'some country code'
+          verification_code: 'some code'
         }
       }
       state = {

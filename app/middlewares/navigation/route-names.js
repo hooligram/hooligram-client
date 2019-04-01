@@ -1,6 +1,6 @@
 export default {
   Agree: 'Agree',
-  Conversation: 'Conversation',
+  Home: 'Home',
   Initialize: 'Initialize',
   Onboarding: 'Onboarding',
   ProfileInfo: 'ProfileInfo',

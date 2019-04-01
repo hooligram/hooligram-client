@@ -83,7 +83,7 @@ const middleware = navigationActions => store => next => action => {
         if (userName) {
           navigator.dispatch(
             navigationActions.navigate({
-              routeName: 'Conversation'
+              routeName: 'Home'
             })
           )
         }
@@ -106,7 +106,7 @@ const middleware = navigationActions => store => next => action => {
 
         if (!isWebsocketOnline) return
 
-        let routeName = routeNames.Conversation
+        let routeName = routeNames.Home
 
         if (!country_code || !phone_number || !token) {
           routeName = routeNames.Agree
