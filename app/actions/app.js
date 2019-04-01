@@ -8,35 +8,40 @@ import {
 
 export const appStartup = () => {
   return {
-    payload: {},
+    payload: {
+    },
     type: APP_STARTUP
   }
 }
 
 export const appStartupSuccess = () => {
   return {
-    payload: {},
+    payload: {
+    },
     type: APP_STARTUP_SUCCESS
   }
 }
 
 export const connKeepAliveRequest = () => {
   return {
-    payload: {},
+    payload: {
+    },
     type: CONN_KEEP_ALIVE_REQUEST
   }
 }
 
 export const signIn = () => {
   return {
-    payload: {},
+    payload: {
+    },
     type: SIGN_IN
   }
 }
 
 export const signOut = () => {
   return {
-    payload: {},
+    payload: {
+    },
     type: SIGN_OUT
   }
 }
