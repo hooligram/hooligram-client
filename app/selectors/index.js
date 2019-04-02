@@ -1,9 +1,4 @@
 export default {
-  isAuthorized: (state) => (
-    !!state.authorization.token &&
-    !!state.authorization.country_code &&
-    !!state.authorization.phone_number
-  ),
   currentUserCountryCode: (state) => (
     state.authorization.country_code !== ''
       ? state.authorization.country_code
@@ -25,4 +20,7 @@ export default {
   )
 }
 
-export { default as isWebsocketOnline } from './app-is-websocket-online'
+export { default as currentUserCountryCode } from './current-user-country-code'
+export { default as currentUserPhoneNumber } from './current-user-phone-number'
+export { default as currentUserVerificationCode } from './current-user-verification-code'
+export { default as isWebsocketOnline } from './is-websocket-online'
