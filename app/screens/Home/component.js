@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Button, View } from 'react-native'
 import { colors } from 'hg/constants'
 
 export default class extends Component {
@@ -22,6 +22,10 @@ export default class extends Component {
           flex: 1
         }}
       >
+        <Button
+          onPress={this.props.signOut}
+          title='Sign out'
+        />
       </View>
     )
   }

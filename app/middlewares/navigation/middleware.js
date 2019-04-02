@@ -5,7 +5,12 @@ import {
   VERIFICATION_REQUEST_CODE_SUCCESS,
   VERIFICATION_SUBMIT_CODE_SUCCESS
 } from 'hg/actions'
-import { isWebsocketOnline } from 'hg/selectors'
+import {
+  currentUserCountryCode,
+  currentUserPhoneNumber,
+  currentUserVerificationCode,
+  isWebsocketOnline
+} from 'hg/selectors'
 import {
   HOME,
   ONBOARDING_AGREE,
@@ -31,6 +36,14 @@ export default store => next => action => {
 
   switch (currentRoute) {
     case HOME: {
+      const countryCode = currentUserCountryCode(nextState)
+      const phoneNumber = currentUserPhoneNumber(nextState)
+      const verificationCode = currentUserVerificationCode(nextState)
+
+      if (!countryCode || !phoneNumber || !verificationCode) {
+        navigateTo(ONBOARDING_AGREE)
+      }
+
       break
     }
 
@@ -68,7 +81,16 @@ export default store => next => action => {
 
     case SPLASH: {
       if (isWebsocketOnline(nextState)) {
-        navigateTo(ONBOARDING_AGREE)
+        const countryCode = currentUserCountryCode(nextState)
+        const phoneNumber = currentUserPhoneNumber(nextState)
+        const verificationCode = currentUserVerificationCode(nextState)
+
+        if (countryCode && phoneNumber && verificationCode) {
+          navigateTo(HOME)
+        }
+        else {
+          navigateTo(ONBOARDING_AGREE)
+        }
       }
 
       break

@@ -1,5 +1,6 @@
 import {
   AUTHORIZATION_SIGN_IN_SUCCESS,
+  SIGN_OUT,
   VERIFICATION_REQUEST_CODE_REQUEST,
   VERIFICATION_SUBMIT_CODE_REQUEST
 } from 'hg/actions'
@@ -25,6 +26,15 @@ const authorization = (state = initialState, action) => {
         country_code,
         phone_number,
         token: verification_code
+      }
+    }
+
+    case SIGN_OUT: {
+      return {
+        ...state,
+        country_code: '',
+        phone_number: '',
+        token: ''
       }
     }
 

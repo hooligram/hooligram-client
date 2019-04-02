@@ -1,8 +1,12 @@
 import { connect } from 'react-redux'
+import { signOut } from 'hg/actions/app'
 import component from './component'
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    signOut: () => {
+      dispatch(signOut())
+    }
   }
 }
 
@@ -11,9 +15,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mergeProps = (stateProps, dispatchProps) => {
-  return {
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(component)
+export default connect(mapStateToProps, mapDispatchToProps)(component)
