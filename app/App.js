@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import { connect } from 'react-redux'
-import { colors, dimensions } from 'hg/constants'
 import { appStartup } from 'hg/actions/app'
 import { websocketConnect } from 'hg/actions/websocket'
+import { colors, dimensions } from 'hg/constants'
 import { setTopLevelNavigator } from 'hg/middlewares/navigation/middleware'
 import Navigation from 'hg/middlewares/navigation/stacks'
 
@@ -30,7 +30,9 @@ class App extends Component {
               style={{
                 color: colors.WHITE
               }}
-            >You are offline. Reconnecting...</Text>
+            >
+              You are offline. Reconnecting...
+            </Text>
           </View>
         )}
         <Navigation ref={setTopLevelNavigator}/>
@@ -41,20 +43,6 @@ class App extends Component {
   componentDidMount () {
     this.props.appStartup()
     this.props.websocketConnect()
-  }
-
-  goToNextScreen = () => console.log('goToNextScreen')
-}
-
-const mapStateToProps = (state) => {
-  const {
-    app: {
-      isWebsocketOnline
-    }
-  } = state
-
-  return {
-    isWebsocketOnline
   }
 }
 
@@ -67,6 +55,18 @@ const mapDispatchToProps = dispatch => {
     websocketConnect: () => {
       dispatch(websocketConnect())
     }
+  }
+}
+
+const mapStateToProps = (state) => {
+  const {
+    app: {
+      isWebsocketOnline
+    }
+  } = state
+
+  return {
+    isWebsocketOnline
   }
 }
 
