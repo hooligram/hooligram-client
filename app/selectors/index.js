@@ -24,3 +24,5 @@ export default {
       .map(id => state.messages.byId[id])
   )
 }
+
+export { default as isWebsocketOnline } from './app-is-websocket-online'

@@ -4,6 +4,10 @@ import { Text, View } from 'react-native'
 import { colors } from 'hg/constants'
 
 export default class extends Component {
+  static navigationOptions = {
+    headerTitle: 'Hooligram'
+  }
+
   static propTypes = {
   }
 

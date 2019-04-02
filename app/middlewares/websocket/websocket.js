@@ -40,7 +40,7 @@ const websocket = (dispatch, countryCode, phoneNumber, verificationCode) => {
     const canSignIn = countryCode && phoneNumber && verificationCode
 
     if (canSignIn) {
-      action = authorizationSignInRequest(actionId, countryCode, phoneNumber, verificationCode)
+      action = authorizationSignInRequest(countryCode, phoneNumber, verificationCode)
       instance.send(JSON.stringify(action))
     }
 

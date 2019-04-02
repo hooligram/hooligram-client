@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
+import { createAppContainer } from 'react-navigation'
 import { connect } from 'react-redux'
 import { appStartup } from 'hg/actions/app'
 import { websocketConnect } from 'hg/actions/websocket'
 import { colors, dimensions } from 'hg/constants'
-import { setTopLevelNavigator } from 'hg/middlewares/navigation/middleware'
-import Navigation from 'hg/middlewares/navigation/stacks'
+import { rootNavigator, setTopLevelNavigator } from 'hg/middlewares/navigation'
 
 class App extends Component {
   static propTypes = {
@@ -35,7 +35,7 @@ class App extends Component {
             </Text>
           </View>
         )}
-        <Navigation ref={setTopLevelNavigator}/>
+        <AppContainer ref={setTopLevelNavigator}/>
       </>
     )
   }
@@ -45,6 +45,8 @@ class App extends Component {
     this.props.websocketConnect()
   }
 }
+
+const AppContainer = createAppContainer(rootNavigator)
 
 const mapDispatchToProps = dispatch => {
   return {
