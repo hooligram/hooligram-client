@@ -1,7 +1,6 @@
 export { default as Home } from './Home'
 export { default as OnboardingAgree } from './OnboardingAgree'
 export { default as OnboardingInitialize } from './OnboardingInitialize'
-export { default as OnboardingProfileInfo } from './OnboardingProfileInfo'
 export { default as OnboardingRequestCode } from './OnboardingRequestCode'
 export { default as OnboardingSubmitCode } from './OnboardingSubmitCode'
 export { default as Splash } from './Splash'
