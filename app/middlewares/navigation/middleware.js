@@ -76,22 +76,42 @@ export default store => next => action => {
     }
 
     case GROUP_CREATE: {
+      if (actionType === GO_TO_GROUP_INFO) {
+        navigateTo(GROUP_INFO)
+      }
+
       break
     }
 
     case GROUP_INFO: {
+      if (actionType === GO_TO_GROUP_MESSAGE) {
+        navigateTo(GROUP_MESSAGE)
+      }
+
       break
     }
 
     case GROUP_LEAVE: {
+      if (actionType === GO_TO_HOME) {
+        navigateTo(HOME)
+      }
+
       break
     }
 
     case GROUP_MEMBER_ADD: {
+      if (actionType === GO_TO_GROUP_MESSAGE) {
+        navigateTo(GROUP_MESSAGE)
+      }
+
       break
     }
 
     case GROUP_MESSAGE: {
+      if (actionType === GO_TO_HOME) {
+        navigateTo(HOME)
+      }
+
       break
     }
 
@@ -106,6 +126,10 @@ export default store => next => action => {
 
       if (actionType === GO_TO_CONTACT) {
         navigateTo(CONTACT)
+      }
+
+      if (actionType === GO_TO_GROUP_MESSAGE) {
+        navigateTo(GROUP_MESSAGE)
       }
 
       break
