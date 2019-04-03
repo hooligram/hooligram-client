@@ -144,7 +144,7 @@ export default store => next => action => {
     }
 
     case ONBOARDING_AGREE: {
-      if (actionType === AGREE_AND_CONTINUE) {
+      if (actionType === GO_TO_ONBOARDING_REQUEST) {
         navigateTo(ONBOARDING_REQUEST_CODE)
       }
 
