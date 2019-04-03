@@ -4,7 +4,7 @@ import {
   OnboardingAgree,
   OnboardingInitialize,
   OnboardingRequest,
-  OnboardingSubmitCode
+  OnboardingSubmit
 } from 'hg/screens'
 
 export default createSwitchNavigator(
@@ -12,7 +12,7 @@ export default createSwitchNavigator(
     OnboardingAgree,
     OnboardingInitialize,
     OnboardingRequest,
-    OnboardingSubmitCode
+    OnboardingSubmit
   },
   {
     initialRouteName: ONBOARDING_AGREE
