@@ -3,7 +3,7 @@ import { ONBOARDING_AGREE } from 'hg/middlewares/navigation/routes'
 import {
   OnboardingAgree,
   OnboardingInitialize,
-  OnboardingRequestCode,
+  OnboardingRequest,
   OnboardingSubmitCode
 } from 'hg/screens'
 
@@ -11,7 +11,7 @@ export default createSwitchNavigator(
   {
     OnboardingAgree,
     OnboardingInitialize,
-    OnboardingRequestCode,
+    OnboardingRequest,
     OnboardingSubmitCode
   },
   {

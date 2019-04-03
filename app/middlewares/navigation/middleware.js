@@ -35,7 +35,7 @@ import {
   HOME,
   ONBOARDING_AGREE,
   ONBOARDING_INITIALIZE,
-  ONBOARDING_REQUEST_CODE,
+  ONBOARDING_REQUEST,
   ONBOARDING_SUBMIT_CODE,
   SPLASH
 } from './routes'
@@ -145,7 +145,7 @@ export default store => next => action => {
 
     case ONBOARDING_AGREE: {
       if (actionType === GO_TO_ONBOARDING_REQUEST) {
-        navigateTo(ONBOARDING_REQUEST_CODE)
+        navigateTo(ONBOARDING_REQUEST)
       }
 
       break
@@ -159,7 +159,7 @@ export default store => next => action => {
       break
     }
 
-    case ONBOARDING_REQUEST_CODE: {
+    case ONBOARDING_REQUEST: {
       if (actionType === VERIFICATION_REQUEST_CODE_SUCCESS) {
         navigateTo(ONBOARDING_SUBMIT_CODE)
       }
