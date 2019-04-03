@@ -1,10 +1,16 @@
 import { createStackNavigator } from 'react-navigation'
 import { colors } from 'hg/constants'
-import { HOME } from 'hg/middlewares/navigation/routes'
-import { Home } from 'hg/screens'
+import {
+  HOME
+} from 'hg/middlewares/navigation/routes'
+import {
+  Contact,
+  Home
+} from 'hg/screens'
 
 export default createStackNavigator(
   {
+    Contact,
     Home
   },
   {
@@ -12,6 +18,7 @@ export default createStackNavigator(
       headerStyle: {
         backgroundColor: colors.BOLD_GREEN
       },
+      headerTintColor: colors.WHITE,
       headerTitleStyle: {
         color: colors.WHITE
       }

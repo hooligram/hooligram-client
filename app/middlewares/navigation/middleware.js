@@ -1,6 +1,7 @@
 import { NavigationActions } from 'react-navigation'
 import {
   AGREE_AND_CONTINUE,
+  GO_TO_CONTACT,
   ONBOARDING_INITIALIZE_SUCCESS,
   VERIFICATION_REQUEST_CODE_SUCCESS,
   VERIFICATION_SUBMIT_CODE_SUCCESS
@@ -12,6 +13,13 @@ import {
   isWebsocketOnline
 } from 'hg/selectors'
 import {
+  CONTACT,
+  CONTACT_CREATE,
+  GROUP_CREATE,
+  GROUP_INFO,
+  GROUP_LEAVE,
+  GROUP_MEMBER_ADD,
+  GROUP_MESSAGE,
   HOME,
   ONBOARDING_AGREE,
   ONBOARDING_INITIALIZE,
@@ -35,6 +43,34 @@ export default store => next => action => {
   const currentRoute = routePath[routePath.length - 1]
 
   switch (currentRoute) {
+    case CONTACT: {
+      break
+    }
+
+    case CONTACT_CREATE: {
+      break
+    }
+
+    case GROUP_CREATE: {
+      break
+    }
+
+    case GROUP_INFO: {
+      break
+    }
+
+    case GROUP_LEAVE: {
+      break
+    }
+
+    case GROUP_MEMBER_ADD: {
+      break
+    }
+
+    case GROUP_MESSAGE: {
+      break
+    }
+
     case HOME: {
       const countryCode = currentUserCountryCode(nextState)
       const phoneNumber = currentUserPhoneNumber(nextState)
@@ -42,6 +78,10 @@ export default store => next => action => {
 
       if (!countryCode || !phoneNumber || !verificationCode) {
         navigateTo(ONBOARDING_AGREE)
+      }
+
+      if (actionType === GO_TO_CONTACT) {
+        navigateTo(CONTACT)
       }
 
       break
