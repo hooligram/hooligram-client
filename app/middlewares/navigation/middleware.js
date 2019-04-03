@@ -2,6 +2,18 @@ import { NavigationActions } from 'react-navigation'
 import {
   AGREE_AND_CONTINUE,
   GO_TO_CONTACT,
+  GO_TO_CONTACT_CREATE,
+  GO_TO_GROUP_CREATE,
+  GO_TO_GROUP_INFO,
+  GO_TO_GROUP_LEAVE,
+  GO_TO_GROUP_MEMBER_ADD,
+  GO_TO_GROUP_MESSAGE,
+  GO_TO_HOME,
+  GO_TO_ONBOARDING_AGREE,
+  GO_TO_ONBOARDING_INITIALIZE,
+  GO_TO_ONBOARDING_REQUEST,
+  GO_TO_ONBOARDING_SUBMIT,
+  GO_TO_SPLASH,
   ONBOARDING_INITIALIZE_SUCCESS,
   VERIFICATION_REQUEST_CODE_SUCCESS,
   VERIFICATION_SUBMIT_CODE_SUCCESS
@@ -44,6 +56,14 @@ export default store => next => action => {
 
   switch (currentRoute) {
     case CONTACT: {
+      if (actionType === GO_TO_CONTACT_CREATE) {
+        navigateTo(CONTACT_CREATE)
+      }
+
+      if (actionType == GO_TO_GROUP_CREATE) {
+        navigateTo(GROUP_CREATE)
+      }
+
       break
     }
 

@@ -5,12 +5,16 @@ import {
 } from 'hg/middlewares/navigation/routes'
 import {
   Contact,
+  ContactCreate,
+  GroupCreate,
   Home
 } from 'hg/screens'
 
 export default createStackNavigator(
   {
     Contact,
+    ContactCreate,
+    GroupCreate,
     Home
   },
   {
