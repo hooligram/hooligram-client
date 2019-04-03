@@ -1,2 +1,1 @@
-import container from './container'
-export default container
+export { default } from './container'

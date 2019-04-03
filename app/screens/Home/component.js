@@ -3,16 +3,14 @@ import React, { Component } from 'react'
 import { Button, View } from 'react-native'
 import { colors } from 'hg/constants'
 
-export default class extends Component {
+export default class Home extends Component {
   static navigationOptions = {
     headerTitle: 'Hooligram'
   }
 
-  static propTypes = {
-  }
+  static propTypes = {}
 
-  state = {
-  }
+  state = {}
 
   render() {
     return (
