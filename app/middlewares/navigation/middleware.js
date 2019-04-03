@@ -19,12 +19,6 @@ import {
   VERIFICATION_SUBMIT_CODE_SUCCESS
 } from 'hg/actions'
 import {
-  currentUserCountryCode,
-  currentUserPhoneNumber,
-  currentUserVerificationCode,
-  isWebsocketOnline
-} from 'hg/selectors'
-import {
   CONTACT,
   CONTACT_CREATE,
   GROUP_CREATE,
@@ -38,7 +32,13 @@ import {
   ONBOARDING_REQUEST,
   ONBOARDING_SUBMIT,
   SPLASH
-} from './routes'
+} from 'hg/navigation/routes'
+import {
+  currentUserCountryCode,
+  currentUserPhoneNumber,
+  currentUserVerificationCode,
+  isWebsocketOnline
+} from 'hg/selectors'
 
 let navigator
 

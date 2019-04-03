@@ -2,7 +2,7 @@ import { createStackNavigator } from 'react-navigation'
 import { colors } from 'hg/constants'
 import {
   HOME
-} from 'hg/middlewares/navigation/routes'
+} from 'hg/navigation/routes'
 import {
   Contact,
   ContactCreate,
