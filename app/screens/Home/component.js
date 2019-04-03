@@ -26,6 +26,18 @@ export default class Home extends Component {
           title='Contacts'
         />
         <Button
+          onPress={this.props.goToGroupMessage}
+          title='Group message #1'
+        />
+        <Button
+          onPress={this.props.goToGroupMessage}
+          title='Group message #2'
+        />
+        <Button
+          onPress={this.props.goToGroupMessage}
+          title='Group message #3'
+        />
+        <Button
           color={colors.GOOGLE_RED}
           onPress={this.props.signOut}
           title='Sign out'

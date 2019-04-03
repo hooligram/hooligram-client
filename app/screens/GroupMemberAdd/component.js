@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { Button, View } from 'react-native'
 import { colors } from 'hg/constants'
 
 export default class GroupMemberAdd extends Component {
@@ -20,6 +20,10 @@ export default class GroupMemberAdd extends Component {
           flex: 1
         }}
       >
+        <Button
+          onPress={this.props.goToGroupMessage}
+          title='Add'
+        />
       </View>
     )
   }

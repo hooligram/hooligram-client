@@ -49,7 +49,7 @@ export const goToGroupLeave = () => {
   }
 }
 
-export const goToMemberAdd = () => {
+export const goToGroupMemberAdd = () => {
   return {
     payload: {},
     type: GO_TO_GROUP_MEMBER_ADD

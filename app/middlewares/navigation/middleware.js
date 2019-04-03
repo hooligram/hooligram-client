@@ -108,6 +108,14 @@ export default store => next => action => {
     }
 
     case GROUP_MESSAGE: {
+      if (actionType === GO_TO_GROUP_LEAVE) {
+        navigateTo(GROUP_LEAVE)
+      }
+
+      if (actionType === GO_TO_GROUP_MEMBER_ADD) {
+        navigateTo(GROUP_MEMBER_ADD)
+      }
+
       if (actionType === GO_TO_HOME) {
         navigateTo(HOME)
       }
