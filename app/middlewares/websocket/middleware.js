@@ -11,7 +11,7 @@ import {
   currentUserPhoneNumber,
   currentUserVerificationCode
 } from 'hg/selectors'
-import websocket from './websocket'
+import websocket from 'hg/websocket'
 
 let authActionQueue = []
 
