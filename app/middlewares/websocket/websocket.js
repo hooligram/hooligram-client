@@ -1,5 +1,4 @@
 import Config from 'react-native-config'
-import { signOut } from 'hg/actions/app'
 import { authorizationSignInRequest } from 'hg/actions/authorization'
 import { connKeepAliveRequest } from 'hg/actions/app'
 import {
@@ -72,7 +71,6 @@ const websocket = (dispatch, countryCode, phoneNumber, verificationCode) => {
     instance = null
     clearInterval(keepAliveIntervalId)
     dispatch(websocketClose())
-    dispatch(signOut())
     setTimeout(() => {
       dispatch(websocketConnect())
     }, RECONNECT_INTERVAL)
