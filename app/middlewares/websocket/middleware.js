@@ -6,7 +6,11 @@ import {
   WEBSOCKET_CONNECT
 } from 'hg/actions'
 import { signIn } from 'hg/actions/app'
-import selectors from 'hg/selectors'
+import {
+  currentUserCountryCode,
+  currentUserPhoneNumber,
+  currentUserVerificationCode
+} from 'hg/selectors'
 import websocket from './websocket'
 
 let authActionQueue = []
@@ -17,9 +21,9 @@ export default store => next => action => {
   if (action.type === WEBSOCKET_CONNECT) {
     const state = store.getState()
 
-    const countryCode = selectors.currentUserCountryCode(state)
-    const phoneNumber = selectors.currentUserPhoneNumber(state)
-    const verificationCode = selectors.currentUserCode(state)
+    const countryCode = currentUserCountryCode(state)
+    const phoneNumber = currentUserPhoneNumber(state)
+    const verificationCode = currentUserVerificationCode(state)
 
     ws.connect(store.dispatch, countryCode, phoneNumber, verificationCode)
     return next(action)

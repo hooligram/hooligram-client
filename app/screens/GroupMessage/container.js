@@ -1,20 +1,23 @@
 import { connect } from 'react-redux'
-import { signOut } from 'hg/actions/app'
-import { goToContact, goToGroupMessage } from 'hg/actions/navigation'
+import {
+  goToGroupLeave,
+  goToGroupMemberAdd,
+  goToHome
+} from 'hg/actions/navigation'
 import component from './component'
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    goToContact: () => {
-      dispatch(goToContact())
+    goToGroupLeave: () => {
+      dispatch(goToGroupLeave())
     },
 
-    goToGroupMessage: () => {
-      dispatch(goToGroupMessage())
+    goToGroupMemberAdd: () => {
+      dispatch(goToGroupMemberAdd())
     },
 
-    signOut: () => {
-      dispatch(signOut())
+    goToHome: () => {
+      dispatch(goToHome())
     }
   }
 }

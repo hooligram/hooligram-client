@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
+import { createAppContainer } from 'react-navigation'
 import { connect } from 'react-redux'
-import { colors, dimensions } from 'hg/constants'
 import { appStartup } from 'hg/actions/app'
 import { websocketConnect } from 'hg/actions/websocket'
-import { setTopLevelNavigator } from 'hg/middlewares/navigation/middleware'
-import Navigation from 'hg/middlewares/navigation/stacks'
+import { colors, dimensions } from 'hg/constants'
+import { rootNavigator, setTopLevelNavigator } from 'hg/middlewares/navigation'
 
 class App extends Component {
   static propTypes = {
@@ -30,10 +30,12 @@ class App extends Component {
               style={{
                 color: colors.WHITE
               }}
-            >You are offline. Reconnecting...</Text>
+            >
+              You are offline. Reconnecting...
+            </Text>
           </View>
         )}
-        <Navigation ref={setTopLevelNavigator}/>
+        <AppContainer ref={setTopLevelNavigator}/>
       </>
     )
   }
@@ -42,8 +44,20 @@ class App extends Component {
     this.props.appStartup()
     this.props.websocketConnect()
   }
+}
 
-  goToNextScreen = () => console.log('goToNextScreen')
+const AppContainer = createAppContainer(rootNavigator)
+
+const mapDispatchToProps = dispatch => {
+  return {
+    appStartup: () => {
+      dispatch(appStartup())
+    },
+
+    websocketConnect: () => {
+      dispatch(websocketConnect())
+    }
+  }
 }
 
 const mapStateToProps = (state) => {
@@ -55,18 +69,6 @@ const mapStateToProps = (state) => {
 
   return {
     isWebsocketOnline
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    appStartup: () => {
-      dispatch(appStartup())
-    },
-
-    websocketConnect: () => {
-      dispatch(websocketConnect())
-    }
   }
 }
 

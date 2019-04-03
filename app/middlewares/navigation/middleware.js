@@ -1,132 +1,231 @@
+import { NavigationActions } from 'react-navigation'
 import {
-  PERSISTENCE_LOAD_STATE_SUCCESS,
-  SET_USER_NAME,
-  VERIFICATION_SUBMIT_CODE_SUCCESS,
+  AGREE_AND_CONTINUE,
+  GO_TO_CONTACT,
+  GO_TO_CONTACT_CREATE,
+  GO_TO_GROUP_CREATE,
+  GO_TO_GROUP_INFO,
+  GO_TO_GROUP_LEAVE,
+  GO_TO_GROUP_MEMBER_ADD,
+  GO_TO_GROUP_MESSAGE,
+  GO_TO_HOME,
+  GO_TO_ONBOARDING_AGREE,
+  GO_TO_ONBOARDING_INITIALIZE,
+  GO_TO_ONBOARDING_REQUEST,
+  GO_TO_ONBOARDING_SUBMIT,
+  GO_TO_SPLASH,
+  ONBOARDING_INITIALIZE_SUCCESS,
   VERIFICATION_REQUEST_CODE_SUCCESS,
-  WEBSOCKET_OPEN
+  VERIFICATION_SUBMIT_CODE_SUCCESS
 } from 'hg/actions'
-import { appStartupSuccess } from 'hg/actions/app'
-import { getFullRouteName } from 'hg/middlewares/navigation/utils'
-import routeNames from './route-names'
+import {
+  currentUserCountryCode,
+  currentUserPhoneNumber,
+  currentUserVerificationCode,
+  isWebsocketOnline
+} from 'hg/selectors'
+import {
+  CONTACT,
+  CONTACT_CREATE,
+  GROUP_CREATE,
+  GROUP_INFO,
+  GROUP_LEAVE,
+  GROUP_MEMBER_ADD,
+  GROUP_MESSAGE,
+  HOME,
+  ONBOARDING_AGREE,
+  ONBOARDING_INITIALIZE,
+  ONBOARDING_REQUEST_CODE,
+  ONBOARDING_SUBMIT_CODE,
+  SPLASH
+} from './routes'
 
 let navigator
+
+export default store => next => action => {
+  const actionType = action.type
+  const nextAction = next(action)
+  const nextState = store.getState()
+
+  if (!navigator) {
+    return nextAction
+  }
+
+  const routePath = getCurrentRoutePath(navigator.state.nav)
+  const currentRoute = routePath[routePath.length - 1]
+
+  switch (currentRoute) {
+    case CONTACT: {
+      if (actionType === GO_TO_CONTACT_CREATE) {
+        navigateTo(CONTACT_CREATE)
+      }
+
+      if (actionType == GO_TO_GROUP_CREATE) {
+        navigateTo(GROUP_CREATE)
+      }
+
+      break
+    }
+
+    case CONTACT_CREATE: {
+      if (actionType === GO_TO_GROUP_MESSAGE) {
+        navigateTo(GROUP_MESSAGE)
+      }
+
+      break
+    }
+
+    case GROUP_CREATE: {
+      if (actionType === GO_TO_GROUP_INFO) {
+        navigateTo(GROUP_INFO)
+      }
+
+      break
+    }
+
+    case GROUP_INFO: {
+      if (actionType === GO_TO_GROUP_MESSAGE) {
+        navigateTo(GROUP_MESSAGE)
+      }
+
+      break
+    }
+
+    case GROUP_LEAVE: {
+      if (actionType === GO_TO_HOME) {
+        navigateTo(HOME)
+      }
+
+      break
+    }
+
+    case GROUP_MEMBER_ADD: {
+      if (actionType === GO_TO_GROUP_MESSAGE) {
+        navigateTo(GROUP_MESSAGE)
+      }
+
+      break
+    }
+
+    case GROUP_MESSAGE: {
+      if (actionType === GO_TO_GROUP_LEAVE) {
+        navigateTo(GROUP_LEAVE)
+      }
+
+      if (actionType === GO_TO_GROUP_MEMBER_ADD) {
+        navigateTo(GROUP_MEMBER_ADD)
+      }
+
+      if (actionType === GO_TO_HOME) {
+        navigateTo(HOME)
+      }
+
+      break
+    }
+
+    case HOME: {
+      const countryCode = currentUserCountryCode(nextState)
+      const phoneNumber = currentUserPhoneNumber(nextState)
+      const verificationCode = currentUserVerificationCode(nextState)
+
+      if (!countryCode || !phoneNumber || !verificationCode) {
+        navigateTo(ONBOARDING_AGREE)
+      }
+
+      if (actionType === GO_TO_CONTACT) {
+        navigateTo(CONTACT)
+      }
+
+      if (actionType === GO_TO_GROUP_MESSAGE) {
+        navigateTo(GROUP_MESSAGE)
+      }
+
+      break
+    }
+
+    case ONBOARDING_AGREE: {
+      if (actionType === AGREE_AND_CONTINUE) {
+        navigateTo(ONBOARDING_REQUEST_CODE)
+      }
+
+      break
+    }
+
+    case ONBOARDING_INITIALIZE: {
+      if (actionType === ONBOARDING_INITIALIZE_SUCCESS) {
+        navigateTo(HOME)
+      }
+
+      break
+    }
+
+    case ONBOARDING_REQUEST_CODE: {
+      if (actionType === VERIFICATION_REQUEST_CODE_SUCCESS) {
+        navigateTo(ONBOARDING_SUBMIT_CODE)
+      }
+
+      break
+    }
+
+    case ONBOARDING_SUBMIT_CODE: {
+      if (actionType === VERIFICATION_SUBMIT_CODE_SUCCESS) {
+        navigateTo(ONBOARDING_INITIALIZE)
+      }
+
+      break
+    }
+
+    case SPLASH: {
+      if (isWebsocketOnline(nextState)) {
+        const countryCode = currentUserCountryCode(nextState)
+        const phoneNumber = currentUserPhoneNumber(nextState)
+        const verificationCode = currentUserVerificationCode(nextState)
+
+        if (countryCode && phoneNumber && verificationCode) {
+          navigateTo(HOME)
+        }
+        else {
+          navigateTo(ONBOARDING_AGREE)
+        }
+      }
+
+      break
+    }
+
+    default: {
+      break
+    }
+  }
+
+  return nextAction
+}
 
 export const setTopLevelNavigator = (navigatorRef) => {
   navigator = navigatorRef
 }
 
-const middleware = navigationActions => store => next => action => {
-  if (!navigator) {
-    return next(action)
+const getCurrentRoutePath = (nav) => {
+  if (nav.index === undefined) {
+    return []
   }
 
-  const fullRouteName = getFullRouteName(navigator)
-  const { getState } = store
-
-  const prevState = store.getState()
-  const returnedAction = next(action)
-  const nextState = store.getState()
-
-  switch (fullRouteName) {
-    case '/Onboarding/Agree': {
-      if (action.type === 'AGREE_AND_CONTINUE') {
-        navigator.dispatch(
-          navigationActions.navigate({
-            routeName: 'RequestCode'
-          })
-        )
-      }
-      break
-    }
-
-    case '/Onboarding/RequestCode': {
-      if (action.type === VERIFICATION_REQUEST_CODE_SUCCESS) {
-        navigator.dispatch(
-          navigationActions.navigate({
-            routeName: 'SubmitCode'
-          })
-        )
-      }
-      break
-    }
-
-    case '/Onboarding/SubmitCode': {
-      if (action.type === VERIFICATION_SUBMIT_CODE_SUCCESS) {
-        navigator.dispatch(
-          navigationActions.navigate({
-            routeName: 'Initialize'
-          })
-        )
-      }
-      break
-    }
-
-    case '/Onboarding/Initialize': {
-      if (action.type === 'ONBOARDING_INITIALIZE_SUCCESS') {
-        navigator.dispatch(
-          navigationActions.navigate({
-            routeName: 'ProfileInfo'
-          })
-        )
-      }
-      break
-    }
-
-    case `/${routeNames.Onboarding}/${routeNames.ProfileInfo}`: {
-      if (action.type === SET_USER_NAME) {
-        const {
-          profile: {
-            userName,
-          }
-        } = nextState
-
-        if (userName) {
-          navigator.dispatch(
-            navigationActions.navigate({
-              routeName: 'Home'
-            })
-          )
-        }
-      }
-      break
-    }
-
-    case `/${routeNames.Splash}`: {
-      if ([PERSISTENCE_LOAD_STATE_SUCCESS, WEBSOCKET_OPEN].includes(action.type)) {
-        const {
-          app: {
-            isWebsocketOnline
-          },
-          authorization: {
-            country_code,
-            phone_number,
-            token
-          }
-        } = nextState
-
-        if (!isWebsocketOnline) return
-
-        let routeName = routeNames.Home
-
-        if (!country_code || !phone_number || !token) {
-          routeName = routeNames.Agree
-        }
-
-        store.dispatch(appStartupSuccess())
-        navigator.dispatch(
-          navigationActions.navigate({
-            routeName
-          })
-        )
-      }
-      break
-    }
-
-    default:
-      break
-  }
-
-  return returnedAction
+  return recurseRoute(nav.routes[nav.index])
 }
 
-export default middleware
+const navigateTo = (route) => {
+  navigator.dispatch(
+    NavigationActions.navigate({
+      routeName: route
+    })
+  )
+}
+
+const recurseRoute = (route, path = []) => {
+  const nextIndex = route.index
+
+  if (nextIndex === undefined) {
+    return path.concat([route.routeName])
+  }
+
+  return [route.routeName].concat(recurseRoute(route.routes[nextIndex], path))
+}

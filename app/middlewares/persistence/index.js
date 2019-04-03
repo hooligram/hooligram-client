@@ -1,4 +1,1 @@
-import middleware from './middleware'
-import persistence from './persistence'
-
-export default middleware(persistence)
+export { default } from './middleware'
