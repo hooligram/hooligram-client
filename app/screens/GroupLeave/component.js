@@ -3,9 +3,9 @@ import React, { Component } from 'react'
 import { View } from 'react-native'
 import { colors } from 'hg/constants'
 
-export default class Contact extends Component {
+export default class GroupLeave extends Component {
   static navigationOptions = {
-    headerTitle: 'Contacts'
+    headerTitle: 'Leave group'
   }
 
   static propTypes = {}
