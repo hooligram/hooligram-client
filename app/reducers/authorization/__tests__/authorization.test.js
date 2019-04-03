@@ -3,6 +3,7 @@ import authorizationReducer, { initialState } from 'hg/reducers/authorization/au
 describe('authorization reducer', () => {
   describe('initially', () => {
     let state, action
+
     beforeEach(() => {
       state = undefined
       action = {}
@@ -19,26 +20,21 @@ describe('authorization reducer', () => {
     let action, state
     beforeEach(() => {
       action = {
-        id: '123',
         type: 'AUTHORIZATION_SIGN_IN_SUCCESS',
-        payload: {
-          country_code: 'some country code',
-          phone_number: 'some phone number',
-          verification_code: 'some code'
-        }
+        payload: {}
       }
       state = {
         ...initialState
       }
     })
 
-    it('should update token, phone_number & country_code from payload', () => {
+    it('should not update token, phone_number & country_code from payload', () => {
       const nextState = authorizationReducer(state, action)
 
       expect(nextState).toEqual({
-        token: 'some code',
-        phone_number: 'some phone number',
-        country_code: 'some country code'
+        country_code: '',
+        phone_number: '',
+        token: ''
       })
     })
   })
