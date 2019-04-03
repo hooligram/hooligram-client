@@ -7,6 +7,10 @@ import {
   Contact,
   ContactCreate,
   GroupCreate,
+  GroupInfo,
+  GroupLeave,
+  GroupMemberAdd,
+  GroupMessage,
   Home
 } from 'hg/screens'
 
@@ -15,6 +19,10 @@ export default createStackNavigator(
     Contact,
     ContactCreate,
     GroupCreate,
+    GroupInfo,
+    GroupLeave,
+    GroupMemberAdd,
+    GroupMessage,
     Home
   },
   {
