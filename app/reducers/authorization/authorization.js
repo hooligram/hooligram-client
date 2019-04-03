@@ -1,5 +1,4 @@
 import {
-  AUTHORIZATION_SIGN_IN_SUCCESS,
   SIGN_OUT,
   VERIFICATION_REQUEST_CODE_REQUEST,
   VERIFICATION_SUBMIT_CODE_REQUEST
@@ -13,22 +12,6 @@ export const initialState = {
 
 const authorization = (state = initialState, action) => {
   switch (action.type) {
-    case AUTHORIZATION_SIGN_IN_SUCCESS: {
-      const {
-        payload: {
-          country_code,
-          phone_number,
-          verification_code,
-        }
-      } = action
-
-      return {
-        country_code,
-        phone_number,
-        token: verification_code
-      }
-    }
-
     case SIGN_OUT: {
       return {
         ...state,

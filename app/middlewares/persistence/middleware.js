@@ -1,5 +1,5 @@
-import { asyncStorage } from 'hg/persistence'
 import { app } from 'hg/constants'
+import { asyncStorage } from 'hg/persistence'
 
 export default store => next => action => {
   const nextAction = next(action)

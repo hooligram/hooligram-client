@@ -14,6 +14,7 @@ export default class {
   }
 
   static saveObject = async (key, object) => {
-    await AsyncStorage.setItem(key, JSON.stringify(object))
+    const s = JSON.stringify(object)
+    await AsyncStorage.setItem(key, s)
   }
 }
