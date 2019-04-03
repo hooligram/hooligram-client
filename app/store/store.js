@@ -6,6 +6,7 @@ import persistence from 'hg/middlewares/persistence'
 import websocket from 'hg/middlewares/websocket'
 import { asyncStorage } from 'hg/persistence'
 import reducer from 'hg/reducers'
+import { initialState } from 'hg/reducers/app/app'
 
 const middlewares = [
   websocket,
@@ -14,7 +15,19 @@ const middlewares = [
   logger
 ]
 
-const store = asyncStorage.loadObject(app.STORE_STORAGE_KEY).then((preloaded) => {
+const store = asyncStorage.loadObject(app.STORE_STORAGE_KEY).then((saved) => {
+  const preloaded = Object.assign(
+    {
+      app: null,
+      authorization: null
+    },
+    {
+      ...(saved ? saved : {}),
+    },
+    {
+      app: initialState
+    }
+  )
   const store = createStore(reducer, preloaded, applyMiddleware(...middlewares))
   return store
 })
