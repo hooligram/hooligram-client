@@ -8,7 +8,7 @@ import {
 import { ActivityIndicator } from 'hg/components'
 import { colors } from 'hg/constants'
 
-class OnboardingInitialize extends Component {
+export default class OnboardingInitialize extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -76,5 +76,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   }
 })
-
-export default OnboardingInitialize

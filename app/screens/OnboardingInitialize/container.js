@@ -1,23 +1,23 @@
-import { connect as _connect } from 'react-redux'
+import { connect } from 'react-redux'
 import { ONBOARDING_INITIALIZE_SUCCESS } from 'hg/actions'
-
-const mapStateToProps = () => ({})
+import component from './component'
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onComponentDidMount: () => {
-      const randomTimeout = 1000
+      const timeout = 1000
       setTimeout(() => {
         dispatch({
           type: ONBOARDING_INITIALIZE_SUCCESS,
           payload: {}
         })
-      }, randomTimeout)
+      }, timeout)
     }
   }
 }
 
-export const connect = _connect(
-  mapStateToProps,
-  mapDispatchToProps
-)
+const mapStateToProps = () => {
+  return {}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(component)
