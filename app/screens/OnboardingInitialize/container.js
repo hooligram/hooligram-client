@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { ONBOARDING_INITIALIZE_SUCCESS } from 'hg/actions'
+import { goToHome } from 'hg/actions/navigation'
 import component from './component'
 
 const mapDispatchToProps = (dispatch) => {
@@ -7,10 +7,7 @@ const mapDispatchToProps = (dispatch) => {
     onComponentDidMount: () => {
       const timeout = 1000
       setTimeout(() => {
-        dispatch({
-          type: ONBOARDING_INITIALIZE_SUCCESS,
-          payload: {}
-        })
+        dispatch(goToHome())
       }, timeout)
     }
   }

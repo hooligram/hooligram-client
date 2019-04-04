@@ -13,7 +13,6 @@ import {
   GO_TO_ONBOARDING_REQUEST,
   GO_TO_ONBOARDING_SUBMIT,
   GO_TO_SPLASH,
-  ONBOARDING_INITIALIZE_SUCCESS,
   VERIFICATION_REQUEST_CODE_SUCCESS,
   VERIFICATION_SUBMIT_CODE_SUCCESS
 } from 'hg/actions'
@@ -151,7 +150,7 @@ export default store => next => action => {
     }
 
     case ONBOARDING_INITIALIZE: {
-      if (actionType === ONBOARDING_INITIALIZE_SUCCESS) {
+      if (actionType === GO_TO_HOME) {
         navigateTo(HOME)
       }
 
