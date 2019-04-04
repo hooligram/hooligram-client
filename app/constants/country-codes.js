@@ -1,7 +1,11 @@
 export default [
   {
     code: '1',
-    name: 'Canada',
+    name: 'Canada'
+  },
+  {
+    code: '62',
+    name: 'Indonesia'
   },
   {
     code: '60',
