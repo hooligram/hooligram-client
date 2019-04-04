@@ -1,6 +1,5 @@
 import { NavigationActions } from 'react-navigation'
 import {
-  AGREE_AND_CONTINUE,
   GO_TO_CONTACT,
   GO_TO_CONTACT_CREATE,
   GO_TO_GROUP_CREATE,
