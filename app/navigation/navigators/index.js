@@ -1,5 +1,5 @@
 import { createSwitchNavigator } from 'react-navigation'
-import { SPLASH } from 'hg/middlewares/navigation/routes'
+import { SPLASH } from 'hg/navigation/routes'
 import { Splash } from 'hg/screens'
 import MainStack from './main'
 import OnboardingSwitch from './onboarding'

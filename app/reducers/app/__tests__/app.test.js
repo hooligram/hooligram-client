@@ -12,7 +12,6 @@ describe('app reducer', () => {
       expect(state).toEqual(
         {
           isSignedIn: false,
-          isStartupDone: false,
           isWebsocketOnline: false
         }
       )
@@ -26,7 +25,6 @@ describe('app reducer', () => {
       expect(nextState).toEqual(
         {
           isSignedIn: false,
-          isStartupDone: false,
           isWebsocketOnline: true
         }
       )

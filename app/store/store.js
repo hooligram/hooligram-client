@@ -1,9 +1,11 @@
 import { createStore, applyMiddleware } from 'redux'
 import { app } from 'hg/constants'
-import logger from 'hg/middlewares/logger'
-import navigation from 'hg/middlewares/navigation'
-import persistence from 'hg/middlewares/persistence'
-import websocket from 'hg/middlewares/websocket'
+import {
+  logger,
+  navigation,
+  persistence,
+  websocket
+} from 'hg/middlewares'
 import { asyncStorage } from 'hg/persistence'
 import reducer from 'hg/reducers'
 import { initialState } from 'hg/reducers/app/app'

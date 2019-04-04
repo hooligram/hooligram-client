@@ -1,7 +1,6 @@
-import { connect as _connect } from 'react-redux'
+import { connect } from 'react-redux'
 import { requestVerificationCode } from 'hg/actions/authorization'
-
-export const mapStateToProps = (state) => ({})
+import component from './component'
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -12,7 +11,8 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export const connect = _connect(
-  mapStateToProps,
-  mapDispatchToProps
-)
+const mapStateToProps = (state) => {
+  return {}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(component)

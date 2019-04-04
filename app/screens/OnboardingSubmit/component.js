@@ -5,7 +5,7 @@ import { Button, Divider } from 'react-native-elements'
 import { colors } from 'hg/constants'
 import { formatPhoneNumber } from 'hg/utils'
 
-class OnboardingSubmitCode extends Component {
+export default class OnboardingSubmit extends Component {
   static propTypes = {
     countryCode: PropTypes.string.isRequired,
     phoneNumber: PropTypes.string.isRequired,
@@ -144,5 +144,3 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start'
   }
 })
-
-export default OnboardingSubmitCode

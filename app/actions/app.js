@@ -1,24 +1,8 @@
 import {
-  APP_STARTUP,
-  APP_STARTUP_SUCCESS,
   CONN_KEEP_ALIVE_REQUEST,
   SIGN_IN,
   SIGN_OUT
 } from '.'
-
-export const appStartup = () => {
-  return {
-    payload: {},
-    type: APP_STARTUP
-  }
-}
-
-export const appStartupSuccess = () => {
-  return {
-    payload: {},
-    type: APP_STARTUP_SUCCESS
-  }
-}
 
 export const connKeepAliveRequest = () => {
   return {

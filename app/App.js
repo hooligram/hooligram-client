@@ -1,16 +1,14 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
-import { createAppContainer } from 'react-navigation'
 import { connect } from 'react-redux'
-import { appStartup } from 'hg/actions/app'
 import { websocketConnect } from 'hg/actions/websocket'
 import { colors, dimensions } from 'hg/constants'
-import { rootNavigator, setTopLevelNavigator } from 'hg/middlewares/navigation'
+import { setTopLevelNavigator } from 'hg/middlewares/navigation'
+import Navigation from 'hg/navigation'
 
 class App extends Component {
   static propTypes = {
-    appStartup: PropTypes.func.isRequired,
     isWebsocketOnline: PropTypes.bool.isRequired
   }
 
@@ -35,25 +33,18 @@ class App extends Component {
             </Text>
           </View>
         )}
-        <AppContainer ref={setTopLevelNavigator}/>
+        <Navigation ref={setTopLevelNavigator}/>
       </>
     )
   }
 
   componentDidMount () {
-    this.props.appStartup()
     this.props.websocketConnect()
   }
 }
 
-const AppContainer = createAppContainer(rootNavigator)
-
 const mapDispatchToProps = dispatch => {
   return {
-    appStartup: () => {
-      dispatch(appStartup())
-    },
-
     websocketConnect: () => {
       dispatch(websocketConnect())
     }

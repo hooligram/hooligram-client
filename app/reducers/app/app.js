@@ -1,6 +1,4 @@
 import {
-  APP_STARTUP,
-  APP_STARTUP_SUCCESS,
   SIGN_IN,
   SIGN_OUT,
   WEBSOCKET_CLOSE,
@@ -9,26 +7,11 @@ import {
 
 export const initialState = {
   isSignedIn: false,
-  isStartupDone: false,
   isWebsocketOnline: false
 }
 
 const app = (state = initialState, action) => {
   switch (action.type) {
-    case APP_STARTUP: {
-      return {
-        ...state,
-        isStartupDone: false
-      }
-    }
-
-    case APP_STARTUP_SUCCESS: {
-      return {
-        ...state,
-        isStartupDone: true
-      }
-    }
-
     case SIGN_IN: {
       return {
         ...state,

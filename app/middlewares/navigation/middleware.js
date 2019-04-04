@@ -1,6 +1,5 @@
 import { NavigationActions } from 'react-navigation'
 import {
-  AGREE_AND_CONTINUE,
   GO_TO_CONTACT,
   GO_TO_CONTACT_CREATE,
   GO_TO_GROUP_CREATE,
@@ -14,16 +13,9 @@ import {
   GO_TO_ONBOARDING_REQUEST,
   GO_TO_ONBOARDING_SUBMIT,
   GO_TO_SPLASH,
-  ONBOARDING_INITIALIZE_SUCCESS,
   VERIFICATION_REQUEST_CODE_SUCCESS,
   VERIFICATION_SUBMIT_CODE_SUCCESS
 } from 'hg/actions'
-import {
-  currentUserCountryCode,
-  currentUserPhoneNumber,
-  currentUserVerificationCode,
-  isWebsocketOnline
-} from 'hg/selectors'
 import {
   CONTACT,
   CONTACT_CREATE,
@@ -35,10 +27,16 @@ import {
   HOME,
   ONBOARDING_AGREE,
   ONBOARDING_INITIALIZE,
-  ONBOARDING_REQUEST_CODE,
-  ONBOARDING_SUBMIT_CODE,
+  ONBOARDING_REQUEST,
+  ONBOARDING_SUBMIT,
   SPLASH
-} from './routes'
+} from 'hg/navigation/routes'
+import {
+  currentUserCountryCode,
+  currentUserPhoneNumber,
+  currentUserVerificationCode,
+  isWebsocketOnline
+} from 'hg/selectors'
 
 let navigator
 
@@ -144,30 +142,30 @@ export default store => next => action => {
     }
 
     case ONBOARDING_AGREE: {
-      if (actionType === AGREE_AND_CONTINUE) {
-        navigateTo(ONBOARDING_REQUEST_CODE)
+      if (actionType === GO_TO_ONBOARDING_REQUEST) {
+        navigateTo(ONBOARDING_REQUEST)
       }
 
       break
     }
 
     case ONBOARDING_INITIALIZE: {
-      if (actionType === ONBOARDING_INITIALIZE_SUCCESS) {
+      if (actionType === GO_TO_HOME) {
         navigateTo(HOME)
       }
 
       break
     }
 
-    case ONBOARDING_REQUEST_CODE: {
+    case ONBOARDING_REQUEST: {
       if (actionType === VERIFICATION_REQUEST_CODE_SUCCESS) {
-        navigateTo(ONBOARDING_SUBMIT_CODE)
+        navigateTo(ONBOARDING_SUBMIT)
       }
 
       break
     }
 
-    case ONBOARDING_SUBMIT_CODE: {
+    case ONBOARDING_SUBMIT: {
       if (actionType === VERIFICATION_SUBMIT_CODE_SUCCESS) {
         navigateTo(ONBOARDING_INITIALIZE)
       }
