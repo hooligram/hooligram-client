@@ -79,7 +79,7 @@ export default store => next => action => {
 
     case GROUP_CREATE: {
       if (actionType === GO_TO_GROUP_INFO) {
-        navigateTo(GROUP_INFO)
+        navigateTo(GROUP_INFO, { memberSids: action.payload.member_sids })
       }
 
       break
@@ -214,10 +214,11 @@ const getCurrentRoutePath = (nav) => {
   return recurseRoute(nav.routes[nav.index])
 }
 
-const navigateTo = (route) => {
+const navigateTo = (routeName, params = {}) => {
   navigator.dispatch(
     NavigationActions.navigate({
-      routeName: route
+      params,
+      routeName
     })
   )
 }

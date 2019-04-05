@@ -38,7 +38,7 @@ export default class GroupCreate extends Component {
         />
         <FlatList
           data={[...this.state.added]}
-          keyExtractor={(sid) => (sid.toString())}
+          keyExtractor={(sid) => (sid)}
           renderItem={
             (item) => {
               return (
@@ -84,7 +84,9 @@ export default class GroupCreate extends Component {
           }
         />
         <Button
-          onPress={this.props.goToGroupInfo}
+          onPress={() => {
+            this.props.goToGroupInfo([...this.state.added])
+          }}
           title='Proceed'
         />
       </View>
