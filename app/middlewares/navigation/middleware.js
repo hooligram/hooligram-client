@@ -62,12 +62,16 @@ export default store => next => action => {
         navigateTo(GROUP_CREATE)
       }
 
+      if (actionType == GO_TO_GROUP_MESSAGE) {
+        navigateTo(GROUP_MESSAGE)
+      }
+
       break
     }
 
     case CONTACT_CREATE: {
-      if (actionType === GO_TO_GROUP_MESSAGE) {
-        navigateTo(GROUP_MESSAGE)
+      if (actionType === GO_TO_CONTACT) {
+        navigateTo(CONTACT)
       }
 
       break
