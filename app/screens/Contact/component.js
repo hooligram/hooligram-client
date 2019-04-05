@@ -73,6 +73,7 @@ export default class Contact extends Component {
                       title='Message'
                     />
                     <Button
+                      color={colors.GOOGLE_RED}
                       onPress={
                         () => {
                           deleteContact(item.item.id)
