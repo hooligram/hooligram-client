@@ -47,6 +47,14 @@ export default class Home extends Component {
               return (
                 <View>
                   <Text>{item.item.name}</Text>
+                  <Button
+                    onPress={
+                      () => {
+                        this.props.goToGroupMessage()
+                      }
+                    }
+                    title='Join'
+                  />
                 </View>
               )
             }
