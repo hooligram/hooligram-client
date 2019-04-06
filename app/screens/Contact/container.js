@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { goToContactCreate, goToGroupCreate } from 'hg/actions/navigation'
+import { goToContactCreate, goToGroupCreate, goToGroupMessage } from 'hg/actions/navigation'
 import component from './component'
 
 const mapDispatchToProps = (dispatch) => {
@@ -10,6 +10,10 @@ const mapDispatchToProps = (dispatch) => {
 
     goToGroupCreate: () => {
       dispatch(goToGroupCreate())
+    },
+
+    goToGroupMessage: () => {
+      dispatch(goToGroupMessage())
     }
   }
 }

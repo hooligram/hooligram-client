@@ -10,7 +10,7 @@ export default class extends Component {
     store: null
   }
 
-  render () {
+  render() {
     if (!this.state.store) {
       return (
         <View

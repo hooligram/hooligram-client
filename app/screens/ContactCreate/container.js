@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
-import { goToGroupMessage } from 'hg/actions/navigation'
+import { goToContact } from 'hg/actions/navigation'
 import component from './component'
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    goToGroupMessage: () => {
-      dispatch(goToGroupMessage())
+    goToContact: () => {
+      dispatch(goToContact())
     }
   }
 }

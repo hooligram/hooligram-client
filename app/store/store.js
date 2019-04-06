@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware } from 'redux'
 import { app } from 'hg/constants'
 import {
+  db,
   logger,
   navigation,
   persistence,
@@ -10,14 +11,7 @@ import { asyncStorage } from 'hg/persistence'
 import reducer from 'hg/reducers'
 import { initialState } from 'hg/reducers/app/app'
 
-const middlewares = [
-  websocket,
-  navigation,
-  persistence,
-  logger
-]
-
-const store = asyncStorage.loadObject(app.STORE_STORAGE_KEY).then((saved) => {
+export default asyncStorage.loadObject(app.STORE_STORAGE_KEY).then((saved) => {
   const preloaded = Object.assign(
     {
       app: null,
@@ -34,4 +28,10 @@ const store = asyncStorage.loadObject(app.STORE_STORAGE_KEY).then((saved) => {
   return store
 })
 
-export default store
+const middlewares = [
+  websocket,
+  db,
+  navigation,
+  persistence,
+  logger
+]

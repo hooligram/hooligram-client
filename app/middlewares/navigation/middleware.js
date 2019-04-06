@@ -62,12 +62,16 @@ export default store => next => action => {
         navigateTo(GROUP_CREATE)
       }
 
+      if (actionType == GO_TO_GROUP_MESSAGE) {
+        navigateTo(GROUP_MESSAGE)
+      }
+
       break
     }
 
     case CONTACT_CREATE: {
-      if (actionType === GO_TO_GROUP_MESSAGE) {
-        navigateTo(GROUP_MESSAGE)
+      if (actionType === GO_TO_CONTACT) {
+        navigateTo(CONTACT)
       }
 
       break
@@ -75,15 +79,15 @@ export default store => next => action => {
 
     case GROUP_CREATE: {
       if (actionType === GO_TO_GROUP_INFO) {
-        navigateTo(GROUP_INFO)
+        navigateTo(GROUP_INFO, { memberSids: action.payload.member_sids })
       }
 
       break
     }
 
     case GROUP_INFO: {
-      if (actionType === GO_TO_GROUP_MESSAGE) {
-        navigateTo(GROUP_MESSAGE)
+      if (actionType === GO_TO_HOME) {
+        navigateTo(HOME)
       }
 
       break
@@ -210,10 +214,11 @@ const getCurrentRoutePath = (nav) => {
   return recurseRoute(nav.routes[nav.index])
 }
 
-const navigateTo = (route) => {
+const navigateTo = (routeName, params = {}) => {
   navigator.dispatch(
     NavigationActions.navigate({
-      routeName: route
+      params,
+      routeName
     })
   )
 }

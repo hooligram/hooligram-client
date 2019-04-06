@@ -35,7 +35,8 @@ class OnboardingRequestCode extends Component {
                 this.setState({ selection: index });
               }}
               selectedValue={this.state.selection}
-              style={styles.pickerCountryCode}>
+              style={styles.pickerCountryCode}
+            >
               {countryCodes.map(({ name }, key) => (
                 <Picker.Item
                   label={name}

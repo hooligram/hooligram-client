@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Button, View } from 'react-native'
-import { colors } from 'hg/constants'
+import { Button, FlatList, Text, View } from 'react-native'
+import { NavigationEvents } from 'react-navigation';
+import { colors, dimensions, fontSizes } from 'hg/constants'
+import { deleteContact, readContacts } from 'hg/db'
 
 export default class Contact extends Component {
   static navigationOptions = {
@@ -10,7 +12,9 @@ export default class Contact extends Component {
 
   static propTypes = {}
 
-  state = {}
+  state = {
+    contacts: []
+  }
 
   render() {
     return (
@@ -20,6 +24,16 @@ export default class Contact extends Component {
           flex: 1
         }}
       >
+        <NavigationEvents
+          onWillFocus={
+            () => {
+              readContacts()
+                .then((contacts) => {
+                  this.setState({ contacts })
+                })
+            }
+          }
+        />
         <Button
           onPress={this.props.goToGroupCreate}
           title='New group'
@@ -27,6 +41,57 @@ export default class Contact extends Component {
         <Button
           onPress={this.props.goToContactCreate}
           title='New contact'
+        />
+        <FlatList
+          data={this.state.contacts}
+          keyExtractor={
+            (contact) => {
+              return contact.id.toString()
+            }
+          }
+          renderItem={
+            (item) => {
+              return (
+                <View
+                  style={
+                    {
+                      padding: dimensions.PADDING
+                    }
+                  }
+                >
+                  <Text>{item.item.sid}</Text>
+                  <View
+                    style={
+                      {
+                        flexDirection: 'row',
+                        justifyContent: 'space-between'
+                      }
+                    }
+                  >
+                    <Button
+                      onPress={this.props.goToGroupMessage}
+                      title='Message'
+                    />
+                    <Button
+                      color={colors.GOOGLE_RED}
+                      onPress={
+                        () => {
+                          deleteContact(item.item.id)
+                            .then(() => {
+                              return readContacts()
+                            })
+                            .then((contacts) => {
+                              this.setState({ contacts })
+                            })
+                        }
+                      }
+                      title='Remove'
+                    />
+                  </View>
+                </View>
+              )
+            }
+          }
         />
       </View>
     )

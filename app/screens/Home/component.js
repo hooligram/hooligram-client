@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Button, View } from 'react-native'
+import { Button, FlatList, Text, View } from 'react-native'
+import { NavigationEvents } from 'react-navigation'
 import { colors } from 'hg/constants'
+import { readMessageGroups } from 'hg/db'
 
 export default class Home extends Component {
   static navigationOptions = {
@@ -10,7 +12,9 @@ export default class Home extends Component {
 
   static propTypes = {}
 
-  state = {}
+  state = {
+    messageGroups: []
+  }
 
   render() {
     return (
@@ -21,21 +25,32 @@ export default class Home extends Component {
           justifyContent: 'space-between'
         }}
       >
+        <NavigationEvents
+          onWillFocus={
+            () => {
+              readMessageGroups()
+                .then((messageGroups) => {
+                  this.setState({ messageGroups })
+                })
+            }
+          }
+        />
         <Button
           onPress={this.props.goToContact}
           title='Contacts'
         />
-        <Button
-          onPress={this.props.goToGroupMessage}
-          title='Group message #1'
-        />
-        <Button
-          onPress={this.props.goToGroupMessage}
-          title='Group message #2'
-        />
-        <Button
-          onPress={this.props.goToGroupMessage}
-          title='Group message #3'
+        <FlatList
+          data={this.state.messageGroups}
+          keyExtractor={(messageGroup) => (messageGroup.id.toString())}
+          renderItem={
+            (item) => {
+              return (
+                <View>
+                  <Text>{item.item.name}</Text>
+                </View>
+              )
+            }
+          }
         />
         <Button
           color={colors.GOOGLE_RED}
