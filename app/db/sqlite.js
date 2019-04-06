@@ -11,10 +11,38 @@ SQLite.openDatabase({ name: 'hooligram-v2-client.db' })
   .then(() => {
     instance.executeSql(`
       CREATE TABLE IF NOT EXISTS contact (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         sid TEXT NOT NULL UNIQUE
       );
     `)
+  })
+  .then(() => {
+    instance.executeSql(`
+      CREATE TABLE IF NOT EXISTS message_group (
+        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+        sid INTEGER NOT NULL UNIQUE,
+        aid TEXT NOT NULL UNIQUE,
+        name TEXT NOT NULL
+      );
+    `)
+  })
+  .then(() => {
+    instance.executeSql(`
+      CREATE TABLE IF NOT EXISTS message_group_contact (
+        message_group_id INTEGER NOT NULL,
+        contact_id INTEGER NOT NULL,
+        PRIMARY KEY ( message_group_id, contact_id ),
+        FOREIGN KEY ( message_group_id ) REFERENCES message_group ( id )
+          ON DELETE CASCADE
+          ON UPDATE CASCADE,
+        FOREIGN KEY ( contact_id ) REFERENCES contact ( id )
+          ON DELETE CASCADE
+          ON UPDATE CASCADE
+      );
+    `)
+  })
+  .catch((err) => {
+    console.log('error creating table. ', err.toString())
   })
 
 ////////////
