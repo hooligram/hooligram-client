@@ -2,6 +2,8 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Button, FlatList, Text, TextInput, View } from 'react-native'
 import { colors } from 'hg/constants'
+import { createMessageGroup } from 'hg/db'
+import { getCurrentTimestamp } from 'hg/utils'
 
 export default class GroupInfo extends Component {
   static navigationOptions = {
@@ -49,7 +51,12 @@ export default class GroupInfo extends Component {
         <Button
           onPress={
             () => {
-              this.props.groupCreateRequest(this.state.groupName, memberSids)
+              const actionId = getCurrentTimestamp()
+              createMessageGroup(actionId, this.state.groupName, memberSids)
+                .then(() => {
+                  this.props.groupCreateRequest(actionId, this.state.groupName, memberSids)
+                  this.props.goToHome()
+                })
             }
           }
           title='Create'

@@ -20,9 +20,10 @@ SQLite.openDatabase({ name: 'hooligram-v2-client.db' })
     instance.executeSql(`
       CREATE TABLE IF NOT EXISTS message_group (
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-        sid INTEGER NOT NULL UNIQUE,
-        aid TEXT NOT NULL UNIQUE,
-        name TEXT NOT NULL
+        sid INTEGER UNIQUE,
+        aid INTEGER UNIQUE,
+        name TEXT NOT NULL,
+        date_created TEXT
       );
     `)
   })
@@ -61,6 +62,22 @@ export const createContact = async (sid) => {
     })
 }
 
+export const createMessageGroup = async (aid, name, contactSids) => {
+  if (!instance) return Promise.reject(new Error('db instance error'))
+
+  return instance
+    .transaction((tx) => {
+      tx.executeSql('INSERT INTO message_group ( aid, name ) VALUES ( ?, ? );', [aid, name])
+
+      contactSids.forEach((sid) => {
+        tx.executeSql('INSERT OR IGNORE INTO contact ( sid ) VALUES ( ? );', [sid])
+      })
+    })
+    .catch((err) => {
+      console.log('error creating message group.' + err.toString())
+    })
+}
+
 //////////
 // READ //
 //////////
@@ -80,6 +97,22 @@ export const readContacts = async () => {
     })
     .catch((err) => {
       console.log('error reading contacts.', err.toString())
+    })
+}
+
+export const readMessageGroups = async () => {
+  if (!instance) return Promise.reject(new Error('db instance error'))
+
+  return instance
+    .executeSql('SELECT id, sid, aid, name, date_created FROM message_group;')
+    .then(([results]) => {
+      messageGroups = []
+
+      for (let i = 0; i < results.rows.length; i++) {
+        messageGroups.push(results.rows.item(i))
+      }
+
+      return messageGroups
     })
 }
 

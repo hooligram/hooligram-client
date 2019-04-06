@@ -86,8 +86,8 @@ export default store => next => action => {
     }
 
     case GROUP_INFO: {
-      if (actionType === GO_TO_GROUP_MESSAGE) {
-        navigateTo(GROUP_MESSAGE)
+      if (actionType === GO_TO_HOME) {
+        navigateTo(HOME)
       }
 
       break

@@ -1,3 +1,4 @@
+export { default as db } from './db'
 export { default as logger } from './logger'
 export { default as navigation } from './navigation'
 export { default as persistence } from './persistence'

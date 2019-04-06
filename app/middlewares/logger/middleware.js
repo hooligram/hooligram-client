@@ -15,6 +15,7 @@ export default store => next => action => {
 
   actionTypeCount.set(actionType, actionTypeCount.get(actionType) + 1)
   console.log(`__ACTION__ (${actionCount}) ${actionType} [${actionTypeCount.get(actionType)}]`)
+  console.log('__ACTION__', action)
 
   return next(action)
 }

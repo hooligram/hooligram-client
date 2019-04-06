@@ -1,16 +1,16 @@
 import { connect } from 'react-redux'
 import { groupCreateRequest } from 'hg/actions/group'
-import { goToGroupMessage } from 'hg/actions/navigation'
+import { goToHome } from 'hg/actions/navigation'
 import component from './component'
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    goToGroupMessage: () => {
-      dispatch(goToGroupMessage())
+    goToHome: () => {
+      dispatch(goToHome())
     },
 
-    groupCreateRequest: (groupName, memberSids) => {
-      dispatch(groupCreateRequest(groupName, memberSids))
+    groupCreateRequest: (actionId, groupName, memberSids) => {
+      dispatch(groupCreateRequest(actionId, groupName, memberSids))
     }
   }
 }

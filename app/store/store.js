@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware } from 'redux'
 import { app } from 'hg/constants'
 import {
+  db,
   logger,
   navigation,
   persistence,
@@ -29,6 +30,7 @@ export default asyncStorage.loadObject(app.STORE_STORAGE_KEY).then((saved) => {
 
 const middlewares = [
   websocket,
+  db,
   navigation,
   persistence,
   logger
