@@ -15,7 +15,8 @@ export default class GroupInfo extends Component {
   }
 
   render() {
-    console.log('memberSids', this.props.navigation.getParam('memberSids', []))
+    const memberSids = this.props.navigation.getParam('memberSids', [])
+
     return (
       <View
         style={{
@@ -33,7 +34,7 @@ export default class GroupInfo extends Component {
           value={this.state.groupName}
         />
         <FlatList
-          data={this.props.navigation.getParam('memberSids', [])}
+          data={memberSids}
           keyExtractor={(sid) => (sid)}
           renderItem={
             (item) => {
@@ -46,7 +47,11 @@ export default class GroupInfo extends Component {
           }
         />
         <Button
-          onPress={this.props.goToGroupMessage}
+          onPress={
+            () => {
+              this.props.groupCreateRequest(this.state.groupName, memberSids)
+            }
+          }
           title='Create'
         />
       </View>
