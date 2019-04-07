@@ -2,7 +2,8 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Button, FlatList, Text, TextInput, View } from 'react-native'
 import { NavigationEvents } from 'react-navigation'
-import { colors } from 'hg/constants'
+import { app, colors } from 'hg/constants'
+import { readMessages } from 'hg/db'
 import { getCurrentTimestamp } from 'hg/utils'
 
 export default class GroupMessage extends Component {
@@ -18,6 +19,8 @@ export default class GroupMessage extends Component {
 
   state = {
     groupId: 0,
+    intervalId: 0,
+    messages: [],
     text: ''
   }
 
@@ -58,8 +61,23 @@ export default class GroupMessage extends Component {
           onPress={this.props.goToHome}
           title='Home'
         />
+        <FlatList
+          data={this.state.messages}
+          keyExtractor={(message) => (message.id.toString())}
+          onContentSizeChange={() => this.messagesRef.scrollToEnd({ animated: true })}
+          onLayout={() => this.messagesRef.scrollToEnd({ animated: true })}
+          ref={ref => this.messagesRef = ref}
+          renderItem={
+            (item) => {
+              return (
+                <View>
+                  <Text>{item.item.content}</Text>
+                </View>
+              )
+            }
+          }
+        />
         <TextInput
-          autoFocus={true}
           onChangeText={
             (text) => {
               this.setState({ text })
@@ -77,11 +95,31 @@ export default class GroupMessage extends Component {
             () => {
               const actionId = getCurrentTimestamp()
               this.props.messagingSendRequest(actionId, this.state.groupId, this.state.text)
+              this.setState({ text: '' })
             }
           }
           title='Send'
         />
       </View>
     )
+  }
+
+  componentDidMount() {
+    this.updateMessages()
+    const intervalId = setInterval(() => {
+      this.updateMessages()
+    }, app.UPDATE_INTERVAL)
+    this.setState({ intervalId })
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId)
+  }
+
+  updateMessages() {
+    readMessages(this.state.groupId)
+      .then((messages) => {
+        this.setState({ messages })
+      })
   }
 }

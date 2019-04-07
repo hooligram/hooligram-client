@@ -1,5 +1,5 @@
-import { GROUP_DELIVER_REQUEST } from 'hg/actions'
-import { createContact, createMessageGroup } from 'hg/db'
+import { GROUP_DELIVER_REQUEST, MESSAGING_DELIVER_REQUEST } from 'hg/actions'
+import { createContact, createMessage, createMessageGroup } from 'hg/db'
 
 export default (store) => (next) => (action) => {
   const nextAction = next(action)
@@ -15,6 +15,16 @@ export default (store) => (next) => (action) => {
     })
 
     createMessageGroup(groupId, groupName, dateCreated, memberSids)
+    return nextAction
+  }
+
+  if (action.type === MESSAGING_DELIVER_REQUEST) {
+    const id = action.payload.message_id
+    const content = action.payload.content
+    const dateCreated = action.payload.date_created
+    const messageGroupId = action.payload.group_id
+    const senderSid = action.payload.sender_sid
+    createMessage(id, content, dateCreated, messageGroupId, senderSid)
     return nextAction
   }
 

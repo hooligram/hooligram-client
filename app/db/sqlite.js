@@ -41,6 +41,19 @@ SQLite.openDatabase({ name: 'hooligram-v2-client.db' })
       );
     `)
   })
+  .then(() => {
+    instance.executeSql(`
+      CREATE TABLE IF NOT EXISTS message (
+        id INTEGER PRIMARY KEY,
+        content TEXT NOT NULL,
+        date_created TEXT NOT NULL,
+        message_group_id INTEGER NOT NULL,
+        sender_sid INTEGER NOT NULL,
+        FOREIGN KEY ( message_group_id ) REFERENCES message_group ( id )
+        FOREIGN KEY ( sender_sid ) REFERENCES contact ( sid )
+      );
+    `)
+  })
   .catch((err) => {
     console.log('error creating table. ', err.toString())
   })
@@ -59,6 +72,15 @@ export const createContact = async (sid) => {
     .catch((err) => {
       console.log('error creating contact.', err.toString())
     })
+}
+
+export const createMessage = async (id, content, dateCreated, messageGroupId, senderSid) => {
+  if (!instance) return Promise.reject(new Error('db instance error'))
+
+  return instance.executeSql(`
+    INSERT OR REPLACE INTO message ( id, content, date_created, message_group_id, sender_sid )
+    VALUES ( ?, ?, ?, ?, ? );
+  `, [id, content, dateCreated, messageGroupId, senderSid])
 }
 
 export const createMessageGroup = async (id, name, dateCreated, contactSids) => {
@@ -88,7 +110,7 @@ export const readContacts = async () => {
 
   return instance.executeSql('SELECT sid, added FROM contact;')
     .then(([results]) => {
-      contacts = []
+      const contacts = []
 
       for (let i = 0; i < results.rows.length; i++) {
         contacts.push(results.rows.item(i))
@@ -107,13 +129,32 @@ export const readMessageGroups = async () => {
   return instance
     .executeSql('SELECT id, name, date_created FROM message_group;')
     .then(([results]) => {
-      messageGroups = []
+      const messageGroups = []
 
       for (let i = 0; i < results.rows.length; i++) {
         messageGroups.push(results.rows.item(i))
       }
 
       return messageGroups
+    })
+}
+
+export const readMessages = async (groupId) => {
+  if (!instance) return Promise.reject(new Error('db instance error'))
+
+  return instance.executeSql(`
+    SELECT id, content, date_created, message_group_id, sender_sid
+    FROM message
+    WHERE message_group_id = ?;
+  `, [groupId])
+    .then(([results]) => {
+      const messages = []
+
+      for (let i =0; i < results.rows.length; i++) {
+        messages.push(results.rows.item(i))
+      }
+
+      return messages
     })
 }
 
