@@ -13,8 +13,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(goToGroupLeave(groupId))
     },
 
-    goToGroupMemberAdd: () => {
-      dispatch(goToGroupMemberAdd())
+    goToGroupMemberAdd: (groupId) => {
+      dispatch(goToGroupMemberAdd(groupId))
     },
 
     goToHome: () => {

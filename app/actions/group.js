@@ -1,4 +1,18 @@
-import { GROUP_CREATE_REQUEST, GROUP_LEAVE_REQUEST } from '.'
+import {
+  GROUP_ADD_MEMBER_REQUEST,
+  GROUP_CREATE_REQUEST,
+  GROUP_LEAVE_REQUEST
+} from '.'
+
+export const groupAddMemberRequest = (groupId, memberSid) => {
+  return {
+    payload: {
+      group_id: groupId,
+      member_sid: memberSid
+    },
+    type: GROUP_ADD_MEMBER_REQUEST
+  }
+}
 
 export const groupCreateRequest = (actionId, groupName, memberSids) => {
   return {

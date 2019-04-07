@@ -41,7 +41,11 @@ export default class GroupMessage extends Component {
         />
         <Text>Group ID: {this.state.groupId}</Text>
         <Button
-          onPress={this.props.goToGroupMemberAdd}
+          onPress={
+            () => {
+              this.props.goToGroupMemberAdd(this.state.groupId)
+            }
+          }
           title='Add new member'
         />
         <Button

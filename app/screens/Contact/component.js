@@ -62,7 +62,6 @@ export default class Contact extends Component {
                     <Button
                       onPress={
                         () => {
-                          this.props.goToGroupMessage(item.item.sid)
                         }
                       }
                       title='Message'

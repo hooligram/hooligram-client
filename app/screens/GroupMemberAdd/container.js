@@ -4,8 +4,8 @@ import component from './component'
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    goToGroupMessage: () => {
-      dispatch(goToGroupMessage())
+    goToGroupMessage: (groupId) => {
+      dispatch(goToGroupMessage(groupId))
     }
   }
 }

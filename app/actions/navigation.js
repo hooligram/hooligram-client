@@ -53,9 +53,11 @@ export const goToGroupLeave = (groupId) => {
   }
 }
 
-export const goToGroupMemberAdd = () => {
+export const goToGroupMemberAdd = (groupId) => {
   return {
-    payload: {},
+    payload: {
+      group_id: groupId
+    },
     type: GO_TO_GROUP_MEMBER_ADD
   }
 }

@@ -104,7 +104,9 @@ export default store => next => action => {
 
     case GROUP_MEMBER_ADD: {
       if (actionType === GO_TO_GROUP_MESSAGE) {
-        navigateTo(GROUP_MESSAGE)
+        navigateTo(GROUP_MESSAGE, {
+          groupId: action.payload.group_id
+        })
       }
 
       break
@@ -118,7 +120,9 @@ export default store => next => action => {
       }
 
       if (actionType === GO_TO_GROUP_MEMBER_ADD) {
-        navigateTo(GROUP_MEMBER_ADD)
+        navigateTo(GROUP_MEMBER_ADD, {
+          groupId: action.payload.group_id
+        })
       }
 
       if (actionType === GO_TO_HOME) {
