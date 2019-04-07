@@ -38,6 +38,7 @@ export default class GroupLeave extends Component {
         <Button
           onPress={
             () => {
+              this.props.groupLeaveRequest(this.state.groupId)
               deleteMessageGroup(this.state.groupId)
                 .then(() => {
                   this.props.goToHome()
