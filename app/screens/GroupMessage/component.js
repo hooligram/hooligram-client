@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Button, FlatList, Text, TextInput, View } from 'react-native'
 import { NavigationEvents } from 'react-navigation'
 import { app, colors } from 'hg/constants'
-import { readMessages } from 'hg/db'
+import { readIsDirectMessage, readMessages } from 'hg/db'
 import { getCurrentTimestamp } from 'hg/utils'
 
 export default class GroupMessage extends Component {
@@ -20,6 +20,7 @@ export default class GroupMessage extends Component {
   state = {
     groupId: 0,
     intervalId: 0,
+    isDirectMessage: false,
     messages: [],
     text: ''
   }
@@ -45,6 +46,11 @@ export default class GroupMessage extends Component {
                 this.updateMessages()
               }, app.UPDATE_INTERVAL)
               this.setState({ intervalId })
+
+              readIsDirectMessage(groupId)
+                .then((isDirectMessage) => {
+                  this.setState({ isDirectMessage })
+                })
             }
           }
           onWillBlur={
@@ -54,6 +60,7 @@ export default class GroupMessage extends Component {
           }
         />
         <Text>Group ID: {this.state.groupId}</Text>
+        <Text>is direct message: {this.state.isDirectMessage ? 'true' : 'false'}</Text>
         <Button
           onPress={
             () => {

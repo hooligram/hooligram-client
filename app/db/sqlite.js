@@ -49,8 +49,19 @@ SQLite.openDatabase({ name: 'hooligram-v2-client.db' })
         date_created TEXT NOT NULL,
         message_group_id INTEGER NOT NULL,
         sender_sid INTEGER NOT NULL,
-        FOREIGN KEY ( message_group_id ) REFERENCES message_group ( id )
+        FOREIGN KEY ( message_group_id ) REFERENCES message_group ( id ),
         FOREIGN KEY ( sender_sid ) REFERENCES contact ( sid )
+      );
+    `)
+  })
+  .then(() => {
+    instance.executeSql(`
+      CREATE TABLE IF NOT EXISTS direct_message (
+        message_group_id INTEGER,
+        recipient_sid TEXT,
+        PRIMARY KEY ( message_group_id, recipient_sid ),
+        FOREIGN KEY ( message_group_id ) REFERENCES message_group ( id ),
+        FOREIGN KEY ( recipient_sid ) REFERENCES contact ( sid )
       );
     `)
   })
@@ -72,6 +83,21 @@ export const createContact = async (sid) => {
     .catch((err) => {
       console.log('error creating contact.', err.toString())
     })
+}
+
+export const createDirectMessage = async (messageGroupId, recipientSid) => {
+  if (!instance) return Promise.reject(new Error('db instance error'))
+
+  return instance.executeSql(`
+    INSERT OR IGNORE INTO direct_message ( message_group_id, recipient_sid )
+    VALUES ( ?, ? );
+  `, [messageGroupId, recipientSid])
+      .then((res) => {
+        return res
+      })
+      .catch((err) => {
+        console.log('error creating direct message.', err.toString())
+      })
 }
 
 export const createMessage = async (id, content, dateCreated, messageGroupId, senderSid) => {
@@ -120,6 +146,17 @@ export const readContacts = async () => {
     })
     .catch((err) => {
       console.log('error reading contacts.', err.toString())
+    })
+}
+
+export const readIsDirectMessage = async (messageGroupId) => {
+  if (!instance) return Promise.reject(new Error('db instance error'))
+
+  return instance.executeSql(`
+    SELECT COUNT(*) AS count FROM direct_message WHERE message_group_id = ?;
+  `, [messageGroupId])
+    .then(([results]) => {
+      return results.rows.item(0).count > 0
     })
 }
 

@@ -1,6 +1,12 @@
 import { GROUP_DELIVER_REQUEST, MESSAGING_DELIVER_REQUEST } from 'hg/actions'
 import { messagingDeliverSuccess } from 'hg/actions/messaging'
-import { createContact, createMessage, createMessageGroup } from 'hg/db'
+import {
+  createContact,
+  createDirectMessage,
+  createMessage,
+  createMessageGroup
+} from 'hg/db'
+import { currentUserSid } from 'hg/selectors'
 
 export default (store) => (next) => (action) => {
   const nextAction = next(action)
@@ -16,6 +22,19 @@ export default (store) => (next) => (action) => {
     })
 
     createMessageGroup(groupId, groupName, dateCreated, memberSids)
+
+    if (memberSids.length == 2) {
+      const userSid = currentUserSid(store.getState())
+
+      const recipientSid = memberSids.reduce((result, sid) => {
+        if (sid == userSid) return result
+
+        return sid
+      }, '')
+
+      createDirectMessage(groupId, recipientSid)
+    }
+
     return nextAction
   }
 
