@@ -1,4 +1,5 @@
 import { GROUP_DELIVER_REQUEST, MESSAGING_DELIVER_REQUEST } from 'hg/actions'
+import { messagingDeliverSuccess } from 'hg/actions/messaging'
 import { createContact, createMessage, createMessageGroup } from 'hg/db'
 
 export default (store) => (next) => (action) => {
@@ -25,6 +26,9 @@ export default (store) => (next) => (action) => {
     const messageGroupId = action.payload.group_id
     const senderSid = action.payload.sender_sid
     createMessage(id, content, dateCreated, messageGroupId, senderSid)
+      .then(() => {
+        store.dispatch(messagingDeliverSuccess(id))
+      })
     return nextAction
   }
 

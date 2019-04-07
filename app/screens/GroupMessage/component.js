@@ -39,6 +39,17 @@ export default class GroupMessage extends Component {
 
               const groupId = payload.action.params.groupId
               this.setState({ groupId })
+
+              this.updateMessages()
+              const intervalId = setInterval(() => {
+                this.updateMessages()
+              }, app.UPDATE_INTERVAL)
+              this.setState({ intervalId })
+            }
+          }
+          onWillBlur={
+            () => {
+              clearInterval(this.state.intervalId)
             }
           }
         />
@@ -104,17 +115,17 @@ export default class GroupMessage extends Component {
     )
   }
 
-  componentDidMount() {
-    this.updateMessages()
-    const intervalId = setInterval(() => {
-      this.updateMessages()
-    }, app.UPDATE_INTERVAL)
-    this.setState({ intervalId })
-  }
+  // componentDidMount() {
+  //   this.updateMessages()
+  //   const intervalId = setInterval(() => {
+  //     this.updateMessages()
+  //   }, app.UPDATE_INTERVAL)
+  //   this.setState({ intervalId })
+  // }
 
-  componentWillUnmount() {
-    clearInterval(this.state.intervalId)
-  }
+  // componentWillUnmount() {
+  //   clearInterval(this.state.intervalId)
+  // }
 
   updateMessages() {
     readMessages(this.state.groupId)
