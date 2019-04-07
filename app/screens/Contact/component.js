@@ -2,8 +2,8 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Button, FlatList, Text, View } from 'react-native'
 import { NavigationEvents } from 'react-navigation';
-import { colors, dimensions, fontSizes } from 'hg/constants'
-import { deleteContact, readContacts } from 'hg/db'
+import { app, colors, dimensions, fontSizes } from 'hg/constants'
+import { readContacts, updateContactAdded } from 'hg/db'
 
 export default class Contact extends Component {
   static navigationOptions = {
@@ -13,7 +13,8 @@ export default class Contact extends Component {
   static propTypes = {}
 
   state = {
-    contacts: []
+    contacts: [],
+    intervalId: 0
   }
 
   render() {
@@ -24,16 +25,6 @@ export default class Contact extends Component {
           flex: 1
         }}
       >
-        <NavigationEvents
-          onWillFocus={
-            () => {
-              readContacts()
-                .then((contacts) => {
-                  this.setState({ contacts })
-                })
-            }
-          }
-        />
         <Button
           onPress={this.props.goToGroupCreate}
           title='New group'
@@ -46,7 +37,7 @@ export default class Contact extends Component {
           data={this.state.contacts}
           keyExtractor={
             (contact) => {
-              return contact.id.toString()
+              return contact.sid
             }
           }
           renderItem={
@@ -69,19 +60,20 @@ export default class Contact extends Component {
                     }
                   >
                     <Button
-                      onPress={this.props.goToGroupMessage}
+                      onPress={
+                        () => {
+                          this.props.goToGroupMessage(item.item.sid)
+                        }
+                      }
                       title='Message'
                     />
                     <Button
                       color={colors.GOOGLE_RED}
                       onPress={
                         () => {
-                          deleteContact(item.item.id)
+                          updateContactAdded(item.item.sid, false)
                             .then(() => {
-                              return readContacts()
-                            })
-                            .then((contacts) => {
-                              this.setState({ contacts })
+                              this.updateContacts()
                             })
                         }
                       }
@@ -95,5 +87,27 @@ export default class Contact extends Component {
         />
       </View>
     )
+  }
+
+  componentDidMount() {
+    this.updateContacts()
+    const intervalId = setInterval(() => {
+      this.updateContacts()
+    }, app.UPDATE_INTERVAL)
+    this.setState({ intervalId })
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId)
+  }
+
+  updateContacts() {
+    readContacts()
+      .then((contacts) => {
+        const added = contacts.filter((contact) => {
+          return contact.added
+        })
+        this.setState({ contacts: added })
+      })
   }
 }

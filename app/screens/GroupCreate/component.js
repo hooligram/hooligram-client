@@ -31,7 +31,10 @@ export default class GroupCreate extends Component {
             () => {
               readContacts()
                 .then((contacts) => {
-                  this.setState({ contacts })
+                  const added = contacts.filter((contact) => {
+                    return contact.added
+                  })
+                  this.setState({ contacts: added })
                 })
             }
           }
@@ -62,7 +65,7 @@ export default class GroupCreate extends Component {
         />
         <FlatList
           data={this.state.contacts}
-          keyExtractor={(contact) => (contact.id.toString())}
+          keyExtractor={(contact) => (contact.sid.toString())}
           renderItem={
             (item) => {
               return (

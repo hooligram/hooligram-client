@@ -12,8 +12,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(goToGroupCreate())
     },
 
-    goToGroupMessage: () => {
-      dispatch(goToGroupMessage())
+    goToGroupMessage: (groupId) => {
+      dispatch(goToGroupMessage(groupId))
     }
   }
 }

@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { messagingSendRequest } from 'hg/actions/messaging'
 import {
   goToGroupLeave,
   goToGroupMemberAdd,
@@ -8,8 +9,8 @@ import component from './component'
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    goToGroupLeave: () => {
-      dispatch(goToGroupLeave())
+    goToGroupLeave: (groupId) => {
+      dispatch(goToGroupLeave(groupId))
     },
 
     goToGroupMemberAdd: () => {
@@ -18,6 +19,10 @@ const mapDispatchToProps = (dispatch) => {
 
     goToHome: () => {
       dispatch(goToHome())
+    },
+
+    messagingSendRequest: (actionId, groupId, content) => {
+      dispatch(messagingSendRequest(actionId, groupId, content))
     }
   }
 }

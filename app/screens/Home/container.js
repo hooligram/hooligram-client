@@ -9,8 +9,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(goToContact())
     },
 
-    goToGroupMessage: () => {
-      dispatch(goToGroupMessage())
+    goToGroupMessage: (groupId) => {
+      dispatch(goToGroupMessage(groupId))
     },
 
     signOut: () => {

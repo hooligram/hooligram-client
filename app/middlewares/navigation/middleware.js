@@ -13,6 +13,7 @@ import {
   GO_TO_ONBOARDING_REQUEST,
   GO_TO_ONBOARDING_SUBMIT,
   GO_TO_SPLASH,
+  GROUP_CREATE_SUCCESS,
   VERIFICATION_REQUEST_CODE_SUCCESS,
   VERIFICATION_SUBMIT_CODE_SUCCESS
 } from 'hg/actions'
@@ -86,7 +87,7 @@ export default store => next => action => {
     }
 
     case GROUP_INFO: {
-      if (actionType === GO_TO_HOME) {
+      if (actionType === GROUP_CREATE_SUCCESS) {
         navigateTo(HOME)
       }
 
@@ -111,7 +112,9 @@ export default store => next => action => {
 
     case GROUP_MESSAGE: {
       if (actionType === GO_TO_GROUP_LEAVE) {
-        navigateTo(GROUP_LEAVE)
+        navigateTo(GROUP_LEAVE, {
+          groupId: action.payload.group_id
+        })
       }
 
       if (actionType === GO_TO_GROUP_MEMBER_ADD) {
@@ -139,7 +142,8 @@ export default store => next => action => {
       }
 
       if (actionType === GO_TO_GROUP_MESSAGE) {
-        navigateTo(GROUP_MESSAGE)
+        const groupId = action.payload.group_id
+        navigateTo(GROUP_MESSAGE, { groupId })
       }
 
       break

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Button, FlatList, Text, View } from 'react-native'
 import { NavigationEvents } from 'react-navigation'
-import { colors } from 'hg/constants'
+import { app, colors } from 'hg/constants'
 import { readMessageGroups } from 'hg/db'
 
 export default class Home extends Component {
@@ -13,6 +13,7 @@ export default class Home extends Component {
   static propTypes = {}
 
   state = {
+    intervalId: 0,
     messageGroups: []
   }
 
@@ -50,7 +51,7 @@ export default class Home extends Component {
                   <Button
                     onPress={
                       () => {
-                        this.props.goToGroupMessage()
+                        this.props.goToGroupMessage(item.item.id)
                       }
                     }
                     title='Join'
@@ -67,5 +68,24 @@ export default class Home extends Component {
         />
       </View>
     )
+  }
+
+  componentDidMount() {
+    this.updateMessageGroups()
+    const intervalId = setInterval(() => {
+      this.updateMessageGroups()
+    }, app.UPDATE_INTERVAL)
+    this.setState({ intervalId })
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId)
+  }
+
+  updateMessageGroups() {
+    readMessageGroups()
+      .then((messageGroups) => {
+        this.setState({ messageGroups })
+      })
   }
 }

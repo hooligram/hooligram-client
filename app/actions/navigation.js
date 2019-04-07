@@ -44,9 +44,11 @@ export const goToGroupInfo = (memberSids = []) => {
   }
 }
 
-export const goToGroupLeave = () => {
+export const goToGroupLeave = (groupId) => {
   return {
-    payload: {},
+    payload: {
+      group_id: groupId
+    },
     type: GO_TO_GROUP_LEAVE
   }
 }
@@ -58,9 +60,11 @@ export const goToGroupMemberAdd = () => {
   }
 }
 
-export const goToGroupMessage = () => {
+export const goToGroupMessage = (groupId) => {
   return {
-    payload: {},
+    payload: {
+      group_id: groupId
+    },
     type: GO_TO_GROUP_MESSAGE
   }
 }

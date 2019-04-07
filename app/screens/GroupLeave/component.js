@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Button, View } from 'react-native'
+import { Button, Text, View } from 'react-native'
+import { NavigationEvents } from 'react-navigation'
 import { colors } from 'hg/constants'
+import { deleteMessageGroup } from 'hg/db'
 
 export default class GroupLeave extends Component {
   static navigationOptions = {
@@ -10,7 +12,9 @@ export default class GroupLeave extends Component {
 
   static propTypes = {}
 
-  state = {}
+  state = {
+    groupId: 0
+  }
 
   render() {
     return (
@@ -20,8 +24,26 @@ export default class GroupLeave extends Component {
           flex: 1
         }}
       >
+        <Text>{this.state.groupId}</Text>
+        <NavigationEvents
+          onWillFocus={
+            (payload) => {
+              if (!payload.action || !payload.action.params) return
+
+              const groupId = payload.action.params.groupId
+              this.setState({ groupId })
+            }
+          }
+        />
         <Button
-          onPress={this.props.goToHome}
+          onPress={
+            () => {
+              deleteMessageGroup(this.state.groupId)
+                .then(() => {
+                  this.props.goToHome()
+                })
+            }
+          }
           title='Confirm'
         />
       </View>

@@ -2,7 +2,10 @@ import SQLite from 'react-native-sqlite-storage'
 
 let instance
 
-SQLite.DEBUG(true)
+if (__DEV__) {
+  SQLite.DEBUG(true)
+}
+
 SQLite.enablePromise(true)
 SQLite.openDatabase({ name: 'hooligram-v2-client.db' })
   .then((db) => {
@@ -11,19 +14,17 @@ SQLite.openDatabase({ name: 'hooligram-v2-client.db' })
   .then(() => {
     instance.executeSql(`
       CREATE TABLE IF NOT EXISTS contact (
-        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-        sid TEXT NOT NULL UNIQUE
+        sid TEXT PRIMARY KEY,
+        added INTEGER DEFAULT 0
       );
     `)
   })
   .then(() => {
     instance.executeSql(`
       CREATE TABLE IF NOT EXISTS message_group (
-        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-        sid INTEGER UNIQUE,
-        aid INTEGER UNIQUE,
+        id INTEGER PRIMARY KEY,
         name TEXT NOT NULL,
-        date_created TEXT
+        date_created TEXT NOT NULL
       );
     `)
   })
@@ -31,14 +32,12 @@ SQLite.openDatabase({ name: 'hooligram-v2-client.db' })
     instance.executeSql(`
       CREATE TABLE IF NOT EXISTS message_group_contact (
         message_group_id INTEGER NOT NULL,
-        contact_id INTEGER NOT NULL,
-        PRIMARY KEY ( message_group_id, contact_id ),
+        contact_sid TEXT NOT NULL,
+        PRIMARY KEY ( message_group_id, contact_sid ),
         FOREIGN KEY ( message_group_id ) REFERENCES message_group ( id )
           ON DELETE CASCADE
           ON UPDATE CASCADE,
-        FOREIGN KEY ( contact_id ) REFERENCES contact ( id )
-          ON DELETE CASCADE
-          ON UPDATE CASCADE
+        FOREIGN KEY ( contact_sid ) REFERENCES contact ( sid )
       );
     `)
   })
@@ -53,7 +52,7 @@ SQLite.openDatabase({ name: 'hooligram-v2-client.db' })
 export const createContact = async (sid) => {
   if (!instance) return Promise.reject(new Error('db instance error'))
 
-  return instance.executeSql('INSERT INTO contact ( sid ) VALUES ( ? );', [sid])
+  return instance.executeSql('INSERT OR IGNORE INTO contact ( sid ) VALUES ( ? );', [sid])
     .then((res) => {
       return res
     })
@@ -62,12 +61,14 @@ export const createContact = async (sid) => {
     })
 }
 
-export const createMessageGroup = async (aid, name, contactSids) => {
+export const createMessageGroup = async (id, name, dateCreated, contactSids) => {
   if (!instance) return Promise.reject(new Error('db instance error'))
 
   return instance
     .transaction((tx) => {
-      tx.executeSql('INSERT INTO message_group ( aid, name ) VALUES ( ?, ? );', [aid, name])
+      tx.executeSql(`
+        INSERT OR REPLACE INTO message_group ( id, name, date_created ) VALUES ( ?, ?, ? );
+      `, [id, name, dateCreated])
 
       contactSids.forEach((sid) => {
         tx.executeSql('INSERT OR IGNORE INTO contact ( sid ) VALUES ( ? );', [sid])
@@ -85,7 +86,7 @@ export const createMessageGroup = async (aid, name, contactSids) => {
 export const readContacts = async () => {
   if (!instance) return Promise.reject(new Error('db instance error'))
 
-  return instance.executeSql('SELECT id, sid FROM contact;')
+  return instance.executeSql('SELECT sid, added FROM contact;')
     .then(([results]) => {
       contacts = []
 
@@ -104,7 +105,7 @@ export const readMessageGroups = async () => {
   if (!instance) return Promise.reject(new Error('db instance error'))
 
   return instance
-    .executeSql('SELECT id, sid, aid, name, date_created FROM message_group;')
+    .executeSql('SELECT id, name, date_created FROM message_group;')
     .then(([results]) => {
       messageGroups = []
 
@@ -120,19 +121,18 @@ export const readMessageGroups = async () => {
 // UPDATE //
 ////////////
 
+export const updateContactAdded = async (sid, added = true) => {
+  if (!instance) return Promise.reject(new Error('db instance error'))
+
+  return instance.executeSql('UPDATE contact SET added = ? WHERE sid = ?;', [added ? 1 : 0, sid])
+}
+
 ////////////
 // DELETE //
 ////////////
 
-export const deleteContact = async (id) => {
+export const deleteMessageGroup = async (id) => {
   if (!instance) return Promise.reject(new Error('db instance error'))
 
-  return instance.executeSql('DELETE FROM contact WHERE id = ?;', [id])
-    .then(([results]) => {
-      return true
-    })
-    .catch(err => {
-      console.log('error deleting contact.', err.toString())
-      return false
-    })
+  return instance.executeSql('DELETE FROM message_group WHERE id = ?;', [id])
 }

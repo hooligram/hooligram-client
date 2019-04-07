@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Button, Picker, Text, TextInput, View } from 'react-native'
 import { colors, countryCodes } from 'hg/constants'
-import { createContact } from 'hg/db'
+import { createContact, updateContactAdded } from 'hg/db'
 import { constructSid } from 'hg/utils'
 
 export default class ContactCreate extends Component {
@@ -64,6 +64,9 @@ export default class ContactCreate extends Component {
               const countryCode = countryCodes[this.state.selection].code
               const sid = constructSid(countryCode, this.state.phoneNumber)
               createContact(sid)
+                .then(() => {
+                  updateContactAdded(sid)
+                })
                 .then(() => {
                   this.props.goToContact()
                 })
