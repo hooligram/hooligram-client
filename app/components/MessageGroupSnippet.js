@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { ListItem } from 'react-native-elements'
+import { dimensions } from 'hg/constants'
 import { readIsDirectMessage, readMessageGroupContacts } from 'hg/db'
 
 export default class MessageGroupSnippet extends Component {
@@ -28,6 +29,19 @@ export default class MessageGroupSnippet extends Component {
     const title = this.state.isDirectMessage ? recipients[0] : groupName
     return (
       <ListItem
+        bottomDivider={true}
+        containerStyle={
+          {
+            paddingVertical: dimensions.PADDING_SMALL
+          }
+        }
+        leftIcon={
+          {
+            name: this.state.isDirectMessage ? 'person' : 'group',
+            raised: true,
+            type: 'material'
+          }
+        }
         onPress={
           () => {
             this.props.onPress()
