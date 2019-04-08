@@ -29,11 +29,10 @@ export default createStackNavigator(
     defaultNavigationOptions: {
       headerLeft: null,
       headerStyle: {
-        backgroundColor: colors.BOLD_GREEN
+        backgroundColor: colors.WHITE
       },
-      headerTintColor: colors.WHITE,
       headerTitleStyle: {
-        color: colors.WHITE
+        color: colors.BOLD_GREEN
       }
     },
     initialRouteName: HOME
