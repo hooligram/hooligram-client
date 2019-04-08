@@ -1,10 +1,9 @@
-import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Button, FlatList, Text, View } from 'react-native'
+import { FlatList, ToastAndroid, View } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { NavigationEvents } from 'react-navigation';
 import { ContactSnippet } from 'hg/components'
-import { app, colors, dimensions, fontSizes } from 'hg/constants'
+import { colors } from 'hg/constants'
 import { readContacts, updateContactAdded } from 'hg/db'
 
 export default class Contact extends Component {
@@ -15,8 +14,7 @@ export default class Contact extends Component {
   static propTypes = {}
 
   state = {
-    contacts: [],
-    intervalId: 0
+    contacts: []
   }
 
   render() {
@@ -26,6 +24,13 @@ export default class Contact extends Component {
           flex: 1
         }}
       >
+        <NavigationEvents
+          onWillFocus={
+            () => {
+              this.updateContacts()
+            }
+          }
+        />
         <FlatList
           data={this.state.contacts}
           keyExtractor={
@@ -38,6 +43,15 @@ export default class Contact extends Component {
               return (
                 <ContactSnippet
                   contact={item.item}
+                  onLongPress={
+                    () => {
+                      updateContactAdded(item.item.sid, false)
+                        .then(() => {
+                          this.updateContacts()
+                          ToastAndroid.show(`Removed ${item.item.sid}`, ToastAndroid.SHORT);
+                        })
+                    }
+                  }
                   onPress={() => {}}
                 />
               )
@@ -86,18 +100,6 @@ export default class Contact extends Component {
         </View>
       </View>
     )
-  }
-
-  componentDidMount() {
-    this.updateContacts()
-    const intervalId = setInterval(() => {
-      this.updateContacts()
-    }, app.UPDATE_INTERVAL)
-    this.setState({ intervalId })
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.state.intervalId)
   }
 
   updateContacts() {

@@ -27,6 +27,13 @@ export default class ContactSnippet extends Component {
             type: 'material'
           }
         }
+        onLongPress={
+          () => {
+            if (!this.props.onLongPress) return
+
+            this.props.onLongPress()
+          }
+        }
         onPress={
           () => {
             this.props.onPress()

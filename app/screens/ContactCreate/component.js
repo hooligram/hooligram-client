@@ -88,7 +88,8 @@ export default class ContactCreate extends Component {
               autoFocus={true}
               inputStyle={
                 {
-                  color: colors.GREY
+                  color: colors.GREY,
+                  fontSize: fontSizes.XXLARGE
                 }
               }
               keyboardType='numeric'
