@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Button, FlatList, Text, View } from 'react-native'
 import { NavigationEvents } from 'react-navigation'
+import { MessageGroupSnippet } from 'hg/components'
 import { app, colors } from 'hg/constants'
 import { readMessageGroups } from 'hg/db'
 
@@ -27,12 +28,20 @@ export default class Home extends Component {
         }}
       >
         <NavigationEvents
+          onWillBlur={
+            () => {
+              clearInterval(this.state.intervalId)
+            }
+          }
           onWillFocus={
             () => {
-              readMessageGroups()
-                .then((messageGroups) => {
-                  this.setState({ messageGroups })
-                })
+              this.updateMessageGroups()
+
+              const intervalId = setInterval(() => {
+                this.updateMessageGroups()
+              }, app.UPDATE_INTERVAL)
+
+              this.setState({ intervalId })
             }
           }
         />
@@ -46,17 +55,15 @@ export default class Home extends Component {
           renderItem={
             (item) => {
               return (
-                <View>
-                  <Text>{item.item.name}</Text>
-                  <Button
-                    onPress={
-                      () => {
-                        this.props.goToGroupMessage(item.item.id)
-                      }
+                <MessageGroupSnippet
+                  messageGroup={item.item}
+                  onPress={
+                    () => {
+                      this.props.goToGroupMessage(item.item.id)
                     }
-                    title='Join'
-                  />
-                </View>
+                  }
+                  userSid={this.props.currentUserSid}
+                />
               )
             }
           }
@@ -68,18 +75,6 @@ export default class Home extends Component {
         />
       </View>
     )
-  }
-
-  componentDidMount() {
-    this.updateMessageGroups()
-    const intervalId = setInterval(() => {
-      this.updateMessageGroups()
-    }, app.UPDATE_INTERVAL)
-    this.setState({ intervalId })
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.state.intervalId)
   }
 
   updateMessageGroups() {

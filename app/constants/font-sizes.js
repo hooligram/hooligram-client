@@ -1,3 +1,5 @@
 export default {
-  MEDIUM: 18
+  SMALL: 12,
+  MEDIUM: 16,
+  LARGE: 20
 }

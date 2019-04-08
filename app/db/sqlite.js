@@ -120,6 +120,10 @@ export const createMessageGroup = async (id, name, dateCreated, contactSids) => 
 
       contactSids.forEach((sid) => {
         tx.executeSql('INSERT OR IGNORE INTO contact ( sid ) VALUES ( ? );', [sid])
+        tx.executeSql(`
+          INSERT OR IGNORE INTO message_group_contact ( message_group_id, contact_sid )
+          VALUES ( ?, ? );
+        `, [id, sid])
       })
     })
     .catch((err) => {
@@ -157,6 +161,23 @@ export const readIsDirectMessage = async (messageGroupId) => {
   `, [messageGroupId])
     .then(([results]) => {
       return results.rows.item(0).count > 0
+    })
+}
+
+export const readMessageGroupContacts = async (messageGroupId) => {
+  if (!instance) return Promise.reject(new Error('db instance error'))
+
+  return instance.executeSql(`
+    SELECT contact_sid FROM message_group_contact WHERE message_group_id = ?;
+  `, [messageGroupId])
+    .then(([results]) => {
+      const contactSids = []
+
+      for (let i = 0; i < results.rows.length; i++) {
+        contactSids.push(results.rows.item(i).contact_sid)
+      }
+
+      return contactSids
     })
 }
 

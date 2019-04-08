@@ -122,18 +122,6 @@ export default class GroupMessage extends Component {
     )
   }
 
-  // componentDidMount() {
-  //   this.updateMessages()
-  //   const intervalId = setInterval(() => {
-  //     this.updateMessages()
-  //   }, app.UPDATE_INTERVAL)
-  //   this.setState({ intervalId })
-  // }
-
-  // componentWillUnmount() {
-  //   clearInterval(this.state.intervalId)
-  // }
-
   updateMessages() {
     readMessages(this.state.groupId)
       .then((messages) => {
