@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Button, FlatList, Text, View } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { NavigationEvents } from 'react-navigation';
+import { ContactSnippet } from 'hg/components'
 import { app, colors, dimensions, fontSizes } from 'hg/constants'
 import { readContacts, updateContactAdded } from 'hg/db'
 
@@ -35,43 +36,10 @@ export default class Contact extends Component {
           renderItem={
             (item) => {
               return (
-                <View
-                  style={
-                    {
-                      padding: dimensions.PADDING
-                    }
-                  }
-                >
-                  <Text>{item.item.sid}</Text>
-                  <View
-                    style={
-                      {
-                        flexDirection: 'row',
-                        justifyContent: 'space-between'
-                      }
-                    }
-                  >
-                    <Button
-                      onPress={
-                        () => {
-                        }
-                      }
-                      title='Message'
-                    />
-                    <Button
-                      color={colors.GOOGLE_RED}
-                      onPress={
-                        () => {
-                          updateContactAdded(item.item.sid, false)
-                            .then(() => {
-                              this.updateContacts()
-                            })
-                        }
-                      }
-                      title='Remove'
-                    />
-                  </View>
-                </View>
+                <ContactSnippet
+                  contact={item.item}
+                  onPress={() => {}}
+                />
               )
             }
           }

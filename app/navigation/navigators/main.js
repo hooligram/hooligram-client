@@ -35,6 +35,7 @@ export default createStackNavigator(
         color: colors.BOLD_GREEN
       }
     },
+    headerMode: 'float',
     initialRouteName: HOME
   }
 )
