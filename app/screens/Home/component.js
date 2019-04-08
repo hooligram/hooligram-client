@@ -79,6 +79,7 @@ export default class Home extends Component {
             color={colors.BOLD_GREEN}
             name='fingerprint'
             onPress={this.props.goToContact}
+            raised
             reverse
             type='material'
           />

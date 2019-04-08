@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Button, FlatList, Text, View } from 'react-native'
+import { Icon } from 'react-native-elements'
 import { NavigationEvents } from 'react-navigation';
 import { app, colors, dimensions, fontSizes } from 'hg/constants'
 import { readContacts, updateContactAdded } from 'hg/db'
@@ -21,18 +22,9 @@ export default class Contact extends Component {
     return (
       <View
         style={{
-          backgroundColor: colors.WHITE,
           flex: 1
         }}
       >
-        <Button
-          onPress={this.props.goToGroupCreate}
-          title='New group'
-        />
-        <Button
-          onPress={this.props.goToContactCreate}
-          title='New contact'
-        />
         <FlatList
           data={this.state.contacts}
           keyExtractor={
@@ -84,6 +76,41 @@ export default class Contact extends Component {
             }
           }
         />
+        <View
+          style={
+            {
+              flexDirection: 'row',
+              justifyContent: 'center'
+            }
+          }
+        >
+          <Icon
+            color={colors.BOLD_GREEN}
+            name='arrow-back'
+            onPress={
+              () => {
+                this.props.navigation.goBack()
+              }
+            }
+            raised
+            type='material'
+          />
+          <Icon
+            color={colors.BOLD_GREEN}
+            name='group-add'
+            onPress={this.props.goToGroupCreate}
+            raised
+            reverse
+            type='material'
+          />
+          <Icon
+            color={colors.BOLD_GREEN}
+            name='person-add'
+            onPress={this.props.goToContactCreate}
+            raised
+            type='material'
+          />
+        </View>
       </View>
     )
   }

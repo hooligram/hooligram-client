@@ -27,6 +27,7 @@ export default createStackNavigator(
   },
   {
     defaultNavigationOptions: {
+      headerLeft: null,
       headerStyle: {
         backgroundColor: colors.BOLD_GREEN
       },
