@@ -11,5 +11,6 @@ export default {
   LIGHT_GREEN: '#25D366',
   LIGHTER_GREEN: '#DCF8C6',
   TEXT_LINK: '#3366BB',
+  TRANSLUCENT_WHITE: '#FFFFFFA0',
   WHITE: 'white'
 }

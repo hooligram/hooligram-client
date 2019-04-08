@@ -47,8 +47,13 @@ export default class Contact extends Component {
         <View
           style={
             {
+              backgroundColor: colors.TRANSLUCENT_WHITE,
+              bottom: 0,
               flexDirection: 'row',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              left: 0,
+              position: 'absolute',
+              right: 0
             }
           }
         >
