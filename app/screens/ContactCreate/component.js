@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Picker, View } from 'react-native'
 import { Icon, Input, Text } from 'react-native-elements'
-import { colors, countryCodes, fontSizes } from 'hg/constants'
+import { colors, countryCodes, dimensions, fontSizes } from 'hg/constants'
 import { createContact, updateContactAdded } from 'hg/db'
 import { constructSid } from 'hg/utils'
 
@@ -22,7 +22,8 @@ export default class ContactCreate extends Component {
       <View
         style={
           {
-            flex: 1
+            flex: 1,
+            paddingHorizontal: dimensions.PADDING_LARGE
           }
         }
       >
