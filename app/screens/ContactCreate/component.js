@@ -1,8 +1,7 @@
-import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Picker, View } from 'react-native'
 import { Icon, Input, Text } from 'react-native-elements'
-import { colors, countryCodes, dimensions, fontSizes } from 'hg/constants'
+import { colors, countryCodes, fontSizes } from 'hg/constants'
 import { createContact, updateContactAdded } from 'hg/db'
 import { constructSid } from 'hg/utils'
 
@@ -34,6 +33,11 @@ export default class ContactCreate extends Component {
             }
           }
           selectedValue={this.state.selection}
+          style={
+            {
+              color: colors.GREY
+            }
+          }
         >
           {
             countryCodes.map((country, index) => {
@@ -55,26 +59,47 @@ export default class ContactCreate extends Component {
             }
           }
         >
-          <Text
+          <View
             style={
               {
-                fontSize: fontSizes.LARGE,
-                padding: dimensions.PADDING
+                alignItems: 'center',
+                flex: 0.1
               }
             }
           >
-            +{countryCodes[this.state.selection].code}
-          </Text>
-          <Input
-            autoFocus={true}
-            keyboardType='numeric'
-            onChangeText={
-              (text) => {
-                this.setState({ phoneNumber: text })
+            <Text
+              style={
+                {
+                  fontSize: fontSizes.LARGE
+                }
+              }
+            >
+              +{countryCodes[this.state.selection].code}
+            </Text>
+          </View>
+          <View
+            style={
+              {
+                flex: 0.9
               }
             }
-            value={this.state.phoneNumber}
-          />
+          >
+            <Input
+              autoFocus={true}
+              inputStyle={
+                {
+                  color: colors.GREY
+                }
+              }
+              keyboardType='numeric'
+              onChangeText={
+                (text) => {
+                  this.setState({ phoneNumber: text })
+                }
+              }
+              value={this.state.phoneNumber}
+            />
+          </View>
         </View>
         <View
           style={
