@@ -1,5 +1,6 @@
 export { default as ActionBar } from './ActionBar'
 export { default as ActivityIndicator } from './ActivityIndicator'
 export { default as ContactSnippet } from './ContactSnippet'
+export { default as MessageCloud } from './MessageCloud'
 export { default as MessageGroupSnippet } from './MessageGroupSnippet'
 export { default as NavigationView } from './NavigationView'
