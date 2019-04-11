@@ -6,6 +6,7 @@ import {
 import {
   Contact,
   ContactCreate,
+  DirectMessage,
   GroupCreate,
   GroupInfo,
   GroupLeave,
@@ -18,6 +19,7 @@ export default createStackNavigator(
   {
     Contact,
     ContactCreate,
+    DirectMessage,
     GroupCreate,
     GroupInfo,
     GroupLeave,

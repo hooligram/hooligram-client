@@ -1,37 +1,5 @@
 import { NavigationActions } from 'react-navigation'
-import {
-  GO_TO_CONTACT,
-  GO_TO_CONTACT_CREATE,
-  GO_TO_GROUP_CREATE,
-  GO_TO_GROUP_INFO,
-  GO_TO_GROUP_LEAVE,
-  GO_TO_GROUP_MEMBER_ADD,
-  GO_TO_GROUP_MESSAGE,
-  GO_TO_HOME,
-  GO_TO_ONBOARDING_AGREE,
-  GO_TO_ONBOARDING_INITIALIZE,
-  GO_TO_ONBOARDING_REQUEST,
-  GO_TO_ONBOARDING_SUBMIT,
-  GO_TO_SPLASH,
-  GROUP_CREATE_SUCCESS,
-  VERIFICATION_REQUEST_CODE_SUCCESS,
-  VERIFICATION_SUBMIT_CODE_SUCCESS
-} from 'hg/actions'
-import {
-  CONTACT,
-  CONTACT_CREATE,
-  GROUP_CREATE,
-  GROUP_INFO,
-  GROUP_LEAVE,
-  GROUP_MEMBER_ADD,
-  GROUP_MESSAGE,
-  HOME,
-  ONBOARDING_AGREE,
-  ONBOARDING_INITIALIZE,
-  ONBOARDING_REQUEST,
-  ONBOARDING_SUBMIT,
-  SPLASH
-} from 'hg/navigation/routes'
+import { actions, routes } from 'hg/constants'
 import {
   currentUserCountryCode,
   currentUserPhoneNumber,
@@ -54,57 +22,27 @@ export default store => next => action => {
   const currentRoute = routePath[routePath.length - 1]
 
   switch (currentRoute) {
-    case CONTACT: {
-      if (actionType === GO_TO_CONTACT_CREATE) {
-        navigateTo(CONTACT_CREATE)
+    case routes.CONTACT: {
+      if (actionType === actions.GO_TO_CONTACT_CREATE) {
+        navigateTo(routes.CONTACT_CREATE)
       }
 
-      if (actionType == GO_TO_GROUP_CREATE) {
-        navigateTo(GROUP_CREATE)
+      if (actionType === actions.GO_TO_DIRECT_MESSAGE) {
+        navigateTo(routes.DIRECT_MESSAGE, {
+          groupId: action.payload.group_id
+        })
       }
 
-      if (actionType == GO_TO_GROUP_MESSAGE) {
-        navigateTo(GROUP_MESSAGE)
+      if (actionType === actions.GO_TO_GROUP_CREATE) {
+        navigateTo(routes.GROUP_CREATE)
       }
 
-      break
-    }
-
-    case CONTACT_CREATE: {
-      if (actionType === GO_TO_CONTACT) {
-        navigateTo(CONTACT)
+      if (actionType === actions.GO_TO_GROUP_MESSAGE) {
+        navigateTo(routes.GROUP_MESSAGE)
       }
 
-      break
-    }
-
-    case GROUP_CREATE: {
-      if (actionType === GO_TO_GROUP_INFO) {
-        navigateTo(GROUP_INFO, { memberSids: action.payload.member_sids })
-      }
-
-      break
-    }
-
-    case GROUP_INFO: {
-      if (actionType === GROUP_CREATE_SUCCESS) {
-        navigateTo(HOME)
-      }
-
-      break
-    }
-
-    case GROUP_LEAVE: {
-      if (actionType === GO_TO_HOME) {
-        navigateTo(HOME)
-      }
-
-      break
-    }
-
-    case GROUP_MEMBER_ADD: {
-      if (actionType === GO_TO_GROUP_MESSAGE) {
-        navigateTo(GROUP_MESSAGE, {
+      if (actionType === actions.GROUP_CREATE_SUCCESS) {
+        navigateTo(routes.DIRECT_MESSAGE, {
           groupId: action.payload.group_id
         })
       }
@@ -112,90 +50,138 @@ export default store => next => action => {
       break
     }
 
-    case GROUP_MESSAGE: {
-      if (actionType === GO_TO_GROUP_LEAVE) {
-        navigateTo(GROUP_LEAVE, {
-          groupId: action.payload.group_id
-        })
-      }
-
-      if (actionType === GO_TO_GROUP_MEMBER_ADD) {
-        navigateTo(GROUP_MEMBER_ADD, {
-          groupId: action.payload.group_id
-        })
-      }
-
-      if (actionType === GO_TO_HOME) {
-        navigateTo(HOME)
+    case routes.CONTACT_CREATE: {
+      if (actionType === actions.GO_TO_CONTACT) {
+        navigateTo(routes.CONTACT)
       }
 
       break
     }
 
-    case HOME: {
+    case routes.GROUP_CREATE: {
+      if (actionType === actions.GO_TO_GROUP_INFO) {
+        navigateTo(routes.GROUP_INFO, { memberSids: action.payload.member_sids })
+      }
+
+      break
+    }
+
+    case routes.GROUP_INFO: {
+      if (actionType === actions.GROUP_CREATE_SUCCESS) {
+        navigateTo(routes.HOME)
+      }
+
+      break
+    }
+
+    case routes.GROUP_LEAVE: {
+      if (actionType === actions.GO_TO_HOME) {
+        navigateTo(routes.HOME)
+      }
+
+      break
+    }
+
+    case routes.GROUP_MEMBER_ADD: {
+      if (actionType === actions.GO_TO_GROUP_MESSAGE) {
+        navigateTo(routes.GROUP_MESSAGE, {
+          groupId: action.payload.group_id
+        })
+      }
+
+      break
+    }
+
+    case routes.GROUP_MESSAGE: {
+      if (actionType === actions.GO_TO_GROUP_LEAVE) {
+        navigateTo(routes.GROUP_LEAVE, {
+          groupId: action.payload.group_id
+        })
+      }
+
+      if (actionType === actions.GO_TO_GROUP_MEMBER_ADD) {
+        navigateTo(routes.GROUP_MEMBER_ADD, {
+          groupId: action.payload.group_id
+        })
+      }
+
+      if (actionType === actions.GO_TO_HOME) {
+        navigateTo(routes.HOME)
+      }
+
+      break
+    }
+
+    case routes.HOME: {
       const countryCode = currentUserCountryCode(nextState)
       const phoneNumber = currentUserPhoneNumber(nextState)
       const verificationCode = currentUserVerificationCode(nextState)
 
       if (!countryCode || !phoneNumber || !verificationCode) {
-        navigateTo(ONBOARDING_AGREE)
+        navigateTo(routes.ONBOARDING_AGREE)
       }
 
-      if (actionType === GO_TO_CONTACT) {
-        navigateTo(CONTACT)
+      if (actionType === actions.GO_TO_CONTACT) {
+        navigateTo(routes.CONTACT)
       }
 
-      if (actionType === GO_TO_GROUP_MESSAGE) {
+      if (actionType == actions.GO_TO_DIRECT_MESSAGE) {
+        navigateTo(routes.DIRECT_MESSAGE, {
+          groupId: action.payload.group_id
+        })
+      }
+
+      if (actionType === actions.GO_TO_GROUP_MESSAGE) {
         const groupId = action.payload.group_id
-        navigateTo(GROUP_MESSAGE, { groupId })
+        navigateTo(routes.GROUP_MESSAGE, { groupId })
       }
 
       break
     }
 
-    case ONBOARDING_AGREE: {
-      if (actionType === GO_TO_ONBOARDING_REQUEST) {
-        navigateTo(ONBOARDING_REQUEST)
+    case routes.ONBOARDING_AGREE: {
+      if (actionType === actions.GO_TO_ONBOARDING_REQUEST) {
+        navigateTo(routes.ONBOARDING_REQUEST)
       }
 
       break
     }
 
-    case ONBOARDING_INITIALIZE: {
-      if (actionType === GO_TO_HOME) {
-        navigateTo(HOME)
+    case routes.ONBOARDING_INITIALIZE: {
+      if (actionType === actions.GO_TO_HOME) {
+        navigateTo(routes.HOME)
       }
 
       break
     }
 
-    case ONBOARDING_REQUEST: {
-      if (actionType === VERIFICATION_REQUEST_CODE_SUCCESS) {
-        navigateTo(ONBOARDING_SUBMIT)
+    case routes.ONBOARDING_REQUEST: {
+      if (actionType === actions.VERIFICATION_REQUEST_CODE_SUCCESS) {
+        navigateTo(routes.ONBOARDING_SUBMIT)
       }
 
       break
     }
 
-    case ONBOARDING_SUBMIT: {
-      if (actionType === VERIFICATION_SUBMIT_CODE_SUCCESS) {
-        navigateTo(ONBOARDING_INITIALIZE)
+    case routes.ONBOARDING_SUBMIT: {
+      if (actionType === actions.VERIFICATION_SUBMIT_CODE_SUCCESS) {
+        navigateTo(routes.ONBOARDING_INITIALIZE)
       }
 
       break
     }
 
-    case SPLASH: {
+    case routes.SPLASH: {
       if (isWebsocketOnline(nextState)) {
         const countryCode = currentUserCountryCode(nextState)
         const phoneNumber = currentUserPhoneNumber(nextState)
         const verificationCode = currentUserVerificationCode(nextState)
 
         if (countryCode && phoneNumber && verificationCode) {
-          navigateTo(HOME)
+          navigateTo(routes.HOME)
         }
         else {
-          navigateTo(ONBOARDING_AGREE)
+          navigateTo(routes.ONBOARDING_AGREE)
         }
       }
 

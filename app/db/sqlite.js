@@ -135,6 +135,19 @@ export const createMessageGroup = async (id, name, dateCreated, contactSids) => 
 // READ //
 //////////
 
+export const readContactDirectMessageGroupId = async (contactId) => {
+  if (!instance) return Promise.reject(new Error('db instance error'))
+
+  return instance.executeSql(`
+    SELECT message_group_id FROM direct_message WHERE recipient_sid = ?;
+  `, [contactId])
+    .then(([results]) => {
+      if (results.rows.length < 1) return 0
+
+      return results.rows.item(0).message_group_id
+    })
+}
+
 export const readContacts = async () => {
   if (!instance) return Promise.reject(new Error('db instance error'))
 
@@ -150,6 +163,19 @@ export const readContacts = async () => {
     })
     .catch((err) => {
       console.log('error reading contacts.', err.toString())
+    })
+}
+
+export const readDirectMessageGroupRecipientSid = async (messageGroupId) => {
+  if (!instance) return Promise.reject(new Error('db instance error'))
+
+  return instance.executeSql(`
+    SELECT recipient_sid FROM direct_message WHERE message_group_id = ?;
+  `, [messageGroupId])
+    .then(([results]) => {
+      if (results.rows.length < 1) return ''
+
+      return results.rows.item(0).recipient_sid
     })
 }
 

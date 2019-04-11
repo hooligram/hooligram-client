@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { FlatList, ToastAndroid, View } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { NavigationEvents } from 'react-navigation';
+import { NavigationEvents } from 'react-navigation'
 import { ContactSnippet } from 'hg/components'
 import { colors } from 'hg/constants'
-import { readContacts, updateContactAdded } from 'hg/db'
+import { readContactDirectMessageGroupId, readContacts, updateContactAdded } from 'hg/db'
+import { getCurrentTimestamp } from 'hg/utils'
 
 export default class Contact extends Component {
   static navigationOptions = {
@@ -52,7 +53,19 @@ export default class Contact extends Component {
                         })
                     }
                   }
-                  onPress={() => {}}
+                  onPress={() => {
+                    const contactSid = item.item.sid
+                    readContactDirectMessageGroupId(contactSid)
+                      .then((groupId) => {
+                        if (groupId > 0) return this.props.goToDirectMessage(groupId)
+
+                        const actionId = getCurrentTimestamp()
+                        const groupName = contactSid
+                        const memberSids = [this.props.currentUserSid, contactSid]
+
+                        this.props.groupCreateRequest(actionId, groupName, memberSids)
+                      })
+                  }}
                 />
               )
             }

@@ -5,7 +5,7 @@ import { Icon } from 'react-native-elements'
 import { NavigationEvents } from 'react-navigation'
 import { MessageGroupSnippet } from 'hg/components'
 import { app, colors } from 'hg/constants'
-import { readMessageGroups } from 'hg/db'
+import { readIsDirectMessage, readMessageGroups } from 'hg/db'
 
 export default class Home extends Component {
   static navigationOptions = {
@@ -54,7 +54,16 @@ export default class Home extends Component {
                   messageGroup={item.item}
                   onPress={
                     () => {
-                      this.props.goToGroupMessage(item.item.id)
+                      const groupId = item.item.id
+                      readIsDirectMessage(groupId)
+                        .then((isDirectMessage) => {
+                          if (isDirectMessage) {
+                            this.props.goToDirectMessage(groupId)
+                          }
+                          else {
+                            this.props.goToGroupMessage(groupId)
+                          }
+                        })
                     }
                   }
                   userSid={this.props.currentUserSid}
