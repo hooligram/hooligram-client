@@ -48,7 +48,7 @@ SQLite.openDatabase({ name: 'hooligram-v2-client.db' })
         content TEXT NOT NULL,
         date_created TEXT NOT NULL,
         message_group_id INTEGER NOT NULL,
-        sender_sid INTEGER NOT NULL,
+        sender_sid TEXT NOT NULL,
         FOREIGN KEY ( message_group_id ) REFERENCES message_group ( id ),
         FOREIGN KEY ( sender_sid ) REFERENCES contact ( sid )
       );

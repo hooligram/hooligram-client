@@ -1,5 +1,5 @@
 import { createStackNavigator } from 'react-navigation'
-import { colors } from 'hg/constants'
+import { colors, dimensions } from 'hg/constants'
 import {
   HOME
 } from 'hg/navigation/routes'
@@ -34,7 +34,8 @@ export default createStackNavigator(
         elevation: 0
       },
       headerTitleStyle: {
-        color: colors.BOLD_GREEN
+        color: colors.BOLD_GREEN,
+        marginHorizontal: dimensions.MARGIN
       }
     },
     headerMode: 'float',

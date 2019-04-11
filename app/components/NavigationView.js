@@ -8,7 +8,8 @@ export default class NavigationView extends Component {
       <View
         style={
           {
-            flex: 1
+            flex: 1,
+            ...this.props.style
           }
         }
       >

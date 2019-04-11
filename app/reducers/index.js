@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import app from 'hg/reducers/app'
-import authorization from 'hg/reducers/authorization'
+import app from './app'
+import authorization from './authorization'
 
 export default combineReducers({
   app,
