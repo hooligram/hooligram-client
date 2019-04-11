@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Button, FlatList, Text, TextInput, View } from 'react-native'
-import { colors } from 'hg/constants'
+import { FlatList, View } from 'react-native'
+import { Input } from 'react-native-elements'
+import { ActionBar, ContactSnippet } from 'hg/components'
+import { fontSizes } from 'hg/constants'
 import { constructSid, getCurrentTimestamp } from 'hg/utils'
 
 export default class GroupInfo extends Component {
@@ -21,15 +22,19 @@ export default class GroupInfo extends Component {
     return (
       <View
         style={{
-          backgroundColor: colors.WHITE,
           flex: 1
         }}
       >
-        <TextInput
+        <Input
           autoFocus={true}
           onChangeText={
             (text) => {
               this.setState({ groupName: text })
+            }
+          }
+          inputStyle={
+            {
+              fontSize: fontSizes.LARGE
             }
           }
           value={this.state.groupName}
@@ -40,15 +45,25 @@ export default class GroupInfo extends Component {
           renderItem={
             (item) => {
               return (
-                <View>
-                  <Text>{item.item}</Text>
-                </View>
+                <ContactSnippet
+                  contact={{ sid: item.item }}
+                  onPress={
+                    () => {}
+                  }
+                />
               )
             }
           }
         />
-        <Button
-          onPress={
+        <ActionBar
+          leftActionIconName='arrow-back'
+          leftActionOnPress={
+            () => {
+              this.props.navigation.goBack()
+            }
+          }
+          mainActionIconName='check'
+          mainActionOnPress={
             () => {
               if (memberSids.length < 1) return
 
@@ -61,7 +76,12 @@ export default class GroupInfo extends Component {
               )
             }
           }
-          title='Create'
+          rightActionIconName='clear'
+          rightActionOnPress={
+            () => {
+              this.setState({ groupName: '' })
+            }
+          }
         />
       </View>
     )

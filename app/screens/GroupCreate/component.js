@@ -83,7 +83,7 @@ export default class GroupCreate extends Component {
           <Divider
             style={
               {
-                backgroundColor: colors.GREY
+                backgroundColor: colors.GHOST
               }
             }
           />
