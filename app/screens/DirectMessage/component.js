@@ -17,12 +17,29 @@ export default class DirectMessage extends Component {
   state = {
     groupId: 0,
     intervalId: 0,
+    isInputFocused: false,
     message: '',
     messages: [],
     messagesRef: null
   }
 
   render() {
+    let rightActionIconName = ''
+    let rightActionOnPress = () => {}
+
+    if (!this.state.isInputFocused) {
+      rightActionIconName = 'keyboard-arrow-up'
+      rightActionOnPress = () => this.inputRef.focus()
+    }
+    else if (this.state.message) {
+      rightActionIconName = 'clear'
+      rightActionOnPress = () => this.setState({ message: '' })
+    }
+    else {
+      rightActionIconName = 'keyboard-arrow-down'
+      rightActionOnPress = () => this.inputRef.blur()
+    }
+
     return (
       <NavigationView
         onWillBlur={
@@ -77,11 +94,22 @@ export default class DirectMessage extends Component {
           }
         />
         <Input
+          onBlur={
+            () => {
+              this.setState({ isInputFocused: false })
+            }
+          }
           onChangeText={
             (text) => {
               this.setState({ message: text })
             }
           }
+          onFocus={
+            () => {
+              this.setState({ isInputFocused: true })
+            }
+          }
+          ref={(ref) => this.inputRef = ref}
           value={this.state.message}
         />
         <ActionBar
@@ -101,12 +129,8 @@ export default class DirectMessage extends Component {
               this.setState({ message: '' })
             }
           }
-          rightActionIconName='clear'
-          rightActionOnPress={
-            () => {
-              this.setState({ message: '' })
-            }
-          }
+          rightActionIconName={rightActionIconName}
+          rightActionOnPress={rightActionOnPress}
         />
       </NavigationView>
     )
