@@ -190,6 +190,19 @@ export const readIsDirectMessage = async (messageGroupId) => {
     })
 }
 
+export const readMessageGroup = async (groupId) => {
+  if (!instance) return Promise.reject(new Error('db instance error'))
+
+  return instance.executeSql(`
+    SELECT id, name, date_created FROM message_group WHERE id = ?;
+  `, [groupId])
+    .then(([result]) => {
+      if (result.rows.length < 1) return {}
+
+      return result.rows.item(0)
+    })
+}
+
 export const readMessageGroupContacts = async (messageGroupId) => {
   if (!instance) return Promise.reject(new Error('db instance error'))
 

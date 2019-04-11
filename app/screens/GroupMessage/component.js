@@ -1,15 +1,13 @@
-import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Button, FlatList, Text, TextInput, View } from 'react-native'
-import { NavigationEvents } from 'react-navigation'
-import { app, colors } from 'hg/constants'
-import { readIsDirectMessage, readMessages } from 'hg/db'
-import { getCurrentTimestamp } from 'hg/utils'
+import { FlatList, View } from 'react-native'
+import { Input } from 'react-native-elements'
+import { ActionBar, MessageCloud, NavigationView } from 'hg/components'
+import { app, dimensions } from 'hg/constants'
+import { readIsDirectMessage, readMessageGroup, readMessages } from 'hg/db'
 
 export default class GroupMessage extends Component {
   static navigationOptions = ({ navigation }) => {
-    const groupId = navigation.getParam('groupId', 0)
-    const title = `Group message #${groupId}`
+    const title = navigation.getParam('groupName', 'Group message')
     return {
       title
     }
@@ -21,104 +19,135 @@ export default class GroupMessage extends Component {
     groupId: 0,
     intervalId: 0,
     isDirectMessage: false,
+    isInputFocused: false,
     messages: [],
-    text: ''
+    message: ''
   }
 
+  messageRef = null
+  messagesRef = null
+
   render() {
+    let rightActionIconName = ''
+    let rightActionOnPress = () => {}
+
+    if (!this.state.isInputFocused) {
+      rightActionIconName = 'keyboard-arrow-up'
+      rightActionOnPress = () => this.messageRef.focus()
+    }
+    else if (this.state.message) {
+      rightActionIconName = 'clear'
+      rightActionOnPress = () => this.setState({ message: '' })
+    }
+    else {
+      rightActionIconName = 'keyboard-arrow-down'
+      rightActionOnPress = () => this.messageRef.blur()
+    }
+
     return (
-      <View
-        style={{
-          backgroundColor: colors.WHITE,
-          flex: 1
-        }}
-      >
-        <NavigationEvents
-          onWillFocus={
-            (payload) => {
-              if (!payload.action || !payload.action.params) return
+      <NavigationView
+        onWillBlur={
+          () => {
+            clearInterval(this.state.intervalId)
+          }
+        }
+        onWillFocus={
+          (payload) => {
+            if (!payload.action || !payload.action.params) return
 
-              const groupId = payload.action.params.groupId
-              this.setState({ groupId })
+            const groupId = payload.action.params.groupId
+            this.setState({ groupId })
 
+            this.updateMessages()
+            const intervalId = setInterval(() => {
               this.updateMessages()
-              const intervalId = setInterval(() => {
-                this.updateMessages()
-              }, app.UPDATE_INTERVAL)
-              this.setState({ intervalId })
+            }, app.UPDATE_INTERVAL)
+            this.setState({ intervalId })
 
-              readIsDirectMessage(groupId)
-                .then((isDirectMessage) => {
-                  this.setState({ isDirectMessage })
+            readIsDirectMessage(groupId)
+              .then((isDirectMessage) => {
+                this.setState({ isDirectMessage })
+              })
+
+            readMessageGroup(groupId)
+              .then((messageGroup) => {
+                this.props.navigation.setParams({
+                  groupName: messageGroup.name
                 })
-            }
+              })
           }
-          onWillBlur={
-            () => {
-              clearInterval(this.state.intervalId)
-            }
+        }
+        style={
+          {
+            padding: dimensions.PADDING
           }
-        />
-        <Text>Group ID: {this.state.groupId}</Text>
-        <Text>is direct message: {this.state.isDirectMessage ? 'true' : 'false'}</Text>
-        <Button
-          onPress={
-            () => {
-              this.props.goToGroupMemberAdd(this.state.groupId)
-            }
-          }
-          title='Add new member'
-        />
-        <Button
-          onPress={() => {
-            this.props.goToGroupLeave(this.state.groupId)
-          }}
-          title='Leave group'
-        />
-        <Button
-          onPress={this.props.goToHome}
-          title='Home'
-        />
+        }
+      >
         <FlatList
           data={this.state.messages}
           keyExtractor={(message) => (message.id.toString())}
           onContentSizeChange={() => this.messagesRef.scrollToEnd({ animated: true })}
           onLayout={() => this.messagesRef.scrollToEnd({ animated: true })}
-          ref={ref => this.messagesRef = ref}
+          ref={(ref) => this.messagesRef = ref}
           renderItem={
             (item) => {
               return (
-                <View>
-                  <Text>{item.item.content}</Text>
+                <View
+                  style={
+                    {
+                      marginBottom: dimensions.MARGIN
+                    }
+                  }
+                >
+                  <MessageCloud
+                    currentUserSid={this.props.currentUserSid}
+                    message={item.item}
+                  />
                 </View>
               )
             }
           }
         />
-        <TextInput
+        <Input
+          onBlur={
+            () => {
+              this.setState({ isInputFocused: false })
+            }
+          }
           onChangeText={
             (text) => {
-              this.setState({ text })
+              this.setState({ message: text })
             }
           }
-          style={
-            {
-              backgroundColor: 'red'
-            }
-          }
-          value={this.state.text}
-        />
-        <Button
-          onPress={
+          onFocus={
             () => {
-              const actionId = getCurrentTimestamp()
-              this.props.messagingSendRequest(actionId, this.state.groupId, this.state.text)
-              this.setState({ text: '' })
+              this.setState({ isInputFocused: true })
             }
           }
-          title='Send'
+          ref={(ref) => this.messageRef = ref}
+          value={this.state.message}
         />
-      </View>
+        <ActionBar
+          leftActionIconName='arrow-back'
+          leftActionOnPress={
+            () => {
+              this.props.navigation.goBack()
+            }
+          }
+          mainActionIconName='send'
+          mainActionOnPress={
+            () => {
+              if (!this.state.message) return
+
+              this.props.messagingSendRequest(this.state.groupId, this.state.message)
+              this.updateMessages()
+              this.setState({ message: '' })
+            }
+          }
+          rightActionIconName={rightActionIconName}
+          rightActionOnPress={rightActionOnPress}
+        />
+      </NavigationView>
     )
   }
 

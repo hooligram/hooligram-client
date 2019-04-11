@@ -5,6 +5,8 @@ import {
   goToGroupMemberAdd,
   goToHome
 } from 'hg/actions/navigation'
+import { currentUserSid } from 'hg/selectors'
+import { getCurrentTimestamp } from 'hg/utils'
 import component from './component'
 
 const mapDispatchToProps = (dispatch) => {
@@ -21,14 +23,17 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(goToHome())
     },
 
-    messagingSendRequest: (actionId, groupId, content) => {
+    messagingSendRequest: (groupId, content) => {
+      const actionId = getCurrentTimestamp()
       dispatch(messagingSendRequest(actionId, groupId, content))
     }
   }
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    currentUserSid: currentUserSid(state)
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(component)
