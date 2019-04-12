@@ -46,7 +46,7 @@ export default class GroupLeave extends Component {
                 })
             }
           }
-          rightActionIconName='info'
+          rightActionIconName='not-interested'
           rightActionOnPress={
             () => {}
           }

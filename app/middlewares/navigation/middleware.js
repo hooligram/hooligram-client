@@ -58,6 +58,16 @@ export default store => next => action => {
       break
     }
 
+    case routes.DIRECT_MESSAGE: {
+      if (actionType === actions.GO_TO_GROUP_LEAVE) {
+        navigateTo(routes.GROUP_LEAVE, {
+          groupId: action.payload.group_id
+        })
+      }
+
+      break
+    }
+
     case routes.GROUP_CREATE: {
       if (actionType === actions.GO_TO_GROUP_INFO) {
         navigateTo(routes.GROUP_INFO, { memberSids: action.payload.member_sids })
