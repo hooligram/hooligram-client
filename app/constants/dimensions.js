@@ -5,6 +5,7 @@ export default {
 
   ICON_SIZE: 32,
 
+  LENGTH_100: 100,
   LENGTH_250: 250,
 
   MARGIN_XSMALL: 2,
