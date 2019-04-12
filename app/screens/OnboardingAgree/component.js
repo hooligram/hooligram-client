@@ -3,11 +3,15 @@ import React, { Component } from 'react'
 import { Image, View } from 'react-native'
 import { Button } from 'react-native-elements'
 import { OnboardingHeader } from 'hg/components'
-import { colors, dimensions } from 'hg/constants'
+import { app, colors, dimensions } from 'hg/constants'
 
 export default class OnboardingAgree extends Component {
   static propTypes = {
     goToOnboardingRequest: PropTypes.func.isRequired
+  }
+
+  state = {
+    isLoading: false
   }
 
   render() {
@@ -42,17 +46,30 @@ export default class OnboardingAgree extends Component {
           />
         </View>
         <Button
-          buttonStyle={
+          loading={this.state.isLoading}
+          loadingProps={
             {
-              backgroundColor: colors.BOLD_GREEN,
-              borderRadius: 0
+              color: colors.BOLD_GREEN
             }
           }
-          onPress={this.props.goToOnboardingRequest}
-          raised
+          onPress={
+            () => {
+              this.setState({ isLoading: true })
+
+              setTimeout(() => {
+                this.props.goToOnboardingRequest()
+              }, app.LOADING_TIMEOUT)
+            }
+          }
           title='Continue'
+          titleStyle={
+            {
+              color: colors.BOLD_GREEN
+            }
+          }
+          type='clear'
         />
-        </View>
+      </View>
     )
   }
 }
