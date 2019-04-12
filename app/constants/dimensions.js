@@ -7,6 +7,7 @@ export default {
 
   LENGTH_50: 50,
   LENGTH_100: 100,
+  LENGTH_150: 150,
   LENGTH_200: 200,
   LENGTH_250: 250,
 

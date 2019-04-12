@@ -142,7 +142,7 @@ export default class OnboardingRequestCode extends Component {
                 () => {
                   this.setState({ isRequesting: false })
                 },
-                app.REQUEST_CODE_TIMEOUT
+                app.LONG_TIMEOUT
               )
             }
           }
