@@ -5,7 +5,9 @@ export default {
 
   ICON_SIZE: 32,
 
+  LENGTH_50: 50,
   LENGTH_100: 100,
+  LENGTH_200: 200,
   LENGTH_250: 250,
 
   MARGIN_XSMALL: 2,
@@ -18,5 +20,7 @@ export default {
   PADDING_SMALL: 4,
   PADDING: 8,
   PADDING_LARGE: 12,
-  PADDING_XLARGE: 16
+  PADDING_XLARGE: 16,
+
+  PERCENT_50: '50%'
 }

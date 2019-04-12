@@ -54,11 +54,17 @@ export default class OnboardingAgree extends Component {
           }
           onPress={
             () => {
+              if (this.state.isLoading) return
+
               this.setState({ isLoading: true })
 
-              setTimeout(() => {
-                this.props.goToOnboardingRequest()
-              }, app.LOADING_TIMEOUT)
+              setTimeout(
+                () => {
+                  this.setState({ isLoading: false })
+                  this.props.goToOnboardingRequest()
+                },
+                app.LOADING_TIMEOUT
+              )
             }
           }
           title='Continue'

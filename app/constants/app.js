@@ -1,5 +1,6 @@
 export default {
   LOADING_TIMEOUT: 1000,
+  REQUEST_CODE_TIMEOUT: 10000,
   STORE_STORAGE_KEY: 'googlepleasehireme',
   UPDATE_INTERVAL: 1000
 }
