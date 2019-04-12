@@ -1,15 +1,23 @@
 import React, { Component } from 'react'
-import { FlatList, View } from 'react-native'
-import { Input } from 'react-native-elements'
+import { FlatList, Text, View } from 'react-native'
+import { Icon, Input, ListItem, Overlay } from 'react-native-elements'
 import { ActionBar, MessageCloud, NavigationView } from 'hg/components'
-import { app, dimensions } from 'hg/constants'
+import { app, colors, dimensions } from 'hg/constants'
 import { readIsDirectMessage, readMessageGroup, readMessages } from 'hg/db'
 
 export default class GroupMessage extends Component {
   static navigationOptions = ({ navigation }) => {
     const title = navigation.getParam('groupName', 'Group message')
     return {
-      title
+      headerRight: (
+        <Icon
+          color={colors.BOLD_GREEN}
+          name='more-vert'
+          onPress={navigation.getParam('onPressHeaderRight', () => {})}
+          type='material'
+        />
+      ),
+      headerTitle: title,
     }
   }
 
@@ -20,6 +28,7 @@ export default class GroupMessage extends Component {
     intervalId: 0,
     isDirectMessage: false,
     isInputFocused: false,
+    isMoreOverlayVisible: false,
     messages: [],
     message: ''
   }
@@ -147,8 +156,46 @@ export default class GroupMessage extends Component {
           rightActionIconName={rightActionIconName}
           rightActionOnPress={rightActionOnPress}
         />
+        <Overlay
+          isVisible={this.state.isMoreOverlayVisible}
+        >
+          <ListItem
+            onPress={
+              () => {
+                this.props.goToGroupMemberAdd(this.state.groupId)
+                this.setState({ isMoreOverlayVisible: false })
+              }
+            }
+            title='Add group member'
+          />
+          <ListItem
+            onPress={
+              () => {
+                this.props.goToGroupLeave(this.state.groupId)
+                this.setState({ isMoreOverlayVisible: false })
+              }
+            }
+            title='Leave group'
+          />
+          <ListItem
+            onPress={
+              () => {
+                this.setState({ isMoreOverlayVisible: false })
+              }
+            }
+            title='Close'
+          />
+        </Overlay>
       </NavigationView>
     )
+  }
+
+  componentDidMount() {
+    this.props.navigation.setParams({
+      onPressHeaderRight: () => {
+        this.setState({ isMoreOverlayVisible: true })
+      }
+    })
   }
 
   updateMessages() {
