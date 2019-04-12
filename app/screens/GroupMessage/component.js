@@ -159,32 +159,34 @@ export default class GroupMessage extends Component {
         <Overlay
           isVisible={this.state.isMoreOverlayVisible}
         >
-          <ListItem
-            onPress={
-              () => {
-                this.props.goToGroupMemberAdd(this.state.groupId)
-                this.setState({ isMoreOverlayVisible: false })
+          <View>
+            <ListItem
+              onPress={
+                () => {
+                  this.props.goToGroupMemberAdd(this.state.groupId)
+                  this.setState({ isMoreOverlayVisible: false })
+                }
               }
-            }
-            title='Add group member'
-          />
-          <ListItem
-            onPress={
-              () => {
-                this.props.goToGroupLeave(this.state.groupId)
-                this.setState({ isMoreOverlayVisible: false })
+              title='Add group member'
+            />
+            <ListItem
+              onPress={
+                () => {
+                  this.props.goToGroupLeave(this.state.groupId)
+                  this.setState({ isMoreOverlayVisible: false })
+                }
               }
-            }
-            title='Leave group'
-          />
-          <ListItem
-            onPress={
-              () => {
-                this.setState({ isMoreOverlayVisible: false })
+              title='Leave group'
+            />
+            <ListItem
+              onPress={
+                () => {
+                  this.setState({ isMoreOverlayVisible: false })
+                }
               }
-            }
-            title='Close'
-          />
+              title='Close'
+            />
+          </View>
         </Overlay>
       </NavigationView>
     )
