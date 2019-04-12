@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { signOut } from 'hg/actions/app'
-import { goToContact, goToGroupMessage } from 'hg/actions/navigation'
+import { goToContact, goToDirectMessage, goToGroupMessage } from 'hg/actions/navigation'
+import { currentUserSid } from 'hg/selectors'
 import component from './component'
 
 const mapDispatchToProps = (dispatch) => {
@@ -9,8 +10,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(goToContact())
     },
 
-    goToGroupMessage: () => {
-      dispatch(goToGroupMessage())
+    goToDirectMessage: (groupId) => {
+      dispatch(goToDirectMessage(groupId))
+    },
+
+    goToGroupMessage: (groupId) => {
+      dispatch(goToGroupMessage(groupId))
     },
 
     signOut: () => {
@@ -20,7 +25,9 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    currentUserSid: currentUserSid(state)
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(component)

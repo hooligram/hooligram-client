@@ -2,6 +2,7 @@ export default {
   BLACK: 'black',
   BOLD_GREEN: '#128C7E',
   BOLDER_GREEN: '#0E776B',
+  GHOST: '#BCBBC1',
   GOOGLE_BLUE: '#4885ED',
   GOOGLE_GREEN: '#3CBA54',
   GOOGLE_RED: '#DB3236',
@@ -11,5 +12,6 @@ export default {
   LIGHT_GREEN: '#25D366',
   LIGHTER_GREEN: '#DCF8C6',
   TEXT_LINK: '#3366BB',
+  TRANSLUCENT_WHITE: '#FFFFFFA0',
   WHITE: 'white'
 }

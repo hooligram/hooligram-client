@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Button, FlatList, Text, View } from 'react-native'
+import { FlatList, View } from 'react-native'
+import { Icon } from 'react-native-elements'
 import { NavigationEvents } from 'react-navigation'
-import { colors } from 'hg/constants'
-import { readMessageGroups } from 'hg/db'
+import { MessageGroupSnippet } from 'hg/components'
+import { app, colors } from 'hg/constants'
+import { readIsDirectMessage, readMessageGroups } from 'hg/db'
 
 export default class Home extends Component {
   static navigationOptions = {
@@ -13,6 +15,7 @@ export default class Home extends Component {
   static propTypes = {}
 
   state = {
+    intervalId: 0,
     messageGroups: []
   }
 
@@ -20,24 +23,26 @@ export default class Home extends Component {
     return (
       <View
         style={{
-          backgroundColor: colors.WHITE,
-          flex: 1,
-          justifyContent: 'space-between'
+          flex: 1
         }}
       >
         <NavigationEvents
-          onWillFocus={
+          onWillBlur={
             () => {
-              readMessageGroups()
-                .then((messageGroups) => {
-                  this.setState({ messageGroups })
-                })
+              clearInterval(this.state.intervalId)
             }
           }
-        />
-        <Button
-          onPress={this.props.goToContact}
-          title='Contacts'
+          onWillFocus={
+            () => {
+              this.updateMessageGroups()
+
+              const intervalId = setInterval(() => {
+                this.updateMessageGroups()
+              }, app.UPDATE_INTERVAL)
+
+              this.setState({ intervalId })
+            }
+          }
         />
         <FlatList
           data={this.state.messageGroups}
@@ -45,19 +50,57 @@ export default class Home extends Component {
           renderItem={
             (item) => {
               return (
-                <View>
-                  <Text>{item.item.name}</Text>
-                </View>
+                <MessageGroupSnippet
+                  messageGroup={item.item}
+                  onPress={
+                    () => {
+                      const groupId = item.item.id
+                      readIsDirectMessage(groupId)
+                        .then((isDirectMessage) => {
+                          if (isDirectMessage) {
+                            this.props.goToDirectMessage(groupId)
+                          }
+                          else {
+                            this.props.goToGroupMessage(groupId)
+                          }
+                        })
+                    }
+                  }
+                  userSid={this.props.currentUserSid}
+                />
               )
             }
           }
         />
-        <Button
-          color={colors.GOOGLE_RED}
-          onPress={this.props.signOut}
-          title='Sign out'
-        />
+        <View
+          style={
+            {
+              bottom: 0,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              left: 0,
+              position: 'absolute',
+              right: 0
+            }
+          }
+        >
+          <Icon
+            color={colors.BOLD_GREEN}
+            name='fingerprint'
+            onPress={this.props.goToContact}
+            raised
+            reverse
+            type='material'
+          />
+        </View>
       </View>
     )
+  }
+
+  updateMessageGroups() {
+    readMessageGroups()
+      .then((messageGroups) => {
+        this.setState({ messageGroups })
+      })
   }
 }

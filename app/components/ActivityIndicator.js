@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import { ActivityIndicator } from 'react-native'
-import { colors } from 'hg/constants'
+import { ActivityIndicator as RNActivityIndicator } from 'react-native'
+import { colors, dimensions } from 'hg/constants'
 
-export default class extends Component {
+export default class ActivityIndicator extends Component {
   render() {
     return (
-      <ActivityIndicator
+      <RNActivityIndicator
         color={colors.BOLD_GREEN}
-        size={45}
+        size={dimensions.BUTTON_ICON_LENGTH}
       />
     )
   }

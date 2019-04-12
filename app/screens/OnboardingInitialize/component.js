@@ -6,7 +6,7 @@ import {
   View
 } from 'react-native'
 import { ActivityIndicator } from 'hg/components'
-import { colors } from 'hg/constants'
+import { app, colors } from 'hg/constants'
 
 export default class OnboardingInitialize extends Component {
   render() {
@@ -36,7 +36,14 @@ export default class OnboardingInitialize extends Component {
   }
 
   componentDidMount() {
-    this.props.onComponentDidMount()
+    setTimeout(() => {
+      this.props.authorizationSignInRequest(
+        this.props.countryCode,
+        this.props.phoneNumber,
+        this.props.verificationCode
+      )
+      this.props.goToHome()
+    }, app.UPDATE_INTERVAL)
   }
 }
 

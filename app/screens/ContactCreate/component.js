@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Button, Picker, Text, TextInput, View } from 'react-native'
-import { colors, countryCodes } from 'hg/constants'
-import { createContact } from 'hg/db'
+import { Picker, View } from 'react-native'
+import { Icon, Input, Text } from 'react-native-elements'
+import { colors, countryCodes, dimensions, fontSizes } from 'hg/constants'
+import { createContact, updateContactAdded } from 'hg/db'
 import { constructSid } from 'hg/utils'
 
 export default class ContactCreate extends Component {
@@ -22,8 +22,8 @@ export default class ContactCreate extends Component {
       <View
         style={
           {
-            backgroundColor: colors.WHITE,
-            flex: 1
+            flex: 1,
+            paddingHorizontal: dimensions.PADDING_LARGE
           }
         }
       >
@@ -34,6 +34,11 @@ export default class ContactCreate extends Component {
             }
           }
           selectedValue={this.state.selection}
+          style={
+            {
+              color: colors.GREY
+            }
+          }
         >
           {
             countryCodes.map((country, index) => {
@@ -47,30 +52,112 @@ export default class ContactCreate extends Component {
             })
           }
         </Picker>
-        <Text>+{countryCodes[this.state.selection].code}</Text>
-        <TextInput
-          autoFocus={true}
-          keyboardType='numeric'
-          onChangeText={
-            (text) => {
-              this.setState({ phoneNumber: text })
+        <View
+          style={
+            {
+              alignItems: 'center',
+              flexDirection: 'row'
             }
           }
-          value={this.state.phoneNumber}
-        />
-        <Button
-          onPress={
-            () => {
-              const countryCode = countryCodes[this.state.selection].code
-              const sid = constructSid(countryCode, this.state.phoneNumber)
-              createContact(sid)
-                .then(() => {
-                  this.props.goToContact()
-                })
+        >
+          <View
+            style={
+              {
+                alignItems: 'center',
+                flex: 0.1
+              }
+            }
+          >
+            <Text
+              style={
+                {
+                  fontSize: fontSizes.LARGE
+                }
+              }
+            >
+              +{countryCodes[this.state.selection].code}
+            </Text>
+          </View>
+          <View
+            style={
+              {
+                flex: 0.9
+              }
+            }
+          >
+            <Input
+              autoFocus={true}
+              inputStyle={
+                {
+                  color: colors.GREY,
+                  fontSize: fontSizes.XXLARGE
+                }
+              }
+              keyboardType='numeric'
+              onChangeText={
+                (text) => {
+                  this.setState({ phoneNumber: text })
+                }
+              }
+              value={this.state.phoneNumber}
+            />
+          </View>
+        </View>
+        <View
+          style={
+            {
+              bottom: 0,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              left: 0,
+              position: 'absolute',
+              right: 0
             }
           }
-          title='Create'
-        />
+        >
+          <Icon
+            color={colors.BOLD_GREEN}
+            name='arrow-back'
+            onPress={
+              () => {
+                this.props.navigation.goBack()
+              }
+            }
+            raised
+            type='material'
+          />
+          <Icon
+            color={colors.BOLD_GREEN}
+            name='add'
+            onPress={
+              () => {
+                const countryCode = countryCodes[this.state.selection].code
+                const sid = constructSid(countryCode, this.state.phoneNumber)
+                createContact(sid)
+                  .then(() => {
+                    updateContactAdded(sid)
+                  })
+                  .then(() => {
+                    this.props.goToContact()
+                  })
+              }
+            }
+            raised
+            reverse
+            type='material'
+          />
+          <Icon
+            color={colors.BOLD_GREEN}
+            name='clear'
+            onPress={
+              () => {
+                this.setState({ phoneNumber: '' })
+              }
+            }
+            raised
+            type='material'
+          />
+        </View>
       </View>
     )
   }

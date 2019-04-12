@@ -1,11 +1,12 @@
 import { createStackNavigator } from 'react-navigation'
-import { colors } from 'hg/constants'
+import { colors, dimensions } from 'hg/constants'
 import {
   HOME
 } from 'hg/navigation/routes'
 import {
   Contact,
   ContactCreate,
+  DirectMessage,
   GroupCreate,
   GroupInfo,
   GroupLeave,
@@ -18,6 +19,7 @@ export default createStackNavigator(
   {
     Contact,
     ContactCreate,
+    DirectMessage,
     GroupCreate,
     GroupInfo,
     GroupLeave,
@@ -27,14 +29,16 @@ export default createStackNavigator(
   },
   {
     defaultNavigationOptions: {
+      headerLeft: null,
       headerStyle: {
-        backgroundColor: colors.BOLD_GREEN
+        elevation: 0
       },
-      headerTintColor: colors.WHITE,
       headerTitleStyle: {
-        color: colors.WHITE
+        color: colors.BOLD_GREEN,
+        marginHorizontal: dimensions.MARGIN
       }
     },
+    headerMode: 'float',
     initialRouteName: HOME
   }
 )

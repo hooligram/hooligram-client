@@ -1,9 +1,11 @@
-import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Button, FlatList, Text, View } from 'react-native'
-import { NavigationEvents } from 'react-navigation';
-import { colors, dimensions, fontSizes } from 'hg/constants'
-import { deleteContact, readContacts } from 'hg/db'
+import { FlatList, ToastAndroid, View } from 'react-native'
+import { Icon } from 'react-native-elements'
+import { NavigationEvents } from 'react-navigation'
+import { ContactSnippet } from 'hg/components'
+import { colors } from 'hg/constants'
+import { readContactDirectMessageGroupId, readContacts, updateContactAdded } from 'hg/db'
+import { getCurrentTimestamp } from 'hg/utils'
 
 export default class Contact extends Component {
   static navigationOptions = {
@@ -20,80 +22,106 @@ export default class Contact extends Component {
     return (
       <View
         style={{
-          backgroundColor: colors.WHITE,
           flex: 1
         }}
       >
         <NavigationEvents
           onWillFocus={
             () => {
-              readContacts()
-                .then((contacts) => {
-                  this.setState({ contacts })
-                })
+              this.updateContacts()
             }
           }
-        />
-        <Button
-          onPress={this.props.goToGroupCreate}
-          title='New group'
-        />
-        <Button
-          onPress={this.props.goToContactCreate}
-          title='New contact'
         />
         <FlatList
           data={this.state.contacts}
           keyExtractor={
             (contact) => {
-              return contact.id.toString()
+              return contact.sid
             }
           }
           renderItem={
             (item) => {
               return (
-                <View
-                  style={
-                    {
-                      padding: dimensions.PADDING
+                <ContactSnippet
+                  contact={item.item}
+                  onLongPress={
+                    () => {
+                      updateContactAdded(item.item.sid, false)
+                        .then(() => {
+                          this.updateContacts()
+                          ToastAndroid.show(`Removed ${item.item.sid}`, ToastAndroid.SHORT);
+                        })
                     }
                   }
-                >
-                  <Text>{item.item.sid}</Text>
-                  <View
-                    style={
-                      {
-                        flexDirection: 'row',
-                        justifyContent: 'space-between'
-                      }
-                    }
-                  >
-                    <Button
-                      onPress={this.props.goToGroupMessage}
-                      title='Message'
-                    />
-                    <Button
-                      color={colors.GOOGLE_RED}
-                      onPress={
-                        () => {
-                          deleteContact(item.item.id)
-                            .then(() => {
-                              return readContacts()
-                            })
-                            .then((contacts) => {
-                              this.setState({ contacts })
-                            })
-                        }
-                      }
-                      title='Remove'
-                    />
-                  </View>
-                </View>
+                  onPress={() => {
+                    const contactSid = item.item.sid
+                    readContactDirectMessageGroupId(contactSid)
+                      .then((groupId) => {
+                        if (groupId > 0) return this.props.goToDirectMessage(groupId)
+
+                        const actionId = getCurrentTimestamp()
+                        const groupName = contactSid
+                        const memberSids = [this.props.currentUserSid, contactSid]
+
+                        this.props.groupCreateRequest(actionId, groupName, memberSids)
+                      })
+                  }}
+                />
               )
             }
           }
         />
+        <View
+          style={
+            {
+              backgroundColor: colors.TRANSLUCENT_WHITE,
+              bottom: 0,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              left: 0,
+              position: 'absolute',
+              right: 0
+            }
+          }
+        >
+          <Icon
+            color={colors.BOLD_GREEN}
+            name='arrow-back'
+            onPress={
+              () => {
+                this.props.navigation.goBack()
+              }
+            }
+            raised
+            type='material'
+          />
+          <Icon
+            color={colors.BOLD_GREEN}
+            name='group-add'
+            onPress={this.props.goToGroupCreate}
+            raised
+            reverse
+            type='material'
+          />
+          <Icon
+            color={colors.BOLD_GREEN}
+            name='person-add'
+            onPress={this.props.goToContactCreate}
+            raised
+            type='material'
+          />
+        </View>
       </View>
     )
+  }
+
+  updateContacts() {
+    readContacts()
+      .then((contacts) => {
+        const added = contacts.filter((contact) => {
+          return contact.added
+        })
+        this.setState({ contacts: added })
+      })
   }
 }

@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import { FlatList, Text, View } from 'react-native'
+import { FlatList, View } from 'react-native'
 import { Icon, Input, ListItem, Overlay } from 'react-native-elements'
 import { ActionBar, MessageCloud, NavigationView } from 'hg/components'
 import { app, colors, dimensions } from 'hg/constants'
-import { readIsDirectMessage, readMessageGroup, readMessages } from 'hg/db'
+import { readDirectMessageGroupRecipientSid, readMessages } from 'hg/db'
 
-export default class GroupMessage extends Component {
+export default class DirectMessage extends Component {
   static navigationOptions = ({ navigation }) => {
-    const title = navigation.getParam('groupName', 'Group message')
+    const recipientSid = navigation.getParam('recipientSid', 'Direct message')
+    const title = `${recipientSid}`
     return {
       headerRight: (
         <Icon
@@ -21,20 +22,15 @@ export default class GroupMessage extends Component {
     }
   }
 
-  static propTypes = {}
-
   state = {
     groupId: 0,
     intervalId: 0,
-    isDirectMessage: false,
     isInputFocused: false,
     isMoreOverlayVisible: false,
+    message: '',
     messages: [],
-    message: ''
+    messagesRef: null
   }
-
-  messageRef = null
-  messagesRef = null
 
   render() {
     let rightActionIconName = ''
@@ -42,7 +38,7 @@ export default class GroupMessage extends Component {
 
     if (!this.state.isInputFocused) {
       rightActionIconName = 'keyboard-arrow-up'
-      rightActionOnPress = () => this.messageRef.focus()
+      rightActionOnPress = () => this.inputRef.focus()
     }
     else if (this.state.message) {
       rightActionIconName = 'clear'
@@ -50,7 +46,7 @@ export default class GroupMessage extends Component {
     }
     else {
       rightActionIconName = 'keyboard-arrow-down'
-      rightActionOnPress = () => this.messageRef.blur()
+      rightActionOnPress = () => this.inputRef.blur()
     }
 
     return (
@@ -66,24 +62,13 @@ export default class GroupMessage extends Component {
 
             const groupId = payload.action.params.groupId
             this.setState({ groupId })
-
+            this.updateRecipientSid(groupId)
             this.updateMessages()
+
             const intervalId = setInterval(() => {
               this.updateMessages()
             }, app.UPDATE_INTERVAL)
             this.setState({ intervalId })
-
-            readIsDirectMessage(groupId)
-              .then((isDirectMessage) => {
-                this.setState({ isDirectMessage })
-              })
-
-            readMessageGroup(groupId)
-              .then((messageGroup) => {
-                this.props.navigation.setParams({
-                  groupName: messageGroup.name
-                })
-              })
           }
         }
         style={
@@ -94,10 +79,10 @@ export default class GroupMessage extends Component {
       >
         <FlatList
           data={this.state.messages}
-          keyExtractor={(message) => (message.id.toString())}
           onContentSizeChange={() => this.messagesRef.scrollToEnd({ animated: true })}
           onLayout={() => this.messagesRef.scrollToEnd({ animated: true })}
-          ref={(ref) => this.messagesRef = ref}
+          ref={ref => this.messagesRef = ref}
+          keyExtractor={(message) => (message.id.toString())}
           renderItem={
             (item) => {
               return (
@@ -133,7 +118,7 @@ export default class GroupMessage extends Component {
               this.setState({ isInputFocused: true })
             }
           }
-          ref={(ref) => this.messageRef = ref}
+          ref={(ref) => this.inputRef = ref}
           value={this.state.message}
         />
         <ActionBar
@@ -163,15 +148,6 @@ export default class GroupMessage extends Component {
             <ListItem
               onPress={
                 () => {
-                  this.props.goToGroupMemberAdd(this.state.groupId)
-                  this.setState({ isMoreOverlayVisible: false })
-                }
-              }
-              title='Add group member'
-            />
-            <ListItem
-              onPress={
-                () => {
                   this.props.goToGroupLeave(this.state.groupId)
                   this.setState({ isMoreOverlayVisible: false })
                 }
@@ -193,6 +169,7 @@ export default class GroupMessage extends Component {
   }
 
   componentDidMount() {
+    this.updateRecipientSid(this.state.groupId)
     this.props.navigation.setParams({
       onPressHeaderRight: () => {
         this.setState({ isMoreOverlayVisible: true })
@@ -204,6 +181,13 @@ export default class GroupMessage extends Component {
     readMessages(this.state.groupId)
       .then((messages) => {
         this.setState({ messages })
+      })
+  }
+
+  updateRecipientSid(groupId) {
+    readDirectMessageGroupRecipientSid(groupId)
+      .then((recipientSid) => {
+        this.props.navigation.setParams({ recipientSid })
       })
   }
 }
