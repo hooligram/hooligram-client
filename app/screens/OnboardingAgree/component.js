@@ -63,7 +63,7 @@ export default class OnboardingAgree extends Component {
                   this.setState({ isLoading: false })
                   this.props.goToOnboardingRequest()
                 },
-                app.SHORT_TIMEOUT
+                app.TIMEOUT_LONG
               )
             }
           }

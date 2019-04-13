@@ -86,7 +86,7 @@ export default class OnboardingSubmit extends Component {
                 () => {
                   this.setState({ isRequesting: false })
                 },
-                app.LONG_TIMEOUT
+                app.TIMEOUT_XLONG
               )
             }
           }
@@ -125,7 +125,7 @@ export default class OnboardingSubmit extends Component {
                   () => {
                     this.setState({ isSubmitting: false })
                   },
-                  app.LONG_TIMEOUT
+                  app.TIMEOUT_XLONG
                 )
               }
             }
