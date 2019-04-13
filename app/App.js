@@ -15,24 +15,19 @@ class App extends Component {
   render () {
     return (
       <>
-        {!this.props.isWebsocketOnline && (
+        {
+          !this.props.isWebsocketOnline
+          &&
           <View
-            style={{
-              alignItems: 'center',
-              backgroundColor: colors.GOOGLE_RED,
-              justifyContent: 'center',
-              paddingVertical: dimensions.PADDING
-            }}
+            style={
+              {
+                backgroundColor: colors.GOOGLE_RED,
+                paddingVertical: dimensions.PADDING_XSMALL
+              }
+            }
           >
-            <Text
-              style={{
-                color: colors.WHITE
-              }}
-            >
-              You are offline. Reconnecting...
-            </Text>
           </View>
-        )}
+        }
         <Navigation ref={setTopLevelNavigator}/>
       </>
     )
@@ -43,7 +38,7 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     websocketConnect: () => {
       dispatch(websocketConnect())
@@ -52,14 +47,8 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = (state) => {
-  const {
-    app: {
-      isWebsocketOnline
-    }
-  } = state
-
   return {
-    isWebsocketOnline
+    isWebsocketOnline: state.app.isWebsocketOnline
   }
 }
 
