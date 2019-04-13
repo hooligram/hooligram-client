@@ -42,7 +42,6 @@ export default class OnboardingInitialize extends Component {
         style={
           {
             alignItems: 'center',
-            flex: 1,
             justifyContent: 'center'
           }
         }

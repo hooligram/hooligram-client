@@ -24,10 +24,11 @@ export default class GroupLeave extends Component {
             this.setState({ groupId })
           }
         }
-        style={{
-          flex: 1,
-          justifyContent: 'flex-end'
-        }}
+        style={
+          {
+            justifyContent: 'flex-end'
+          }
+        }
       >
         <ActionBar
           leftActionIconName='arrow-back'

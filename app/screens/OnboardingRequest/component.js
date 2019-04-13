@@ -5,7 +5,7 @@ import { Button, Input } from 'react-native-elements'
 import { OnboardingHeader } from 'hg/components'
 import { app, colors, countryCodes, dimensions, fontSizes } from 'hg/constants'
 
-export default class OnboardingRequestCode extends Component {
+export default class OnboardingRequest extends Component {
   static propTypes = {
     requestVerificationCode: PropTypes.func.isRequired
   }
@@ -13,7 +13,8 @@ export default class OnboardingRequestCode extends Component {
   state = {
     isRequesting: false,
     phoneNumber: '',
-    selection: 0
+    selection: 0,
+    timeoutId: 0
   }
 
   render() {
@@ -138,12 +139,13 @@ export default class OnboardingRequestCode extends Component {
               this.props.requestVerificationCode(countryCode, phoneNumber)
               Keyboard.dismiss()
 
-              setTimeout(
+              const timeoutId = setTimeout(
                 () => {
                   this.setState({ isRequesting: false })
                 },
                 app.TIMEOUT_XLONG
               )
+              this.setState({ timeoutId })
             }
           }
           title='Request code'
@@ -156,5 +158,9 @@ export default class OnboardingRequestCode extends Component {
         />
       </View>
     )
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.state.timeoutId)
   }
 }

@@ -17,6 +17,7 @@ export default class OnboardingSubmit extends Component {
   state = {
     isRequesting: false,
     isSubmitting: false,
+    timeoutId: 0,
     verificationCode: ''
   }
 
@@ -121,12 +122,13 @@ export default class OnboardingSubmit extends Component {
                 this.setState({ isSubmitting: true })
                 this.props.submitVerificationCode(this.state.verificationCode)
 
-                setTimeout(
+                const timeoutId = setTimeout(
                   () => {
                     this.setState({ isSubmitting: false })
                   },
                   app.TIMEOUT_XLONG
                 )
+                this.setState({ timeoutId })
               }
             }
             title='Submit code'
@@ -140,5 +142,9 @@ export default class OnboardingSubmit extends Component {
         </View>
       </View>
     )
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.state.timeoutId)
   }
 }
