@@ -4,8 +4,9 @@ import {
   SIGN_OUT
 } from '.'
 
-export const connKeepAliveRequest = () => {
+export const connKeepAliveRequest = (actionId) => {
   return {
+    id: actionId,
     payload: {},
     type: CONN_KEEP_ALIVE_REQUEST
   }

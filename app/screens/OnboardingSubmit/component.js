@@ -4,7 +4,7 @@ import { Text, View } from 'react-native'
 import { Button, Input } from 'react-native-elements'
 import { OnboardingHeader } from 'hg/components'
 import { app, colors, dimensions, fontSizes } from 'hg/constants'
-import { formatPhoneNumber } from 'hg/utils'
+import { formatPhoneNumber, getCurrentTimestamp } from 'hg/utils'
 
 export default class OnboardingSubmit extends Component {
   static propTypes = {
@@ -81,7 +81,8 @@ export default class OnboardingSubmit extends Component {
               if (this.state.isRequesting) return
 
               this.setState({ isRequesting: true })
-              this.props.requestVerificationCode(this.props.countryCode, this.props.phoneNumber)
+              const actionId = getCurrentTimestamp()
+              this.props.requestVerificationCode(actionId, this.props.countryCode, this.props.phoneNumber)
 
               setTimeout(
                 () => {
@@ -120,7 +121,8 @@ export default class OnboardingSubmit extends Component {
                 if (this.state.isSubmitting) return
 
                 this.setState({ isSubmitting: true })
-                this.props.submitVerificationCode(this.state.verificationCode)
+                const actionId = getCurrentTimestamp()
+                this.props.submitVerificationCode(actionId, this.state.verificationCode)
 
                 const timeoutId = setTimeout(
                   () => {

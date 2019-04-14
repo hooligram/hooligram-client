@@ -7,12 +7,12 @@ import component from './component'
 
 export const mapDispatchToProps = (dispatch) => {
   return {
-    requestVerificationCode: (countryCode, phoneNumber) => {
-      dispatch(requestVerificationCode(countryCode, phoneNumber))
+    requestVerificationCode: (actionId, countryCode, phoneNumber) => {
+      dispatch(requestVerificationCode(actionId, countryCode, phoneNumber))
     },
 
-    submitVerificationCode: (verificationCode) => {
-      dispatch(submitVerificationCode(verificationCode))
+    submitVerificationCode: (actionId, verificationCode) => {
+      dispatch(submitVerificationCode(actionId, verificationCode))
     }
   }
 }

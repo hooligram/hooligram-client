@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Text } from 'react-native'
 import { ActivityIndicator, NavigationView, OnboardingHeader } from 'hg/components'
 import { app } from 'hg/constants'
+import { getCurrentTimestamp } from 'hg/utils'
 
 export default class OnboardingInitialize extends Component {
   static propTypes = {
@@ -27,7 +28,9 @@ export default class OnboardingInitialize extends Component {
           () => {
             const timeoutId = setTimeout(
               () => {
+                const actionId = getCurrentTimestamp()
                 this.props.authorizationSignInRequest(
+                  actionId,
                   this.props.countryCode,
                   this.props.phoneNumber,
                   this.props.verificationCode

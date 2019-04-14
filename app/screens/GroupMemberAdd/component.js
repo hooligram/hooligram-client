@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { FlatList } from 'react-native'
 import { ActionBar, ContactSnippet, NavigationView } from 'hg/components'
 import { readContacts } from 'hg/db'
+import { getCurrentTimestamp } from 'hg/utils'
 
 export default class GroupMemberAdd extends Component {
   static navigationOptions = {
@@ -45,7 +46,12 @@ export default class GroupMemberAdd extends Component {
                   contact={item.item}
                   onPress={
                     () => {
-                      this.props.groupAddMemberRequest(this.state.groupId, item.item.sid)
+                      const actionId = getCurrentTimestamp()
+                      this.props.groupAddMemberRequest(
+                        actionId,
+                        this.state.groupId,
+                        item.item.sid
+                      )
                       this.props.goToGroupMessage(this.state.groupId)
                     }
                   }

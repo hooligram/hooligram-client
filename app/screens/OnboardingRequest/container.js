@@ -4,8 +4,8 @@ import component from './component'
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    requestVerificationCode: (countryCode, phoneNumber) => {
-      dispatch(requestVerificationCode(countryCode, phoneNumber))
+    requestVerificationCode: (actionId, countryCode, phoneNumber) => {
+      dispatch(requestVerificationCode(actionId, countryCode, phoneNumber))
     }
   }
 }

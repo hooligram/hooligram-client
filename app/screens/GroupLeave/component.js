@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { ActionBar, NavigationView } from 'hg/components'
 import { deleteMessageGroup } from 'hg/db'
+import { getCurrentTimestamp } from 'hg/utils'
 
 export default class GroupLeave extends Component {
   static navigationOptions = {
@@ -40,7 +41,8 @@ export default class GroupLeave extends Component {
           mainActionIconName='check'
           mainActionOnPress={
             () => {
-              this.props.groupLeaveRequest(this.state.groupId)
+              const actionId = getCurrentTimestamp()
+              this.props.groupLeaveRequest(actionId, this.state.groupId)
               deleteMessageGroup(this.state.groupId)
                 .then(() => {
                   this.props.goToHome()

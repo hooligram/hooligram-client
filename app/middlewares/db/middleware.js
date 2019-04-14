@@ -7,6 +7,7 @@ import {
   createMessageGroup
 } from 'hg/db'
 import { currentUserSid } from 'hg/selectors'
+import { getCurrentTimestamp } from 'hg/utils'
 
 export default (store) => (next) => (action) => {
   const nextAction = next(action)
@@ -46,7 +47,8 @@ export default (store) => (next) => (action) => {
     const senderSid = action.payload.sender_sid
     createMessage(id, content, dateCreated, messageGroupId, senderSid)
       .then(() => {
-        store.dispatch(messagingDeliverSuccess(id))
+        const actionId = getCurrentTimestamp()
+        store.dispatch(messagingDeliverSuccess(actionId, id))
       })
     return nextAction
   }

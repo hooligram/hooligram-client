@@ -4,6 +4,7 @@ import { Keyboard, Picker, Text, View } from 'react-native'
 import { Button, Input } from 'react-native-elements'
 import { OnboardingHeader } from 'hg/components'
 import { app, colors, countryCodes, dimensions, fontSizes } from 'hg/constants'
+import { getCurrentTimestamp } from 'hg/utils'
 
 export default class OnboardingRequest extends Component {
   static propTypes = {
@@ -134,9 +135,10 @@ export default class OnboardingRequest extends Component {
 
               this.setState({ isRequesting: true })
 
+              const actionId = getCurrentTimestamp()
               const countryCode = countryCodes[this.state.selection].code
               const phoneNumber = this.state.phoneNumber
-              this.props.requestVerificationCode(countryCode, phoneNumber)
+              this.props.requestVerificationCode(actionId, countryCode, phoneNumber)
               Keyboard.dismiss()
 
               const timeoutId = setTimeout(

@@ -6,6 +6,7 @@ import {
   websocketConnect,
   websocketOpen
 } from 'hg/actions/websocket'
+import { getCurrentTimestamp } from 'hg/utils'
 
 const KEEP_ALIVE_REQUEST_INTERVAL = 30000
 const RECONNECT_INTERVAL = 1000
@@ -39,12 +40,14 @@ const websocket = (dispatch, countryCode, phoneNumber, verificationCode) => {
     const canSignIn = countryCode && phoneNumber && verificationCode
 
     if (canSignIn) {
-      action = authorizationSignInRequest(countryCode, phoneNumber, verificationCode)
+      const actionId = getCurrentTimestamp()
+      action = authorizationSignInRequest(actionId, countryCode, phoneNumber, verificationCode)
       instance.send(JSON.stringify(action))
     }
 
     keepAliveIntervalId = setInterval(() => {
-      instance.send(JSON.stringify(connKeepAliveRequest()))
+      const actionId = getCurrentTimestamp()
+      instance.send(JSON.stringify(connKeepAliveRequest(actionId)))
     }, KEEP_ALIVE_REQUEST_INTERVAL)
   }
 
