@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { ListItem } from 'react-native-elements'
-import { dimensions } from 'hg/constants'
 
 export default class ContactSnippet extends Component {
   static propTypes = {
@@ -14,10 +13,9 @@ export default class ContactSnippet extends Component {
   render() {
     return (
       <ListItem
-        bottomDivider={true}
         containerStyle={
           {
-            paddingVertical: dimensions.PADDING_SMALL
+            padding: 0
           }
         }
         leftIcon={
