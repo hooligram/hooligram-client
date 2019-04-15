@@ -67,7 +67,7 @@ export default class DirectMessage extends Component {
 
             const intervalId = setInterval(() => {
               this.updateMessages()
-            }, app.UPDATE_INTERVAL)
+            }, app.INTERVAL)
             this.setState({ intervalId })
           }
         }

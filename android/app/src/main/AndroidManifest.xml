@@ -7,7 +7,7 @@
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
-      android:icon="@mipmap/ic_launcher"
+      android:icon="@mipmap/ic_hooligram_blue"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
       <activity

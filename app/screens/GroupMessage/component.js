@@ -70,7 +70,7 @@ export default class GroupMessage extends Component {
             this.updateMessages()
             const intervalId = setInterval(() => {
               this.updateMessages()
-            }, app.UPDATE_INTERVAL)
+            }, app.INTERVAL)
             this.setState({ intervalId })
 
             readIsDirectMessage(groupId)

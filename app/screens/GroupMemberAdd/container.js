@@ -9,8 +9,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(goToGroupMessage(groupId))
     },
 
-    groupAddMemberRequest: (groupId, memberSid) => {
-      dispatch(groupAddMemberRequest(groupId, memberSid))
+    groupAddMemberRequest: (actionId, groupId, memberSid) => {
+      dispatch(groupAddMemberRequest(actionId, groupId, memberSid))
     }
   }
 }

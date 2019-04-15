@@ -4,9 +4,8 @@ import component from './component'
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onPressNext: (countryCode, phoneNumber, keyboard) => () => {
-      dispatch(requestVerificationCode(countryCode, phoneNumber))
-      keyboard.dismiss()
+    requestVerificationCode: (actionId, countryCode, phoneNumber) => {
+      dispatch(requestVerificationCode(actionId, countryCode, phoneNumber))
     }
   }
 }

@@ -1,143 +1,168 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Picker, TextInput, Keyboard } from 'react-native'
-import { Button } from 'react-native-elements'
-import { colors, countryCodes } from 'hg/constants'
+import { Keyboard, Picker, Text, View } from 'react-native'
+import { Button, Input } from 'react-native-elements'
+import { OnboardingHeader } from 'hg/components'
+import { app, colors, countryCodes, dimensions, fontSizes } from 'hg/constants'
+import { getCurrentTimestamp } from 'hg/utils'
 
-class OnboardingRequestCode extends Component {
+export default class OnboardingRequest extends Component {
   static propTypes = {
-    onPressNext: PropTypes.func.isRequired
+    requestVerificationCode: PropTypes.func.isRequired
   }
 
   state = {
+    isRequesting: false,
     phoneNumber: '',
-    selection: 0
+    selection: 0,
+    timeoutId: 0
   }
 
   render() {
-    const {
-      onPressNext
-    } = this.props
-
     return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.title}>{'Verify your phone number'}</Text>
-        </View>
-        <View style={styles.body}>
-          <Text style={styles.description}>{
-            'Hooligram will send an SMS message to verify your phone number. ' +
-            'Enter your country code and phone number:'
-          }</Text>
-          <View style={styles.form}>
-            <Picker
-              onValueChange={(_, index) => {
-                this.setState({ selection: index });
-              }}
-              selectedValue={this.state.selection}
-              style={styles.pickerCountryCode}
-            >
-              {countryCodes.map(({ name }, key) => (
+      <View
+        style={
+          {
+            flex: 1,
+            paddingHorizontal: dimensions.PADDING
+          }
+        }
+      >
+        <OnboardingHeader
+          title='Verify your phone number'
+        />
+        <Text
+          style={
+            {
+              textAlign: 'center'
+            }
+          }
+        >
+          Hooligram will send an SMS to verify your phone number. Enter your country code and phone number:
+        </Text>
+        <Picker
+          onValueChange={
+            (_, index) => {
+              this.setState({ selection: index });
+            }
+          }
+          selectedValue={this.state.selection}
+          style={
+            {
+              alignSelf: 'center',
+              minWidth: dimensions.PERCENT_50,
+              width: dimensions.LENGTH_200
+            }
+          }
+        >
+          {
+            countryCodes.map((country, index) => {
+              return (
                 <Picker.Item
-                  label={name}
-                  key={key}
-                  value={key}
+                  label={country.name}
+                  key={index}
+                  value={index}
                 />
-              ))}
-            </Picker>
-            <TextInput
-              editable={false}
-              keyboardType={'numeric'}
-              style={styles.textInputCountryCode}
-              underlineColorAndroid={colors.BOLD_GREEN}
-              value={`+${countryCodes[this.state.selection].code}`}
-            />
-            <TextInput
-              autoFocus={true}
-              keyboardType={'numeric'}
-              onChangeText={(text) => {
+              )
+            })
+          }
+        </Picker>
+        <View
+          style={
+            {
+              alignItems: 'center',
+              flexDirection: 'row',
+              justifyContent: 'center'
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                fontSize: fontSizes.LARGE,
+                textAlign: 'center',
+                width: dimensions.LENGTH_50
+              }
+            }
+          >
+            +{countryCodes[this.state.selection].code}
+          </Text>
+          <Input
+            autoFocus={true}
+            containerStyle={
+              {
+                minWidth: dimensions.PERCENT_50,
+                width: dimensions.LENGTH_250
+              }
+            }
+            inputStyle={
+              {
+                fontSize: fontSizes.XLARGE
+              }
+            }
+            keyboardType='numeric'
+            onChangeText={
+              (text) => {
                 this.setState({ phoneNumber: text })
-              }}
-              style={styles.textInputPhoneNumber}
-              underlineColorAndroid={colors.BOLD_GREEN}
-              value={this.state.phoneNumber}
-            />
-          </View>
+              }
+            }
+            value={this.state.phoneNumber}
+          />
+          <View
+            style={
+              {
+                width: dimensions.LENGTH_50
+              }
+            }
+          />
         </View>
-        <View style={styles.footer}>
-          <Button
-            backgroundColor={styles.button.backgroundColor}
-            buttonStyle={styles.button}
-            fontSize={14}
-            onPress={onPressNext(
-              countryCodes[this.state.selection].code,
-              this.state.phoneNumber,
-              Keyboard
-            )}
-            raised
-            title={'REQUEST CODE'}/>
-        </View>
+        <Button
+          containerStyle={
+            {
+              flex: 1,
+              justifyContent: 'flex-end'
+            }
+          }
+          loading={this.state.isRequesting}
+          loadingProps={
+            {
+              color: colors.BOLD_GREEN
+            }
+          }
+          onPress={
+            () => {
+              if (this.state.isRequesting) return
+
+              this.setState({ isRequesting: true })
+
+              const actionId = getCurrentTimestamp()
+              const countryCode = countryCodes[this.state.selection].code
+              const phoneNumber = this.state.phoneNumber
+              this.props.requestVerificationCode(actionId, countryCode, phoneNumber)
+              Keyboard.dismiss()
+
+              const timeoutId = setTimeout(
+                () => {
+                  this.setState({ isRequesting: false })
+                },
+                app.TIMEOUT_XLONG
+              )
+              this.setState({ timeoutId })
+            }
+          }
+          title='Request code'
+          titleStyle={
+            {
+              color: colors.BOLD_GREEN
+            }
+          }
+          type='clear'
+        />
       </View>
     )
   }
-}
 
-const styles = StyleSheet.create({
-  container: {
-    height: '100%',
-    backgroundColor: colors.WHITE
-  },
-  header: {
-    minHeight: 50,
-    maxHeight: 100,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  title: {
-    fontSize: 18,
-    color: colors.BOLD_GREEN,
-    fontWeight: 'bold'
-  },
-  body: {
-    flexGrow: 1,
-    alignItems: 'center',
-  },
-  description: {
-    marginTop: 15,
-    marginHorizontal: 15,
-    fontSize: 14,
-    lineHeight: 24,
-    color: colors.BLACK,
-    textAlign: 'center',
-    width: '100%'
-  },
-  footer: {
-    minHeight: 80,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingBottom: 15
-  },
-  form: {
-    paddingLeft: 80,
-    paddingRight: 80,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center'
-  },
-  pickerCountryCode: {
-    width: '100%'
-  },
-  textInputCountryCode: {
-    width: '20%'
-  },
-  textInputPhoneNumber: {
-    width: '80%'
-  },
-  button: {
-    width: 140,
-    height: 38,
-    backgroundColor: colors.LIGHT_GREEN
+  componentWillUnmount() {
+    clearTimeout(this.state.timeoutId)
   }
-})
-
-export default OnboardingRequestCode
+}

@@ -4,8 +4,9 @@ import {
   GROUP_LEAVE_REQUEST
 } from '.'
 
-export const groupAddMemberRequest = (groupId, memberSid) => {
+export const groupAddMemberRequest = (actionId, groupId, memberSid) => {
   return {
+    id: actionId,
     payload: {
       group_id: groupId,
       member_sid: memberSid
@@ -16,8 +17,8 @@ export const groupAddMemberRequest = (groupId, memberSid) => {
 
 export const groupCreateRequest = (actionId, groupName, memberSids) => {
   return {
+    id: actionId,
     payload: {
-      action_id: actionId,
       group_name: groupName,
       member_sids: [...memberSids]
     },
@@ -25,8 +26,9 @@ export const groupCreateRequest = (actionId, groupName, memberSids) => {
   }
 }
 
-export const groupLeaveRequest = (groupId) => {
+export const groupLeaveRequest = (actionId, groupId) => {
   return {
+    id: actionId,
     payload: {
       group_id: groupId
     },

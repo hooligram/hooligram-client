@@ -5,29 +5,22 @@ import {
 } from 'hg/actions/authorization'
 import component from './component'
 
-export const mapDispatchToProps = dispatch => {
+export const mapDispatchToProps = (dispatch) => {
   return {
-    resendVerificationCode: (countryCode, phoneNumber) => () => {
-      dispatch(requestVerificationCode(countryCode, phoneNumber))
+    requestVerificationCode: (actionId, countryCode, phoneNumber) => {
+      dispatch(requestVerificationCode(actionId, countryCode, phoneNumber))
     },
 
-    submitVerificationCode: (verificationCode) => () => {
-      dispatch(submitVerificationCode(verificationCode))
+    submitVerificationCode: (actionId, verificationCode) => {
+      dispatch(submitVerificationCode(actionId, verificationCode))
     }
   }
 }
 
-export const mapStateToProps = state => {
-  const {
-    authorization: {
-      country_code,
-      phone_number
-    }
-  } = state
-
+export const mapStateToProps = (state) => {
   return {
-    countryCode: country_code,
-    phoneNumber: phone_number
+    countryCode: state.authorization.country_code,
+    phoneNumber: state.authorization.phone_number
   }
 }
 

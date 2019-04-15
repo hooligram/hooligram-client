@@ -1,7 +1,8 @@
 import { MESSAGING_DELIVER_SUCCESS, MESSAGING_SEND_REQUEST } from '.'
 
-export const messagingDeliverSuccess = (messageId) => {
+export const messagingDeliverSuccess = (actionId, messageId) => {
   return {
+    id: actionId,
     payload: {
       message_id: messageId
     },
@@ -11,8 +12,8 @@ export const messagingDeliverSuccess = (messageId) => {
 
 export const messagingSendRequest = (actionId, groupId, content) => {
   return {
+    id: actionId,
     payload: {
-      action_id: actionId,
       group_id: groupId,
       content
     },

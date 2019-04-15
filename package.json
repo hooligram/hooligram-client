@@ -10,6 +10,7 @@
     "lint": "./node_modules/.bin/eslint *.js **/*.js"
   },
   "dependencies": {
+    "awesome-phonenumber": "2.8.0",
     "moment": "^2.24.0",
     "react": "16.6.3",
     "react-native": "0.57.8",

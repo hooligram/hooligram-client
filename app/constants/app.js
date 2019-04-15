@@ -1,4 +1,10 @@
 export default {
+  INTERVAL: 1000,
+
   STORE_STORAGE_KEY: 'googlepleasehireme',
-  UPDATE_INTERVAL: 1000
+
+  TIMEOUT_SHORT: 500,
+  TIMEOUT: 1000,
+  TIMEOUT_LONG: 2000,
+  TIMEOUT_XLONG: 3000
 }

@@ -1,61 +1,80 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, Image } from 'react-native'
+import { Image, View } from 'react-native'
 import { Button } from 'react-native-elements'
-import { colors, dimensions, fontSizes } from 'hg/constants'
+import { OnboardingHeader } from 'hg/components'
+import { app, colors, dimensions } from 'hg/constants'
 
 export default class OnboardingAgree extends Component {
   static propTypes = {
     goToOnboardingRequest: PropTypes.func.isRequired
   }
 
+  state = {
+    isLoading: false
+  }
+
   render() {
     return (
       <View
-        style={{
-          flex: 1
-        }}
+        style={
+          {
+            flex: 1
+          }
+        }
       >
         <View
-          style={{
-            alignItems: 'center',
-            marginVertical: dimensions.MARGIN_LARGE
-          }}
-        >
-          <Text
-            style={{
-              color: colors.BOLD_GREEN,
-              fontSize: fontSizes.MEDIUM,
-              fontWeight: 'bold'
-            }}
-          >Welcome to Hooligram</Text>
-        </View>
-        <View
-          style={{
-            alignItems: 'center',
-            flex: 1,
-            justifyContent: 'center'
-          }}
+          style={
+            {
+              alignItems: 'center',
+              flex: 1,
+              justifyContent: 'center'
+            }
+          }
         >
           <Image
-            source={require('hg/resources/images/background.png')}
-            style={{
-              height: dimensions.LENGTH_250,
-              width: dimensions.LENGTH_250
-            }}
+            source={require('hg/resources/images/hooligram-blue.png')}
+            style={
+              {
+                height: dimensions.LENGTH_100,
+                width: dimensions.LENGTH_100
+              }
+            }
+          />
+          <OnboardingHeader
+            title='Welcome to Hooligram'
           />
         </View>
-        <View
-          style={{
-            marginVertical: dimensions.MARGIN_LARGE
-          }}
-        >
-          <Button
-            backgroundColor={colors.LIGHT_GREEN}
-            onPress={this.props.goToOnboardingRequest}
-            title='Continue'
-          />
-        </View>
+        <Button
+          loading={this.state.isLoading}
+          loadingProps={
+            {
+              color: colors.BOLD_GREEN
+            }
+          }
+          onPress={
+            () => {
+              if (this.state.isLoading) return
+
+              this.setState({ isLoading: true })
+
+              setTimeout(
+                () => {
+                  this.setState({ isLoading: false })
+                  this.props.goToOnboardingRequest()
+                },
+                app.TIMEOUT_LONG
+              )
+            }
+          }
+          title='Continue'
+          titleStyle={
+            {
+              color: colors.BOLD_GREEN
+            }
+          }
+          type='clear'
+        />
       </View>
     )
   }

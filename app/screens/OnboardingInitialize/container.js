@@ -10,8 +10,8 @@ import component from './component'
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    authorizationSignInRequest: (countryCode, phoneNumber, verificationCode) => {
-      dispatch(authorizationSignInRequest(countryCode, phoneNumber, verificationCode))
+    authorizationSignInRequest: (actionId, countryCode, phoneNumber, verificationCode) => {
+      dispatch(authorizationSignInRequest(actionId, countryCode, phoneNumber, verificationCode))
     },
 
     goToHome: () => {

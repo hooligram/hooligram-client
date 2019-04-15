@@ -38,7 +38,7 @@ export default class Home extends Component {
 
               const intervalId = setInterval(() => {
                 this.updateMessageGroups()
-              }, app.UPDATE_INTERVAL)
+              }, app.INTERVAL)
 
               this.setState({ intervalId })
             }

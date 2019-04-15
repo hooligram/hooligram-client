@@ -5,8 +5,8 @@ import component from './component'
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    groupLeaveRequest: (groupId) => {
-      dispatch(groupLeaveRequest(groupId))
+    groupLeaveRequest: (actionId, groupId) => {
+      dispatch(groupLeaveRequest(actionId, groupId))
     },
 
     goToHome: () => {
