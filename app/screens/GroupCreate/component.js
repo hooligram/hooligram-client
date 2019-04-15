@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { FlatList, Keyboard, Text, ToastAndroid } from 'react-native'
 import { Input } from 'react-native-elements'
@@ -11,7 +12,11 @@ export default class GroupCreate extends Component {
     headerTitle: 'New group'
   }
 
-  static propTypes = {}
+  static propTypes = {
+    countryCode: PropTypes.string.isRequired,
+    groupCreateRequest: PropTypes.func.isRequired,
+    phoneNumber: PropTypes.string.isRequired
+  }
 
   state = {
     added: new Set(),
