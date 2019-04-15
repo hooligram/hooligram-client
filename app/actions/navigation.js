@@ -30,15 +30,6 @@ export const goToGroupCreate = () => {
   }
 }
 
-export const goToGroupInfo = (memberSids = []) => {
-  return {
-    payload: {
-      member_sids: memberSids
-    },
-    type: actions.GO_TO_GROUP_INFO
-  }
-}
-
 export const goToGroupLeave = (groupId) => {
   return {
     payload: {

@@ -76,14 +76,6 @@ export default store => next => action => {
       break
     }
 
-    case routes.GROUP_INFO: {
-      if (actionType === actions.GROUP_CREATE_SUCCESS) {
-        navigateTo(routes.HOME)
-      }
-
-      break
-    }
-
     case routes.GROUP_LEAVE: {
       if (actionType === actions.GO_TO_HOME) {
         navigateTo(routes.HOME)

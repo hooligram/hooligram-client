@@ -3,7 +3,6 @@ export default {
   CONTACT_CREATE: 'ContactCreate',
   DIRECT_MESSAGE: 'DirectMessage',
   GROUP_CREATE: 'GroupCreate',
-  GROUP_INFO: 'GroupInfo',
   GROUP_LEAVE: 'GroupLeave',
   GROUP_MEMBER_ADD: 'GroupMemberAdd',
   GROUP_MESSAGE: 'GroupMessage',
