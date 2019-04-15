@@ -3,7 +3,10 @@ export default {
 
   BUTTON_ICON_LENGTH: 48,
 
-  ICON_SIZE: 32,
+  ELEVATION: 2,
+
+  ICON_BORDER_RADIUS: 24,
+  ICON_SIZE: 48,
 
   LENGTH_50: 50,
   LENGTH_100: 100,

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { FlatList, View } from 'react-native'
-import { Avatar, Divider } from 'react-native-elements'
+import { FlatList, Keyboard, Text, ToastAndroid } from 'react-native'
+import { Input } from 'react-native-elements'
 import { ActionBar, ContactSnippet, NavigationView } from 'hg/components'
-import { colors, dimensions } from 'hg/constants'
+import { dimensions, fontSizes } from 'hg/constants'
 import { readContacts } from 'hg/db'
+import { constructSid, getCurrentTimestamp } from 'hg/utils'
 
 export default class GroupCreate extends Component {
   static navigationOptions = {
@@ -14,10 +15,42 @@ export default class GroupCreate extends Component {
 
   state = {
     added: new Set(),
-    contacts: []
+    contacts: [],
+    groupName: ''
   }
 
   render() {
+    let helpText = ''
+
+    if (this.state.added.size < 1) {
+      helpText = 'Add at least 2 participants.'
+    }
+    else if (this.state.added.size === 1) {
+      helpText = 'Add one more participant.'
+    }
+    else {
+      helpText = `Added ${this.state.added.size} participants.`
+    }
+
+    let rightActionIconName = 'clear'
+    let rightActionOnPress = () => {}
+
+    if (this.state.added.size > 0) {
+      rightActionOnPress = () => {
+        this.setState({ added: new Set() })
+      }
+    }
+    else if (this.state.groupName.length > 0) {
+      rightActionOnPress = () => {
+        this.setState({ groupName: '' })
+      }
+    }
+    else {
+      rightActionOnPress = () => {
+        Keyboard.dismiss()
+      }
+    }
+
     return (
       <NavigationView
         onWillFocus={
@@ -31,77 +64,54 @@ export default class GroupCreate extends Component {
               })
           }
         }
-        style={
-          {
-            paddingHorizontal: dimensions.PADDING
-          }
-        }
       >
-        <View
+        <Input
+          autoFocus={false}
+          inputStyle={
+            {
+              fontSize: fontSizes.LARGE
+            }
+          }
+          onChangeText={
+            (text) => {
+              this.setState({ groupName: text })
+            }
+          }
+          ref={(ref) => this.groupNameInputRef = ref}
+          value={this.state.groupName}
+        />
+        <Text
           style={
             {
-              flexDirection: 'row'
+              paddingVertical: dimensions.PADDING,
+              textAlign: 'center'
             }
           }
         >
-          <FlatList
-            data={[...this.state.added]}
-            horizontal={true}
-            keyExtractor={(sid) => (sid)}
-            renderItem={
-              (item) => {
-                return (
-                  <View
-                    style={
-                      {
-                        marginBottom: dimensions.MARGIN_XLARGE,
-                        marginRight: dimensions.MARGIN
-                      }
-                    }
-                  >
-                    <Avatar
-                      onPress={
-                        () => {
-                          const added = new Set(this.state.added)
-                          added.delete(item.item)
-                          this.setState({ added })
-                        }
-                      }
-                      rounded
-                      size='medium'
-                      title={item.item.substring(item.item.length - 2)}
-                    />
-                  </View>
-                )
-              }
-            }
-          />
-        </View>
-        {
-          this.state.added.size > 0
-          &&
-          <Divider
-            style={
-              {
-                backgroundColor: colors.GHOST
-              }
-            }
-          />
-        }
+          {helpText}
+        </Text>
         <FlatList
-          data={this.state.contacts.filter((contact) => {
-            return !this.state.added.has(contact.sid)
-          })}
+          data={[...this.state.contacts]}
           keyExtractor={(contact) => (contact.sid.toString())}
           renderItem={
             (item) => {
+              const isAdded = this.state.added.has(item.item.sid)
+
               return (
                 <ContactSnippet
                   contact={{ sid: item.item.sid }}
+                  isSelected={isAdded}
                   onPress={
                     () => {
                       const added = new Set(this.state.added)
-                      added.add(item.item.sid)
+
+                      if (isAdded) {
+                        added.delete(item.item.sid)
+                      }
+                      else {
+                        added.add(item.item.sid)
+                      }
+
                       this.setState({ added })
                     }
                   }
@@ -117,18 +127,35 @@ export default class GroupCreate extends Component {
               this.props.navigation.goBack()
             }
           }
-          mainActionIconName='add'
+          mainActionIconName='done'
           mainActionOnPress={
             () => {
-              this.props.goToGroupInfo([...this.state.added])
+              if (this.state.added.size < 2) {
+                ToastAndroid.showWithGravity(helpText, ToastAndroid.SHORT, ToastAndroid.CENTER)
+                return
+              }
+
+              if (this.state.groupName === '') {
+                ToastAndroid.showWithGravity(
+                  'Enter the group name.',
+                  ToastAndroid.SHORT,
+                  ToastAndroid.CENTER
+                )
+                this.groupNameInputRef.focus()
+                return
+              }
+
+              const actionId = getCurrentTimestamp()
+              const currentUserSid = constructSid(this.props.countryCode, this.props.phoneNumber)
+              this.props.groupCreateRequest(
+                actionId,
+                this.state.groupName,
+                [...this.state.added, currentUserSid]
+              )
             }
           }
-          rightActionIconName='clear'
-          rightActionOnPress={
-            () => {
-              this.setState({ added: new Set() })
-            }
-          }
+          rightActionIconName={rightActionIconName}
+          rightActionOnPress={rightActionOnPress}
         />
       </NavigationView>
     )

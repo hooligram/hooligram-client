@@ -69,8 +69,8 @@ export default store => next => action => {
     }
 
     case routes.GROUP_CREATE: {
-      if (actionType === actions.GO_TO_GROUP_INFO) {
-        navigateTo(routes.GROUP_INFO, { memberSids: action.payload.member_sids })
+      if (actionType === actions.GROUP_CREATE_SUCCESS) {
+        navigateTo(routes.HOME)
       }
 
       break
