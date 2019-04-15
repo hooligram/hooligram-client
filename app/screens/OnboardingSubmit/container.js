@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import {
   requestVerificationCode,
   submitVerificationCode
-} from 'hg/actions/authorization'
+} from 'hg/actions'
 import component from './component'
 
 export const mapDispatchToProps = (dispatch) => {

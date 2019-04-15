@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { goToContact } from 'hg/actions/navigation'
+import { goToContact } from 'hg/actions'
 import component from './component'
 
 const mapDispatchToProps = (dispatch) => {

@@ -1,8 +1,4 @@
-import {
-  GROUP_ADD_MEMBER_REQUEST,
-  GROUP_CREATE_REQUEST,
-  GROUP_LEAVE_REQUEST
-} from '.'
+import { actions } from 'hg/constants'
 
 export const groupAddMemberRequest = (actionId, groupId, memberSid) => {
   return {
@@ -11,7 +7,7 @@ export const groupAddMemberRequest = (actionId, groupId, memberSid) => {
       group_id: groupId,
       member_sid: memberSid
     },
-    type: GROUP_ADD_MEMBER_REQUEST
+    type: actions.GROUP_ADD_MEMBER_REQUEST
   }
 }
 
@@ -22,7 +18,7 @@ export const groupCreateRequest = (actionId, groupName, memberSids) => {
       group_name: groupName,
       member_sids: [...memberSids]
     },
-    type: GROUP_CREATE_REQUEST
+    type: actions.GROUP_CREATE_REQUEST
   }
 }
 
@@ -32,6 +28,6 @@ export const groupLeaveRequest = (actionId, groupId) => {
     payload: {
       group_id: groupId
     },
-    type: GROUP_LEAVE_REQUEST
+    type: actions.GROUP_LEAVE_REQUEST
   }
 }

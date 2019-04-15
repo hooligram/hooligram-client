@@ -1,27 +1,23 @@
-import {
-  CONN_KEEP_ALIVE_REQUEST,
-  SIGN_IN,
-  SIGN_OUT
-} from '.'
+import { actions } from 'hg/constants'
 
 export const connKeepAliveRequest = (actionId) => {
   return {
     id: actionId,
     payload: {},
-    type: CONN_KEEP_ALIVE_REQUEST
+    type: actions.CONN_KEEP_ALIVE_REQUEST
   }
 }
 
 export const signIn = () => {
   return {
     payload: {},
-    type: SIGN_IN
+    type: actions.SIGN_IN
   }
 }
 
 export const signOut = () => {
   return {
     payload: {},
-    type: SIGN_OUT
+    type: actions.SIGN_OUT
   }
 }

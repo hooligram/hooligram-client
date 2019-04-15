@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
-import { groupLeaveRequest } from 'hg/actions/group'
-import { goToHome } from 'hg/actions/navigation'
+import { goToHome, groupLeaveRequest } from 'hg/actions'
 import component from './component'
 
 const mapDispatchToProps = (dispatch) => {

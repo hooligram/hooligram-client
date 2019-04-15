@@ -1,9 +1,4 @@
-import {
-  SIGN_IN,
-  SIGN_OUT,
-  WEBSOCKET_CLOSE,
-  WEBSOCKET_OPEN
-} from 'hg/actions'
+import { actions } from 'hg/constants'
 
 export const initialState = {
   isSignedIn: false,
@@ -12,28 +7,28 @@ export const initialState = {
 
 const app = (state = initialState, action) => {
   switch (action.type) {
-    case SIGN_IN: {
+    case actions.SIGN_IN: {
       return {
         ...state,
         isSignedIn: true
       }
     }
 
-    case SIGN_OUT: {
+    case actions.SIGN_OUT: {
       return {
         ...state,
         isSignedIn: false
       }
     }
 
-    case WEBSOCKET_CLOSE: {
+    case actions.WEBSOCKET_CLOSE: {
       return {
         ...state,
         isWebsocketOnline: false
       }
     }
 
-    case WEBSOCKET_OPEN: {
+    case actions.WEBSOCKET_OPEN: {
       return {
         ...state,
         isWebsocketOnline: true

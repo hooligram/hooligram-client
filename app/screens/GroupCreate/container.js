@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { groupCreateRequest } from 'hg/actions/group'
+import { groupCreateRequest } from 'hg/actions'
 import { currentUserCountryCode, currentUserPhoneNumber } from 'hg/selectors'
 import component from './component'
 

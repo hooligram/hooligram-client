@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
-import { signOut } from 'hg/actions/app'
-import { goToContact, goToDirectMessage, goToGroupMessage } from 'hg/actions/navigation'
+import { goToContact, goToDirectMessage, goToGroupMessage, signOut } from 'hg/actions'
 import { currentUserSid } from 'hg/selectors'
 import component from './component'
 

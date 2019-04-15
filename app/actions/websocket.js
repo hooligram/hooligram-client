@@ -1,12 +1,8 @@
-import {
-  WEBSOCKET_CLOSE,
-  WEBSOCKET_CONNECT,
-  WEBSOCKET_OPEN
-} from 'hg/actions'
+import { actions } from 'hg/constants'
 
 export const websocketClose = () => {
   return {
-    type: WEBSOCKET_CLOSE,
+    type: actions.WEBSOCKET_CLOSE,
     payload: {
     }
   }
@@ -14,7 +10,7 @@ export const websocketClose = () => {
 
 export const websocketConnect = () => {
   return {
-    type: WEBSOCKET_CONNECT,
+    type: actions.WEBSOCKET_CONNECT,
     payload: {
     }
   }
@@ -22,7 +18,7 @@ export const websocketConnect = () => {
 
 export const websocketOpen = (host) => {
   return {
-    type: WEBSOCKET_OPEN,
+    type: actions.WEBSOCKET_OPEN,
     payload: {
       host
     }

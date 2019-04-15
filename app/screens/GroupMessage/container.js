@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
-import { messagingSendRequest } from 'hg/actions/messaging'
 import {
   goToGroupLeave,
   goToGroupMemberAdd,
-  goToHome
-} from 'hg/actions/navigation'
+  goToHome,
+  messagingSendRequest
+} from 'hg/actions'
 import { currentUserSid } from 'hg/selectors'
 import { getCurrentTimestamp } from 'hg/utils'
 import component from './component'
