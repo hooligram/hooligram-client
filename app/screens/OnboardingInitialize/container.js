@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
-import { authorizationSignInRequest } from 'hg/actions/authorization'
-import { goToHome } from 'hg/actions/navigation'
+import { authorizationSignInRequest, goToHome } from 'hg/actions'
 import {
   currentUserCountryCode,
   currentUserPhoneNumber,

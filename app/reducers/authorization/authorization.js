@@ -1,8 +1,4 @@
-import {
-  SIGN_OUT,
-  VERIFICATION_REQUEST_CODE_REQUEST,
-  VERIFICATION_SUBMIT_CODE_REQUEST
-} from 'hg/actions'
+import { actions } from 'hg/constants'
 
 export const initialState = {
   country_code: '',
@@ -12,7 +8,7 @@ export const initialState = {
 
 const authorization = (state = initialState, action) => {
   switch (action.type) {
-    case SIGN_OUT: {
+    case actions.SIGN_OUT: {
       return {
         ...state,
         country_code: '',
@@ -21,7 +17,7 @@ const authorization = (state = initialState, action) => {
       }
     }
 
-    case VERIFICATION_REQUEST_CODE_REQUEST: {
+    case actions.VERIFICATION_REQUEST_CODE_REQUEST: {
       const {
         payload: {
           country_code,
@@ -36,7 +32,7 @@ const authorization = (state = initialState, action) => {
       }
     }
 
-    case VERIFICATION_SUBMIT_CODE_REQUEST: {
+    case actions.VERIFICATION_SUBMIT_CODE_REQUEST: {
       const {
         payload: {
           verification_code

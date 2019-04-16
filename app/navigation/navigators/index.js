@@ -1,5 +1,5 @@
 import { createSwitchNavigator } from 'react-navigation'
-import { SPLASH } from 'hg/navigation/routes'
+import { routes } from 'hg/constants'
 import { Splash } from 'hg/screens'
 import MainStack from './main'
 import OnboardingSwitch from './onboarding'
@@ -11,6 +11,6 @@ export default createSwitchNavigator(
     Splash
   },
   {
-    initialRouteName: SPLASH
+    initialRouteName: routes.SPLASH
   }
 )

@@ -1,5 +1,5 @@
-import { GROUP_DELIVER_REQUEST, MESSAGING_DELIVER_REQUEST } from 'hg/actions'
-import { messagingDeliverSuccess } from 'hg/actions/messaging'
+import { messagingDeliverSuccess } from 'hg/actions'
+import { actions } from 'hg/constants'
 import {
   createContact,
   createDirectMessage,
@@ -12,7 +12,7 @@ import { getCurrentTimestamp } from 'hg/utils'
 export default (store) => (next) => (action) => {
   const nextAction = next(action)
 
-  if (action.type === GROUP_DELIVER_REQUEST) {
+  if (action.type === actions.GROUP_DELIVER_REQUEST) {
     const dateCreated = action.payload.date_created
     const groupId = action.payload.group_id
     const groupName = action.payload.group_name
@@ -39,7 +39,7 @@ export default (store) => (next) => (action) => {
     return nextAction
   }
 
-  if (action.type === MESSAGING_DELIVER_REQUEST) {
+  if (action.type === actions.MESSAGING_DELIVER_REQUEST) {
     const id = action.payload.message_id
     const content = action.payload.content
     const dateCreated = action.payload.date_created

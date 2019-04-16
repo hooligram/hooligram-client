@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
-import { groupCreateRequest } from 'hg/actions/group'
 import {
   goToContactCreate,
   goToDirectMessage,
   goToGroupCreate,
-  goToGroupMessage
-} from 'hg/actions/navigation'
+  goToGroupMessage,
+  groupCreateRequest
+} from 'hg/actions'
 import { currentUserSid } from 'hg/selectors'
 import component from './component'
 

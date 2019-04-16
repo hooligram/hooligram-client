@@ -1,3 +1,4 @@
+import { ToastAndroid } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import { actions, routes } from 'hg/constants'
 import {
@@ -69,14 +70,14 @@ export default store => next => action => {
     }
 
     case routes.GROUP_CREATE: {
-      if (actionType === actions.GO_TO_GROUP_INFO) {
-        navigateTo(routes.GROUP_INFO, { memberSids: action.payload.member_sids })
+      if (actionType === actions.GROUP_CREATE_FAILURE) {
+        ToastAndroid.showWithGravity(
+          'Unable to create the group. Can you try again?',
+          ToastAndroid.LONG,
+          ToastAndroid.CENTER
+        )
       }
 
-      break
-    }
-
-    case routes.GROUP_INFO: {
       if (actionType === actions.GROUP_CREATE_SUCCESS) {
         navigateTo(routes.HOME)
       }

@@ -1,4 +1,4 @@
-import { MESSAGING_DELIVER_SUCCESS, MESSAGING_SEND_REQUEST } from '.'
+import { actions } from 'hg/constants'
 
 export const messagingDeliverSuccess = (actionId, messageId) => {
   return {
@@ -6,7 +6,7 @@ export const messagingDeliverSuccess = (actionId, messageId) => {
     payload: {
       message_id: messageId
     },
-    type: MESSAGING_DELIVER_SUCCESS
+    type: actions.MESSAGING_DELIVER_SUCCESS
   }
 }
 
@@ -17,6 +17,6 @@ export const messagingSendRequest = (actionId, groupId, content) => {
       group_id: groupId,
       content
     },
-    type: MESSAGING_SEND_REQUEST
+    type: actions.MESSAGING_SEND_REQUEST
   }
 }

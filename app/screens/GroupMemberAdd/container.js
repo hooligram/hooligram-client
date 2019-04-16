@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
-import { groupAddMemberRequest } from 'hg/actions/group'
-import { goToGroupMessage } from 'hg/actions/navigation'
+import { goToGroupMessage, groupAddMemberRequest } from 'hg/actions'
 import component from './component'
 
 const mapDispatchToProps = (dispatch) => {

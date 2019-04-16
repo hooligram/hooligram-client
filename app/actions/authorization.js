@@ -1,8 +1,4 @@
-import {
-  AUTHORIZATION_SIGN_IN_REQUEST,
-  VERIFICATION_REQUEST_CODE_REQUEST,
-  VERIFICATION_SUBMIT_CODE_REQUEST
-} from '.'
+import { actions } from 'hg/constants'
 
 export const authorizationSignInRequest = (
   actionId,
@@ -17,7 +13,7 @@ export const authorizationSignInRequest = (
       phone_number: phoneNumber,
       verification_code: verificationCode
     },
-    type: AUTHORIZATION_SIGN_IN_REQUEST
+    type: actions.AUTHORIZATION_SIGN_IN_REQUEST
   }
 }
 
@@ -28,7 +24,7 @@ export const requestVerificationCode = (actionId, countryCode, phoneNumber) => {
       country_code: countryCode,
       phone_number: phoneNumber
     },
-    type: VERIFICATION_REQUEST_CODE_REQUEST
+    type: actions.VERIFICATION_REQUEST_CODE_REQUEST
   }
 }
 
@@ -38,6 +34,6 @@ export const submitVerificationCode = (actionId, verificationCode) => {
     payload: {
       verification_code: verificationCode
     },
-    type: VERIFICATION_SUBMIT_CODE_REQUEST
+    type: actions.VERIFICATION_SUBMIT_CODE_REQUEST
   }
 }

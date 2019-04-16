@@ -1,11 +1,11 @@
 import Config from 'react-native-config'
-import { authorizationSignInRequest } from 'hg/actions/authorization'
-import { connKeepAliveRequest } from 'hg/actions/app'
 import {
+  authorizationSignInRequest,
+  connKeepAliveRequest,
   websocketClose,
   websocketConnect,
   websocketOpen
-} from 'hg/actions/websocket'
+} from 'hg/actions'
 import { getCurrentTimestamp } from 'hg/utils'
 
 const KEEP_ALIVE_REQUEST_INTERVAL = 30000

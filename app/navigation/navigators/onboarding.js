@@ -1,5 +1,5 @@
 import { createSwitchNavigator } from 'react-navigation'
-import { ONBOARDING_AGREE } from 'hg/navigation/routes'
+import { routes } from 'hg/constants'
 import {
   OnboardingAgree,
   OnboardingInitialize,
@@ -15,6 +15,6 @@ export default createSwitchNavigator(
     OnboardingSubmit
   },
   {
-    initialRouteName: ONBOARDING_AGREE
+    initialRouteName: routes.ONBOARDING_AGREE
   }
 )

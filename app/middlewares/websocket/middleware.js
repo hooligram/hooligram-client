@@ -1,16 +1,5 @@
-import {
-  AUTHORIZATION_SIGN_IN_REQUEST,
-  AUTHORIZATION_SIGN_IN_SUCCESS,
-  GROUP_ADD_MEMBER_REQUEST,
-  GROUP_CREATE_REQUEST,
-  GROUP_LEAVE_REQUEST,
-  MESSAGING_DELIVER_SUCCESS,
-  MESSAGING_SEND_REQUEST,
-  VERIFICATION_REQUEST_CODE_REQUEST,
-  VERIFICATION_SUBMIT_CODE_REQUEST,
-  WEBSOCKET_CONNECT
-} from 'hg/actions'
-import { signIn } from 'hg/actions/app'
+import { signIn } from 'hg/actions'
+import { actions } from 'hg/constants'
 import {
   currentUserCountryCode,
   currentUserPhoneNumber,
@@ -23,7 +12,7 @@ let authActionQueue = []
 export default store => next => action => {
   const ws = websocket()
 
-  if (action.type === WEBSOCKET_CONNECT) {
+  if (action.type === actions.WEBSOCKET_CONNECT) {
     const state = store.getState()
 
     const countryCode = currentUserCountryCode(state)
@@ -34,7 +23,7 @@ export default store => next => action => {
     return next(action)
   }
 
-  if (action.type === AUTHORIZATION_SIGN_IN_SUCCESS) {
+  if (action.type === actions.AUTHORIZATION_SIGN_IN_SUCCESS) {
     store.dispatch(signIn())
 
     authActionQueue.forEach((queued) => {
@@ -46,14 +35,14 @@ export default store => next => action => {
   }
 
   if ([
-    AUTHORIZATION_SIGN_IN_REQUEST,
-    GROUP_ADD_MEMBER_REQUEST,
-    GROUP_CREATE_REQUEST,
-    GROUP_LEAVE_REQUEST,
-    MESSAGING_DELIVER_SUCCESS,
-    MESSAGING_SEND_REQUEST,
-    VERIFICATION_REQUEST_CODE_REQUEST,
-    VERIFICATION_SUBMIT_CODE_REQUEST
+    actions.AUTHORIZATION_SIGN_IN_REQUEST,
+    actions.GROUP_ADD_MEMBER_REQUEST,
+    actions.GROUP_CREATE_REQUEST,
+    actions.GROUP_LEAVE_REQUEST,
+    actions.MESSAGING_DELIVER_SUCCESS,
+    actions.MESSAGING_SEND_REQUEST,
+    actions.VERIFICATION_REQUEST_CODE_REQUEST,
+    actions.VERIFICATION_SUBMIT_CODE_REQUEST
   ].includes(action.type)) {
     ws.sendAction(action)
     return next(action)
