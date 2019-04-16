@@ -52,6 +52,11 @@ export default class GroupCreate extends Component {
     }
     else {
       rightActionOnPress = () => {
+        ToastAndroid.showWithGravity(
+          'Everything is cleared up.',
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER
+        )
         Keyboard.dismiss()
       }
     }
