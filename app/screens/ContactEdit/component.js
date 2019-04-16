@@ -102,7 +102,14 @@ export default class ContactCreate extends Component {
 
               updateContactName(contactSid, name)
                 .then(() => {
-                  this.props.goToContact()
+                  const shouldGoBack = this.props.navigation.getParam('goBack', false)
+
+                  if (shouldGoBack) {
+                    this.props.navigation.goBack()
+                  }
+                  else {
+                    this.props.goToContact()
+                  }
                 })
             }
           }

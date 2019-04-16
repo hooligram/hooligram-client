@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { FlatList, View } from 'react-native'
-import { Icon, Input, ListItem, Overlay } from 'react-native-elements'
+import { Divider, Icon, Input, ListItem, Overlay } from 'react-native-elements'
 import { ActionBar, MessageCloud, NavigationView } from 'hg/components'
 import { app, colors, dimensions } from 'hg/constants'
-import { readDirectMessageGroupRecipientSid, readMessages } from 'hg/db'
+import { readContact, readDirectMessageGroupRecipientSid, readMessages } from 'hg/db'
+import { formatPhoneNumber } from 'hg/utils'
 
 export default class DirectMessage extends Component {
   static navigationOptions = ({ navigation }) => {
-    const recipientSid = navigation.getParam('recipientSid', 'Direct message')
-    const title = `${recipientSid}`
+    const recipientName = navigation.getParam('recipientName', 'Direct message')
+    const title = `${recipientName}`
     return {
       headerRight: (
         <Icon
@@ -29,7 +30,8 @@ export default class DirectMessage extends Component {
     isMoreOverlayVisible: false,
     message: '',
     messages: [],
-    messagesRef: null
+    messagesRef: null,
+    recipientSid: ''
   }
 
   render() {
@@ -142,18 +144,23 @@ export default class DirectMessage extends Component {
           rightActionOnPress={rightActionOnPress}
         />
         <Overlay
+          height='auto'
           isVisible={this.state.isMoreOverlayVisible}
         >
           <View>
             <ListItem
               onPress={
                 () => {
-                  this.props.goToGroupLeave(this.state.groupId)
+                  const contactSid = this.state.recipientSid
+                  if (!contactSid) return
+
+                  this.props.goToContactEdit(contactSid)
                   this.setState({ isMoreOverlayVisible: false })
                 }
               }
-              title='Leave group'
+              title='Edit contact'
             />
+            <Divider/>
             <ListItem
               onPress={
                 () => {
@@ -187,7 +194,22 @@ export default class DirectMessage extends Component {
   updateRecipientSid(groupId) {
     readDirectMessageGroupRecipientSid(groupId)
       .then((recipientSid) => {
-        this.props.navigation.setParams({ recipientSid })
+        this.setState({ recipientSid })
+        return readContact(recipientSid)
+      })
+      .then((contact) => {
+        if (!contact) return
+
+        const split = contact.sid.split('.')
+        const countryCode = split[0]
+        const phoneNumber = split[1]
+        let recipientName = formatPhoneNumber(countryCode, phoneNumber)
+
+        if (contact.name) {
+          recipientName = contact.name
+        }
+
+        this.props.navigation.setParams({ recipientName })
       })
   }
 }

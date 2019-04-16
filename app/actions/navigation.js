@@ -14,10 +14,11 @@ export const goToContactCreate = () => {
   }
 }
 
-export const goToContactEdit = (contactSid) => {
+export const goToContactEdit = (contactSid, goBack = false) => {
   return {
     payload: {
-      contact_sid: contactSid
+      contact_sid: contactSid,
+      go_back: goBack
     },
     type: actions.GO_TO_CONTACT_EDIT
   }

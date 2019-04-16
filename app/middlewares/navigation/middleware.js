@@ -54,7 +54,8 @@ export default store => next => action => {
     case routes.CONTACT_CREATE: {
       if (actionType === actions.GO_TO_CONTACT_EDIT) {
         navigateTo(routes.CONTACT_EDIT, {
-          contactSid: action.payload.contact_sid
+          contactSid: action.payload.contact_sid,
+          goBack: action.payload.go_back
         })
       }
 
@@ -70,6 +71,13 @@ export default store => next => action => {
     }
 
     case routes.DIRECT_MESSAGE: {
+      if (actionType === actions.GO_TO_CONTACT_EDIT) {
+        navigateTo(routes.CONTACT_EDIT, {
+          contactSid: action.payload.contact_sid,
+          goBack: action.payload.go_back
+        })
+      }
+
       if (actionType === actions.GO_TO_GROUP_LEAVE) {
         navigateTo(routes.GROUP_LEAVE, {
           groupId: action.payload.group_id
