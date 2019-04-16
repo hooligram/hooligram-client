@@ -67,10 +67,10 @@ export default class GroupCreate extends Component {
           () => {
             readContacts()
               .then((contacts) => {
-                const added = contacts.filter((contact) => {
-                  return contact.added
+                const userContacts = contacts.filter((contact) => {
+                  return contact.status === 0
                 })
-                this.setState({ contacts: added })
+                this.setState({ contacts: userContacts })
               })
           }
         }
