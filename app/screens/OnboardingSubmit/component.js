@@ -50,7 +50,7 @@ export default class OnboardingSubmit extends Component {
               textAlign: 'center'
             }
           }
-          keyboardType={'numeric'}
+          keyboardType='numeric'
           onChangeText={
             (text) => {
               this.setState({ verificationCode: text })
