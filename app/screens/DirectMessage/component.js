@@ -3,7 +3,13 @@ import { FlatList, View } from 'react-native'
 import { Divider, Icon, Input, ListItem, Overlay } from 'react-native-elements'
 import { ActionBar, MessageCloud, NavigationView } from 'hg/components'
 import { app, colors, dimensions } from 'hg/constants'
-import { readContact, readDirectMessageGroupRecipientSid, readMessages } from 'hg/db'
+import {
+  deleteMessageGroup,
+  readContact,
+  readDirectMessageGroupRecipientSid,
+  readMessages,
+  updateContactStatus
+} from 'hg/db'
 import { formatPhoneNumber } from 'hg/utils'
 
 export default class DirectMessage extends Component {
@@ -159,6 +165,25 @@ export default class DirectMessage extends Component {
                 }
               }
               title='Edit contact'
+            />
+            <ListItem
+              onPress={
+                () => {
+                  const contactSid = this.state.recipientSid
+                  if (!contactSid) return
+
+                  updateContactStatus(contactSid, 1)
+                    .then(() => {
+                      this.props.groupLeaveRequest(this.state.groupId)
+                      return deleteMessageGroup(this.state.groupId)
+                    })
+                    .then(() => {
+                      this.setState({ isMoreOverlayVisible: false })
+                      this.props.navigation.goBack()
+                    })
+                }
+              }
+              title='Remove contact'
             />
             <Divider/>
             <ListItem
