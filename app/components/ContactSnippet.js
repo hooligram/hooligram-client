@@ -2,11 +2,13 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Text, TouchableNativeFeedback, View } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { colors, dimensions } from 'hg/constants'
+import { colors, dimensions, fontSizes } from 'hg/constants'
+import { getFlagEmoji } from 'hg/utils'
 
 export default class ContactSnippet extends Component {
   static propTypes = {
     contact: PropTypes.shape({
+      name: PropTypes.string,
       sid: PropTypes.string.isRequired
     }),
     isSelected: PropTypes.bool,
@@ -14,6 +16,10 @@ export default class ContactSnippet extends Component {
   }
 
   render() {
+    const phoneNumber = this.props.contact.sid.split('.')[1]
+    const name = this.props.contact.name ? this.props.contact.name : phoneNumber
+    const flagEmoji = getFlagEmoji(this.props.contact.sid)
+
     return (
       <TouchableNativeFeedback
         onPress={this.props.onPress}
@@ -27,8 +33,8 @@ export default class ContactSnippet extends Component {
             }
           }
         >
-          <Icon
-            containerStyle={
+          <View
+            style={
               {
                 alignItems: 'center',
                 backgroundColor: colors.WHITE,
@@ -39,14 +45,18 @@ export default class ContactSnippet extends Component {
                 width: dimensions.ICON_SIZE
               }
             }
-            iconStyle={
-              {
-                color: colors.GREY
+          >
+            <Text
+              style={
+                {
+                  color: colors.BLACK,
+                  fontSize: fontSizes.LARGE
+                }
               }
-            }
-            name='person'
-            type='material'
-          />
+            >
+              {flagEmoji}
+            </Text>
+          </View>
           <View
             style={
               {
@@ -55,6 +65,15 @@ export default class ContactSnippet extends Component {
               }
             }
           >
+            <Text
+              style={
+                {
+                  color: colors.BLACK
+                }
+              }
+            >
+              {name}
+            </Text>
             <Text>{this.props.contact.sid}</Text>
           </View>
           {
