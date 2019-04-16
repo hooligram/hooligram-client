@@ -20,6 +20,7 @@ export {
 export {
   goToContact,
   goToContactCreate,
+  goToContactEdit,
   goToDirectMessage,
   goToGroupCreate,
   goToGroupLeave,

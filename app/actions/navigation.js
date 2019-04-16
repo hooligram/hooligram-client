@@ -14,6 +14,15 @@ export const goToContactCreate = () => {
   }
 }
 
+export const goToContactEdit = (contactSid) => {
+  return {
+    payload: {
+      contact_sid: contactSid
+    },
+    type: actions.GO_TO_CONTACT_EDIT
+  }
+}
+
 export const goToDirectMessage = (groupId) => {
   return {
     payload: {

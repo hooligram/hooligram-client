@@ -52,6 +52,16 @@ export default store => next => action => {
     }
 
     case routes.CONTACT_CREATE: {
+      if (actionType === actions.GO_TO_CONTACT_EDIT) {
+        navigateTo(routes.CONTACT_EDIT, {
+          contactSid: action.payload.contact_sid
+        })
+      }
+
+      break
+    }
+
+    case routes.CONTACT_EDIT: {
       if (actionType === actions.GO_TO_CONTACT) {
         navigateTo(routes.CONTACT)
       }

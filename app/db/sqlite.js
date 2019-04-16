@@ -15,7 +15,8 @@ SQLite.openDatabase({ name: 'hooligram-v2-client.db' })
     instance.executeSql(`
       CREATE TABLE IF NOT EXISTS contact (
         sid TEXT PRIMARY KEY,
-        added INTEGER DEFAULT 0
+        status INTEGER DEFAULT 0,
+        name TEXT
       );
     `)
   })
@@ -135,6 +136,17 @@ export const createMessageGroup = async (id, name, dateCreated, contactSids) => 
 // READ //
 //////////
 
+export const readContact = async (contactSid) => {
+  if (!instance) return Promise.reject(new Error('db instance error'))
+
+  return instance.executeSql('SELECT sid, status, name FROM contact WHERE sid = ?;', [contactSid])
+    .then(([results]) => {
+      if (results.rows.length < 1) return null
+
+      return results.rows.item(0)
+    })
+}
+
 export const readContactDirectMessageGroupId = async (contactId) => {
   if (!instance) return Promise.reject(new Error('db instance error'))
 
@@ -151,7 +163,7 @@ export const readContactDirectMessageGroupId = async (contactId) => {
 export const readContacts = async () => {
   if (!instance) return Promise.reject(new Error('db instance error'))
 
-  return instance.executeSql('SELECT sid, added FROM contact;')
+  return instance.executeSql('SELECT sid, status, name FROM contact;')
     .then(([results]) => {
       const contacts = []
 
@@ -259,10 +271,16 @@ export const readMessages = async (groupId) => {
 // UPDATE //
 ////////////
 
-export const updateContactAdded = async (sid, added = true) => {
+export const updateContactName = async (sid, name) => {
   if (!instance) return Promise.reject(new Error('db instance error'))
 
-  return instance.executeSql('UPDATE contact SET added = ? WHERE sid = ?;', [added ? 1 : 0, sid])
+  return instance.executeSql('UPDATE contact SET name = ? WHERE sid = ?;', [name, sid])
+}
+
+export const updateContactStatus = async (sid, status = 0) => {
+  if (!instance) return Promise.reject(new Error('db instance error'))
+
+  return instance.executeSql('UPDATE contact SET status = ? WHERE sid = ?;', [status, sid])
 }
 
 ////////////

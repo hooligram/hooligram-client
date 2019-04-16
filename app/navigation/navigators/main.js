@@ -2,6 +2,7 @@ import { createStackNavigator } from 'react-navigation'
 import { colors, dimensions, routes } from 'hg/constants'
 import {
   Contact,
+  ContactEdit,
   ContactCreate,
   DirectMessage,
   GroupCreate,
@@ -15,6 +16,7 @@ export default createStackNavigator(
   {
     Contact,
     ContactCreate,
+    ContactEdit,
     DirectMessage,
     GroupCreate,
     GroupLeave,

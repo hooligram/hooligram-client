@@ -1,5 +1,6 @@
 export { default as Contact } from './Contact'
 export { default as ContactCreate } from './ContactCreate'
+export { default as ContactEdit } from './ContactEdit'
 export { default as DirectMessage } from './DirectMessage'
 export { default as GroupCreate } from './GroupCreate'
 export { default as GroupLeave } from './GroupLeave'
