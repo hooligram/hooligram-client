@@ -7,13 +7,13 @@ export default (sid) => {
     const countryCode = split[0]
     const phoneNumber = split[1]
 
-    if (!countryCode || !phoneNumber) return ''
+    if (!countryCode || !phoneNumber) return '🇳🇵'
 
     const pn = new PhoneNumber(`+${countryCode}${phoneNumber}`)
     const regionCode = pn.getRegionCode()
     return emojiFlags.countryCode(regionCode).emoji
   }
   catch {
-    return ''
+    return '🇳🇵'
   }
 }
