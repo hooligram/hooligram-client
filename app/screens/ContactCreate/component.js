@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Picker, View } from 'react-native'
+import { Picker, ToastAndroid, View } from 'react-native'
 import { Icon, Input, Text } from 'react-native-elements'
 import { colors, countryCodes, dimensions, fontSizes } from 'hg/constants'
 import { createContact, updateContactAdded } from 'hg/db'
@@ -133,6 +133,16 @@ export default class ContactCreate extends Component {
               () => {
                 const countryCode = countryCodes[this.state.selection].code
                 const sid = constructSid(countryCode, this.state.phoneNumber)
+
+                if (this.state.phoneNumber.length < 1) {
+                  ToastAndroid.showWithGravity(
+                    'Enter contact phone number.',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER
+                  )
+                  return
+                }
+
                 createContact(sid)
                   .then(() => {
                     updateContactAdded(sid)
@@ -151,6 +161,15 @@ export default class ContactCreate extends Component {
             name='clear'
             onPress={
               () => {
+                if (this.state.phoneNumber === '') {
+                  ToastAndroid.showWithGravity(
+                    'Everything is cleared.',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER
+                  )
+                  return
+                }
+
                 this.setState({ phoneNumber: '' })
               }
             }

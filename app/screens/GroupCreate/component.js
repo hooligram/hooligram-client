@@ -53,7 +53,7 @@ export default class GroupCreate extends Component {
     else {
       rightActionOnPress = () => {
         ToastAndroid.showWithGravity(
-          'Everything is cleared up.',
+          'Everything is cleared.',
           ToastAndroid.SHORT,
           ToastAndroid.CENTER
         )
