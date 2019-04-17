@@ -4,6 +4,7 @@ import { Text, TouchableNativeFeedback, View } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { colors, dimensions, fontSizes } from 'hg/constants'
 import { getFlagEmoji } from 'hg/utils'
+import Circle from './Circle'
 
 export default class extends Component {
   static propTypes = {
@@ -33,19 +34,7 @@ export default class extends Component {
             }
           }
         >
-          <View
-            style={
-              {
-                alignItems: 'center',
-                backgroundColor: colors.WHITE,
-                borderRadius: dimensions.ICON_BORDER_RADIUS,
-                elevation: dimensions.ELEVATION,
-                height: dimensions.ICON_SIZE,
-                justifyContent: 'center',
-                width: dimensions.ICON_SIZE
-              }
-            }
-          >
+          <Circle>
             <Text
               style={
                 {
@@ -56,7 +45,7 @@ export default class extends Component {
             >
               {flagEmoji}
             </Text>
-          </View>
+          </Circle>
           <View
             style={
               {
