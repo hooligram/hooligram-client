@@ -24,7 +24,7 @@ export default class extends Component {
           style={
             {
               alignSelf: isOwnMessage ? 'flex-end' : 'flex-start',
-              backgroundColor: colors.LIGHTER_GREEN,
+              backgroundColor: colors.TEA_GREEN,
               borderRadius: dimensions.BORDER_RADIUS,
               maxWidth: '80%',
               padding: dimensions.PADDING

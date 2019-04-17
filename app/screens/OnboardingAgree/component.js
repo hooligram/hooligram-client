@@ -49,7 +49,7 @@ export default class OnboardingAgree extends Component {
           loading={this.state.isLoading}
           loadingProps={
             {
-              color: colors.BOLD_GREEN
+              color: colors.TEAL
             }
           }
           onPress={
@@ -70,7 +70,7 @@ export default class OnboardingAgree extends Component {
           title='Continue'
           titleStyle={
             {
-              color: colors.BOLD_GREEN
+              color: colors.TEAL
             }
           }
           type='clear'

@@ -18,7 +18,7 @@ export default class extends Component {
           }
         >
           <Icon
-            color={colors.BOLD_GREEN}
+            color={colors.TEAL}
             name={this.props.name}
             type='material'
           />

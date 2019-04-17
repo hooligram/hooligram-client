@@ -127,7 +127,7 @@ export default class OnboardingRequest extends Component {
           loading={this.state.isRequesting}
           loadingProps={
             {
-              color: colors.BOLD_GREEN
+              color: colors.TEAL
             }
           }
           onPress={
@@ -154,7 +154,7 @@ export default class OnboardingRequest extends Component {
           title='Request code'
           titleStyle={
             {
-              color: colors.BOLD_GREEN
+              color: colors.TEAL
             }
           }
           type='clear'

@@ -21,7 +21,7 @@ class App extends Component {
           <View
             style={
               {
-                backgroundColor: colors.GOOGLE_RED,
+                backgroundColor: colors.GOLDEN_POPPY,
                 paddingVertical: dimensions.PADDING_XSMALL
               }
             }

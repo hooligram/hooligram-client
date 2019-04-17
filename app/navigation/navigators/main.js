@@ -31,7 +31,7 @@ export default createStackNavigator(
         elevation: 0
       },
       headerTitleStyle: {
-        color: colors.BOLD_GREEN,
+        color: colors.TEAL,
         marginHorizontal: dimensions.MARGIN
       }
     },

@@ -113,7 +113,7 @@ export default class OnboardingSubmit extends Component {
             loading={this.state.isSubmitting}
             loadingProps={
               {
-                color: colors.BOLD_GREEN
+                color: colors.TEAL
               }
             }
             onPress={
@@ -136,7 +136,7 @@ export default class OnboardingSubmit extends Component {
             title='Submit code'
             titleStyle={
               {
-                color: colors.BOLD_GREEN
+                color: colors.TEAL
               }
             }
             type='clear'

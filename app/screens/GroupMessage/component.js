@@ -11,7 +11,7 @@ export default class GroupMessage extends Component {
     return {
       headerRight: (
         <Icon
-          color={colors.BOLD_GREEN}
+          color={colors.TEAL}
           name='more-vert'
           onPress={navigation.getParam('onPressHeaderRight', () => {})}
           type='material'

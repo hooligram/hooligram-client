@@ -1,9 +1,9 @@
 export default {
   BLACK: 'black',
-  BOLD_GREEN: '#128C7E',
-  GOOGLE_RED: '#DB3236',
+  GOLDEN_POPPY: '#FCC200',
   GREY: 'grey',
-  LIGHTER_GREEN: '#DCF8C6',
+  TEA_GREEN: '#D0F0C0',
+  TEAL: '#008080',
   TRANSLUCENT_WHITE: '#FFFFFFA0',
   WHITE: 'white'
 }

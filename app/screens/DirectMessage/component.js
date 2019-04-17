@@ -19,7 +19,7 @@ export default class DirectMessage extends Component {
     return {
       headerRight: (
         <Icon
-          color={colors.BOLD_GREEN}
+          color={colors.TEAL}
           name='more-vert'
           onPress={navigation.getParam('onPressHeaderRight', () => {})}
           type='material'

@@ -21,7 +21,7 @@ export default class extends Component {
         <Text
           style={
             {
-              color: colors.BOLD_GREEN,
+              color: colors.TEAL,
               fontSize: fontSizes.LARGE,
               fontWeight: 'bold'
             }
