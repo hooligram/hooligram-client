@@ -11,7 +11,12 @@ export default class Home extends Component {
     headerTitle: 'Hooligram'
   }
 
-  static propTypes = {}
+  static propTypes = {
+    currentUserSid: PropTypes.string.isRequired,
+    goToContact: PropTypes.func.isRequired,
+    goToDirectMessage: PropTypes.func.isRequired,
+    goToGroupMessage: PropTypes.func.isRequired
+  }
 
   state = {
     intervalId: 0,
