@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Picker, View } from 'react-native'
+import { Picker, ToastAndroid, View } from 'react-native'
 import { Icon, Input, Text } from 'react-native-elements'
 import { colors, countryCodes, dimensions, fontSizes } from 'hg/constants'
-import { createContact, updateContactAdded } from 'hg/db'
+import { createContact } from 'hg/db'
 import { constructSid } from 'hg/utils'
 
 export default class ContactCreate extends Component {
@@ -22,8 +22,7 @@ export default class ContactCreate extends Component {
       <View
         style={
           {
-            flex: 1,
-            paddingHorizontal: dimensions.PADDING_LARGE
+            flex: 1
           }
         }
       >
@@ -36,7 +35,9 @@ export default class ContactCreate extends Component {
           selectedValue={this.state.selection}
           style={
             {
-              color: colors.GREY
+              alignSelf: 'center',
+              minWidth: dimensions.PERCENT_50,
+              width: dimensions.LENGTH_200
             }
           }
         >
@@ -56,52 +57,51 @@ export default class ContactCreate extends Component {
           style={
             {
               alignItems: 'center',
-              flexDirection: 'row'
+              flexDirection: 'row',
+              justifyContent: 'center'
             }
           }
         >
-          <View
+          <Text
             style={
               {
-                alignItems: 'center',
-                flex: 0.1
+                fontSize: fontSizes.LARGE,
+                textAlign: 'center',
+                width: dimensions.LENGTH_50
               }
             }
           >
-            <Text
-              style={
-                {
-                  fontSize: fontSizes.LARGE
-                }
+            +{countryCodes[this.state.selection].code}
+          </Text>
+          <Input
+            autoFocus={true}
+            inputStyle={
+              {
+                fontSize: fontSizes.XXLARGE
               }
-            >
-              +{countryCodes[this.state.selection].code}
-            </Text>
-          </View>
+            }
+            keyboardType='numeric'
+            onChangeText={
+              (text) => {
+                const phoneNumber = text.replace(/[^0-9]/g, '')
+                this.setState({ phoneNumber })
+              }
+            }
+            containerStyle={
+              {
+                minWidth: dimensions.PERCENT_50,
+                width: dimensions.LENGTH_250
+              }
+            }
+            value={this.state.phoneNumber}
+          />
           <View
             style={
               {
-                flex: 0.9
+                width: dimensions.LENGTH_50
               }
             }
-          >
-            <Input
-              autoFocus={true}
-              inputStyle={
-                {
-                  color: colors.GREY,
-                  fontSize: fontSizes.XXLARGE
-                }
-              }
-              keyboardType='numeric'
-              onChangeText={
-                (text) => {
-                  this.setState({ phoneNumber: text })
-                }
-              }
-              value={this.state.phoneNumber}
-            />
-          </View>
+          />
         </View>
         <View
           style={
@@ -128,17 +128,24 @@ export default class ContactCreate extends Component {
           />
           <Icon
             color={colors.BOLD_GREEN}
-            name='add'
+            name='done'
             onPress={
               () => {
                 const countryCode = countryCodes[this.state.selection].code
                 const sid = constructSid(countryCode, this.state.phoneNumber)
+
+                if (this.state.phoneNumber.length < 1) {
+                  ToastAndroid.showWithGravity(
+                    'Enter contact phone number.',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER
+                  )
+                  return
+                }
+
                 createContact(sid)
                   .then(() => {
-                    updateContactAdded(sid)
-                  })
-                  .then(() => {
-                    this.props.goToContact()
+                    this.props.goToContactEdit(sid)
                   })
               }
             }
@@ -151,6 +158,15 @@ export default class ContactCreate extends Component {
             name='clear'
             onPress={
               () => {
+                if (this.state.phoneNumber === '') {
+                  ToastAndroid.showWithGravity(
+                    'Everything is cleared.',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER
+                  )
+                  return
+                }
+
                 this.setState({ phoneNumber: '' })
               }
             }

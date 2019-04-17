@@ -103,7 +103,8 @@ export default class OnboardingRequest extends Component {
             keyboardType='numeric'
             onChangeText={
               (text) => {
-                this.setState({ phoneNumber: text })
+                const phoneNumber = text.replace(/[^0-9]/g, '')
+                this.setState({ phoneNumber })
               }
             }
             value={this.state.phoneNumber}

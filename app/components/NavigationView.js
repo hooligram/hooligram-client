@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View } from 'react-native'
 import { NavigationEvents } from 'react-navigation'
 
-export default class NavigationView extends Component {
+export default class extends Component {
   render() {
     return (
       <View

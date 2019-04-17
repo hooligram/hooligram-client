@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import { colors, dimensions, fontSizes } from 'hg/constants'
 
-export default class OnboardingHeader extends Component {
+export default class extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired
   }

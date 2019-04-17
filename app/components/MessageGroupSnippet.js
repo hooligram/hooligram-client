@@ -1,10 +1,18 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { ListItem } from 'react-native-elements'
-import { dimensions } from 'hg/constants'
-import { readIsDirectMessage, readMessageGroupContacts } from 'hg/db'
+import { Text, TouchableNativeFeedback, View } from 'react-native'
+import { Icon } from 'react-native-elements'
+import { colors, dimensions, fontSizes } from 'hg/constants'
+import {
+  readContact,
+  readDirectMessageGroupRecipientSid,
+  readIsDirectMessage,
+  readMessageGroupContacts
+} from 'hg/db'
+import { getFlagEmoji } from 'hg/utils'
+import Circle from './Circle'
 
-export default class MessageGroupSnippet extends Component {
+export default class extends Component {
   static propTypes = {
     messageGroup: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -16,40 +24,75 @@ export default class MessageGroupSnippet extends Component {
 
   state = {
     isDirectMessage: false,
-    contactSids: []
+    contactSids: [],
+    directMessageRecipient: '',
+    directMessageSid: ''
   }
 
   render() {
     const groupName = this.props.messageGroup.name
-    const recipients = this.state.contactSids.reduce((res, cur) => {
-      if (cur === this.props.userSid) return res
+    const directMessageRecipient = this.state.directMessageRecipient
+    const isDirectMessage = this.state.isDirectMessage
+    const title = isDirectMessage ? directMessageRecipient : groupName
+    const flagEmoji = isDirectMessage ? getFlagEmoji(this.state.directMessageRecipient) : ''
 
-      return [...res, cur]
-    }, [])
-    const title = this.state.isDirectMessage ? recipients[0] : groupName
     return (
-      <ListItem
-        bottomDivider={true}
-        containerStyle={
-          {
-            paddingVertical: dimensions.PADDING_SMALL
+      <TouchableNativeFeedback
+        onPress={this.props.onPress}
+      >
+        <View
+          style={
+            {
+              alignItems: 'center',
+              flexDirection: 'row',
+              padding: dimensions.PADDING
+            }
           }
-        }
-        leftIcon={
-          {
-            name: this.state.isDirectMessage ? 'person' : 'group',
-            raised: true,
-            type: 'material'
-          }
-        }
-        onPress={
-          () => {
-            this.props.onPress()
-          }
-        }
-        subtitle={this.state.isDirectMessage ? null : recipients.join(', ')}
-        title={title}
-      />
+        >
+          <Circle>
+            {
+              isDirectMessage ?
+              <Text
+                style={
+                  {
+                    color: colors.BLACK,
+                    fontSize: fontSizes.LARGE
+                  }
+                }
+              >
+                {flagEmoji}
+              </Text>
+              :
+              <Icon
+                color={colors.GREY}
+                name='group'
+                type='material'
+              />
+            }
+          </Circle>
+          <View
+            style={
+              {
+                paddingLeft: dimensions.PADDING
+              }
+            }
+          >
+            <Text
+              style={
+                {
+                  color: colors.BLACK
+                }
+              }
+            >
+              {title}
+            </Text>
+            {
+              !this.state.isDirectMessage &&
+              <Text>{`${this.state.contactSids.length} participants`}</Text>
+            }
+          </View>
+        </View>
+      </TouchableNativeFeedback>
     )
   }
 
@@ -57,6 +100,23 @@ export default class MessageGroupSnippet extends Component {
     readIsDirectMessage(this.props.messageGroup.id)
       .then((isDirectMessage) => {
         this.setState({ isDirectMessage })
+        if (isDirectMessage) {
+          return readDirectMessageGroupRecipientSid(this.props.messageGroup.id)
+        }
+        else {
+          return
+        }
+      })
+      .then((recipientSid) => {
+        console.log('recipientSid', recipientSid)
+        if (!recipientSid) return
+
+        return readContact(recipientSid)
+      })
+      .then((contact) => {
+        console.log('contact', contact)
+        this.setState({ directMessageRecipient: contact ? contact.name : '' })
+        this.setState({ directMessageSid: contact ? contact.sid : '' })
       })
 
     readMessageGroupContacts(this.props.messageGroup.id)

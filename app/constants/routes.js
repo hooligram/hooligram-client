@@ -1,6 +1,7 @@
 export default {
   CONTACT: 'Contact',
   CONTACT_CREATE: 'ContactCreate',
+  CONTACT_EDIT: 'ContactEdit',
   DIRECT_MESSAGE: 'DirectMessage',
   GROUP_CREATE: 'GroupCreate',
   GROUP_LEAVE: 'GroupLeave',

@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import { colors, dimensions, fontSizes } from 'hg/constants'
 
-export default class MessageCloud extends Component {
+export default class extends Component {
   static propTypes = {
     currentUserSid: PropTypes.string.isRequired,
     message: PropTypes.shape({

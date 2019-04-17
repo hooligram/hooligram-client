@@ -1,13 +1,17 @@
 import { connect } from 'react-redux'
-import { goToGroupLeave, messagingSendRequest } from 'hg/actions'
+import { goToContactEdit, groupLeaveRequest, messagingSendRequest } from 'hg/actions'
 import { currentUserSid } from 'hg/selectors'
 import { getCurrentTimestamp } from 'hg/utils'
 import component from './component'
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    goToGroupLeave: (groupId) => {
-      dispatch(goToGroupLeave(groupId))
+    goToContactEdit: (contactSid) => {
+      dispatch(goToContactEdit(contactSid, true))
+    },
+
+    groupLeaveRequest: (groupId) => {
+      dispatch(groupLeaveRequest(getCurrentTimestamp(), groupId))
     },
 
     messagingSendRequest: (groupId, content) => {

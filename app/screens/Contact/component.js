@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements'
 import { NavigationEvents } from 'react-navigation'
 import { ContactSnippet } from 'hg/components'
 import { colors } from 'hg/constants'
-import { readContactDirectMessageGroupId, readContacts, updateContactAdded } from 'hg/db'
+import { readContactDirectMessageGroupId, readContacts } from 'hg/db'
 import { getCurrentTimestamp } from 'hg/utils'
 
 export default class Contact extends Component {
@@ -46,7 +46,7 @@ export default class Contact extends Component {
                   contact={item.item}
                   onLongPress={
                     () => {
-                      updateContactAdded(item.item.sid, false)
+                      updateContactStatus(item.item.sid, 1)
                         .then(() => {
                           this.updateContacts()
                           ToastAndroid.show(`Removed ${item.item.sid}`, ToastAndroid.SHORT);
@@ -119,7 +119,7 @@ export default class Contact extends Component {
     readContacts()
       .then((contacts) => {
         const added = contacts.filter((contact) => {
-          return contact.added
+          return contact.status === 0
         })
         this.setState({ contacts: added })
       })
