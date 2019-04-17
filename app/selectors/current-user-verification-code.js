@@ -2,5 +2,5 @@ export default state => {
   if (!state) return ''
   if (!state.authorization) return ''
 
-  return state.authorization.token
+  return state.authorization.verification_code
 }
