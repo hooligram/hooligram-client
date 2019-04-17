@@ -118,6 +118,11 @@ export default class GroupMessage extends Component {
           }
         />
         <Input
+          containerStyle={
+            {
+              paddingBottom: dimensions.LENGTH_50
+            }
+          }
           onBlur={
             () => {
               this.setState({ isInputFocused: false })

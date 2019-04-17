@@ -61,7 +61,9 @@ SQLite.openDatabase({ name: 'hooligram-v2-client.db' })
         message_group_id INTEGER,
         recipient_sid TEXT,
         PRIMARY KEY ( message_group_id, recipient_sid ),
-        FOREIGN KEY ( message_group_id ) REFERENCES message_group ( id ),
+        FOREIGN KEY ( message_group_id ) REFERENCES message_group ( id )
+          ON DELETE CASCADE
+          ON UPDATE CASCADE,
         FOREIGN KEY ( recipient_sid ) REFERENCES contact ( sid )
       );
     `)

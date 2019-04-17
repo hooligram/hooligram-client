@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { FlatList, View } from 'react-native'
 import { Divider, Icon, Input, ListItem, Overlay } from 'react-native-elements'
@@ -27,6 +28,12 @@ export default class DirectMessage extends Component {
       ),
       headerTitle: title,
     }
+  }
+
+  static propTypes = {
+    currentUserSid: PropTypes.string.isRequired,
+    goToContactEdit: PropTypes.func.isRequired,
+    messagingSendRequest: PropTypes.func.isRequired
   }
 
   state = {
@@ -111,6 +118,11 @@ export default class DirectMessage extends Component {
           }
         />
         <Input
+          containerStyle={
+            {
+              paddingBottom: dimensions.LENGTH_50
+            }
+          }
           onBlur={
             () => {
               this.setState({ isInputFocused: false })
@@ -174,7 +186,6 @@ export default class DirectMessage extends Component {
 
                   updateContactStatus(contactSid, 1)
                     .then(() => {
-                      this.props.groupLeaveRequest(this.state.groupId)
                       return deleteMessageGroup(this.state.groupId)
                     })
                     .then(() => {
