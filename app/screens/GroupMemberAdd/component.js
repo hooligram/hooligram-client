@@ -61,19 +61,11 @@ export default class GroupMemberAdd extends Component {
           }
         />
         <ActionBar
-          leftActionIconName='arrow-back'
-          leftActionOnPress={
+          mainActionIconName='arrow-back'
+          mainActionOnPress={
             () => {
               this.props.navigation.goBack()
             }
-          }
-          mainActionIconName='not-interested'
-          mainActionOnPress={
-            () => {}
-          }
-          rightActionIconName='not-interested'
-          rightActionOnPress={
-            () => {}
           }
         />
       </NavigationView>

@@ -121,6 +121,11 @@ export default class OnboardingSubmit extends Component {
               this.setState({ timeoutId })
             }
           }
+          style={
+            {
+              backgroundColor: colors.WHITE
+            }
+          }
         />
       </View>
     )

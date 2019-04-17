@@ -113,18 +113,6 @@ export default class ContactCreate extends Component {
                 })
             }
           }
-          rightActionIconName='not-interested'
-          rightActionOnPress={
-            () => {}
-          }
-          style={
-            {
-              bottom: 0,
-              left: 0,
-              position: 'absolute',
-              right: 0
-            }
-          }
         />
       </NavigationView>
     )

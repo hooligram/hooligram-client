@@ -49,10 +49,6 @@ export default class GroupLeave extends Component {
                 })
             }
           }
-          rightActionIconName='not-interested'
-          rightActionOnPress={
-            () => {}
-          }
         />
       </NavigationView>
     )
