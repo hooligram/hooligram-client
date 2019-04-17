@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { StatusBar, View } from 'react-native'
 import { connect } from 'react-redux'
 import { websocketConnect } from 'hg/actions'
 import { colors, dimensions } from 'hg/constants'
@@ -15,20 +15,12 @@ class App extends Component {
   render () {
     return (
       <>
-        {
-          !this.props.isWebsocketOnline
-          &&
-          <View
-            style={
-              {
-                backgroundColor: colors.GOLDEN_POPPY,
-                paddingVertical: dimensions.PADDING_XSMALL
-              }
-            }
-          >
-          </View>
-        }
-        <Navigation ref={setTopLevelNavigator}/>
+        <StatusBar
+          backgroundColor={this.props.isWebsocketOnline ? colors.TEAL : colors.GOLDEN_POPPY}
+        />
+        <Navigation
+          ref={setTopLevelNavigator}
+        />
       </>
     )
   }
