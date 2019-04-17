@@ -3,7 +3,7 @@ import { Picker, ToastAndroid, View } from 'react-native'
 import { Input, Text } from 'react-native-elements'
 import { ActionBar } from 'hg/components'
 import { countryCodes, dimensions, fontSizes } from 'hg/constants'
-import { createContact } from 'hg/db'
+import { createContact, updateContactStatus } from 'hg/db'
 import { constructSid } from 'hg/utils'
 
 export default class ContactCreate extends Component {
@@ -128,6 +128,7 @@ export default class ContactCreate extends Component {
 
               createContact(sid)
                 .then(() => {
+                  updateContactStatus(sid, 0)
                   this.props.goToContactEdit(sid)
                 })
             }
