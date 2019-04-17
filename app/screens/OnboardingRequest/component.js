@@ -118,7 +118,7 @@ export default class extends Component {
           />
         </View>
         <ActionBar
-          mainActionIconName={this.state.isRequesting ? 'hourglass-empty' : 'phonelink-ring'}
+          mainActionIconName={this.state.isRequesting ? 'hourglass-empty' : 'done'}
           mainActionOnPress={
             () => {
               if (this.state.isRequesting) return

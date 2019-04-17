@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, TouchableWithoutFeedback, View } from 'react-native'
 import { Button, Input } from 'react-native-elements'
-import { OnboardingHeader } from 'hg/components'
+import { ActionBar, OnboardingHeader } from 'hg/components'
 import { app, colors, dimensions, fontSizes } from 'hg/constants'
 import { formatPhoneNumber, getCurrentTimestamp } from 'hg/utils'
 
@@ -39,6 +39,7 @@ export default class OnboardingSubmit extends Component {
         />
         <Text>{`We have sent an SMS with a code to ${formattedPhoneNumber}.`}</Text>
         <Input
+          autoFocus={true}
           containerStyle={
             {
               width: dimensions.LENGTH_200
@@ -60,6 +61,7 @@ export default class OnboardingSubmit extends Component {
         />
         <Text>Enter 4-digit code</Text>
         <Button
+          TouchableComponent={TouchableWithoutFeedback}
           buttonStyle={
             {
               width: dimensions.LENGTH_150
@@ -100,48 +102,26 @@ export default class OnboardingSubmit extends Component {
           }
           type='clear'
         />
-        <View
-          style={
-            {
-              alignSelf: 'stretch',
-              flex: 1,
-              justifyContent: 'flex-end'
+        <ActionBar
+          mainActionIconName={this.state.isSubmitting ? 'hourglass-empty' : 'done'}
+          mainActionOnPress={
+            () => {
+              if (this.state.isSubmitting) return
+
+              this.setState({ isSubmitting: true })
+              const actionId = getCurrentTimestamp()
+              this.props.submitVerificationCode(actionId, this.state.verificationCode)
+
+              const timeoutId = setTimeout(
+                () => {
+                  this.setState({ isSubmitting: false })
+                },
+                app.TIMEOUT_XLONG
+              )
+              this.setState({ timeoutId })
             }
           }
-        >
-          <Button
-            loading={this.state.isSubmitting}
-            loadingProps={
-              {
-                color: colors.TEAL
-              }
-            }
-            onPress={
-              () => {
-                if (this.state.isSubmitting) return
-
-                this.setState({ isSubmitting: true })
-                const actionId = getCurrentTimestamp()
-                this.props.submitVerificationCode(actionId, this.state.verificationCode)
-
-                const timeoutId = setTimeout(
-                  () => {
-                    this.setState({ isSubmitting: false })
-                  },
-                  app.TIMEOUT_XLONG
-                )
-                this.setState({ timeoutId })
-              }
-            }
-            title='Submit code'
-            titleStyle={
-              {
-                color: colors.TEAL
-              }
-            }
-            type='clear'
-          />
-        </View>
+        />
       </View>
     )
   }
