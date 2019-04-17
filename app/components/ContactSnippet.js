@@ -5,7 +5,7 @@ import { Icon } from 'react-native-elements'
 import { colors, dimensions, fontSizes } from 'hg/constants'
 import { getFlagEmoji } from 'hg/utils'
 
-export default class ContactSnippet extends Component {
+export default class extends Component {
   static propTypes = {
     contact: PropTypes.shape({
       name: PropTypes.string,

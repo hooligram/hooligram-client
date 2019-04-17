@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { colors } from 'hg/constants'
 
-export default class ActionBar extends Component {
+export default class extends Component {
   static propTypes = {
     leftActionIconName: PropTypes.string.isRequired,
     leftActionOnPress: PropTypes.func.isRequired,
