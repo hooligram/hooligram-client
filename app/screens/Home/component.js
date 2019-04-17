@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { FlatList, View } from 'react-native'
-import { Icon } from 'react-native-elements'
-import { MessageGroupSnippet, NavigationView } from 'hg/components'
-import { app, colors } from 'hg/constants'
+import { FlatList } from 'react-native'
+import { ActionBar, MessageGroupSnippet, NavigationView } from 'hg/components'
+import { app } from 'hg/constants'
 import { readIsDirectMessage, readMessageGroups } from 'hg/db'
 
 export default class Home extends Component {
@@ -71,27 +70,14 @@ export default class Home extends Component {
             }
           }
         />
-        <View
-          style={
-            {
-              bottom: 0,
-              flexDirection: 'row',
-              justifyContent: 'center',
-              left: 0,
-              position: 'absolute',
-              right: 0
+        <ActionBar
+          mainActionIconName='dashboard'
+          mainActionOnPress={
+            () => {
+              this.props.goToContact()
             }
           }
-        >
-          <Icon
-            color={colors.BOLD_GREEN}
-            name='fingerprint'
-            onPress={this.props.goToContact}
-            raised
-            reverse
-            type='material'
-          />
-        </View>
+        />
       </NavigationView>
     )
   }
