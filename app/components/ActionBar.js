@@ -11,7 +11,8 @@ export default class extends Component {
     mainActionIconName: PropTypes.string.isRequired,
     mainActionOnPress: PropTypes.func.isRequired,
     rightActionIconName: PropTypes.string,
-    rightActionOnPress: PropTypes.func
+    rightActionOnPress: PropTypes.func,
+    style: PropTypes.object
   }
 
   render() {
@@ -27,7 +28,8 @@ export default class extends Component {
             justifyContent: 'center',
             left: 0,
             position: 'absolute',
-            right: 0
+            right: 0,
+            ...this.props.style
           }
         }
       >

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Image, View } from 'react-native'
 import { ActionBar, OnboardingHeader } from 'hg/components'
-import { dimensions } from 'hg/constants'
+import { colors, dimensions } from 'hg/constants'
 
 export default class extends Component {
   static propTypes = {
@@ -47,6 +47,11 @@ export default class extends Component {
           mainActionOnPress={
             () => {
               this.props.goToOnboardingRequest()
+            }
+          }
+          style={
+            {
+              backgroundColor: colors.WHITE
             }
           }
         />

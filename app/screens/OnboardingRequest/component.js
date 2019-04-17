@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Keyboard, Picker, Text, View } from 'react-native'
-import { Button, Input } from 'react-native-elements'
-import { OnboardingHeader } from 'hg/components'
+import { Input } from 'react-native-elements'
+import { ActionBar, OnboardingHeader } from 'hg/components'
 import { app, colors, countryCodes, dimensions, fontSizes } from 'hg/constants'
 import { getCurrentTimestamp } from 'hg/utils'
 
-export default class OnboardingRequest extends Component {
+export default class extends Component {
   static propTypes = {
     requestVerificationCode: PropTypes.func.isRequired
   }
@@ -117,20 +117,9 @@ export default class OnboardingRequest extends Component {
             }
           />
         </View>
-        <Button
-          containerStyle={
-            {
-              flex: 1,
-              justifyContent: 'flex-end'
-            }
-          }
-          loading={this.state.isRequesting}
-          loadingProps={
-            {
-              color: colors.TEAL
-            }
-          }
-          onPress={
+        <ActionBar
+          mainActionIconName={this.state.isRequesting ? 'hourglass-empty' : 'phonelink-ring'}
+          mainActionOnPress={
             () => {
               if (this.state.isRequesting) return
 
@@ -151,13 +140,11 @@ export default class OnboardingRequest extends Component {
               this.setState({ timeoutId })
             }
           }
-          title='Request code'
-          titleStyle={
+          style={
             {
-              color: colors.TEAL
+              backgroundColor: colors.WHITE
             }
           }
-          type='clear'
         />
       </View>
     )
