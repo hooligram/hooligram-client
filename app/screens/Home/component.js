@@ -2,8 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { FlatList, View } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { NavigationEvents } from 'react-navigation'
-import { MessageGroupSnippet } from 'hg/components'
+import { MessageGroupSnippet, NavigationView } from 'hg/components'
 import { app, colors } from 'hg/constants'
 import { readIsDirectMessage, readMessageGroups } from 'hg/db'
 
@@ -21,29 +20,24 @@ export default class Home extends Component {
 
   render() {
     return (
-      <View
-        style={{
-          flex: 1
-        }}
-      >
-        <NavigationEvents
-          onWillBlur={
-            () => {
-              clearInterval(this.state.intervalId)
-            }
+      <NavigationView
+        onWillBlur={
+          () => {
+            clearInterval(this.state.intervalId)
           }
-          onWillFocus={
-            () => {
+        }
+        onWillFocus={
+          () => {
+            this.updateMessageGroups()
+
+            const intervalId = setInterval(() => {
               this.updateMessageGroups()
+            }, app.INTERVAL)
 
-              const intervalId = setInterval(() => {
-                this.updateMessageGroups()
-              }, app.INTERVAL)
-
-              this.setState({ intervalId })
-            }
+            this.setState({ intervalId })
           }
-        />
+        }
+      >
         <FlatList
           data={this.state.messageGroups}
           keyExtractor={(messageGroup) => (messageGroup.id.toString())}
@@ -93,7 +87,7 @@ export default class Home extends Component {
             type='material'
           />
         </View>
-      </View>
+      </NavigationView>
     )
   }
 
