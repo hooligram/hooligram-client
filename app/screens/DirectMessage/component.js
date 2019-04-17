@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { FlatList, View } from 'react-native'
-import { Divider, Icon, Input, ListItem, Overlay } from 'react-native-elements'
+import { Icon, Input, ListItem, Overlay } from 'react-native-elements'
 import { ActionBar, MessageCloud, NavigationView } from 'hg/components'
 import { app, colors, dimensions } from 'hg/constants'
 import {
@@ -196,7 +196,6 @@ export default class DirectMessage extends Component {
               }
               title='Remove contact'
             />
-            <Divider/>
             <ListItem
               onPress={
                 () => {

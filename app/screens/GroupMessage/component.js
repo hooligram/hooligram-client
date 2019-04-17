@@ -162,6 +162,7 @@ export default class GroupMessage extends Component {
           rightActionOnPress={rightActionOnPress}
         />
         <Overlay
+          height='auto'
           isVisible={this.state.isMoreOverlayVisible}
         >
           <View>
