@@ -108,13 +108,11 @@ export default class extends Component {
         }
       })
       .then((recipientSid) => {
-        console.log('recipientSid', recipientSid)
         if (!recipientSid) return
 
         return readContact(recipientSid)
       })
       .then((contact) => {
-        console.log('contact', contact)
         this.setState({ directMessageRecipient: contact.name ? contact.name : contact.sid })
         this.setState({ directMessageSid: contact ? contact.sid : '' })
       })
