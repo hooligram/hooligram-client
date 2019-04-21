@@ -55,7 +55,7 @@ export default store => next => action => {
       if (actionType === actions.GO_TO_CONTACT_EDIT) {
         navigateTo(routes.CONTACT_EDIT, {
           contactSid: action.payload.contact_sid,
-          goBack: action.payload.go_back
+          goBack: action.payload.should_go_back
         })
       }
 
@@ -74,7 +74,7 @@ export default store => next => action => {
       if (actionType === actions.GO_TO_CONTACT_EDIT) {
         navigateTo(routes.CONTACT_EDIT, {
           contactSid: action.payload.contact_sid,
-          goBack: action.payload.go_back
+          goBack: action.payload.should_go_back
         })
       }
 
