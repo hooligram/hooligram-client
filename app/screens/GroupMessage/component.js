@@ -111,6 +111,7 @@ export default class GroupMessage extends Component {
                   <MessageCloud
                     currentUserSid={this.props.currentUserSid}
                     message={item.item}
+                    shouldShowName={item.item.sender_sid !== this.props.currentUserSid}
                   />
                 </View>
               )
