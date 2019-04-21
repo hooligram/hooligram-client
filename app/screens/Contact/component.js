@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { FlatList, ToastAndroid, View } from 'react-native'
-import { NavigationEvents } from 'react-navigation'
-import { ActionBar, ContactSnippet } from 'hg/components'
+import { ActionBar, ContactSnippet, NavigationView } from 'hg/components'
 import { readContactDirectMessageGroupId, readContacts } from 'hg/db'
 import { getCurrentTimestamp } from 'hg/utils'
 
@@ -18,18 +17,13 @@ export default class Contact extends Component {
 
   render() {
     return (
-      <View
-        style={{
-          flex: 1
-        }}
-      >
-        <NavigationEvents
-          onWillFocus={
-            () => {
-              this.updateContacts()
-            }
+      <NavigationView
+        onWillFocus={
+          () => {
+            this.updateContacts()
           }
-        />
+        }
+      >
         <FlatList
           data={this.state.contacts}
           keyExtractor={
@@ -89,7 +83,7 @@ export default class Contact extends Component {
             }
           }
         />
-      </View>
+      </NavigationView>
     )
   }
 
@@ -97,7 +91,7 @@ export default class Contact extends Component {
     readContacts()
       .then((contacts) => {
         const added = contacts.filter((contact) => {
-          return contact.status === 0
+          return contact.status === 0 && contact.sid !== this.props.currentUserSid
         })
         this.setState({ contacts: added })
       })
