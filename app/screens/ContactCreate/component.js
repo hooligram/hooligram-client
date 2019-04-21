@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Picker, ToastAndroid, View } from 'react-native'
-import { Icon, Input, Text } from 'react-native-elements'
-import { colors, countryCodes, dimensions, fontSizes } from 'hg/constants'
-import { createContact } from 'hg/db'
+import { Input, Text } from 'react-native-elements'
+import { ActionBar } from 'hg/components'
+import { countryCodes, dimensions, fontSizes } from 'hg/constants'
+import { createContact, updateContactStatus } from 'hg/db'
 import { constructSid } from 'hg/utils'
 
 export default class ContactCreate extends Component {
@@ -103,77 +104,51 @@ export default class ContactCreate extends Component {
             }
           />
         </View>
-        <View
-          style={
-            {
-              bottom: 0,
-              flexDirection: 'row',
-              justifyContent: 'center',
-              left: 0,
-              position: 'absolute',
-              right: 0
+        <ActionBar
+          leftActionIconName='arrow-back'
+          leftActionOnPress={
+            () => {
+              this.props.navigation.goBack()
             }
           }
-        >
-          <Icon
-            color={colors.BOLD_GREEN}
-            name='arrow-back'
-            onPress={
-              () => {
-                this.props.navigation.goBack()
-              }
-            }
-            raised
-            type='material'
-          />
-          <Icon
-            color={colors.BOLD_GREEN}
-            name='done'
-            onPress={
-              () => {
-                const countryCode = countryCodes[this.state.selection].code
-                const sid = constructSid(countryCode, this.state.phoneNumber)
+          mainActionIconName='done'
+          mainActionOnPress={
+            () => {
+              const countryCode = countryCodes[this.state.selection].code
+              const sid = constructSid(countryCode, this.state.phoneNumber)
 
-                if (this.state.phoneNumber.length < 1) {
-                  ToastAndroid.showWithGravity(
-                    'Enter contact phone number.',
-                    ToastAndroid.SHORT,
-                    ToastAndroid.CENTER
-                  )
-                  return
-                }
-
-                createContact(sid)
-                  .then(() => {
-                    this.props.goToContactEdit(sid)
-                  })
+              if (this.state.phoneNumber.length < 1) {
+                ToastAndroid.showWithGravity(
+                  'Enter contact phone number.',
+                  ToastAndroid.SHORT,
+                  ToastAndroid.CENTER
+                )
+                return
               }
-            }
-            raised
-            reverse
-            type='material'
-          />
-          <Icon
-            color={colors.BOLD_GREEN}
-            name='clear'
-            onPress={
-              () => {
-                if (this.state.phoneNumber === '') {
-                  ToastAndroid.showWithGravity(
-                    'Everything is cleared.',
-                    ToastAndroid.SHORT,
-                    ToastAndroid.CENTER
-                  )
-                  return
-                }
 
-                this.setState({ phoneNumber: '' })
-              }
+              createContact(sid)
+                .then(() => {
+                  updateContactStatus(sid, 0)
+                  this.props.goToContactEdit(sid)
+                })
             }
-            raised
-            type='material'
-          />
-        </View>
+          }
+          rightActionIconName='clear'
+          rightActionOnPress={
+            () => {
+              if (this.state.phoneNumber === '') {
+                ToastAndroid.showWithGravity(
+                  'Everything is cleared.',
+                  ToastAndroid.SHORT,
+                  ToastAndroid.CENTER
+                )
+                return
+              }
+
+              this.setState({ phoneNumber: '' })
+            }
+          }
+        />
       </View>
     )
   }

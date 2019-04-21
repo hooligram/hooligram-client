@@ -1,4 +1,5 @@
-import authorizationReducer, { initialState } from 'hg/reducers/authorization/authorization'
+import authorizationReducer from 'hg/reducers/authorization'
+import authorizationInit from 'hg/reducers/authorization/init'
 
 describe('authorization reducer', () => {
   describe('initially', () => {
@@ -11,8 +12,7 @@ describe('authorization reducer', () => {
 
     it('should return correct initial state', () => {
       const nextState = authorizationReducer(state, action)
-
-      expect(nextState).toEqual(initialState)
+      expect(nextState).toEqual(authorizationInit)
     })
   })
 
@@ -24,17 +24,16 @@ describe('authorization reducer', () => {
         payload: {}
       }
       state = {
-        ...initialState
+        ...authorizationInit
       }
     })
 
-    it('should not update token, phone_number & country_code from payload', () => {
+    it('should not update country_code, phone_number & verification_code from payload', () => {
       const nextState = authorizationReducer(state, action)
-
       expect(nextState).toEqual({
         country_code: '',
         phone_number: '',
-        token: ''
+        verification_code: ''
       })
     })
   })

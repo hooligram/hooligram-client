@@ -1,3 +1,1 @@
-import authorization from 'hg/reducers/authorization/authorization'
-
-export default authorization
+export { default } from './authorization'

@@ -1,47 +1,34 @@
 import { actions } from 'hg/constants'
+import init from './init'
 
-export const initialState = {
-  country_code: '',
-  phone_number: '',
-  token: ''
-}
-
-const authorization = (state = initialState, action) => {
+export default (state = init, action) => {
   switch (action.type) {
     case actions.SIGN_OUT: {
       return {
         ...state,
         country_code: '',
         phone_number: '',
-        token: ''
+        verification_code: ''
       }
     }
 
     case actions.VERIFICATION_REQUEST_CODE_REQUEST: {
-      const {
-        payload: {
-          country_code,
-          phone_number
-        }
-      } = action
+      const countryCode = action.payload.country_code
+      const phoneNumber = action.payload.phone_number
 
       return {
         ...state,
-        country_code,
-        phone_number
+        country_code: countryCode,
+        phone_number: phoneNumber
       }
     }
 
     case actions.VERIFICATION_SUBMIT_CODE_REQUEST: {
-      const {
-        payload: {
-          verification_code
-        }
-      } = action
+      const verificationCode = action.payload.verification_code
 
       return {
         ...state,
-        token: verification_code
+        verification_code: verificationCode
       }
     }
 
@@ -50,5 +37,3 @@ const authorization = (state = initialState, action) => {
     }
   }
 }
-
-export default authorization

@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { FlatList, View } from 'react-native'
-import { Icon } from 'react-native-elements'
-import { NavigationEvents } from 'react-navigation'
-import { MessageGroupSnippet } from 'hg/components'
-import { app, colors } from 'hg/constants'
+import { FlatList } from 'react-native'
+import { ActionBar, MessageGroupSnippet, NavigationView } from 'hg/components'
+import { app } from 'hg/constants'
 import { readIsDirectMessage, readMessageGroups } from 'hg/db'
 
 export default class Home extends Component {
@@ -12,7 +10,12 @@ export default class Home extends Component {
     headerTitle: 'Hooligram'
   }
 
-  static propTypes = {}
+  static propTypes = {
+    currentUserSid: PropTypes.string.isRequired,
+    goToContact: PropTypes.func.isRequired,
+    goToDirectMessage: PropTypes.func.isRequired,
+    goToGroupMessage: PropTypes.func.isRequired
+  }
 
   state = {
     intervalId: 0,
@@ -21,29 +24,24 @@ export default class Home extends Component {
 
   render() {
     return (
-      <View
-        style={{
-          flex: 1
-        }}
-      >
-        <NavigationEvents
-          onWillBlur={
-            () => {
-              clearInterval(this.state.intervalId)
-            }
+      <NavigationView
+        onWillBlur={
+          () => {
+            clearInterval(this.state.intervalId)
           }
-          onWillFocus={
-            () => {
+        }
+        onWillFocus={
+          () => {
+            this.updateMessageGroups()
+
+            const intervalId = setInterval(() => {
               this.updateMessageGroups()
+            }, app.INTERVAL)
 
-              const intervalId = setInterval(() => {
-                this.updateMessageGroups()
-              }, app.INTERVAL)
-
-              this.setState({ intervalId })
-            }
+            this.setState({ intervalId })
           }
-        />
+        }
+      >
         <FlatList
           data={this.state.messageGroups}
           keyExtractor={(messageGroup) => (messageGroup.id.toString())}
@@ -72,28 +70,15 @@ export default class Home extends Component {
             }
           }
         />
-        <View
-          style={
-            {
-              bottom: 0,
-              flexDirection: 'row',
-              justifyContent: 'center',
-              left: 0,
-              position: 'absolute',
-              right: 0
+        <ActionBar
+          mainActionIconName='dashboard'
+          mainActionOnPress={
+            () => {
+              this.props.goToContact()
             }
           }
-        >
-          <Icon
-            color={colors.BOLD_GREEN}
-            name='fingerprint'
-            onPress={this.props.goToContact}
-            raised
-            reverse
-            type='material'
-          />
-        </View>
-      </View>
+        />
+      </NavigationView>
     )
   }
 

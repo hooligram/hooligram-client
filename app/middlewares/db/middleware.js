@@ -1,5 +1,5 @@
 import { messagingDeliverSuccess } from 'hg/actions'
-import { actions } from 'hg/constants'
+import { actions, groupTypes } from 'hg/constants'
 import {
   createContact,
   createDirectMessage,
@@ -16,6 +16,7 @@ export default (store) => (next) => (action) => {
     const dateCreated = action.payload.date_created
     const groupId = action.payload.group_id
     const groupName = action.payload.group_name
+    const groupType = action.payload.group_type
     const memberSids = action.payload.member_sids
 
     memberSids.forEach((sid) => {
@@ -24,7 +25,7 @@ export default (store) => (next) => (action) => {
 
     createMessageGroup(groupId, groupName, dateCreated, memberSids)
 
-    if (memberSids.length == 2) {
+    if (groupType === groupTypes.DIRECT_MESSAGE) {
       const userSid = currentUserSid(store.getState())
 
       const recipientSid = memberSids.reduce((result, sid) => {

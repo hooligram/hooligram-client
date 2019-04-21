@@ -1,18 +1,15 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Image, View } from 'react-native'
-import { Button } from 'react-native-elements'
-import { OnboardingHeader } from 'hg/components'
-import { app, colors, dimensions } from 'hg/constants'
+import { ActionBar, OnboardingHeader } from 'hg/components'
+import { colors, dimensions } from 'hg/constants'
 
-export default class OnboardingAgree extends Component {
+export default class extends Component {
   static propTypes = {
     goToOnboardingRequest: PropTypes.func.isRequired
   }
 
-  state = {
-    isLoading: false
-  }
+  state = {}
 
   render() {
     return (
@@ -45,35 +42,18 @@ export default class OnboardingAgree extends Component {
             title='Welcome to Hooligram'
           />
         </View>
-        <Button
-          loading={this.state.isLoading}
-          loadingProps={
-            {
-              color: colors.BOLD_GREEN
-            }
-          }
-          onPress={
+        <ActionBar
+          mainActionIconName='check'
+          mainActionOnPress={
             () => {
-              if (this.state.isLoading) return
-
-              this.setState({ isLoading: true })
-
-              setTimeout(
-                () => {
-                  this.setState({ isLoading: false })
-                  this.props.goToOnboardingRequest()
-                },
-                app.TIMEOUT_LONG
-              )
+              this.props.goToOnboardingRequest()
             }
           }
-          title='Continue'
-          titleStyle={
+          style={
             {
-              color: colors.BOLD_GREEN
+              backgroundColor: colors.WHITE
             }
           }
-          type='clear'
         />
       </View>
     )

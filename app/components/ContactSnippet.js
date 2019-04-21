@@ -70,7 +70,7 @@ export default class extends Component {
               <Icon
                 iconStyle={
                   {
-                    color: colors.BOLD_GREEN
+                    color: colors.TEAL
                   }
                 }
                 name='done'

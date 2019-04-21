@@ -11,7 +11,7 @@ export default class GroupMessage extends Component {
     return {
       headerRight: (
         <Icon
-          color={colors.BOLD_GREEN}
+          color={colors.TEAL}
           name='more-vert'
           onPress={navigation.getParam('onPressHeaderRight', () => {})}
           type='material'
@@ -111,6 +111,7 @@ export default class GroupMessage extends Component {
                   <MessageCloud
                     currentUserSid={this.props.currentUserSid}
                     message={item.item}
+                    shouldShowName={item.item.sender_sid !== this.props.currentUserSid}
                   />
                 </View>
               )
@@ -118,6 +119,11 @@ export default class GroupMessage extends Component {
           }
         />
         <Input
+          containerStyle={
+            {
+              paddingBottom: dimensions.LENGTH_50
+            }
+          }
           onBlur={
             () => {
               this.setState({ isInputFocused: false })
@@ -146,7 +152,10 @@ export default class GroupMessage extends Component {
           mainActionIconName='send'
           mainActionOnPress={
             () => {
-              if (!this.state.message) return
+              if (!this.state.message) {
+                this.messageRef.focus()
+                return
+              }
 
               this.props.messagingSendRequest(this.state.groupId, this.state.message)
               this.updateMessages()
@@ -157,6 +166,7 @@ export default class GroupMessage extends Component {
           rightActionOnPress={rightActionOnPress}
         />
         <Overlay
+          height='auto'
           isVisible={this.state.isMoreOverlayVisible}
         >
           <View>

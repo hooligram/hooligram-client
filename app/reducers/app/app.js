@@ -1,11 +1,7 @@
 import { actions } from 'hg/constants'
+import init from './init'
 
-export const initialState = {
-  isSignedIn: false,
-  isWebsocketOnline: false
-}
-
-const app = (state = initialState, action) => {
+export default (state = init, action) => {
   switch (action.type) {
     case actions.SIGN_IN: {
       return {
@@ -40,5 +36,3 @@ const app = (state = initialState, action) => {
     }
   }
 }
-
-export default app

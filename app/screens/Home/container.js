@@ -15,10 +15,6 @@ const mapDispatchToProps = (dispatch) => {
 
     goToGroupMessage: (groupId) => {
       dispatch(goToGroupMessage(groupId))
-    },
-
-    signOut: () => {
-      dispatch(signOut())
     }
   }
 }

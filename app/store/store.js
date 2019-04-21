@@ -9,7 +9,7 @@ import {
 } from 'hg/middlewares'
 import { asyncStorage } from 'hg/persistence'
 import reducer from 'hg/reducers'
-import { initialState } from 'hg/reducers/app/app'
+import appInit from 'hg/reducers/app/init'
 
 export default asyncStorage.loadObject(app.STORE_STORAGE_KEY).then((saved) => {
   const preloaded = Object.assign(
@@ -21,7 +21,7 @@ export default asyncStorage.loadObject(app.STORE_STORAGE_KEY).then((saved) => {
       ...(saved ? saved : {}),
     },
     {
-      app: initialState
+      app: appInit
     }
   )
   const store = createStore(reducer, preloaded, applyMiddleware(...middlewares))
