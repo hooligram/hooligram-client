@@ -3,7 +3,6 @@ import {
   goToContactCreate,
   goToDirectMessage,
   goToGroupCreate,
-  goToGroupMessage,
   groupCreateRequest
 } from 'hg/actions'
 import { currentUserSid } from 'hg/selectors'
@@ -15,16 +14,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(goToContactCreate())
     },
 
-    goToGroupCreate: () => {
-      dispatch(goToGroupCreate())
-    },
-
     goToDirectMessage: (groupId) => {
       dispatch(goToDirectMessage(groupId))
     },
 
-    goToGroupMessage: (groupId) => {
-      dispatch(goToGroupMessage(groupId))
+    goToGroupCreate: () => {
+      dispatch(goToGroupCreate())
     },
 
     groupCreateRequest: (actionId, groupName, memberSids) => {

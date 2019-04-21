@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { FlatList, ToastAndroid, View } from 'react-native'
 import { ActionBar, ContactSnippet, NavigationView } from 'hg/components'
@@ -9,7 +10,14 @@ export default class Contact extends Component {
     headerTitle: 'Contacts'
   }
 
-  static propTypes = {}
+  static propTypes = {
+    currentUserSid: PropTypes.string.isRequired,
+    goToContactCreate: PropTypes.func.isRequired,
+    goToDirectMessage: PropTypes.func.isRequired,
+    goToGroupCreate: PropTypes.func.isRequired,
+    goToGroupMessage: PropTypes.func.isRequired,
+    groupCreateRequest: PropTypes.func.isRequired
+  }
 
   state = {
     contacts: []
