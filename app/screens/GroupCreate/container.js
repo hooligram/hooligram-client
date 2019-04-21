@@ -1,6 +1,10 @@
 import { connect } from 'react-redux'
 import { groupCreateRequest } from 'hg/actions'
-import { currentUserCountryCode, currentUserPhoneNumber } from 'hg/selectors'
+import {
+  currentUserCountryCode,
+  currentUserPhoneNumber,
+  currentUserSid
+} from 'hg/selectors'
 import component from './component'
 
 const mapDispatchToProps = (dispatch) => {
@@ -12,12 +16,10 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-  const countryCode = currentUserCountryCode(state)
-  const phoneNumber = currentUserPhoneNumber(state)
-
   return {
-    countryCode,
-    phoneNumber
+    countryCode: currentUserCountryCode(state),
+    currentUserSid: currentUserSid(state),
+    phoneNumber: currentUserPhoneNumber(state)
   }
 }
 

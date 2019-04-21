@@ -14,6 +14,7 @@ export default class GroupCreate extends Component {
 
   static propTypes = {
     countryCode: PropTypes.string.isRequired,
+    currentUserSid: PropTypes.string.isRequired,
     groupCreateRequest: PropTypes.func.isRequired,
     phoneNumber: PropTypes.string.isRequired
   }
@@ -68,7 +69,7 @@ export default class GroupCreate extends Component {
             readContacts()
               .then((contacts) => {
                 const userContacts = contacts.filter((contact) => {
-                  return contact.status === 0
+                  return contact.status === 0 && contact.sid !== this.props.currentUserSid
                 })
                 this.setState({ contacts: userContacts })
               })
