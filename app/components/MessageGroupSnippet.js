@@ -115,7 +115,7 @@ export default class extends Component {
       })
       .then((contact) => {
         console.log('contact', contact)
-        this.setState({ directMessageRecipient: contact ? contact.name : '' })
+        this.setState({ directMessageRecipient: contact.name ? contact.name : contact.sid })
         this.setState({ directMessageSid: contact ? contact.sid : '' })
       })
 
