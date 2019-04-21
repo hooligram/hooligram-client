@@ -15,7 +15,6 @@ export default class Contact extends Component {
     goToContactCreate: PropTypes.func.isRequired,
     goToDirectMessage: PropTypes.func.isRequired,
     goToGroupCreate: PropTypes.func.isRequired,
-    goToGroupMessage: PropTypes.func.isRequired,
     groupCreateRequest: PropTypes.func.isRequired
   }
 

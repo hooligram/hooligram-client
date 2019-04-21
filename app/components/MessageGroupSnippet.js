@@ -113,6 +113,7 @@ export default class extends Component {
         return readContact(recipientSid)
       })
       .then((contact) => {
+        if (!contact) return
         this.setState({ directMessageRecipient: contact.name ? contact.name : contact.sid })
         this.setState({ directMessageSid: contact ? contact.sid : '' })
       })
