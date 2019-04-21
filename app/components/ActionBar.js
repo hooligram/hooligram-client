@@ -33,21 +33,21 @@ export default class extends Component {
           }
         }
       >
-        {
-          this.props.leftActionIconName &&
-          <View
-            style={
-              {
-                flex: 0.30
-              }
+        <View
+          style={
+            {
+              flex: 0.30
             }
-          >
+          }
+        >
+          {
+            this.props.leftActionIconName &&
             <TouchIcon
-              name={this.props.leftActionIconName}
+              name={this.props.leftActionIconName || 'not-interested'}
               onPress={this.props.leftActionOnPress}
             />
-          </View>
-        }
+          }
+        </View>
         <View
           style={
             {
@@ -60,21 +60,21 @@ export default class extends Component {
             onPress={this.props.mainActionOnPress}
           />
         </View>
-        {
-          this.props.rightActionIconName &&
-          <View
-            style={
-              {
-                flex: 0.30
-              }
+        <View
+          style={
+            {
+              flex: 0.30
             }
-          >
+          }
+        >
+          {
+            this.props.rightActionIconName &&
             <TouchIcon
-              name={this.props.rightActionIconName}
+              name={this.props.rightActionIconName || 'not-interested'}
               onPress={this.props.rightActionOnPress}
             />
-          </View>
-        }
+          }
+        </View>
       </View>
     )
   }
