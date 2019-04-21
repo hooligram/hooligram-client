@@ -151,7 +151,10 @@ export default class DirectMessage extends Component {
           mainActionIconName='send'
           mainActionOnPress={
             () => {
-              if (!this.state.message) return
+              if (!this.state.message) {
+                this.inputRef.focus()
+                return
+              }
 
               this.props.messagingSendRequest(this.state.groupId, this.state.message)
               this.updateMessages()
