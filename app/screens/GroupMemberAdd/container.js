@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { goToGroupMessage, groupAddMemberRequest } from 'hg/actions'
+import { currentUserSid } from 'hg/selectors'
 import component from './component'
 
 const mapDispatchToProps = (dispatch) => {
@@ -15,7 +16,9 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    currentUserSid: currentUserSid(state)
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(component)
