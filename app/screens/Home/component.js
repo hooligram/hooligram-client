@@ -1,3 +1,4 @@
+import moment from 'moment'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { FlatList } from 'react-native'
@@ -43,7 +44,17 @@ export default class Home extends Component {
         }
       >
         <FlatList
-          data={this.state.messageGroups}
+          data={this.state.messageGroups
+            .sort((a, b) => {
+              if (moment(a.date_updated).isSame(b.date_updated)) {
+                if (moment(a.date_created).isSame(b.date_created)) return 0
+                return moment(a.date_created).isAfter(b.date_created) ? 1 : -1;
+              }
+
+              return moment(a.date_updated).isAfter(b.date_updated) ? 1 : -1;
+            })
+            .reverse()
+          }
           keyExtractor={(messageGroup) => (messageGroup.id.toString())}
           renderItem={
             (item) => {

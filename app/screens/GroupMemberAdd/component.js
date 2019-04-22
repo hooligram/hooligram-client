@@ -29,7 +29,7 @@ export default class GroupMemberAdd extends Component {
             readContacts()
               .then((contacts) => {
                 const added = contacts.filter((contact) => {
-                  return contact.added
+                  return contact.status === 0 && contact.sid !== this.props.currentUserSid
                 })
                 this.setState({ contacts: added })
               })
