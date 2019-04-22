@@ -4,7 +4,8 @@ import {
   createContact,
   createDirectMessage,
   createMessage,
-  createMessageGroup
+  createMessageGroup,
+  updateMessageGroupDateUpdated
 } from 'hg/db'
 import { currentUserSid } from 'hg/selectors'
 import { getCurrentTimestamp } from 'hg/utils'
@@ -23,14 +24,13 @@ export default (store) => (next) => (action) => {
       createContact(sid)
     })
 
-    createMessageGroup(groupId, groupName, dateCreated, memberSids)
+    createMessageGroup(groupId, groupName, dateCreated, dateCreated, memberSids)
 
     if (groupType === groupTypes.DIRECT_MESSAGE) {
       const userSid = currentUserSid(store.getState())
 
       const recipientSid = memberSids.reduce((result, sid) => {
         if (sid == userSid) return result
-
         return sid
       }, '')
 
@@ -48,6 +48,7 @@ export default (store) => (next) => (action) => {
     const senderSid = action.payload.sender_sid
     createMessage(id, content, dateCreated, messageGroupId, senderSid)
       .then(() => {
+        updateMessageGroupDateUpdated(messageGroupId, dateCreated)
         const actionId = getCurrentTimestamp()
         store.dispatch(messagingDeliverSuccess(actionId, id))
       })

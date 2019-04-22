@@ -14,5 +14,6 @@ export {
   readMessageGroups,
   readMessages,
   updateContactName,
-  updateContactStatus
+  updateContactStatus,
+  updateMessageGroupDateUpdated
 } from './sqlite'
