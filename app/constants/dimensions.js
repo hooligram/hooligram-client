@@ -25,5 +25,6 @@ export default {
   PADDING_LARGE: 12,
   PADDING_XLARGE: 16,
 
-  PERCENT_50: '50%'
+  PERCENT_50: '50%',
+  PERCENT_80: '80%'
 }

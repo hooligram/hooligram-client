@@ -16,48 +16,46 @@ export default class extends Component {
 
   render() {
     return (
-      <View>
-        <View
+      <View
+        style={
+          {
+            alignSelf: this.props.isOwnMessage ? 'flex-end' : 'flex-start',
+            backgroundColor: colors.TEA_GREEN,
+            borderRadius: dimensions.BORDER_RADIUS,
+            maxWidth: dimensions.PERCENT_80,
+            padding: dimensions.PADDING
+          }
+        }
+      >
+        {
+          !this.props.isOwnMessage
+          ?
+          (
+            this.props.senderName &&
+            <Text>{this.props.senderName}</Text>
+          )
+          :
+          null
+        }
+        <Text
           style={
             {
-              alignSelf: this.props.isOwnMessage ? 'flex-end' : 'flex-start',
-              backgroundColor: colors.TEA_GREEN,
-              borderRadius: dimensions.BORDER_RADIUS,
-              maxWidth: '80%',
-              padding: dimensions.PADDING
+              color: colors.BLACK,
+              fontSize: fontSizes.MEDIUM
             }
           }
         >
-          {
-            !this.props.isOwnMessage
-            ?
-            (
-              this.props.senderName &&
-              <Text>{this.props.senderName}</Text>
-            )
-            :
-            null
+          {this.props.message.content}
+        </Text>
+        <Text
+          style={
+            {
+              textAlign: 'right'
+            }
           }
-          <Text
-            style={
-              {
-                color: colors.BLACK,
-                fontSize: fontSizes.MEDIUM
-              }
-            }
-          >
-            {this.props.message.content}
-          </Text>
-          <Text
-            style={
-              {
-                textAlign: 'right'
-              }
-            }
-          >
-            {moment(this.props.message.dateCreated).format('YYYY-MM-DD h:mm A')}
-          </Text>
-        </View>
+        >
+          {moment(this.props.message.dateCreated).format('YYYY-MM-DD h:mm A')}
+        </Text>
       </View>
     )
   }
