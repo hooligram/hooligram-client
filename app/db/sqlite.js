@@ -25,6 +25,7 @@ SQLite.openDatabase({ name: 'hooligram-v2-client.db' })
       CREATE TABLE IF NOT EXISTS message_group (
         id INTEGER PRIMARY KEY,
         name TEXT NOT NULL,
+        type INTEGER NOT NULL,
         date_created TEXT NOT NULL,
         date_updated TEXT NOT NULL
       );
@@ -113,16 +114,18 @@ export const createMessage = async (id, content, dateCreated, messageGroupId, se
   `, [id, content, dateCreated, messageGroupId, senderSid])
 }
 
-export const createMessageGroup = async (id, name, dateCreated, dateUpdated, contactSids) => {
+export const createMessageGroup = async (
+  id, name, groupType, dateCreated, dateUpdated, contactSids
+) => {
   if (!instance) return Promise.reject(new Error('db instance error'))
 
   return instance
     .transaction((tx) => {
       tx.executeSql(`
-        INSERT OR REPLACE INTO message_group (
-          id, name, date_created, date_updated
-        ) VALUES ( ?, ?, ?, ? );
-      `, [id, name, dateCreated, dateUpdated])
+        INSERT OR IGNORE INTO message_group (
+          id, name, type, date_created, date_updated
+        ) VALUES ( ?, ?, ?, ?, ? );
+      `, [id, name, groupType, dateCreated, dateUpdated])
 
       contactSids.forEach((sid) => {
         tx.executeSql('INSERT OR IGNORE INTO contact ( sid ) VALUES ( ? );', [sid])
@@ -211,7 +214,7 @@ export const readMessageGroup = async (groupId) => {
   if (!instance) return Promise.reject(new Error('db instance error'))
 
   return instance.executeSql(`
-    SELECT id, name, date_created, date_updated FROM message_group WHERE id = ?;
+    SELECT id, name, type, date_created, date_updated FROM message_group WHERE id = ?;
   `, [groupId])
     .then(([result]) => {
       if (result.rows.length < 1) return {}
@@ -240,7 +243,9 @@ export const readMessageGroupContacts = async (messageGroupId) => {
 export const readMessageGroups = async () => {
   if (!instance) return Promise.reject(new Error('db instance error'))
 
-  return instance.executeSql('SELECT id, name, date_created, date_updated FROM message_group;')
+  return instance.executeSql(`
+    SELECT id, name, type, date_created, date_updated FROM message_group;
+  `)
     .then(([results]) => {
       const messageGroups = []
 
