@@ -68,23 +68,22 @@ export default class GroupMessage extends Component {
         }
         onWillFocus={
           (payload) => {
-            if (!payload.action || !payload.action.params) return
-
-            const groupId = payload.action.params.groupId
-            this.setState({ groupId })
+            if (payload.action && payload.action.params) {
+              const groupId = payload.action.params.groupId
+              this.setState({ groupId })
+            }
 
             this.updateMessages()
             const intervalId = setInterval(() => {
               this.updateMessages()
+              readMessageGroup(this.state.groupId)
+                .then((messageGroup) => {
+                  this.props.navigation.setParams({
+                    groupName: messageGroup.name
+                  })
+                })
             }, app.INTERVAL)
             this.setState({ intervalId })
-
-            readMessageGroup(groupId)
-              .then((messageGroup) => {
-                this.props.navigation.setParams({
-                  groupName: messageGroup.name
-                })
-              })
           }
         }
         style={
