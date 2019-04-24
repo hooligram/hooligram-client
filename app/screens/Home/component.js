@@ -136,7 +136,6 @@ export default class Home extends Component {
                 contacts.forEach((sid) => {
                   if (sid === this.props.currentUserSid) return
 
-                  directMessageRecipient[messageGroup.id] = sid
                   readContact(sid)
                     .then((contact) => {
                       directMessageRecipient[messageGroup.id] = {

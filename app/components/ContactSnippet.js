@@ -66,7 +66,8 @@ export default class extends Component {
             <Text>{this.props.contact.sid}</Text>
           </View>
           {
-            this.props.isSelected &&
+            this.props.isSelected
+            &&
               <Icon
                 iconStyle={
                   {
