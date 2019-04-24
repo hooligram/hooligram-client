@@ -109,8 +109,13 @@ export default class DirectMessage extends Component {
                   }
                 >
                   <MessageCloud
-                    currentUserSid={this.props.currentUserSid}
-                    message={item.item}
+                    isOwnMessage={item.item.sender_sid === this.props.currentUserSid}
+                    message={
+                      {
+                        content: item.item.content,
+                        dateCreated: item.item.date_created
+                      }
+                    }
                   />
                 </View>
               )

@@ -3,7 +3,14 @@ import { FlatList, Text, View } from 'react-native'
 import { Icon, Input, ListItem, Overlay } from 'react-native-elements'
 import { ActionBar, MessageCloud, NavigationView } from 'hg/components'
 import { app, colors, dimensions } from 'hg/constants'
-import { readIsDirectMessage, readMessageGroup, readMessages } from 'hg/db'
+import {
+  readContact,
+  readMessageGroup,
+  readMessageGroupContacts,
+  readMessages
+} from 'hg/db'
+
+const contactSidName = {}
 
 export default class GroupMessage extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -26,7 +33,6 @@ export default class GroupMessage extends Component {
   state = {
     groupId: 0,
     intervalId: 0,
-    isDirectMessage: false,
     isInputFocused: false,
     isMoreOverlayVisible: false,
     messages: [],
@@ -73,11 +79,6 @@ export default class GroupMessage extends Component {
             }, app.INTERVAL)
             this.setState({ intervalId })
 
-            readIsDirectMessage(groupId)
-              .then((isDirectMessage) => {
-                this.setState({ isDirectMessage })
-              })
-
             readMessageGroup(groupId)
               .then((messageGroup) => {
                 this.props.navigation.setParams({
@@ -109,9 +110,14 @@ export default class GroupMessage extends Component {
                   }
                 >
                   <MessageCloud
-                    currentUserSid={this.props.currentUserSid}
-                    message={item.item}
-                    shouldShowName={item.item.sender_sid !== this.props.currentUserSid}
+                    isOwnMessage={item.item.sender_sid === this.props.currentUserSid}
+                    message={
+                      {
+                        content: item.item.content,
+                        dateCreated: item.item.date_created
+                      }
+                    }
+                    senderName={contactSidName[item.item.sender_sid]}
                   />
                 </View>
               )
@@ -214,6 +220,15 @@ export default class GroupMessage extends Component {
     readMessages(this.state.groupId)
       .then((messages) => {
         this.setState({ messages })
+        return readMessageGroupContacts(this.state.groupId)
+      })
+      .then((contactSids) => {
+        contactSids.forEach((contactSid) => {
+          readContact(contactSid)
+            .then((contact) => {
+              contactSidName[contact.sid] = contact.name
+            })
+        })
       })
   }
 }
