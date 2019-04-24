@@ -61,15 +61,16 @@ export default class Home extends Component {
           keyExtractor={(messageGroup) => (messageGroup.id.toString())}
           renderItem={
             (item) => {
+              const messageGroup = item.item
               return (
-                item.item.type === groupTypes.DIRECT_MESSAGE
+                messageGroup.type === groupTypes.DIRECT_MESSAGE
                 ?
                 (
-                  directMessageRecipient[item.item.id]
+                  directMessageRecipient[messageGroup.id]
                   ?
                   <DirectMessageSnippet
                     recipient={
-                      directMessageRecipient[item.item.id]
+                      directMessageRecipient[messageGroup.id]
                       ||
                       {
                         name: '',
@@ -78,7 +79,7 @@ export default class Home extends Component {
                     }
                     onPress={
                       () => {
-                        const groupId = item.item.id
+                        const groupId = messageGroup.id
                         this.props.goToDirectMessage(groupId)
                       }
                     }
@@ -88,19 +89,19 @@ export default class Home extends Component {
                 )
                 :
                 (
-                  groupNumOfParticipants[item.item.id]
+                  groupNumOfParticipants[messageGroup.id]
                   ?
                   <MessageGroupSnippet
                     messageGroup={
                       {
-                        id: item.item.id,
-                        name: item.item.name,
-                        numOfParticipants: groupNumOfParticipants[item.item.id]
+                        id: messageGroup.id,
+                        name: messageGroup.name,
+                        numOfParticipants: groupNumOfParticipants[messageGroup.id]
                       }
                     }
                     onPress={
                       () => {
-                        const groupId = item.item.id
+                        const groupId = messageGroup.id
                         this.props.goToGroupMessage(groupId)
                       }
                     }
