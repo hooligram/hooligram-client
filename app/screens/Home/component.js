@@ -2,9 +2,11 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { FlatList } from 'react-native'
-import { ActionBar, MessageGroupSnippet, NavigationView } from 'hg/components'
-import { app } from 'hg/constants'
-import { readIsDirectMessage, readMessageGroups } from 'hg/db'
+import { ActionBar, DirectMessageSnippet, MessageGroupSnippet, NavigationView } from 'hg/components'
+import { app, groupTypes } from 'hg/constants'
+import { readContact, readMessageGroupContacts, readMessageGroups } from 'hg/db'
+
+const directMessageRecipient = {}
 
 export default class Home extends Component {
   static navigationOptions = {
@@ -59,20 +61,37 @@ export default class Home extends Component {
           renderItem={
             (item) => {
               return (
+                item.item.type === groupTypes.DIRECT_MESSAGE
+                ?
+                (
+                  directMessageRecipient[item.item.id]
+                  ?
+                  <DirectMessageSnippet
+                    recipient={
+                      directMessageRecipient[item.item.id]
+                      ||
+                      {
+                        name: '',
+                        sid: ''
+                      }
+                    }
+                    onPress={
+                      () => {
+                        const groupId = item.item.id
+                        this.props.goToDirectMessage(groupId)
+                      }
+                    }
+                  />
+                  :
+                  null
+                )
+                :
                 <MessageGroupSnippet
                   messageGroup={item.item}
                   onPress={
                     () => {
                       const groupId = item.item.id
-                      readIsDirectMessage(groupId)
-                        .then((isDirectMessage) => {
-                          if (isDirectMessage) {
-                            this.props.goToDirectMessage(groupId)
-                          }
-                          else {
-                            this.props.goToGroupMessage(groupId)
-                          }
-                        })
+                      this.props.goToGroupMessage(groupId)
                     }
                   }
                   userSid={this.props.currentUserSid}
@@ -97,6 +116,26 @@ export default class Home extends Component {
     readMessageGroups()
       .then((messageGroups) => {
         this.setState({ messageGroups })
+
+        messageGroups.forEach((messageGroup) => {
+          if (messageGroup.type === groupTypes.DIRECT_MESSAGE) {
+            readMessageGroupContacts(messageGroup.id)
+              .then((contacts) => {
+                contacts.forEach((sid) => {
+                  if (sid === this.props.currentUserSid) return
+
+                  directMessageRecipient[messageGroup.id] = sid
+                  readContact(sid)
+                    .then((contact) => {
+                      directMessageRecipient[messageGroup.id] = {
+                        name: contact.name || '',
+                        sid: contact.sid || ''
+                      }
+                    })
+                })
+              })
+          }
+        })
       })
   }
 }
