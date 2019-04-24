@@ -7,6 +7,7 @@ import { app, groupTypes } from 'hg/constants'
 import { readContact, readMessageGroupContacts, readMessageGroups } from 'hg/db'
 
 const directMessageRecipient = {}
+const groupNumOfParticipants = {}
 
 export default class Home extends Component {
   static navigationOptions = {
@@ -86,16 +87,27 @@ export default class Home extends Component {
                   null
                 )
                 :
-                <MessageGroupSnippet
-                  messageGroup={item.item}
-                  onPress={
-                    () => {
-                      const groupId = item.item.id
-                      this.props.goToGroupMessage(groupId)
+                (
+                  groupNumOfParticipants[item.item.id]
+                  ?
+                  <MessageGroupSnippet
+                    messageGroup={
+                      {
+                        id: item.item.id,
+                        name: item.item.name,
+                        numOfParticipants: groupNumOfParticipants[item.item.id]
+                      }
                     }
-                  }
-                  userSid={this.props.currentUserSid}
-                />
+                    onPress={
+                      () => {
+                        const groupId = item.item.id
+                        this.props.goToGroupMessage(groupId)
+                      }
+                    }
+                  />
+                  :
+                  null
+                )
               )
             }
           }
@@ -118,9 +130,9 @@ export default class Home extends Component {
         this.setState({ messageGroups })
 
         messageGroups.forEach((messageGroup) => {
-          if (messageGroup.type === groupTypes.DIRECT_MESSAGE) {
-            readMessageGroupContacts(messageGroup.id)
-              .then((contacts) => {
+          readMessageGroupContacts(messageGroup.id)
+            .then((contacts) => {
+              if (messageGroup.type === groupTypes.DIRECT_MESSAGE) {
                 contacts.forEach((sid) => {
                   if (sid === this.props.currentUserSid) return
 
@@ -133,8 +145,11 @@ export default class Home extends Component {
                       }
                     })
                 })
-              })
-          }
+              }
+              else {
+                groupNumOfParticipants[messageGroup.id] = contacts.length || 0
+              }
+            })
         })
       })
   }
