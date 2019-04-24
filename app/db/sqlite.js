@@ -199,17 +199,6 @@ export const readDirectMessageGroupRecipientSid = async (messageGroupId) => {
     })
 }
 
-export const readIsDirectMessage = async (messageGroupId) => {
-  if (!instance) return Promise.reject(new Error('db instance error'))
-
-  return instance.executeSql(`
-    SELECT COUNT(*) AS count FROM direct_message WHERE message_group_id = ?;
-  `, [messageGroupId])
-    .then(([results]) => {
-      return results.rows.item(0).count > 0
-    })
-}
-
 export const readMessageGroup = async (groupId) => {
   if (!instance) return Promise.reject(new Error('db instance error'))
 
