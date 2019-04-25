@@ -5,6 +5,7 @@ import { Icon, Input, ListItem, Overlay } from 'react-native-elements'
 import { ActionBar, MessageCloud, NavigationView } from 'hg/components'
 import { app, colors, dimensions } from 'hg/constants'
 import {
+  deleteDirectMessage,
   deleteMessageGroup,
   readContact,
   readDirectMessageGroupRecipientSid,
@@ -196,7 +197,11 @@ export default class DirectMessage extends Component {
 
                   updateContactStatus(contactSid, 1)
                     .then(() => {
-                      return deleteMessageGroup(this.state.groupId)
+                      this.props.groupLeaveRequest(this.state.groupId)
+                      return Promise.all([
+                        deleteMessageGroup(this.state.groupId),
+                        deleteDirectMessage(this.state.groupId)
+                      ])
                     })
                     .then(() => {
                       this.setState({ isMoreOverlayVisible: false })
