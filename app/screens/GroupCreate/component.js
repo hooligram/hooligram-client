@@ -106,21 +106,26 @@ export default class GroupCreate extends Component {
           keyExtractor={(contact) => (contact.sid.toString())}
           renderItem={
             (item) => {
-              const isAdded = this.state.added.has(item.item.sid)
-
+              const contact = item.item
+              const isAdded = this.state.added.has(contact.sid)
               return (
                 <ContactSnippet
-                  contact={{ sid: item.item.sid }}
+                  contact={
+                    {
+                      name: contact.name,
+                      sid: contact.sid
+                    }
+                  }
                   isSelected={isAdded}
                   onPress={
                     () => {
                       const added = new Set(this.state.added)
 
                       if (isAdded) {
-                        added.delete(item.item.sid)
+                        added.delete(contact.sid)
                       }
                       else {
-                        added.add(item.item.sid)
+                        added.add(contact.sid)
                       }
 
                       this.setState({ added })
