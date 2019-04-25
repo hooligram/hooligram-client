@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { FlatList, View } from 'react-native'
-import { Icon, Input, ListItem, Overlay } from 'react-native-elements'
-import { ActionBar, MessageCloud, NavigationView } from 'hg/components'
+import { Icon, ListItem, Overlay } from 'react-native-elements'
+import { ActionBar, Input, MessageCloud, NavigationView } from 'hg/components'
 import { app, colors, dimensions } from 'hg/constants'
 import {
   deleteDirectMessage,
@@ -128,7 +128,10 @@ export default class DirectMessage extends Component {
         <Input
           containerStyle={
             {
-              paddingBottom: dimensions.LENGTH_50
+              alignSelf: 'center',
+              bottom: 0,
+              position: 'absolute',
+              width: dimensions.PERCENT_90
             }
           }
           onBlur={
@@ -146,7 +149,7 @@ export default class DirectMessage extends Component {
               this.setState({ isInputFocused: true })
             }
           }
-          ref={(ref) => this.inputRef = ref}
+          reference={(ref) => this.inputRef = ref}
           value={this.state.message}
         />
         <ActionBar
