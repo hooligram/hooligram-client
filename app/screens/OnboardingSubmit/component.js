@@ -45,6 +45,12 @@ export default class OnboardingSubmit extends Component {
               width: dimensions.LENGTH_200
             }
           }
+          inputContainerStyle={
+            {
+              borderBottomWidth: dimensions.BORDER_WIDTH,
+              borderColor: colors.WHITE_SMOKE
+            }
+          }
           inputStyle={
             {
               fontSize: fontSizes.XXLARGE,

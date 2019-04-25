@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { FlatList, Keyboard, Text, ToastAndroid } from 'react-native'
 import { Input } from 'react-native-elements'
 import { ActionBar, ContactSnippet, NavigationView } from 'hg/components'
-import { dimensions, fontSizes } from 'hg/constants'
+import { colors, dimensions, fontSizes } from 'hg/constants'
 import { readContacts } from 'hg/db'
 import { constructSid, getCurrentTimestamp } from 'hg/utils'
 
@@ -78,6 +78,12 @@ export default class GroupCreate extends Component {
       >
         <Input
           autoFocus={false}
+          inputContainerStyle={
+            {
+              borderBottomWidth: dimensions.BORDER_WIDTH,
+              borderColor: colors.WHITE_SMOKE
+            }
+          }
           inputStyle={
             {
               fontSize: fontSizes.LARGE

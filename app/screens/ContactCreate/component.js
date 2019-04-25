@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Picker, ToastAndroid, View } from 'react-native'
 import { Input, Text } from 'react-native-elements'
 import { ActionBar } from 'hg/components'
-import { countryCodes, dimensions, fontSizes } from 'hg/constants'
+import { colors, countryCodes, dimensions, fontSizes } from 'hg/constants'
 import { createContact, updateContactStatus } from 'hg/db'
 import { constructSid } from 'hg/utils'
 
@@ -76,6 +76,12 @@ export default class ContactCreate extends Component {
           </Text>
           <Input
             autoFocus={true}
+            inputContainerStyle={
+              {
+                borderBottomWidth: dimensions.BORDER_WIDTH,
+                borderColor: colors.WHITE_SMOKE
+              }
+            }
             inputStyle={
               {
                 fontSize: fontSizes.XXLARGE

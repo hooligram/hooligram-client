@@ -77,6 +77,12 @@ export default class ContactCreate extends Component {
         </View>
         <Input
           autoFocus={true}
+          inputContainerStyle={
+            {
+              borderBottomWidth: dimensions.BORDER_WIDTH,
+              borderColor: colors.WHITE_SMOKE
+            }
+          }
           label='Name'
           onChangeText={
             (text) => {
