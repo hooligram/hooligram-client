@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { FlatList, Text, View } from 'react-native'
-import { Icon, Input, ListItem, Overlay } from 'react-native-elements'
-import { ActionBar, MessageCloud, NavigationView } from 'hg/components'
+import { FlatList, ToastAndroid, View } from 'react-native'
+import { Icon, ListItem, Overlay } from 'react-native-elements'
+import { ActionBar, Input, MessageCloud, NavigationView } from 'hg/components'
 import { app, colors, dimensions } from 'hg/constants'
 import {
   readContact,
@@ -100,11 +100,12 @@ export default class GroupMessage extends Component {
           ref={(ref) => this.messagesRef = ref}
           renderItem={
             (item) => {
+              const isLastMessage = item.index === (this.state.messages.length - 1)
               return (
                 <View
                   style={
                     {
-                      marginBottom: dimensions.MARGIN
+                      marginBottom: dimensions.MARGIN + (isLastMessage ? dimensions.LENGTH_100 : 0)
                     }
                   }
                 >
@@ -126,7 +127,10 @@ export default class GroupMessage extends Component {
         <Input
           containerStyle={
             {
-              paddingBottom: dimensions.LENGTH_50
+              alignSelf: 'center',
+              bottom: 0,
+              position: 'absolute',
+              width: dimensions.PERCENT_90
             }
           }
           onBlur={
@@ -144,7 +148,7 @@ export default class GroupMessage extends Component {
               this.setState({ isInputFocused: true })
             }
           }
-          ref={(ref) => this.messageRef = ref}
+          reference={(ref) => this.messageRef = ref}
           value={this.state.message}
         />
         <ActionBar
@@ -154,10 +158,18 @@ export default class GroupMessage extends Component {
               this.props.navigation.goBack()
             }
           }
-          mainActionIconName='send'
+          mainActionIconName={this.state.message ? 'chat' : 'chat-bubble'}
           mainActionOnPress={
             () => {
               if (!this.state.message) {
+                if (this.state.isInputFocused) {
+                  ToastAndroid.showWithGravity(
+                    "Can't send empty message.",
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER
+                  )
+                }
+
                 this.messageRef.focus()
                 return
               }

@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { FlatList, View } from 'react-native'
-import { Icon, Input, ListItem, Overlay } from 'react-native-elements'
-import { ActionBar, MessageCloud, NavigationView } from 'hg/components'
+import { FlatList, ToastAndroid, View } from 'react-native'
+import { Icon, ListItem, Overlay } from 'react-native-elements'
+import { ActionBar, Input, MessageCloud, NavigationView } from 'hg/components'
 import { app, colors, dimensions } from 'hg/constants'
 import {
+  deleteDirectMessage,
   deleteMessageGroup,
   readContact,
   readDirectMessageGroupRecipientSid,
@@ -127,7 +128,10 @@ export default class DirectMessage extends Component {
         <Input
           containerStyle={
             {
-              paddingBottom: dimensions.LENGTH_50
+              alignSelf: 'center',
+              bottom: 0,
+              position: 'absolute',
+              width: dimensions.PERCENT_90
             }
           }
           onBlur={
@@ -145,7 +149,7 @@ export default class DirectMessage extends Component {
               this.setState({ isInputFocused: true })
             }
           }
-          ref={(ref) => this.inputRef = ref}
+          reference={(ref) => this.inputRef = ref}
           value={this.state.message}
         />
         <ActionBar
@@ -155,10 +159,18 @@ export default class DirectMessage extends Component {
               this.props.navigation.goBack()
             }
           }
-          mainActionIconName='send'
+          mainActionIconName={this.state.message ? 'chat' : 'chat-bubble'}
           mainActionOnPress={
             () => {
               if (!this.state.message) {
+                if (this.state.isInputFocused) {
+                  ToastAndroid.showWithGravity(
+                    "Can't send empty message.",
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER
+                  )
+                }
+
                 this.inputRef.focus()
                 return
               }
@@ -196,7 +208,11 @@ export default class DirectMessage extends Component {
 
                   updateContactStatus(contactSid, 1)
                     .then(() => {
-                      return deleteMessageGroup(this.state.groupId)
+                      this.props.groupLeaveRequest(this.state.groupId)
+                      return Promise.all([
+                        deleteMessageGroup(this.state.groupId),
+                        deleteDirectMessage(this.state.groupId)
+                      ])
                     })
                     .then(() => {
                       this.setState({ isMoreOverlayVisible: false })

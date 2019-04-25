@@ -294,6 +294,24 @@ export const updateMessageGroupDateUpdated = async (groupId, dateUpdated) => {
 // DELETE //
 ////////////
 
+export const deleteAllDirectMessage = async () => {
+  if (!instance) return Promise.reject(new Error('db instance error'))
+
+  return instance.executeSql('DELETE FROM direct_message;')
+}
+
+export const deleteAllMessageGroup = async () => {
+  if (!instance) return Promise.reject(new Error('db instance error'))
+
+  return instance.executeSql('DELETE FROM message_group;')
+}
+
+export const deleteDirectMessage = async (groupId) => {
+  if (!instance) return Promise.reject(new Error('db instance error'))
+
+  return instance.executeSql('DELETE FROM direct_message WHERE message_group_id = ?;', [groupId])
+}
+
 export const deleteMessageGroup = async (id) => {
   if (!instance) return Promise.reject(new Error('db instance error'))
 

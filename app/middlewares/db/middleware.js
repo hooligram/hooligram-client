@@ -5,6 +5,10 @@ import {
   createDirectMessage,
   createMessage,
   createMessageGroup,
+  deleteAllDirectMessage,
+  deleteAllMessageGroup,
+  deleteMessageGroup,
+  deleteDirectMessage,
   updateMessageGroupDateUpdated
 } from 'hg/db'
 import { currentUserSid } from 'hg/selectors'
@@ -12,6 +16,11 @@ import { getCurrentTimestamp } from 'hg/utils'
 
 export default (store) => (next) => (action) => {
   const nextAction = next(action)
+
+  if (action.type === actions.WEBSOCKET_CONNECT) {
+    deleteAllDirectMessage()
+    deleteAllMessageGroup()
+  }
 
   if (action.type === actions.GROUP_DELIVER_REQUEST) {
     const dateCreated = action.payload.date_created
@@ -24,17 +33,26 @@ export default (store) => (next) => (action) => {
       createContact(sid)
     })
 
-    createMessageGroup(groupId, groupName, groupType, dateCreated, dateCreated, memberSids)
+    if (memberSids.length < 2) {
+      deleteMessageGroup(groupId)
 
-    if (groupType === groupTypes.DIRECT_MESSAGE) {
-      const userSid = currentUserSid(store.getState())
+      if (groupType === groupTypes.DIRECT_MESSAGE) {
+        deleteDirectMessage(groupId)
+      }
+    }
+    else {
+      createMessageGroup(groupId, groupName, groupType, dateCreated, dateCreated, memberSids)
 
-      const recipientSid = memberSids.reduce((result, sid) => {
-        if (sid == userSid) return result
-        return sid
-      }, '')
+      if (groupType === groupTypes.DIRECT_MESSAGE) {
+        const userSid = currentUserSid(store.getState())
 
-      createDirectMessage(groupId, recipientSid)
+        const recipientSid = memberSids.reduce((result, sid) => {
+          if (sid == userSid) return result
+          return sid
+        }, '')
+
+        createDirectMessage(groupId, recipientSid)
+      }
     }
 
     return nextAction

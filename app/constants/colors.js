@@ -1,4 +1,5 @@
 const SNOW = '#FAFAFA'
+const TRANSLUCENCE = 'A0'
 
 export default {
   BLACK: 'black',
@@ -6,6 +7,7 @@ export default {
   GREY: 'grey',
   TEA_GREEN: '#D0F0C0',
   TEAL: '#008080',
-  TRANSLUCENT_WHITE: `${SNOW}A0`,
-  WHITE: SNOW
+  TRANSLUCENT_WHITE: `${SNOW}${TRANSLUCENCE}`,
+  WHITE: SNOW,
+  WHITE_SMOKE: '#F5F5F5'
 }

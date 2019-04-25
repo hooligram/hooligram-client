@@ -1,5 +1,6 @@
 export default {
   BORDER_RADIUS: 8,
+  BORDER_WIDTH: 2,
 
   ELEVATION: 2,
 
@@ -26,5 +27,6 @@ export default {
   PADDING_XLARGE: 16,
 
   PERCENT_50: '50%',
-  PERCENT_80: '80%'
+  PERCENT_80: '80%',
+  PERCENT_90: '90%'
 }

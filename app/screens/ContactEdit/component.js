@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, ToastAndroid, View } from 'react-native'
 import { Input } from 'react-native-elements'
 import { ActionBar, NavigationView } from 'hg/components'
 import { colors, dimensions, fontSizes } from 'hg/constants'
@@ -77,6 +77,12 @@ export default class ContactCreate extends Component {
         </View>
         <Input
           autoFocus={true}
+          inputContainerStyle={
+            {
+              borderBottomWidth: dimensions.BORDER_WIDTH,
+              borderColor: colors.WHITE_SMOKE
+            }
+          }
           label='Name'
           onChangeText={
             (text) => {
@@ -97,6 +103,14 @@ export default class ContactCreate extends Component {
             () => {
               const contactSid = this.state.contactSid
               const name = this.state.name
+
+              if (!name) {
+                ToastAndroid.showWithGravity(
+                  'Enter contact name.',
+                  ToastAndroid.SHORT,
+                  ToastAndroid.CENTER
+                )
+              }
 
               if (!contactSid || !name) return
 

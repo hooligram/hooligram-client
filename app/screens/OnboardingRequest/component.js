@@ -95,6 +95,12 @@ export default class extends Component {
                 width: dimensions.LENGTH_250
               }
             }
+            inputContainerStyle={
+              {
+                borderBottomWidth: dimensions.BORDER_WIDTH,
+                borderColor: colors.WHITE_SMOKE
+              }
+            }
             inputStyle={
               {
                 fontSize: fontSizes.XLARGE
