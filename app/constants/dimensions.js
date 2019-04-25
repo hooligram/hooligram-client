@@ -1,11 +1,10 @@
 export default {
   BORDER_RADIUS: 8,
 
-  BUTTON_ICON_LENGTH: 48,
-
   ELEVATION: 2,
 
   ICON_BORDER_RADIUS: 24,
+  ICON_SIZE_SMALL: 24,
   ICON_SIZE: 48,
 
   LENGTH_50: 50,
@@ -26,5 +25,6 @@ export default {
   PADDING_LARGE: 12,
   PADDING_XLARGE: 16,
 
-  PERCENT_50: '50%'
+  PERCENT_50: '50%',
+  PERCENT_80: '80%'
 }

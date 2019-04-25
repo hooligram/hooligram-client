@@ -8,7 +8,6 @@ export {
   readContactDirectMessageGroupId,
   readContacts,
   readDirectMessageGroupRecipientSid,
-  readIsDirectMessage,
   readMessageGroup,
   readMessageGroupContacts,
   readMessageGroups,

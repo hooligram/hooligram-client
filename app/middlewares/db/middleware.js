@@ -24,7 +24,7 @@ export default (store) => (next) => (action) => {
       createContact(sid)
     })
 
-    createMessageGroup(groupId, groupName, dateCreated, dateCreated, memberSids)
+    createMessageGroup(groupId, groupName, groupType, dateCreated, dateCreated, memberSids)
 
     if (groupType === groupTypes.DIRECT_MESSAGE) {
       const userSid = currentUserSid(store.getState())

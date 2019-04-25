@@ -7,7 +7,7 @@ export default class extends Component {
     return (
       <ActivityIndicator
         color={colors.TEAL}
-        size={dimensions.BUTTON_ICON_LENGTH}
+        size={dimensions.ICON_SIZE}
       />
     )
   }

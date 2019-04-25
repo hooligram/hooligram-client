@@ -41,7 +41,8 @@ export default class extends Component {
           }
         >
           {
-            this.props.leftActionIconName &&
+            this.props.leftActionIconName
+            &&
             <TouchIcon
               name={this.props.leftActionIconName || 'not-interested'}
               onPress={this.props.leftActionOnPress}
@@ -68,7 +69,8 @@ export default class extends Component {
           }
         >
           {
-            this.props.rightActionIconName &&
+            this.props.rightActionIconName
+            &&
             <TouchIcon
               name={this.props.rightActionIconName || 'not-interested'}
               onPress={this.props.rightActionOnPress}

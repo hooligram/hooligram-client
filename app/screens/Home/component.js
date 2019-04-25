@@ -2,9 +2,12 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { FlatList } from 'react-native'
-import { ActionBar, MessageGroupSnippet, NavigationView } from 'hg/components'
-import { app } from 'hg/constants'
-import { readIsDirectMessage, readMessageGroups } from 'hg/db'
+import { ActionBar, DirectMessageSnippet, MessageGroupSnippet, NavigationView } from 'hg/components'
+import { app, groupTypes } from 'hg/constants'
+import { readContact, readMessageGroupContacts, readMessageGroups } from 'hg/db'
+
+const directMessageRecipient = {}
+const groupNumOfParticipants = {}
 
 export default class Home extends Component {
   static navigationOptions = {
@@ -58,25 +61,54 @@ export default class Home extends Component {
           keyExtractor={(messageGroup) => (messageGroup.id.toString())}
           renderItem={
             (item) => {
+              const messageGroup = item.item
               return (
-                <MessageGroupSnippet
-                  messageGroup={item.item}
-                  onPress={
-                    () => {
-                      const groupId = item.item.id
-                      readIsDirectMessage(groupId)
-                        .then((isDirectMessage) => {
-                          if (isDirectMessage) {
-                            this.props.goToDirectMessage(groupId)
-                          }
-                          else {
-                            this.props.goToGroupMessage(groupId)
-                          }
-                        })
+                messageGroup.type === groupTypes.DIRECT_MESSAGE
+                ?
+                (
+                  directMessageRecipient[messageGroup.id]
+                  ?
+                  <DirectMessageSnippet
+                    recipient={
+                      directMessageRecipient[messageGroup.id]
+                      ||
+                      {
+                        name: '',
+                        sid: ''
+                      }
                     }
-                  }
-                  userSid={this.props.currentUserSid}
-                />
+                    onPress={
+                      () => {
+                        const groupId = messageGroup.id
+                        this.props.goToDirectMessage(groupId)
+                      }
+                    }
+                  />
+                  :
+                  null
+                )
+                :
+                (
+                  groupNumOfParticipants[messageGroup.id]
+                  ?
+                  <MessageGroupSnippet
+                    messageGroup={
+                      {
+                        id: messageGroup.id,
+                        name: messageGroup.name,
+                        numOfParticipants: groupNumOfParticipants[messageGroup.id]
+                      }
+                    }
+                    onPress={
+                      () => {
+                        const groupId = messageGroup.id
+                        this.props.goToGroupMessage(groupId)
+                      }
+                    }
+                  />
+                  :
+                  null
+                )
               )
             }
           }
@@ -97,6 +129,28 @@ export default class Home extends Component {
     readMessageGroups()
       .then((messageGroups) => {
         this.setState({ messageGroups })
+
+        messageGroups.forEach((messageGroup) => {
+          readMessageGroupContacts(messageGroup.id)
+            .then((contacts) => {
+              if (messageGroup.type === groupTypes.DIRECT_MESSAGE) {
+                contacts.forEach((sid) => {
+                  if (sid === this.props.currentUserSid) return
+
+                  readContact(sid)
+                    .then((contact) => {
+                      directMessageRecipient[messageGroup.id] = {
+                        name: contact.name || '',
+                        sid: contact.sid || ''
+                      }
+                    })
+                })
+              }
+              else {
+                groupNumOfParticipants[messageGroup.id] = contacts.length || 0
+              }
+            })
+        })
       })
   }
 }

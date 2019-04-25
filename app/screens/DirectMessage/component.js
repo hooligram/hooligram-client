@@ -73,14 +73,16 @@ export default class DirectMessage extends Component {
         }
         onWillFocus={
           (payload) => {
-            if (!payload.action || !payload.action.params) return
+            if (payload.action.params && payload.action.params.groupId) {
+              const groupId = payload.action.params.groupId
+              this.setState({ groupId })
+            }
 
-            const groupId = payload.action.params.groupId
-            this.setState({ groupId })
-            this.updateRecipientSid(groupId)
+            this.updateRecipientSid(this.state.groupId)
             this.updateMessages()
 
             const intervalId = setInterval(() => {
+              this.updateRecipientSid(this.state.groupId)
               this.updateMessages()
             }, app.INTERVAL)
             this.setState({ intervalId })
@@ -109,8 +111,13 @@ export default class DirectMessage extends Component {
                   }
                 >
                   <MessageCloud
-                    currentUserSid={this.props.currentUserSid}
-                    message={item.item}
+                    isOwnMessage={item.item.sender_sid === this.props.currentUserSid}
+                    message={
+                      {
+                        content: item.item.content,
+                        dateCreated: item.item.date_created
+                      }
+                    }
                   />
                 </View>
               )

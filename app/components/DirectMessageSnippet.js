@@ -1,21 +1,21 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Text, TouchableNativeFeedback, View } from 'react-native'
-import { Icon } from 'react-native-elements'
-import { colors, dimensions } from 'hg/constants'
-import Circle from './Circle'
+import { Circle } from 'hg/components'
+import { colors, dimensions, fontSizes } from 'hg/constants'
+import { getFlagEmoji } from 'hg/utils'
 
 export default class extends Component {
   static propTypes = {
-    messageGroup: PropTypes.shape({
-      id: PropTypes.number.isRequired,
+    onPress: PropTypes.func.isRequired,
+    recipient: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      numOfParticipants: PropTypes.number.isRequired
-    }),
-    onPress: PropTypes.func.isRequired
+      sid: PropTypes.string.isRequired
+    })
   }
 
   render() {
+    const flagEmoji = getFlagEmoji(this.props.recipient.sid)
     return (
       <TouchableNativeFeedback
         onPress={this.props.onPress}
@@ -30,15 +30,21 @@ export default class extends Component {
           }
         >
           <Circle>
-            <Icon
-              color={colors.GREY}
-              name='group'
-              type='material'
-            />
+            <Text
+              style={
+                {
+                  color: colors.BLACK,
+                  fontSize: fontSizes.LARGE
+                }
+              }
+            >
+              {flagEmoji}
+            </Text>
           </Circle>
           <View
             style={
               {
+                flex: 1,
                 paddingLeft: dimensions.PADDING
               }
             }
@@ -50,9 +56,8 @@ export default class extends Component {
                 }
               }
             >
-              {this.props.messageGroup.name}
+              {this.props.recipient.name || this.props.recipient.sid}
             </Text>
-            <Text>{`${this.props.messageGroup.numOfParticipants} participants`}</Text>
           </View>
         </View>
       </TouchableNativeFeedback>
