@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { FlatList, View } from 'react-native'
+import { FlatList, ToastAndroid, View } from 'react-native'
 import { Icon, ListItem, Overlay } from 'react-native-elements'
 import { ActionBar, Input, MessageCloud, NavigationView } from 'hg/components'
 import { app, colors, dimensions } from 'hg/constants'
@@ -159,10 +159,18 @@ export default class DirectMessage extends Component {
               this.props.navigation.goBack()
             }
           }
-          mainActionIconName='send'
+          mainActionIconName={this.state.message ? 'chat' : 'chat-bubble'}
           mainActionOnPress={
             () => {
               if (!this.state.message) {
+                if (this.state.isInputFocused) {
+                  ToastAndroid.showWithGravity(
+                    "Can't send empty message.",
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER
+                  )
+                }
+
                 this.inputRef.focus()
                 return
               }

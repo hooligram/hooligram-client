@@ -91,7 +91,7 @@ export default store => next => action => {
       if (actionType === actions.GROUP_CREATE_FAILURE) {
         ToastAndroid.showWithGravity(
           'Unable to create the group. Can you try again?',
-          ToastAndroid.LONG,
+          ToastAndroid.SHORT,
           ToastAndroid.CENTER
         )
       }
