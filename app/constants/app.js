@@ -1,5 +1,5 @@
 export default {
-  INTERVAL: 1000,
+  INTERVAL: 500,
 
   STORE_STORAGE_KEY: 'googlepleasehireme',
 
