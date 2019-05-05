@@ -1,4 +1,4 @@
-package com.hooligram;
+package org.hooligram;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
