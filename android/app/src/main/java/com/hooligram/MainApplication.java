@@ -1,4 +1,4 @@
-package com.hooligram;
+package org.hooligram;
 
 import android.app.Application;
 
