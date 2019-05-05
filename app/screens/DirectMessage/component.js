@@ -103,11 +103,12 @@ export default class DirectMessage extends Component {
           keyExtractor={(message) => (message.id.toString())}
           renderItem={
             (item) => {
+              const isLastMessage = item.index === (this.state.messages.length - 1)
               return (
                 <View
                   style={
                     {
-                      marginBottom: dimensions.MARGIN
+                      marginBottom: dimensions.MARGIN + (isLastMessage ? dimensions.LENGTH_100 : 0)
                     }
                   }
                 >
